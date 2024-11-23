@@ -1,0 +1,62 @@
+#header {
+    background: tomato;
+}
+
+#navbar {
+    background: pink;
+}
+
+#footer {
+    background: lightgreen;
+}
+
+#content {
+    background: deepskyblue;
+}
+
+#sidebar {
+    background: gold;
+    height: 100%;
+}
+
+
+body {
+    padding: 10px; 
+}
+
+#article_listitem {
+    background-color: lightgray;
+    margin-bottom: 5px;
+    border-style: outset;
+}
+
+a.anchor_abstract {
+    text-decoration: none;
+    color: black;
+}
+a.anchor_abstract:hover {
+    color: blue;
+}
+
+.article_author {
+    font-size: small;
+    font-style: oblique;
+}
+
+ul.categories_list {
+    list-style-type: none;
+    padding-left: 0px;
+}
+li.categories_listitem {
+    display: inline-block;
+    padding-left: 0px;
+    margin-right: 10px;
+}
+#article_listitem_logo img{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+
+

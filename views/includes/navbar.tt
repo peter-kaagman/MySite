@@ -1,0 +1,11 @@
+<% IF user %>
+<div id="navbar">
+  <div class='navbar-right'>
+    <ul>
+      <li>Welkom: <% user.userid %></li>
+      <li><a href='/logout'>LogOut</a></li>
+    </ul>
+  </div>
+</div>
+<% ELSE %>
+<% END %>

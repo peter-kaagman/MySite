@@ -1,0 +1,6 @@
+<p>Gebruik één van de volgende diensten om in te loggen. De userid van de gekozen service wordt gebruikt om hier in te loggen of een account voor je te maken.</p>
+<ul>
+    <li><a href="/auth/google">Google</a></li>
+    <li><a href="/auth/github">GitHub</a></li>
+</ul>
+<p><emp>Let op:</emp><br>Diensten als Google en GitHub geven een verschillende userid terug. Gebruik dus altijd dezelfde dienst.</p>

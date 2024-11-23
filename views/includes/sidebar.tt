@@ -1,0 +1,13 @@
+<p>Sidebar</p>
+<% IF user %>
+  <div class='navbar-right'>
+    <ul>
+      <li>Welkom: <% user.userid %></li>
+      <li>Je rol is: <% user.role %></li>
+      <li><img src="<% user.picture %>" width="100px"></li>
+      <li><a href='/logout'>LogOut</a></li>
+    </ul>
+  </div>
+<% ELSE %>
+  <p>Er is niemand ingelogd, <a href='/login'>Login</a></p>
+<% END %>
