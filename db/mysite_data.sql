@@ -49,18 +49,25 @@ Insert Into page_content (`page_content_id`, `pageid`, `version`, `created`, `pu
 ;
 --
 -- Category data
-Insert Into category (`category_id`, `title`, `created`) VALUES
-	(1, 'Zo maar wat',DATETIME('NOW')),
-	(2, 'MS Graph',DATETIME('NOW')),
-	(3, 'Perl',DATETIME('NOW'))
+Insert Into category (`category_id`, `title`, `slug`, `desc`,`created`) VALUES
+	(1, 'EduTeam',    'eduteams','   Articles about EduTeams',        DATETIME('NOW')),
+	(2, 'MySite' ,    'mysite' ,    'Creating MySite',                DATETIME('NOW')),
+	(3, 'Electronics','electronics','About mini controllers and such.',DATETIME('NOW'))
+;
+--
+-- Keyword data
+Insert Into keyword (`keyword_id`, `title`,`created`) VALUES
+	(1, 'MS Graph',DATETIME('NOW')),
+	(2, 'Perl',DATETIME('NOW')),
+	(3, 'Magister',DATETIME('NOW'))
 ;
 --
 -- Article data
-Insert Into article (`article_id`, `title`, `slug`, `authorid`, `created`, `abstract`) VALUES
-	(1,'Artikel 1','artikel_1',1,'2024-11-20 14:23:21','Abstract artikel 1'),
-	(2,'Artikel 2','artikel_2',2,'2024-11-21 14:23:21','Abstract artikel 2'),
-	(3,'Artikel 3','artikel_3',1,'2024-11-22 14:23:21','Abstract artikel 3'),
-	(4,'Artikel 4','artikel_4',1,'2024-11-23 14:23:21','Abstract artikel 4')
+Insert Into article (`article_id`, `title`, `slug`, `authorid`, `categoryid`, `created`, `abstract`) VALUES
+	(1,'Artikel 1','artikel_1',1,'1','2024-11-20 14:23:21','Abstract artikel 1'),
+	(2,'Artikel 2','artikel_2',2,'2','2024-11-21 14:23:21','Abstract artikel 2'),
+	(3,'Artikel 3','artikel_3',1,'3','2024-11-22 14:23:21','Abstract artikel 3'),
+	(4,'Artikel 4','artikel_4',1,'1','2024-11-23 14:23:21','Abstract artikel 4')
 ;
 --
 -- Article_Content data
@@ -72,8 +79,8 @@ Insert Into article_content (`article_content_id`,`articleid`,`version`,`editori
 	(4,4,1,1,'2024-11-20 14:23:21',DATETIME('NOW'),'Inhoud artikel 4')
 ;
 --
--- Article_Category data
-Insert Into article_category (`articleid`,`categoryid`) VALUES
+-- Article_Keyword data
+Insert Into article_keyword (`articleid`,`keywordid`) VALUES
 	(1,1),
 	(1,2),
 	(2,3),

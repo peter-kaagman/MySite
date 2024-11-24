@@ -1,4 +1,5 @@
 <% FOR article IN articles.all %>
+    <% category = article.search_related('categoryid', {}) %>
     <div id='article_listitem'>
         <div class='row'>
             <div id='article_listitem_logo' class='col-sm-3'>
@@ -6,7 +7,7 @@
             </div>
             <div id='article_listitem_meta' class='col-sm-9'>
                 <div class='row'>
-                    <a class='anchor_title' href='./article/<% article.slug %>'>
+                    <a class='anchor_title' href='./article/<% category.slug %>/<% article.slug %>'>
                         <h1 class='article_title'><% article.title %></h1>
                     </a>
                 </div>
@@ -21,16 +22,28 @@
                     </h2>
                 </div>
                 <div class='row'>
-                    <div class='categories'>
-                        <ul class='categories_list'>
-                            <li class='categories_listitem'>Categories:</li>
-                            <% FOR category IN article.categories %>
-                                <a href='./category/<% category.category_id %>'>
-                                    <li class='categories_listitem'><% category.title %></li>
+                    <h2 class='article_category'>
+                        <ul class='horizontal_list'>
+                            <li class='horizontal_listitem'>Category:</li>
+                            <li class='horizontal_listitem'>
+                                <a class='anchor_category' href='./category/<% category.category_id %>'>
+                                    <% category.title %>
+                                </a>
+                            </li>
+                        <ul>
+                    </h2>
+                </div>
+                <div class='row'>
+                    <h2 class='article_keywords'>
+                        <ul class='horizontal_list'>
+                            <li class='horizontal_listitem'>Keywords:</li>
+                            <% FOR keyword IN article.keywords %>
+                                <a href='./keyword/<% keyword.keyword_id %>'>
+                                    <li class='horizontal_listitem'><% keyword.title %></li>
                                 </a>
                             <% END %>        
                         </ul>
-                    </div>
+                    </h2>
                 </div>
                     <div id='article_abstract'>
                         <a class='anchor_abstract' href='./article/<% article.slug %>'>
