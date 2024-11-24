@@ -38,16 +38,27 @@ a.anchor_abstract:hover {
     color: blue;
 }
 
-.article_author {
+.article_author{
     font-size: small;
     font-style: oblique;
 }
 
-ul.categories_list {
+.article_category{
+    font-size: small;
+    font-style: oblique;
+}
+
+.article_keywords{
+    font-size: small;
+    font-style: oblique;
+}
+
+ul.horizontal_list {
     list-style-type: none;
     padding-left: 0px;
+    margin-bottom: 0px;
 }
-li.categories_listitem {
+li.horizontal_listitem {
     display: inline-block;
     padding-left: 0px;
     margin-right: 10px;
@@ -56,6 +67,10 @@ li.categories_listitem {
     height: 100%;
     width: 100%;
     object-fit: contain;
+}
+
+#article_abstract{
+    border-top: solid 1px;
 }
 
 
