@@ -1,0 +1,4 @@
+MySite
+
+Got myself a new domain, prjv.nl, and thought it was time for a new start for my site bilbos-stekkie.com which wil disappear in time.
+Not really to enthausiactic about Wordpress anymore, so I thought about making my own CMS using Dancer2 and DBIC as a database backend. DBIC being the key in this, the CMS would give met the oportunity to learn this.
