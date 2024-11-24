@@ -28,7 +28,7 @@ get '/' => sub {
   };
 };
 
-get '/article/:slug' => sub {
+get '/article/:category/:slug' => sub {
   my $article = schema->resultset('Article')->find(
     {
       slug => route_parameters->get('slug')

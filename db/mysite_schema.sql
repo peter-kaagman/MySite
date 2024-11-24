@@ -50,6 +50,16 @@ Drop Table If Exists `category`;
 CREATE TABLE `category` (
 	`category_id` integer primary key AutoIncrement,
 	`title` TEXT NOT NULL UNIQUE,
+	`slug` Text Not Null Unique,
+	`desc` Text,
+    `created` TimeStamp Not Null
+);
+--
+-- Keyword table
+Drop Table If Exists `keyword`;
+CREATE TABLE `keyword` (
+	`keyword_id` integer primary key AutoIncrement,
+	`title` TEXT NOT NULL UNIQUE,
     `created` TimeStamp Not Null
 );
 --
@@ -60,9 +70,11 @@ CREATE TABLE `article` (
 	`title` TEXT NOT NULL UNIQUE,
 	`slug` TEXT NOT NULL UNIQUE,
 	`authorid` INTEGER NOT NULL,
+	`categoryid` Text Not Null,
 	`created` TimeStamp NOT NULL,
 	`abstract` TEXT NOT NULL,
-	FOREIGN KEY(`authorid`) REFERENCES `user`(`user_id`)
+	FOREIGN KEY(`authorid`) REFERENCES `user`(`user_id`),
+	Foreign Key('categoryid') References `category`(`category_id`)
 );
 -- Article_Content table
 Drop Table If Exists `article_content`;
@@ -78,11 +90,11 @@ FOREIGN KEY(`articleid`) REFERENCES `article`(`article_id`),
 FOREIGN KEY(`editorid`) REFERENCES `user`(`user_id`)
 );
 --
--- Article_Category tabel
-Drop Table If Exists `article_category`;
-CREATE TABLE  `article_category` (
+-- Article_KeyWord tabel
+Drop Table If Exists `article_keyword`;
+CREATE TABLE  `article_keyword` (
 	`articleid` INTEGER NOT NULL,
-	`categoryid` INTEGER NOT NULL,
+	`keywordid` INTEGER NOT NULL,
 FOREIGN KEY(`articleid`) REFERENCES `article`(`article_id`),
-FOREIGN KEY(`categoryid`) REFERENCES `category`(`category_id`)
+FOREIGN KEY(`keywordid`) REFERENCES `keyword`(`keyword_id`)
 );
