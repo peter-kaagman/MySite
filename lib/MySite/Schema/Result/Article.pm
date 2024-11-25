@@ -191,5 +191,17 @@ __PACKAGE__->many_to_many(
     'article_keywords', # Relatie naar de koppeltabel
     'keywordid'         # Relatie in de koppeltabel naar doeltabel
 );
+
+
+sub returnURL {
+  my ($self) = shift;
+  return(
+    "/article/" .
+    $self->categoryid->slug .
+    "/" .
+    $self->slug 
+  );
+}
+
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 1;
