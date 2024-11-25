@@ -21,6 +21,7 @@ get '/' => sub {
       order_by => {'-desc' => ['created']},
     }
   );
+  #debug schema.resultset('Article')->returnURL(2);
   template 'index' => { 
     'title' => 'MySite',
     'user' => session->read('user'),

@@ -186,6 +186,13 @@ __PACKAGE__->belongs_to(
 # Created by DBIx::Class::Schema::Loader v0.07052 @ 2024-11-20 11:15:49
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:JR/5+fZNNXzpefVCl3Y3yw
 
+sub returnURL {
+  my ($self) = shift;
+  return(
+    "/user/" .
+    $self->user_id 
+  );
+}
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 1;

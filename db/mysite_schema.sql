@@ -60,6 +60,7 @@ Drop Table If Exists `keyword`;
 CREATE TABLE `keyword` (
 	`keyword_id` integer primary key AutoIncrement,
 	`title` TEXT NOT NULL UNIQUE,
+	`slug` Text Not Null Unique,
     `created` TimeStamp Not Null
 );
 --
