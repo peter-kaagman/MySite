@@ -123,7 +123,13 @@ __PACKAGE__->has_many(
 # Created by DBIx::Class::Schema::Loader v0.07052 @ 2024-11-24 21:49:28
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:FW+56jYD47X9fUtFQjFWGA
 
-
+sub returnURL {
+  my ($self) = shift;
+  return(
+    "/category/" .
+    $self->slug 
+  );
+}
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 1;

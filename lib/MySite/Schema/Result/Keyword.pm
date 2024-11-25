@@ -34,6 +34,11 @@ __PACKAGE__->table("keyword");
   data_type: 'text'
   is_nullable: 0
 
+=head2 slug
+
+  data_type: 'text'
+  is_nullable: 0
+
 =head2 created
 
   data_type: 'timestamp'
@@ -45,6 +50,8 @@ __PACKAGE__->add_columns(
   "keyword_id",
   { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
   "title",
+  { data_type => "text", is_nullable => 0 },
+  "slug",
   { data_type => "text", is_nullable => 0 },
   "created",
   { data_type => "timestamp", is_nullable => 0 },
@@ -63,6 +70,18 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("keyword_id");
 
 =head1 UNIQUE CONSTRAINTS
+
+=head2 C<slug_unique>
+
+=over 4
+
+=item * L</slug>
+
+=back
+
+=cut
+
+__PACKAGE__->add_unique_constraint("slug_unique", ["slug"]);
 
 =head2 C<title_unique>
 
@@ -94,14 +113,22 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07052 @ 2024-11-24 21:49:28
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:K69+onzrvpggipU83luJPQ
+# Created by DBIx::Class::Schema::Loader v0.07052 @ 2024-11-25 14:41:00
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:v9vLZ048M/DuryIyURuvFA
 __PACKAGE__->many_to_many(
   'articles'             # Name of the relation
   => 
   'article_keywords', # The local relation to the couple table
   'articleid'           # The relation in the couple table to the target
 );
+
+sub returnURL {
+  my ($self) = shift;
+  return(
+    "/keyword/" .
+    $self->slug 
+  );
+}
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 1;

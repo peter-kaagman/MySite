@@ -56,10 +56,10 @@ Insert Into category (`category_id`, `title`, `slug`, `desc`,`created`) VALUES
 ;
 --
 -- Keyword data
-Insert Into keyword (`keyword_id`, `title`,`created`) VALUES
-	(1, 'MS Graph',DATETIME('NOW')),
-	(2, 'Perl',DATETIME('NOW')),
-	(3, 'Magister',DATETIME('NOW'))
+Insert Into keyword (`keyword_id`, `title`, `slug`,`created`) VALUES
+	(1, 'MS Graph','msgraph',DATETIME('NOW')),
+	(2, 'Perl'    ,'perl',DATETIME('NOW')),
+	(3, 'Magister','magister',DATETIME('NOW'))
 ;
 --
 -- Article data
