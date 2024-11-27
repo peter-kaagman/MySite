@@ -73,5 +73,11 @@ li.horizontal_listitem {
     border-top: solid 1px;
 }
 
+ul.sidebar_list{
+    list-style-type: none;
+}
 
-
+.sidebar_bottom{
+    position: fixed;
+    bottom: 0;
+}
