@@ -67,4 +67,6 @@ plugins:
     default:
       dsn: dbi:SQLite:dbname=/var/www/MySite/db/mysite.sqlite
       schema_class: MySite::Schema
+      options:
+        sqlite_unicode: 1
       
