@@ -12,7 +12,7 @@ use Switch;
 
 our $VERSION = '0.1';
 
-# $ENV{DBIC_TRACE} = '1';
+$ENV{DBIC_TRACE} = '1';
 
 get '/' => sub {
   my $articles = schema->resultset('Article')->search(
@@ -79,22 +79,12 @@ get '/login' => sub {
     $return_url = '/'
   }
   session->write('return_url', $return_url);
-  my $page =  schema->resultset('Page')->search(
+  my $page =  schema->resultset('Page')->find(
     { name => 'Login'},
-    {
-      join => 'page_contents',
-      '+select' => ['page_contents.content'],
-      '+as' => ['content']
-    }
-  )->single();
+    { }
+  );
   debug "Wat is page";
   debug $page->name;
-  debug $page->get_column('content');
-  # foreach my $page ($pages->all){
-  #   debug $page->name;
-  # }
-  # my $sth = database->prepare("Select content From pages Where id =?");
-  # $sth->execute('login');
   template 'page' =>{
     'title' => 'Login', 
     'page' => $page,#->get_column('content'),
@@ -112,19 +102,19 @@ get '/login/ok' => sub {
   while (my($provider,$info) = each %{$oauth_data}){
     switch ($provider){
       case 'google' {
-        $user{'user'}->{'bron'} = 'google';
-        $user{'user'}->{'userid'} = $oauth_data->{$provider}->{'user_info'}->{'email'};
-        $user{'user'}->{'picture'} = $oauth_data->{$provider}->{'user_info'}->{'picture'};
+        $user{'user'}->{'source'} = 'google';
+        $user{'user'}->{'sourceuser'} = $oauth_data->{$provider}->{'user_info'}->{'email'};
+        $user{'user'}->{'avatar'} = $oauth_data->{$provider}->{'user_info'}->{'picture'};
       }
       case 'github' {
-        $user{'user'}->{'bron'} = 'github';
-        $user{'user'}->{'userid'} = $oauth_data->{$provider}->{'user_info'}->{'login'};
-        $user{'user'}->{'picture'} = $oauth_data->{$provider}->{'user_info'}->{'avatar_url'};
+        $user{'user'}->{'source'} = 'github';
+        $user{'user'}->{'sourceuser'} = $oauth_data->{$provider}->{'user_info'}->{'login'};
+        $user{'user'}->{'avatar'} = $oauth_data->{$provider}->{'user_info'}->{'avatar_url'};
       }
     }
   }
   if (%user){
-    debug Dumper \%user;
+    #debug Dumper \%user;
     _checkUser(\%user);
     session->write(%user);
   }
@@ -142,28 +132,29 @@ get '/login/failed' => sub {
 
 sub _checkUser{
   my $user = shift;
-  my $blaat = schema->resultset('User')->find($user);
-  print Dumper $blaat;
-  # Bestaat deze gebruiker al?
-  # my $sth = database->prepare("Select * From users Where id = ?");
-  # $sth->execute($user->{'user'}->{'userid'});
-  # my $result = $sth->fetchrow_hashref();
-  # $sth->finish();
-  # if ($result){
-  #   $user->{'user'}->{'role'} = $result->{'role'};
-  # }else{
-  #   $sth = database->prepare('Insert Into users (id,avatar,bron,role) values (?,?,?,?) ');
-  #   $user->{'user'}->{'role'} = 'visitor';
-  #   $sth->execute(
-  #     $user->{'user'}->{'userid'},
-  #     $user->{'user'}->{'picture'},
-  #     $user->{'user'}->{'bron'},
-  #     $user->{'user'}->{'role'}
-  #   );
-  #   $sth->finish();
-  # }
-
-  $user->{'user'}->{'role'} = 'visitor';
+  debug "Searching for:";
+  debug Dumper $user;
+  my $found = schema->resultset('User')->find(
+    {
+      sourceuser => $user->{'user'}->{'sourceuser'}
+    },{}
+  );
+  if ($found){
+    debug "Found";
+    $user->{'user'}->{'role'} = $found->roleid->name;
+  }else{
+    debug "Not found";
+    my $role = schema->resultset('Role')->find(
+      {
+        name => 'Visitor'
+      }
+    );
+    $user->{'user'}->{'name'} = 'Peter';
+    $user->{'user'}->{'created'} = '2014-11-25 21:10';
+    $user->{'user'}->{'roleid'} = $role->role_id;
+    debug Dumper $user;
+    schema->resultset('User')->create($user->{'user'});
+  }
 }
 
 true;
