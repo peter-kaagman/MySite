@@ -2,7 +2,7 @@
   <p>Sidebar</p>
 </div>
 
-<div class='row sidebar-bottom'>
+<div class='row sidebar_bottom'>
   <% IF user %>
     <ul class='sidebar_list'>
       <li>Welkom: <% user.userid %></li>
