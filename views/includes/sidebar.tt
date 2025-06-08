@@ -5,12 +5,12 @@
 <div class='row sidebar_bottom'>
   <% IF user %>
     <ul class='sidebar_list'>
-      <li>Welkom: <% user.userid %></li>
+      <li>Welkom: <a href='/user/profile/<% user.username %>'><% user.username %></a></li>
       <li>Je rol is: <% user.role %></li>
       <li><img src="<% user.avatar %>" width="100px"></li>
-      <li><a href='/logout'>LogOut</a></li>
+      <li><a href='/user/logout'>LogOut</a></li>
     </ul>
   <% ELSE %>
-    <p>Er is niemand ingelogd, <a href='/login'>Login</a></p>
+    <p>Er is niemand ingelogd, <a href='/user/login'>Login</a></p>
   <% END %>
 </div>

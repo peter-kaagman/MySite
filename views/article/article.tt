@@ -1,4 +1,4 @@
-<row id='article_header'>
+<div class='row' id='article_header'>
     <div class='row'>
         <a class='anchor_title' href='./article/<% article.slug %>'>
             <h1 class='article_title'><% article.title %></h1>
@@ -14,7 +14,16 @@
             <% article.created %>
         </h2>
     </div>
-</row>
-<row id='article_content'>
-    <% article_content.first.content%>
-</row>
+</div>
+<div class='row' id='article_content'>
+    <div class='col-sm-12'><% article_content.first.content %></div>
+</div>
+<% IF user.role == 'Admin' %>
+    <div class='row' id='article_footer'>
+        <div class='col-sm-12'>
+            <a class='anchor_delete' href='/article/delete/<% article.article_id %>'>Delete</a>
+            <a class='anchor_edit' href='/article/edit/<% article.article_id %>'>Edit</a>
+        </div>
+    </div>
+<% END %>
+
