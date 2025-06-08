@@ -21,7 +21,7 @@
     <div class='row'>
       <div id='header'><% INCLUDE includes/header.tt %></div>
     </div>
-    <div class='ro'>
+    <div class='row'>
       <% INCLUDE includes/navbar.tt %>
     </div>
     <div class='row'>
@@ -40,5 +40,6 @@
           integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" 
           crossorigin="anonymous">
   </script>
+  <script src='/javascripts/myscript.js'></script>
 </body>
 </html>

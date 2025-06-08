@@ -1,12 +1,10 @@
 <% FOR article IN articles.all %>
-
     <% category = article.search_related('categoryid', {}) %>
     <% author = article.search_related('authorid', {}) %>
-
     <% article_url = article.returnURL() %>
     <% category_url = article.categoryid.returnURL() %>
     <% author_url = article.authorid.returnURL() %>
-    
+    <!-- blaat -->
     <div id='article_listitem'>
         <div class='row'>
             <div id='article_listitem_logo' class='col-sm-3'>
@@ -53,11 +51,11 @@
                         </ul>
                     </h2>
                 </div>
-                    <div id='article_abstract'>
-                        <a class='anchor_abstract' href='./article/<% article.slug %>'>
-                            <% article.abstract %>
-                        </a>
-                    </div>
+                <div id='article_abstract'>
+                    <a class='anchor_abstract' href='./article/<% article.slug %>'>
+                        <% article.abstract %>
+                    </a>
+                </div>
                 <div class='row'>
                 </div>
             </div>
