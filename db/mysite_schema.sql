@@ -11,11 +11,11 @@ Drop Table If Exists `user`;
 CREATE TABLE IF NOT EXISTS `user` (
 	`user_id` INTEGER Primary Key AutoIncrement,
 	`source` TEXT NOT NULL,
-	`sourceuser` INTEGER NOT NULL UNIQUE,
+	`username` Text NOT NULL UNIQUE,
     `created` TimeStamp Not Null,
-	`avatar` TEXT NOT NULL,
+	`avatar` TEXT,
 	`roleid` INTEGER NOT NULL,
-	`name` TEXT NOT NULL,
+	`name` TEXT Default 'unknown',
 	FOREIGN KEY(`roleid`) REFERENCES `role`(`role_id`)
 );
 --

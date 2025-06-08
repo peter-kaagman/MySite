@@ -8,9 +8,9 @@ Insert Into role (`role_id`,`name`) VALUES
 ;
 --
 -- User data
-Insert Into user (`user_id`,`source`,`sourceuser`,`created`,`roleid`,`name`,`avatar`) VALUES
-	(1,'google','prjv.kaagman@gmail.com',DATETIME('NOW'),'1','Peter/Google','https://lh3.googleusercontent.com/a-/ALV-UjUxjenJjnbze-yYos3gmj6a_oZFfCeSeGjNLrbCG-cKrCq5m6I=s96-c'),
-	(2,'github','peter-kaagman',DATETIME('NOW'),'1','Peter/GitHub','https://avatars.githubusercontent.com/u/42913077?v=4')
+Insert Into user (`user_id`,`source`,`username`,`created`,`roleid`,`name`,`avatar`) VALUES
+	(1,'google','prjv.kaagman@gmail.com',DATETIME('NOW'),'1','Peter/Google','https://lh3.googleusercontent.com/a-/ALV-UjUxjenJjnbze-yYos3gmj6a_oZFfCeSeGjNLrbCG-cKrCq5m6I=s96-c') --,
+	-- (2,'github','peter-kaagman',DATETIME('NOW'),'1','Peter/GitHub','https://avatars.githubusercontent.com/u/42913077?v=4')
 ;
 --
 -- Page data

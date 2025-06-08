@@ -34,9 +34,9 @@ __PACKAGE__->table("user");
   data_type: 'text'
   is_nullable: 0
 
-=head2 sourceuser
+=head2 username
 
-  data_type: 'integer'
+  data_type: 'text'
   is_nullable: 0
 
 =head2 created
@@ -47,7 +47,7 @@ __PACKAGE__->table("user");
 =head2 avatar
 
   data_type: 'text'
-  is_nullable: 0
+  is_nullable: 1
 
 =head2 roleid
 
@@ -58,7 +58,8 @@ __PACKAGE__->table("user");
 =head2 name
 
   data_type: 'text'
-  is_nullable: 0
+  default_value: 'unknown'
+  is_nullable: 1
 
 =cut
 
@@ -67,16 +68,16 @@ __PACKAGE__->add_columns(
   { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
   "source",
   { data_type => "text", is_nullable => 0 },
-  "sourceuser",
-  { data_type => "integer", is_nullable => 0 },
+  "username",
+  { data_type => "text", is_nullable => 0 },
   "created",
   { data_type => "timestamp", is_nullable => 0 },
   "avatar",
-  { data_type => "text", is_nullable => 0 },
+  { data_type => "text", is_nullable => 1 },
   "roleid",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
   "name",
-  { data_type => "text", is_nullable => 0 },
+  { data_type => "text", default_value => "unknown", is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
@@ -93,17 +94,17 @@ __PACKAGE__->set_primary_key("user_id");
 
 =head1 UNIQUE CONSTRAINTS
 
-=head2 C<sourceuser_unique>
+=head2 C<username_unique>
 
 =over 4
 
-=item * L</sourceuser>
+=item * L</username>
 
 =back
 
 =cut
 
-__PACKAGE__->add_unique_constraint("sourceuser_unique", ["sourceuser"]);
+__PACKAGE__->add_unique_constraint("username_unique", ["username"]);
 
 =head1 RELATIONS
 
@@ -183,8 +184,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07052 @ 2024-11-20 11:15:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:JR/5+fZNNXzpefVCl3Y3yw
+# Created by DBIx::Class::Schema::Loader v0.07052 @ 2024-11-28 21:17:04
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:WG0DvASe4crp13WJxindFQ
 
 sub returnURL {
   my ($self) = shift;
