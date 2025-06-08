@@ -40,6 +40,7 @@ engines:
       # Note: start_tag and end_tag are regexes
       start_tag: '<%'
       end_tag:   '%>'
+      pre_chomp: 1
 
 # session engine
 #

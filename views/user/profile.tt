@@ -1,0 +1,46 @@
+<input type="hidden" id="userID" name="userId" value="<% user.user_id %>">
+<div class='row'>
+  <div class='col-sm-3'><img src='<% user.avatar %>' alt='<% user.avatar %>' height='200'></div>
+  <div class='col-sm-9'>
+    <div class='row'>
+      <div class="col-sm-3">
+        <label for="username" class="form-label">Usernaam: </label>
+      </div>
+      <div class='col-sm-9'>
+        <input type="text" class="form-control" id="username" name="username" value="<% user.username %>" readonly>
+      </div>
+    </div>
+    <div class='row'>
+      <div class="col-sm-3">
+        <label for="username" class="form-label">Bron: </label>
+      </div>
+      <div class='col-sm-9'>
+        <input type="text" class="form-control" id="source" name="source" value="<% user.source %>" readonly>
+      </div>
+    </div>
+    <div class='row'>
+      <div class="col-sm-3">
+        <label for="created" class="form-label">Gemaakt: </label>
+      </div>
+      <div class='col-sm-9'>
+        <input type="text" class="form-control" id="created" name="created" value="<% user.created %>" readonly>
+      </div>
+    </div>
+    <div class='row'>
+      <div class="col-sm-3">
+        <label for="role" class="form-label">Je rol: </label>
+      </div>
+      <div class='col-sm-9'>
+        <input type="text" class="form-control" id="role" name="role" value="<% user.roleid.name %>" readonly>
+      </div>
+    </div>
+    <div class='row'>
+      <div class="col-sm-3">
+        <label for="name" class="form-label">Weergave naam: </label>
+      </div>
+      <div class='col-sm-9'>
+        <input type="text" class="form-control" id="name" name="name" value="<% user.name %>">
+      </div>
+    </div>
+  </div>
+</div>
