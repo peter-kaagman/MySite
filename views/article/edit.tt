@@ -3,23 +3,21 @@
 <input type='hidden' id='article_id' value='<% article.id %>'>
 <div class='row' id='article_header'>
     <div class='row'>
-        <a class='anchor_title' href='./article/<% article.slug %>'>
-            <h1 class='article_title'><% article.title %></h1>
-        </a>
+        <div class='col-sm-2'>
+        <h4>Title: </h4>
+        </div>
+        <div class='col-sm-10'>
+        <input type='text' id='edit_title' value='<% article.title %>' />
+        </div>
     </div>
     <div class='row'>
-        <h2 class='article_author'>
-            <% author = article.search_related('authorid', {}) %>
-            <a class='anchor_author' href='./author/<% author.user_id %>'>
-                <% author.name %>
-            </a>
-            @
-            <% article.created %>
-        </h2>
+        <div id='editor_container' class='col-sm-12'>
+            <h4>Content: </h4>
+            <div id="article_editor" class='row'>
+                <% article_content.first.content %>
+            </div>
+        </div>
     </div>
-</div>
-<div id="article_editor" class='row'>
-    <% article_content.first.content %>
 </div>
 <div class='row' id='article_actions'>
     <div class='col-sm-12'>

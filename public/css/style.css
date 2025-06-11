@@ -19,7 +19,6 @@
     height: 100%;
 }
 
-
 body {
     padding: 10px; 
 }
@@ -77,3 +76,18 @@ ul.sidebar_list{
     list-style-type: none;
 }
 
+#editor_container {
+  /* 
+  width: 200px;
+  height: 200px; 
+  border: 1px solid red;
+  */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+#article_editor {
+  overflow-y: hidden;
+}
