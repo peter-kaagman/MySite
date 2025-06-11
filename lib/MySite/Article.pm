@@ -51,14 +51,8 @@ sub _article_edit {
   my $user = session->read('user');
 
   # Toestaan voor Admin of eigenaar
-  if (
-    $user->{'username'} &&  # Is er uberhaupt iemand aangemeld?
-    ( 
-      $user->{'role'} eq 'Admin' ||
-      ( $author->first->username && $user->{'username'} eq $author->first->username ) 
-    )
-  ){
-    say "Edit ", route_parameters->get('id');
+  if (OwnerOrAdmin( $author->first->username() ) ){
+    debug "Edit ", route_parameters->get('id');
     # Get the article content
     my $content = $article->search_related(
       'article_contents',
@@ -70,8 +64,8 @@ sub _article_edit {
 
       }
     );
-    # say $author->first->username if $author->first->username;
-    say Dumper $user;
+    # debug $author->first->username if $author->first->username;
+    debug Dumper $user;
     template 'article/edit' => {
       'title' => $article->title,
       'user' => session->read('user'),
@@ -79,9 +73,9 @@ sub _article_edit {
       'article_content' => $content
     }
   }else{
-    say "Edit not allowed", route_parameters->get('id');
-    # say $author->first->username;
-    say Dumper $user;
+    debug "Edit not allowed", route_parameters->get('id');
+    # debug $author->first->username;
+    debug Dumper $user;
     template 'error' => {
       'title' => $article->title . " error",
       'user' => session->read('user'),
@@ -90,8 +84,9 @@ sub _article_edit {
   }
 }
 
+# Issue #24
 sub _article_update {
-  say "Update ", route_parameters->get('id');
+  debug "Update ", route_parameters->get('id');
   # Ff wat gegevens ophalen van het artikel
   my $article = schema->resultset('Article')->find(
     {
@@ -104,18 +99,12 @@ sub _article_update {
   my $user = session->read('user');
   # print Dumper $user;
 
-  # Toestaan voor Admin of eigenaar
   response_header('Content-Type' => 'application/json');
-  if (
-    $user->{'username'} &&  # Is er uberhaupt iemand aangemeld?
-    ( 
-      $user->{'role'} eq 'Admin' ||
-      ( $author->first->username && $user->{'username'} eq $author->first->username ) 
-    )
-  ){
+  # Toestaan voor Admin of eigenaar
+  if ( OwnerOrAdmin( $author->first->username() ) ){
     my $data = from_json( request->body );
-    say $data->{content};
-    # say body_parameters->get('content');
+    debug $data->{content};
+    # debug body_parameters->get('content');
 
     # Get the article content
     my $content = $article->search_related(
@@ -144,8 +133,8 @@ sub _article_update {
 }
 
 sub _article_delete {
-  say "Delete ", route_parameters->get('id');
-  say "Not implemented yet";
+  debug "Delete ", route_parameters->get('id');
+  debug "Not implemented yet";
   return redirect '/';
 }
 
@@ -157,5 +146,25 @@ prefix '/article' => sub {
     get '/:category/:slug' => \&_article;
 };
 
+
+sub OwnerOrAdmin(){
+  my $userName = shift;
+  # Logged in user
+  my $user = session->read('user');
+  print Dumper $user;
+  if (
+    $user->{'username'} &&  # Is er uberhaupt iemand aangemeld?
+    ( 
+      $user->{'role'} eq 'Admin' ||                     # Is admin
+      ( $userName && $user->{'username'} eq $userName ) # or the author
+    )
+  ){
+    debug "Valid user";
+    return 1;
+  }else{
+    debug "Invalid user";
+    return 0
+  }
+}
 
 42;
