@@ -28,4 +28,5 @@ get '/secured' => needs login => sub {
 };
 
 
+
 true;
