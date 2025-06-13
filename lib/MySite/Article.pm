@@ -132,6 +132,40 @@ sub _article_update {
   }
 }
 
+sub _field_update {
+  debug "Update veld ", route_parameters->get('field');
+  debug "Van id ", route_parameters->get('id');
+
+  # Ff wat gegevens ophalen van het artikel
+  my $article = schema->resultset('Article')->find(
+    {
+      article_id => route_parameters->get('id')
+    },{}
+  );
+  # Autheur voor authorisatie
+  my $author = $article->search_related('authorid');
+  # Logged in user
+  my $user = session->read('user');
+  # print Dumper $user;
+
+  response_header('Content-Type' => 'application/json');
+
+  # Toestaan voor Admin of eigenaar
+  if ( OwnerOrAdmin( $author->first->username() ) ){
+    my $data = from_json( request->body );
+    debug $data->{value};
+    # $article->(route_parameters->get('field'))($data->{value});
+    $article->update({
+      route_parameters->get('field') => $data->{value}
+    });
+    status(200);
+  }else{
+    status(401)
+  }
+
+
+}
+
 sub _article_delete {
   debug "Delete ", route_parameters->get('id');
   debug "Not implemented yet";
@@ -141,6 +175,7 @@ sub _article_delete {
 
 prefix '/article' => sub {
     get '/edit/:id' => \&_article_edit;
+    post '/update/:field/:id' => \&_field_update;
     post '/update/:id' => \&_article_update;
     get '/delete/:id' => \&_article_delete;
     get '/:category/:slug' => \&_article;
