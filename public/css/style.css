@@ -91,3 +91,7 @@ ul.sidebar_list{
 #article_editor {
   overflow-y: hidden;
 }
+
+.title_row{
+    margin-bottom: 1em;
+}
