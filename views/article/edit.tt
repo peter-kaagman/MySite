@@ -2,17 +2,18 @@
 
 <input type='hidden' id='article_id' value='<% article.id %>'>
 <div class='row' id='article_header'>
-    <div class='row'>
-        <div class='col-sm-2'>
-        <h4>Title: </h4>
-        </div>
-        <div class='col-sm-10'>
-        <input type='text' id='edit_title' value='<% article.title %>' />
-        </div>
+
+    <div class='row title_row'>
+      <div class="col-sm-2">
+        <label for="edit_title" class="form-label">Title: </label>
+      </div>
+      <div class='col-sm-10'>
+        <input type="text" class="form-control" id="edit_title" name="username" value="<% article.title %>" readonly>
+      </div>
     </div>
+
     <div class='row'>
         <div id='editor_container' class='col-sm-12'>
-            <h4>Content: </h4>
             <div id="article_editor" class='row'>
                 <% article_content.first.content %>
             </div>
