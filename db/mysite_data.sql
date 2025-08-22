@@ -49,34 +49,34 @@ Insert Into page_content (`page_content_id`, `pageid`, `version`, `created`, `pu
 ;
 --
 -- Category data
-Insert Into category (`category_id`, `title`, `slug`, `desc`,`created`) VALUES
-	(1, 'EduTeam',    'eduteams','   Articles about EduTeams',        DATETIME('NOW')),
-	(2, 'MySite' ,    'mysite' ,    'Creating MySite',                DATETIME('NOW')),
-	(3, 'Electronics','electronics','About mini controllers and such.',DATETIME('NOW'))
+Insert Into category (`category_id`, `title`, `desc`,`created`) VALUES
+	(1, 'EduTeam',    'Articles about EduTeams',        DATETIME('NOW')),
+	(2, 'MySite' ,    'Creating MySite',                DATETIME('NOW')),
+	(3, 'Electronics','About mini controllers and such.',DATETIME('NOW'))
 ;
 --
 -- Keyword data
-Insert Into keyword (`keyword_id`, `title`, `slug`,`created`) VALUES
-	(1, 'MS Graph','msgraph',DATETIME('NOW')),
-	(2, 'Perl'    ,'perl',DATETIME('NOW')),
-	(3, 'Magister','magister',DATETIME('NOW'))
+Insert Into keyword (`keyword_id`, `title`,`created`) VALUES
+	(1, 'MS Graph',DATETIME('NOW')),
+	(2, 'Perl'    ,DATETIME('NOW')),
+	(3, 'Magister',DATETIME('NOW'))
 ;
 --
 -- Article data
-Insert Into article (`article_id`, `title`, `slug`, `authorid`, `categoryid`, `created`, `abstract`) VALUES
-	(1,'Artikel 1','artikel_1',1,'1','2024-11-20 14:23:21','Abstract artikel 1'),
-	(2,'Artikel 2','artikel_2',2,'2','2024-11-21 14:23:21','Abstract artikel 2'),
-	(3,'Artikel 3','artikel_3',1,'3','2024-11-22 14:23:21','Abstract artikel 3'),
-	(4,'Artikel 4','artikel_4',1,'1','2024-11-23 14:23:21','Abstract artikel 4')
+Insert Into article (`article_id`, `title`, `slug`, `authorid`, `categoryid`, `created`,`published`, `abstract`) VALUES
+	(1,'Artikel 1','artikel_1',1,1,'2024-11-20 14:23:21',DATETIME('NOW'),'Abstract artikel 1'),
+	(2,'Artikel 2','artikel_2',2,2,'2024-11-21 14:23:21',DATETIME('NOW'),'Abstract artikel 2'),
+	(3,'Artikel 3','artikel_3',1,3,'2024-11-22 14:23:21',DATETIME('NOW'),'Abstract artikel 3'),
+	(4,'Artikel 4','artikel_4',1,1,'2024-11-23 14:23:21',DATETIME('NOW'),'Abstract artikel 4')
 ;
 --
 -- Article_Content data
-Insert Into article_content (`article_content_id`,`articleid`,`version`,`editorid`,`created`,`published`,`content`) VALUES
-	(1,1,1,1,'2024-11-20 14:23:21',DATETIME('NOW'),'Inhoud artikel 1'),
-	(5,1,2,1,'2024-11-20 14:23:21',DATETIME('NOW'),'Inhoud artikel 1 versie 2'),
-	(2,2,1,2,'2024-11-20 14:23:21',DATETIME('NOW'),'Inhoud artikel 2'),
-	(3,3,1,1,'2024-11-20 14:23:21',DATETIME('NOW'),'Inhoud artikel 3'),
-	(4,4,1,1,'2024-11-20 14:23:21',DATETIME('NOW'),'Inhoud artikel 4')
+Insert Into article_content (`article_content_id`,`articleid`,`version`,`editorid`,`created`,`content`) VALUES
+	(1,1,1,1,'2024-11-20 14:23:21','Inhoud artikel 1'),
+	(5,1,2,1,'2024-11-20 15:23:21','Inhoud artikel 1 versie 2'),
+	(2,2,1,2,'2024-11-20 14:23:21','Inhoud artikel 2'),
+	(3,3,1,1,'2024-11-20 14:23:21','Inhoud artikel 3'),
+	(4,4,1,1,'2024-11-20 14:23:21','Inhoud artikel 4')
 ;
 --
 -- Article_Keyword data

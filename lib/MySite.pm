@@ -10,7 +10,7 @@ use MySite::User;
 use MySite::Article;
 
 our $VERSION = '0.1';
-$ENV{DBIC_TRACE} = '1';
+# $ENV{DBIC_TRACE} = '1';
 
 
 

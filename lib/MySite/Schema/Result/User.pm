@@ -42,7 +42,8 @@ __PACKAGE__->table("user");
 =head2 created
 
   data_type: 'timestamp'
-  is_nullable: 0
+  default_value: current_timestamp
+  is_nullable: 1
 
 =head2 avatar
 
@@ -71,7 +72,11 @@ __PACKAGE__->add_columns(
   "username",
   { data_type => "text", is_nullable => 0 },
   "created",
-  { data_type => "timestamp", is_nullable => 0 },
+  {
+    data_type     => "timestamp",
+    default_value => \"current_timestamp",
+    is_nullable   => 1,
+  },
   "avatar",
   { data_type => "text", is_nullable => 1 },
   "roleid",
@@ -184,8 +189,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07052 @ 2024-11-28 21:17:04
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:WG0DvASe4crp13WJxindFQ
+# Created by DBIx::Class::Schema::Loader v0.07052 @ 2025-08-14 12:07:56
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Vn5UqiREv8sjhmvRlz10qA
 
 sub returnURL {
   my ($self) = shift;
