@@ -34,15 +34,11 @@ __PACKAGE__->table("keyword");
   data_type: 'text'
   is_nullable: 0
 
-=head2 slug
-
-  data_type: 'text'
-  is_nullable: 0
-
 =head2 created
 
   data_type: 'timestamp'
-  is_nullable: 0
+  default_value: current_timestamp
+  is_nullable: 1
 
 =cut
 
@@ -51,10 +47,12 @@ __PACKAGE__->add_columns(
   { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
   "title",
   { data_type => "text", is_nullable => 0 },
-  "slug",
-  { data_type => "text", is_nullable => 0 },
   "created",
-  { data_type => "timestamp", is_nullable => 0 },
+  {
+    data_type     => "timestamp",
+    default_value => \"current_timestamp",
+    is_nullable   => 1,
+  },
 );
 
 =head1 PRIMARY KEY
@@ -70,18 +68,6 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("keyword_id");
 
 =head1 UNIQUE CONSTRAINTS
-
-=head2 C<slug_unique>
-
-=over 4
-
-=item * L</slug>
-
-=back
-
-=cut
-
-__PACKAGE__->add_unique_constraint("slug_unique", ["slug"]);
 
 =head2 C<title_unique>
 
@@ -113,8 +99,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07052 @ 2024-11-25 14:41:00
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:v9vLZ048M/DuryIyURuvFA
+# Created by DBIx::Class::Schema::Loader v0.07052 @ 2025-08-14 12:07:56
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Qexjd3KkkUIAaYXxmOCM7w
 __PACKAGE__->many_to_many(
   'articles'             # Name of the relation
   => 
@@ -122,11 +108,17 @@ __PACKAGE__->many_to_many(
   'articleid'           # The relation in the couple table to the target
 );
 
+sub slug {
+    my $self = shift;
+    # Generate slug from title, for example
+    return lc($self->title) =~ s/\s+/-/gr;
+}
+
 sub returnURL {
   my ($self) = shift;
   return(
     "/keyword/" .
-    $self->slug 
+    lc($self->title) =~ s/\s+/-/gr
   );
 }
 

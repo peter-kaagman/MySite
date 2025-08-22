@@ -34,11 +34,6 @@ __PACKAGE__->table("category");
   data_type: 'text'
   is_nullable: 0
 
-=head2 slug
-
-  data_type: 'text'
-  is_nullable: 0
-
 =head2 desc
 
   data_type: 'text'
@@ -47,7 +42,8 @@ __PACKAGE__->table("category");
 =head2 created
 
   data_type: 'timestamp'
-  is_nullable: 0
+  default_value: current_timestamp
+  is_nullable: 1
 
 =cut
 
@@ -56,12 +52,14 @@ __PACKAGE__->add_columns(
   { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
   "title",
   { data_type => "text", is_nullable => 0 },
-  "slug",
-  { data_type => "text", is_nullable => 0 },
   "desc",
   { data_type => "text", is_nullable => 1 },
   "created",
-  { data_type => "timestamp", is_nullable => 0 },
+  {
+    data_type     => "timestamp",
+    default_value => \"current_timestamp",
+    is_nullable   => 1,
+  },
 );
 
 =head1 PRIMARY KEY
@@ -77,18 +75,6 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("category_id");
 
 =head1 UNIQUE CONSTRAINTS
-
-=head2 C<slug_unique>
-
-=over 4
-
-=item * L</slug>
-
-=back
-
-=cut
-
-__PACKAGE__->add_unique_constraint("slug_unique", ["slug"]);
 
 =head2 C<title_unique>
 
@@ -120,14 +106,20 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07052 @ 2024-11-24 21:49:28
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:FW+56jYD47X9fUtFQjFWGA
+# Created by DBIx::Class::Schema::Loader v0.07052 @ 2025-08-14 12:07:56
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:6iyjqQJ7tfAl6e+5htc3Iw
+
+sub slug {
+    my $self = shift;
+    # Generate slug from title, for example
+    return lc($self->title) =~ s/\s+/-/gr;
+}
 
 sub returnURL {
   my ($self) = shift;
   return(
     "/category/" .
-    $self->slug 
+    lc($self->title) =~ s/\s+/-/gr 
   );
 }
 
