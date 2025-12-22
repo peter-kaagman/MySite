@@ -190,6 +190,7 @@ sub _field_update {
         # published => $content->first->published()
       });
       return to_json({ 
+        success => 1,
         content => trim($data->{value}),
         version => $newVersion,
         message => "Content updated successfully"
@@ -204,21 +205,23 @@ sub _field_update {
       # Update title and slug if slugtitle is set to 1
       debug "Update title and slug ";
       $article->update({
-        'title' => trim($data->{value}),
-        'slug' => lc(trim($data->{value})) =~ s/\s+/_/gr
+        title => trim($data->{value}),
+        slug => lc(trim($data->{value})) =~ s/\s+/_/gr
       });
       # status(200);
       return to_json({ 
+        success => 1,
         slug => $article->slug, 
         title => $article->title,
         message => "Title and slug updated successfully"
       });
     }else{
-      debug "Update field ", route_parameters->get('field'), " with value ", $data->{value};
+      debug "Generic Update field ", route_parameters->get('field'), " with value ", $data->{value};
       $article->update({
         route_parameters->get('field') => trim($data->{value})
       });
       return to_json({ 
+        success => 1,
         route_parameters->get('field')  => trim($data->{value}),
         message => "Field " . route_parameters->get('field') . " updated successfully"
       });

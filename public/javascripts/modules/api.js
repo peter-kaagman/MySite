@@ -10,16 +10,13 @@ export async function handleSave(article, data, field) {
     }
     setSaveStatus("Saving...", "info");
     try {
-        const response = await fetch(`/article/update/${field}/${article.id}`, {
+        const response = await fetch(`/article/update/${field}/${article}`, {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(data)
         });
         if (response.status === 200) {
-            unsavedChanges = false;
-            if (field === "title") {
-                document.title = data.value;
-            }
+            window.unsavedChanges = false;
             setSaveStatus("Changes saved successfully", "success");
             return await response.json();
         } else {
@@ -49,7 +46,6 @@ export async function searchKeywords(query) {
 
 // Function to handle keyword changes
 export async function saveKeywordChange(article_id, keyword, checked) {
-    // console.log(`Keyword ${keyword} is now ${checked ? 'checked' : 'unchecked'}`);
     window.unsavedChanges = true;
     setSaveStatus(`Keyword ${keyword} ${checked ? 'added' : 'removed'}`, "info");
     const data = {
@@ -68,7 +64,6 @@ export async function saveKeywordChange(article_id, keyword, checked) {
         if (!response.ok) throw new Error('Network response was not ok');
         const result = await response.json();
         window.unsavedChanges = false;
-        // console.log(`Server response for ${keyword}:`, result);
         return result;
     } catch (error) {
         setSaveStatus(`Error ${checked ? 'adding' : 'removing'} keyword ${keyword}`, "error");

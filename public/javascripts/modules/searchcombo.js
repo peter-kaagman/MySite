@@ -2,20 +2,21 @@
 import { setSaveStatus } from './utils.js';
 import { searchKeywords, saveKeywordChange } from './api.js';
 
-export class KeywordManager {
+export class searchCombo {
     constructor() {
-        this.articleId = document.getElementById('article_id').value;
-        this.list = document.getElementById('list_keywords');
-        this.searchBox = document.getElementById('search_keywords');
-        this.selectedKeywords = document.getElementById('selected_keywords');
+    }
+
+    async init(field, listId, searchId, selectedId, multiSelect) {
+        this.multiSelect = multiSelect;
+        this.articleId = document.getElementById(field).value;
+        this.list = document.getElementById(listId);
+        this.searchBox = document.getElementById(searchId);
+        this.selectedKeywords = document.getElementById(selectedId);
         this.articleKeywords = this.selectedKeywords.value.split(',').map(kw => kw.trim()).filter(kw => kw !== "" );
         // Luister naar zowel 'input' als 'keyup'
         ['input', 'keyup'].forEach(eventType => {
             this.searchBox.addEventListener(eventType, (e) => this.handleSearchBox(e));
         });
-    }
-
-    async init() {
         // Load keywords, set up search box, register listeners
         await this.loadKeywords();
     }
