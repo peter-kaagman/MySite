@@ -23,6 +23,8 @@ export function initEditors() {
                 {
                     name: "save",
                     action: async function(editor) {
+                        const articleIdInput = document.getElementById('article_id');
+                        const articleId = articleIdInput ? articleIdInput.value : null;
                         // Find the save button in the toolbar
                         const toolbar = editor.toolbarElements;
                         const saveBtn = toolbar && toolbar.save;
@@ -31,7 +33,7 @@ export function initEditors() {
                         }
                         const data = { value: editor.value() };
                         try {
-                            await handleSave(data, field);
+                            await handleSave(articleId, data, field);
                             if (typeof window.setSaveStatus === 'function') {
                                 window.setSaveStatus('Changes saved successfully', 'success');
                             }

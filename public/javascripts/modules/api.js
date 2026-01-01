@@ -29,7 +29,33 @@ export async function handleSave(article, data, field) {
     }
 }
 
-export async function searchKeywords(query) {
+// Search for keywords or categories
+export function searchItems(field,query) {
+    console.log(`Searching items for field: ${field}, query: ${query}`);
+    if (field === 'keyword') {
+        return searchKeywords(query);
+    } else if (field === 'category') {
+        return searchCategories(query);
+    }
+    return Promise.resolve([]); // Return empty array for unknown fields
+}
+// Function to search categories
+async function searchCategories(query) {
+    try {
+        const response = await fetch(`/article/categories?query=${encodeURIComponent(query)}`, {
+            method: 'GET',
+            headers: { 'Accept': 'application/json' }
+        });
+        if (!response.ok) throw new Error('Network response was not ok');
+        const data = await response.json();
+        return data.values || [];
+    } catch (error) {
+        console.error('Error fetching categories:', error);
+        return [];
+    }
+}
+// Function to search keywords
+async function searchKeywords(query) {
     try {
         const response = await fetch(`/article/keywords?query=${encodeURIComponent(query)}`, {
             method: 'GET',
@@ -37,15 +63,19 @@ export async function searchKeywords(query) {
         });
         if (!response.ok) throw new Error('Network response was not ok');
         const data = await response.json();
-        return data.vallues || [];
+        return data.values || [];
     } catch (error) {
         console.error('Error fetching keywords:', error);
         return [];
     }
 }
 
+// Save keyword or category changes
+export function saveItemChange(field, article_id, item, checked) {
+    return saveKeywordChange(article_id, item, checked); // Reuse existing function for simplicity
+}
 // Function to handle keyword changes
-export async function saveKeywordChange(article_id, keyword, checked) {
+async function saveKeywordChange(article_id, keyword, checked) {
     window.unsavedChanges = true;
     setSaveStatus(`Keyword ${keyword} ${checked ? 'added' : 'removed'}`, "info");
     const data = {

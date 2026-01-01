@@ -7,6 +7,11 @@ export function setSaveStatus(msg, type = 'info') {
     status.className = type;
     if (type === 'success') {
         setTimeout(() => { status.style.display = 'none'; }, 1500);
+        console.log(msg);
+    } else if (type === 'error') {
+        console.error(msg);
+    } else {
+        console.info(msg);
     }
 }
 

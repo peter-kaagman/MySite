@@ -1,4 +1,10 @@
 requires "Dancer2" => "1.1.1";
+requires "Dancer2::Plugin::Auth::Tiny" => "0";
+requires "Dancer2::Plugin::DBIC" => "0";
+requires "Text::Markdown" => "0";
+requires "Dancer2::Plugin::Auth::OAuth" => "0";
+requires "Switch" => "0";
+requires "String::Util" => "0";
 
 recommends "YAML"                    => "0";
 recommends "URL::Encode::XS"         => "0";

@@ -1,167 +1,139 @@
+<!-- Hidden field for article ID -->
 <input type='hidden' id='article_id' value='<% article.id %>'>
-<div class='row mb-3' id='article_header'>
 
-  <div class='row mb-3 title_row'>
-      <div class="col-sm-2">
-        <label for="edit_title" class="form-label">Title: </label>
-      </div>
-      <div class='col-sm-10'>
-        <input type="text" class="form-control" id="edit_title" name="edit_title" value="<% title %>">
-      </div>
-  </div>
-
-  <!-- Tabs voor Abstract en Content -->
-  <ul class="nav nav-tabs" id="editorTabs" role="tablist">
-    <li class="nav-item" role="presentation">
-      <button class="nav-link active" id="tab-content" data-bs-toggle="tab" data-bs-target="#pane-content" type="button" role="tab" aria-controls="pane-content" aria-selected="true">Content</button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button class="nav-link" id="tab-abstract" data-bs-toggle="tab" data-bs-target="#pane-abstract" type="button" role="tab" aria-controls="pane-abstract" aria-selected="false">Abstract</button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button class="nav-link" id="tab-meta" data-bs-toggle="tab" data-bs-target="#pane-meta" type="button" role="tab" aria-controls="pane-meta" aria-selected="false">Meta data</button>
-    </li>
-  </ul>
-  
-  <div class="tab-content" id="editorTabsContent">
-
-    <div class="tab-pane show active fade p-3" id="pane-content" role="tabpanel" aria-labelledby="tab-content">
-      <fieldset>
-        <textarea id="content_editor" class="form-control" rows="12"><% article_content.first.content | trim %></textarea>
-      </fieldset>
-    </div>
-
-    <div class="tab-pane fade  p-3" id="pane-abstract" role="tabpanel" aria-labelledby="tab-abstract">
-      <fieldset>
-        <textarea id="abstract_editor" class="form-control" rows="6"><% article.abstract | trim %></textarea>
-      </fieldset>
-    </div>
-  
-    <div class="tab-pane fade  p-3" id="pane-meta" role="tabpanel" aria-labelledby="tab-meta">
-      <!-- Hier komen de meta data van het artikel, zoals tags, categorieën, etc. -->
-      <fieldset>
-        <!-- Slug input -->
-        <div class='row mb-3 slug_row'>
-          <div class='col-sm-2'>
-              <label for="edit_slug" class="form-label">Slug: </label>
-          </div>
-          <div class='col-sm-10'>
-            <div class="row mb-3 ">
-              <div class="col-sm-1 form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="edit_slugtitle" name="edit_slugtitle" <% if article.slugtitle %>checked<% end %>  >
-              </div>
-              <div class="col-sm-11">
-                <input type="text" class="form-control" id="edit_slug" name="edit_slug" <% IF article.slugtitle  %>readonly<% END %> value="<% article.slug %>">
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Author input -->
-        <div class='row mb-3 author_row'>
-          <div class="col-sm-2">
-              <label for="edit_author" class="form-label">Author: </label>
-          </div>
-          <div class='col-sm-10'>
-              <input readonly type="text" class="form-control" id="edit_author" name="edit_author"  value="<% author.name %>">
-          </div>
-        </div>
-        <!-- Category input -->
-        <div class='row mb-3 category_row'>
-          <div class="dropdown">
-            <button onclick="myFunction()" class="dropbtn">Dropdown</button>
-            <div id="myDropdown" class="dropdown-content">
-              <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
-              <a href="#about">About</a>
-              <a href="#base">Base</a>
-              <a href="#blog">Blog</a>
-              <a href="#contact">Contact</a>
-              <a href="#custom">Custom</a>
-              <a href="#support">Support</a>
-              <a href="#tools">Tools</a>
-            </div>
-          </div>
-          <!--
-          <div class='col-sm-10'>
-            <select class="form-select" id="edit_category" name="edit_category">
-              <% FOR category IN categories.all %>
-                <option value='<% category.id %>' <% IF category.id == article.categoryid.id %>selected<% END %> >
-                  <% category.title %>
-                </option>
-              <% END %>
-            </select>
-          </div>
-          -->
-        </div>
-        <!-- Keywords input -->
-        <div class='row mb-3 keywords_row'>
-          <div class="col-sm-2">
-              Keywords:
-          </div>
-          <div class='col-sm-10'>
-            <div class="row">
-              <div class="col-sm-2">
-                <label for="search_keywords" class="form-label">Search: </label>
-              </div>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" id="search_keywords" name="search_keywords">
-              </div>
-              <div class="col-sm-2">
-                <label for="selected_keywords" class="form-label">Selected: </label>
-              </div>
-              <div class="col-sm-10">
-                <input 
-                  readonly 
-                  type="text" 
-                  class="form-control" 
-                  id="selected_keywords" 
-                  name="selected_keywords"
-                  value="<% keywords.join(', ') %>"
-                >
-              </div>
-              <div class="col-sm-2">
-                <label for="list_keywords" class="form-label">Available: </label>
-              </div>
-              <div class="col-sm-10 list-group" id="list_keywords">
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Created input -->
-        <div class='row mb-3 created_row'>
-          <div class="col-sm-2">
-              <label for="edit_created" class="form-label">Created: </label>
-          </div>
-          <div class='col-sm-10'>
-              <input readonly type="datetime-local" class="form-control" id="edit_created" name="edit_created" value="<% article.created %>">
-          </div>
-        </div>
-        <!-- Published input -->
-        <div class='row mb-3 published_row'>
-          <div class="col-sm-2">
-              <label for="edit_published" class="form-label">Published: </label>
-          </div>
-          <div class='col-sm-10'>
-              <input type="datetime-local" class="form-control" id="edit_published" name="edit_published" value="<% article.published %>">
-          </div>
-        </div>
-        <!-- Version count input -->
-        <div class='row mb-3 version_count_row'>
-          <div class="col-sm-2">
-              <label for="edit_version_count" class="form-label">Version Count: </label>
-          </div>
-          <div class='col-sm-10'>
-              <input readonly type="text" class="form-control" id="edit_version_count" name="edit_version_count"  value="<% content_count %>">
-          </div>
-        </div>
-      </fieldset>
-    </div>
-  </div>
+<!-- Row 1: Title input field -->
+<div class="row mb-3 title_row">
+	<div class="col-sm-2">
+		<label for="edit_title" class="form-label">Title: </label>
+	</div>
+	<div class="col-sm-10">
+		<!-- Article title goes here -->
+		<input type="text" class="form-control" id="edit_title" name="edit_title" value="<% article.title %>">
+	</div>
 </div>
 
+<!-- Row 2: Tabbed editor interface -->
+<div class="row">
+	<div class="col-12">
+		<div class="card mt-2">
+			<div class="card-body p-0">
+				<!-- Tab navigation for Content, Abstract, and Meta data -->
+				<ul class="nav nav-tabs" id="editorTabs" role="tablist">
+					<!-- Tab 1: Content -->
+					<li class="nav-item" role="presentation">
+						<button class="nav-link active" id="tab-content" data-bs-toggle="tab" data-bs-target="#pane-content" type="button" role="tab" aria-controls="pane-content" aria-selected="true">Content</button>
+					</li>
+					<!-- Tab 2: Abstract -->
+					<li class="nav-item" role="presentation">
+						<button class="nav-link" id="tab-abstract" data-bs-toggle="tab" data-bs-target="#pane-abstract" type="button" role="tab" aria-controls="pane-abstract" aria-selected="false" tabindex="-1">Abstract</button>
+					</li>
+					<!-- Tab 3: Meta data -->
+					<li class="nav-item" role="presentation">
+						<button class="nav-link" id="tab-meta" data-bs-toggle="tab" data-bs-target="#pane-meta" type="button" role="tab" aria-controls="pane-meta" aria-selected="false" tabindex="-1">Meta data</button>
+					</li>
+				</ul>
+
+				<div class="tab-content p-3" id="editorTabsContent">
+					
+					<!-- Tab pane: Content -->
+					<div class="tab-pane show active fade p-3" id="pane-content" role="tabpanel" aria-labelledby="tab-content">
+						<fieldset>
+							<!-- Main content editor textarea -->
+              <textarea id="content_editor" class="form-control" rows="12" placeholder="Edit content here..."><% article_content.first.content | trim %></textarea>
+						</fieldset>
+					</div>
+
+					<!-- Tab pane: Abstract -->
+					<div class="tab-pane fade p-3" id="pane-abstract" role="tabpanel" aria-labelledby="tab-abstract">
+						<fieldset>
+							<!-- Abstract editor textarea -->
+							<textarea id="abstract_editor" class="form-control" rows="4" placeholder="Edit abstract here..."><% article.abstract | trim %></textarea>
+						</fieldset>
+					</div>
+
+					<!-- Tab pane: Meta data -->
+					<div class="tab-pane fade p-3" id="pane-meta" role="tabpanel" aria-labelledby="tab-meta">
+						<fieldset>
+
+              <!-- Slug input -->
+              <div class='row mb-3 slug_row align-items-center'>
+                <div class='col-sm-2'>
+                    <label for="edit_slug" class="form-label">Slug: </label>
+                </div>
+                <div class='col-sm-1 form-check form-switch'>
+                  <input class="form-check-input" type="checkbox" id="edit_slugtitle" name="edit_slugtitle" <% if article.slugtitle %>checked<% end %>  >
+                </div>
+                <div class='col-sm-9'>
+                  <input type="text" class="form-control" id="edit_slug" name="edit_slug" <% IF article.slugtitle  %>readonly<% END %> value="<% article.slug %>">
+                </div>
+              </div>
+
+              <!-- Author input -->
+              <div class='row mb-3 author_row'>
+                <div class="col-sm-2">
+                    <label for="edit_author" class="form-label">Author: </label>
+                </div>
+                <div class='col-sm-10'>
+                    <input readonly type="text" class="form-control" id="edit_author" name="edit_author"  value="<% author.name %>">
+                </div>
+              </div>
+
+              <!-- Category input -->
+              <% INCLUDE "article/includes/category_dropdown.tt" %>
+
+
+              <!-- Keywords input
+              <div class='row mb-3 keywords_row'>
+                <div class="col-sm-2">
+                    <label for="search_keywords" class="form-label">Keywords:</label>
+                </div>
+                <div class='col-sm-10'>
+                  <input type="text" class="form-control mb-2" id="search_keywords" name="search_keywords" placeholder="Search...">
+                  <label for="selected_keywords" class="form-label mt-2">Selected:</label>
+                  <input readonly type="text" class="form-control mb-2" id="selected_keywords" name="selected_keywords" value="<% keywords.join(', ') %>">
+                  <label for="list_keywords" class="form-label mt-2">Available:</label>
+                  <div class="list-group" id="list_keywords"></div>
+                </div>
+              </div> -->
+
+              <!-- Created input -->
+              <div class='row mb-3 created_row'>
+                <div class="col-sm-2">
+                    <label for="edit_created" class="form-label">Created: </label>
+                </div>
+                <div class='col-sm-10'>
+                    <input readonly type="datetime-local" class="form-control" id="edit_created" name="edit_created" value="<% article.created %>">
+                </div>
+              </div>
+
+              <!-- Published input -->
+              <div class='row mb-3 published_row'>
+                <div class="col-sm-2">
+                    <label for="edit_published" class="form-label">Published: </label>
+                </div>
+                <div class='col-sm-10'>
+                    <input type="datetime-local" class="form-control" id="edit_published" name="edit_published" value="<% article.published %>">
+                </div>
+              </div>
+
+              <!-- Version count input -->
+              <div class='row mb-3 version_count_row'>
+                <div class="col-sm-2">
+                    <label for="edit_version_count" class="form-label">Version Count: </label>
+                </div>
+                <div class='col-sm-10'>
+                    <input readonly type="text" class="form-control" id="edit_version_count" name="edit_version_count"  value="<% content_count %>">
+                </div>
+              </div>
+
+						</fieldset>
+					</div>
+          
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Save status message area -->
 <div id="save-status" style="display:none;" aria-live="polite"></div>
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
-<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
-<script type="module" src="/javascripts/article_edit.js"></script>
-
-
