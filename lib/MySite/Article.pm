@@ -123,6 +123,7 @@ sub _get_article_edit {
         'author' => $author->first,
         'content_count' => $content_count,
         'keywords' => \@keywords,
+        'page' => 'article_edit',
       }
     }else{
       debug "Edit not allowed", route_parameters->get('id');
@@ -331,9 +332,26 @@ sub _get_keywords {
   return to_json({ vallues => \@keywords_list });
 }
 
+sub _get_categories {
+  my $categories = schema->resultset('Category')->search(
+      {
+        title => { 
+          -like => query_parameters->get('query') ? '%'.query_parameters->get('query').'%': '%'
+          },
+      },
+      {
+          order_by => {'-desc' => ['title']},
+      }
+  );
+  my @category_list = map { $_->title } $categories->all;
+  debug "Categories: ", join(', ', @category_list);
+  content_type 'application/json';
+  return to_json({ values => \@category_list });
+}
 
 prefix '/article' => sub {
   get '/keywords' => \&_get_keywords;
+  get '/categories' => \&_get_categories;
   get '/new' => \&_get_article_new;
   post '/add' => \&_post_article_new;
   get '/edit/:id' => \&_get_article_edit;

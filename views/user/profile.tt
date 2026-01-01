@@ -4,19 +4,19 @@
   <div class='col-sm-9'>
     <div class='row'>
       <div class="col-sm-3">
-        <label for="username" class="form-label">Usernaam: </label>
+          <label for="username" class="form-label">Usernaam: </label>
       </div>
       <div class='col-sm-9'>
         <input type="text" class="form-control" id="username" name="username" value="<% user.username %>" readonly>
       </div>
     </div>
     <div class='row'>
-      <div class="col-sm-3">
-        <label for="username" class="form-label">Bron: </label>
-      </div>
-      <div class='col-sm-9'>
-        <input type="text" class="form-control" id="source" name="source" value="<% user.source %>" readonly>
-      </div>
+        <div class="col-sm-3">
+          <label for="source" class="form-label">Bron: </label>
+        </div>
+        <div class='col-sm-9'>
+          <input type="text" class="form-control" id="source" name="source" value="<% user.source %>" readonly>
+        </div>
     </div>
     <div class='row'>
       <div class="col-sm-3">

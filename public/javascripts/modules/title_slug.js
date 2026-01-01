@@ -55,6 +55,14 @@ export class TitleManager {
             "slugtitle",
             () => this.slugtitleInput.checked ? '1' : '0',
             (result, value) => {
+                // Als van onwaar naar waar: slug = title
+                if (value === '1' && this.initialSlugtitle === '0') {
+                    if (this.titleInput && this.slugInput) {
+                        this.slugInput.value = this.titleInput.value.trim();
+                        // Trigger blur event om direct op te slaan
+                        this.slugInput.dispatchEvent(new Event('blur'));
+                    }
+                }
                 updateSlugReadonly();
                 if (result.success) {
                     setSaveStatus('SlugTitle succesvol opgeslagen.', 'success');

@@ -1,3 +1,5 @@
 *sqlite
 *local.yml
 sessions/*
+local/*
+node_modules/

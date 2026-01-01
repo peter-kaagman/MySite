@@ -1,0 +1,16 @@
+{
+  "name": "mysite",
+  "version": "1.0.0",
+  "description": "Frontend dependencies for MySite (Dancer2 Perl app)",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo 'No build step defined'",
+    "start": "carton exec plackup -R ./lib ./bin/app.psgi"
+  },
+  "author": "Peter Kaagman",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^5.3.2",
+    "simplemde": "^1.11.2"
+  }
+}

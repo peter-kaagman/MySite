@@ -2,12 +2,6 @@
 	"folders": [
 		{
 			"path": "."
-		},
-		{
-			"path": "../../../home/pkn/scripts/MySiteScribble"
-		},
-		{
-			"path": "../links"
 		}
 	],
 	"settings": {}
