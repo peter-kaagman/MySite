@@ -29,6 +29,22 @@ export async function handleSave(article, data, field) {
     }
 }
 
+// Get a specific field value
+export async function getField(field, article_id) {
+    try {
+        const response = await fetch(`/article/field/${article_id}/${field}`, {
+            method: 'GET',
+            headers: { 'Accept': 'application/json' }
+        });
+        if (!response.ok) throw new Error('Network response was not ok');
+        const data = await response.json();
+        return data.value || '';
+    } catch (error) {
+        console.error(`Error fetching field ${field}:`, error);
+        return '';
+    }
+}
+
 // Search for keywords or categories
 export function searchItems(field,query) {
     console.log(`Searching items for field: ${field}, query: ${query}`);
