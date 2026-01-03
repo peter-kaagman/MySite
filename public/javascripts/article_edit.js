@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Could be done with a droprdown, but keeping consistent with keywords for now
     const categoryManager = new SearchCombo();
     // categoryManager.init('article_id', 'list_categories', 'search_category', 'selected_categories', false);
-    categoryManager.init('article_id','category', 'Categorie:','categoryContainer', false);
+    categoryManager.init('article_id','categoryid', 'Categorie:','categoryContainer', false);
     
     // Keyword manager
     // const keywordManager = new SearchCombo();

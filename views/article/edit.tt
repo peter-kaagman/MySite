@@ -1,5 +1,9 @@
 <!-- Hidden field for article ID -->
 <input type='hidden' id='article_id' value='<% article.id %>'>
+<!-- Hidden field for category data-->
+<input type='hidden' id='category_data' value='<% category %>'>
+<!-- Hidden field for keywords data-->
+<input type='hidden' id='keywords_data' value='<% keywords %>'>
 
 <!-- Row 1: Title input field -->
 <div class="row mb-3 title_row">

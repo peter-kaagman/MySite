@@ -1,6 +1,6 @@
 // keywords.js - Keyword search, add/remove, and UI
 import { setSaveStatus } from './utils.js';
-import { searchItems, saveItemChange } from './api.js';
+import { searchItems, saveItemChange, getField } from './api.js';
 
 export class SearchCombo {
     constructor() {
@@ -12,8 +12,12 @@ export class SearchCombo {
         this.label = label;
         this.articleId = document.getElementById(article_id).value;
         this.container = document.getElementById(containerId);
-        // Initialize articleKeywords array
+        // Initialize articleKeywords array for the search list
         this.articleItems = [];
+
+        this.currentItems = await getField(field,this.articleId);
+        console.log('Current items for field', field, ':', this.currentItems);
+        
         this.setupElements();
 
         // Luister naar zowel 'input' als 'keyup'
@@ -34,14 +38,15 @@ export class SearchCombo {
             }
         });
 
-        // Fetch current items for the article
-        await this.fetchCurrentItems();
+        // // Fetch current items for the article
+        // await this.fetchCurrentItems();
 
-        // Load items, set up search box
+        // Load items, to set up search box
         console.log('Loading items for field:', this.field);
         await this.loadItems();
     }
 
+    // Setup HTML elements
     setupElements() {
         // Create row for label and selectedItems
         const row = document.createElement('div');
@@ -63,7 +68,7 @@ export class SearchCombo {
         this.selectedItems = document.createElement('input');
         this.selectedItems.type = 'text';
         this.selectedItems.id = 'selected_items';
-        this.selectedItems.value = '';
+        this.selectedItems.value = this.currentItems||'';
         this.selectedItems.classList.add('form-control', 'mb-2');
         inputCol.appendChild(this.selectedItems);
         row.appendChild(inputCol);
@@ -85,12 +90,10 @@ export class SearchCombo {
         this.list = document.createElement('div');
         // this.list.id = 'item-list';
         this.searchWrapper.appendChild(this.list);
-
-        // // Initialize articleKeywords array
-        // this.articleKeywords = [];
     }
 
     // Load keywords from server
+    // This is for the search box
     async loadItems() {
         console.log('Loading items for field:', this.field);
         const items = await searchItems(this.field, '');

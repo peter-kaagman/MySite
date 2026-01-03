@@ -74,7 +74,15 @@ sub _get_article_edit {
     # debug "Content count: ", $content_count;
 
     # Keywords
-    my @keywords = $article->keywords->get_column('title')->all;
+    my @keywords = $article->keywords->all;
+    my @keyword_data = map { { title => $_->title, id => $_->keyword_id } } @keywords;
+    # debug "Keywords: ", join(', ', map { $_->{title} } @keyword_data);
+    # debug Dumper \@keyword_data;
+
+    # Category
+    my $category_obj = $article->categoryid;
+    my $category_data = { title => $category_obj->title, id => $category_obj->category_id };
+    debug "Categorie: ", Dumper $category_data;
 
     # Autheur voor authorisatie
     my $author = $article->search_related('authorid');
@@ -104,13 +112,13 @@ sub _get_article_edit {
 
         }
       );
-      # my $categories = schema->resultset('Category')->find({},{} );
-      my $categories = schema->resultset('Category')->search(
-        {},
-        {
-            order_by => {'-desc' => ['title']},
-        }
-      );
+      # # my $categories = schema->resultset('Category')->find({},{} );
+      # my $categories = schema->resultset('Category')->search(
+      #   {},
+      #   {
+      #       order_by => {'-desc' => ['title']},
+      #   }
+      # );
 
       # debug $author->first->username if $author->first->username;
       # debug Dumper $article;
@@ -119,10 +127,11 @@ sub _get_article_edit {
         'user' => session->read('user'),
         'article' => $article,
         'article_content' => $content,
-        'categories' => $categories,
+        # 'categories' => $categories,
         'author' => $author->first,
         'content_count' => $content_count,
-        'keywords' => \@keywords,
+        'keywords' => to_json(\@keyword_data),
+        'category' => to_json($category_data),
         'page' => 'article_edit',
       }
     }else{
@@ -348,6 +357,8 @@ sub _get_categories {
   content_type 'application/json';
   return to_json({ values => \@category_list });
 }
+
+
 
 prefix '/article' => sub {
   get '/keywords' => \&_get_keywords;
