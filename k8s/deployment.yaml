@@ -1,0 +1,147 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysite
+  namespace: mysite-prod
+  labels:
+    app: mysite
+    version: v1
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: mysite
+  template:
+    metadata:
+      labels:
+        app: mysite
+        version: v1
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "5000"
+        prometheus.io/path: "/metrics"
+    spec:
+      # Security context
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      
+      # Init container for database migrations (optional)
+      # initContainers:
+      # - name: db-migrate
+      #   image: ghcr.io/peter-kaagman/mysite:latest
+      #   command: ["/bin/sh", "-c"]
+      #   args:
+      #     - |
+      #       echo "Running database migrations..."
+      #       # Add your migration commands here
+      #   envFrom:
+      #   - configMapRef:
+      #       name: mysite-config
+      #   - secretRef:
+      #       name: mysite-secret
+      
+      containers:
+      - name: mysite
+        image: ghcr.io/peter-kaagman/mysite:latest
+        imagePullPolicy: Always
+        
+        ports:
+        - name: http
+          containerPort: 5000
+          protocol: TCP
+        
+        # Environment variables
+        envFrom:
+        - configMapRef:
+            name: mysite-config
+        - secretRef:
+            name: mysite-secret
+        
+        # Resource limits and requests
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        
+        # Liveness probe - restart if unhealthy
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+            httpHeaders:
+            - name: Host
+              value: localhost
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 3
+          successThreshold: 1
+          failureThreshold: 3
+        
+        # Readiness probe - don't send traffic if not ready
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+            httpHeaders:
+            - name: Host
+              value: localhost
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          successThreshold: 1
+          failureThreshold: 3
+        
+        # Startup probe - allow slower startup
+        startupProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 0
+          periodSeconds: 5
+          timeoutSeconds: 3
+          successThreshold: 1
+          failureThreshold: 12
+        
+        # Volume mounts
+        volumeMounts:
+        - name: sessions
+          mountPath: /app/sessions
+        - name: logs
+          mountPath: /app/logs
+        
+        # Security context
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: false
+          runAsNonRoot: true
+          runAsUser: 1000
+          capabilities:
+            drop:
+            - ALL
+      
+      # Volumes
+      volumes:
+      - name: sessions
+        emptyDir: {}
+      - name: logs
+        emptyDir: {}
+      # For persistent sessions across restarts, use PVC:
+      # - name: sessions
+      #   persistentVolumeClaim:
+      #     claimName: mysite-sessions-pvc
+      
+      # Image pull secrets (if using private registry)
+      # imagePullSecrets:
+      # - name: ghcr-secret

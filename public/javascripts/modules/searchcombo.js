@@ -1,22 +1,47 @@
 // keywords.js - Keyword search, add/remove, and UI
 import { setSaveStatus } from './utils.js';
-import { searchItems, saveItemChange, getField } from './api.js';
+import { searchItems, saveItemChange } from './api.js';
 
 export class SearchCombo {
     constructor() {
     }
 
-    async init(article_id,field, label, containerId, multiSelect) {
+    async init(article_id, field, label, multiSelect) {
         this.field = field;
         this.multiSelect = multiSelect;
         this.label = label;
+        // Reading hidden fields
         this.articleId = document.getElementById(article_id).value;
-        this.container = document.getElementById(containerId);
-        // Initialize articleKeywords array for the search list
-        this.articleItems = [];
+        
+        // Parse selected items data with error handling
+        // const dataElement = document.getElementById(selectedItemDataId);
+        const dataElement = document.getElementById(field + '_data');
+        let parsedData = null;
+        
+        try {
+            if (dataElement && dataElement.value && dataElement.value.trim()) {
+                parsedData = JSON.parse(dataElement.value);
+            }
+        } catch (e) {
+            console.error('Failed to parse selected items data:', e);
+        }
+        
+        // Ensure selectedItemsData is always an array
+        if (!parsedData) {
+            this.selectedItemsData = [];
+        } else if (Array.isArray(parsedData)) {
+            this.selectedItemsData = parsedData;
+        } else {
+            this.selectedItemsData = [parsedData];
+        }
 
-        this.currentItems = await getField(field,this.articleId);
-        console.log('Current items for field', field, ':', this.currentItems);
+        // Build a normalized list of selected item strings for checkbox state
+        this.articleItems = this.selectedItemsData
+            .map(item => item && typeof item === 'object' ? item.title ?? item.value ?? '' : item)
+            .filter(Boolean);
+        
+        this.container = document.getElementById(field + 'Container');
+
         
         this.setupElements();
 
@@ -26,13 +51,10 @@ export class SearchCombo {
         });
         
         this.selectedItems.addEventListener('click', () => {
-            console.log('Selected items clicked');
-            console.log('Current display style:', this.searchWrapper.style.display);
             if (this.searchWrapper.style.display === 'none' || this.searchWrapper.style.display === '') {
                 this.searchWrapper.style.display = 'block';
                 this.searchBox.focus();
             } else {
-                console.log('Hiding search wrapper');
                 this.searchWrapper.style.display = 'none';
                 this.selectedItems.focus();
             }
@@ -42,7 +64,6 @@ export class SearchCombo {
         // await this.fetchCurrentItems();
 
         // Load items, to set up search box
-        console.log('Loading items for field:', this.field);
         await this.loadItems();
     }
 
@@ -68,7 +89,7 @@ export class SearchCombo {
         this.selectedItems = document.createElement('input');
         this.selectedItems.type = 'text';
         this.selectedItems.id = 'selected_items';
-        this.selectedItems.value = this.currentItems||'';
+        this.selectedItems.value = this.selectedItemsData.map(item => item.title).join(',');
         this.selectedItems.classList.add('form-control', 'mb-2');
         inputCol.appendChild(this.selectedItems);
         row.appendChild(inputCol);
@@ -92,14 +113,16 @@ export class SearchCombo {
         this.searchWrapper.appendChild(this.list);
     }
 
-    // Load keywords from server
+    // Load items from server
     // This is for the search box
     async loadItems() {
         console.log('Loading items for field:', this.field);
         const items = await searchItems(this.field, '');
         if (this.list) {
+            console.log('Loaded items:', items);
             items.forEach(item => {
-                this.addItemToList(item,this.articleItems.includes(item));
+                const checked = this.articleItems.some(selected => selected.toLowerCase() === item.toLowerCase());
+                this.addItemToList(item,checked);
             });
         }
     }
@@ -110,9 +133,13 @@ export class SearchCombo {
         div.classList.add('form-check','form-switch');
         const input = document.createElement('input');
         input.classList.add('form-check-input');
-        input.type = 'checkbox';
+        input.type = this.multiSelect ? 'checkbox' : 'radio';
+        if (!this.multiSelect) {
+            input.name = `${this.field}_choice`; // group radios together
+        }
         input.id = item;
-        input.checked = checked; //this.articleItems.includes(item);
+        input.value = item;
+        input.checked = checked;
         input.addEventListener('change', (event) => {
             window.unsavedChanges = true; // Set unsaved changes flag
             setSaveStatus(`Item ${item} ${event.target.checked ? 'added' : 'removed'}`, "info");
@@ -127,7 +154,7 @@ export class SearchCombo {
         this.list.appendChild(div);
     }
 
-    //Search keyword
+    //Search item box handler
     async handleSearchBox(e) {
         console.log('Event:', e.type, 'Value:', this.searchBox.value);
         console.log('Event object:', e);
@@ -139,7 +166,8 @@ export class SearchCombo {
             if (this.list) {
                 this.list.innerHTML = '';
                 keywords.forEach(keyword => {
-                    this.addKeywordToList(keyword,this.articleKeywords.includes(keyword));
+                    const checked = this.articleItems.some(selected => selected.toLowerCase() === keyword.toLowerCase());
+                    this.addItemToList(keyword,checked);
                 });
             }
         } else if (e.type === 'keyup') {
@@ -148,19 +176,24 @@ export class SearchCombo {
                 console.log("Enter or tab on:", query);
                 if (query.length > 3){
                     console.log("Query is longer than 3 characters");
-                    const inArray = this.articleKeywords.some(item => item.toLowerCase() === query.toLowerCase());
+                    const inArray = this.articleItems.some(item => item.toLowerCase() === query.toLowerCase());
                     if (inArray) {
                         console.log("Query is an existing keyword");
-                        const checkbox = document.querySelector(`input[type="checkbox"][value="${query}"]`);
-                        if (checkbox) {
-                            checkbox.checked = !checkbox.checked;
+                        const inputEl = document.querySelector(`input[value="${query}"]`);
+                        if (inputEl) {
+                            if (this.multiSelect) {
+                                inputEl.checked = !inputEl.checked;
+                            } else {
+                                inputEl.checked = true;
+                            }
+                            inputEl.dispatchEvent(new Event('change'));
                         }
                     } else {
                         console.log("Query is a new keyword");
                         setSaveStatus(`${query} added as a new keyword`, "info");
-                        // this.articleKeywords.push(query);
+                        // this.articleItems.push(query);
                         if (this.list) {
-                            this.addKeywordToList(query, true);
+                            this.addItemToList(query, true);
                             this.handleItemChange(query, true);
                         }
                     }
@@ -178,10 +211,19 @@ export class SearchCombo {
         try {
             const result = await saveItemChange(this.field, this.articleId, item, checked);
             if (checked) {
-                this.articleItems.push(item); // Add item to the list
+                if (this.multiSelect) {
+                    this.articleItems.push(item); // Add item to the list
+                } else {
+                    this.articleItems = [item]; // Single selection
+                    this.uncheckOtherInputs(item);
+                }
                 setSaveStatus(`Item ${item} added successfully`, "success");
             } else {
-                this.articleItems = this.articleItems.filter(i => i !== item); // Remove item from the list
+                if (this.multiSelect) {
+                    this.articleItems = this.articleItems.filter(i => i !== item); // Remove item from the list
+                } else {
+                    this.articleItems = [];
+                }
                 setSaveStatus(`Item ${item} removed successfully`, "success");
             }
             this.selectedItems.value = this.articleItems.join(',');
@@ -192,4 +234,15 @@ export class SearchCombo {
         }
     }
         // Add more methods as needed    
+
+    // For single-select: uncheck all other inputs when a new one is chosen
+    uncheckOtherInputs(selectedItem) {
+        if (this.multiSelect || !this.list) return;
+        const inputs = this.list.querySelectorAll('input');
+        inputs.forEach(input => {
+            if (input.value !== selectedItem) {
+                input.checked = false;
+            }
+        });
+    }
 }

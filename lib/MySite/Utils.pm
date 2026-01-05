@@ -2,7 +2,7 @@ package MySite::Utils;
 
 use v5.11;
 use utf8;
-use Dancer2 appname => 'MySite';
+use Dancer2 appname => 'MySite', with => {};
 use Text::Markdown 'markdown';
 
 sub render_markdown {

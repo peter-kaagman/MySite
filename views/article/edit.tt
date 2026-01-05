@@ -83,22 +83,11 @@
               </div>
 
               <!-- Category input -->
-              <% INCLUDE "article/includes/category_dropdown.tt" %>
+              <div id='categoryContainer'></div>
 
-
-              <!-- Keywords input
-              <div class='row mb-3 keywords_row'>
-                <div class="col-sm-2">
-                    <label for="search_keywords" class="form-label">Keywords:</label>
-                </div>
-                <div class='col-sm-10'>
-                  <input type="text" class="form-control mb-2" id="search_keywords" name="search_keywords" placeholder="Search...">
-                  <label for="selected_keywords" class="form-label mt-2">Selected:</label>
-                  <input readonly type="text" class="form-control mb-2" id="selected_keywords" name="selected_keywords" value="<% keywords.join(', ') %>">
-                  <label for="list_keywords" class="form-label mt-2">Available:</label>
-                  <div class="list-group" id="list_keywords"></div>
-                </div>
-              </div> -->
+              <!-- Keywords input -->
+              <div id='keywordsContainer'></div>
+              
 
               <!-- Created input -->
               <div class='row mb-3 created_row'>

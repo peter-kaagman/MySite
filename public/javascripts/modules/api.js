@@ -29,26 +29,26 @@ export async function handleSave(article, data, field) {
     }
 }
 
-// Get a specific field value
-export async function getField(field, article_id) {
-    try {
-        const response = await fetch(`/article/field/${article_id}/${field}`, {
-            method: 'GET',
-            headers: { 'Accept': 'application/json' }
-        });
-        if (!response.ok) throw new Error('Network response was not ok');
-        const data = await response.json();
-        return data.value || '';
-    } catch (error) {
-        console.error(`Error fetching field ${field}:`, error);
-        return '';
-    }
-}
+// // Get a specific field value
+// export async function getField(field, article_id) {
+//     try {
+//         const response = await fetch(`/article/field/${article_id}/${field}`, {
+//             method: 'GET',
+//             headers: { 'Accept': 'application/json' }
+//         });
+//         if (!response.ok) throw new Error('Network response was not ok');
+//         const data = await response.json();
+//         return data.value || '';
+//     } catch (error) {
+//         console.error(`Error fetching field ${field}:`, error);
+//         return '';
+//     }
+// }
 
 // Search for keywords or categories
 export function searchItems(field,query) {
-    console.log(`Searching items for field: ${field}, query: ${query}`);
-    if (field === 'keyword') {
+    if (field === 'keywords') {
+        console.log(`Searching keywords for field: ${field}, query: ${query}`);
         return searchKeywords(query);
     } else if (field === 'category') {
         return searchCategories(query);
@@ -58,6 +58,7 @@ export function searchItems(field,query) {
 // Function to search categories
 async function searchCategories(query) {
     try {
+        console.log("Fetching categories for query:", query);
         const response = await fetch(`/article/categories?query=${encodeURIComponent(query)}`, {
             method: 'GET',
             headers: { 'Accept': 'application/json' }
@@ -88,12 +89,17 @@ async function searchKeywords(query) {
 
 // Save keyword or category changes
 export function saveItemChange(field, article_id, item, checked) {
-    return saveKeywordChange(article_id, item, checked); // Reuse existing function for simplicity
+    if (field === 'category') {
+        return saveCategoryChange(article_id, item, checked);
+    }else{
+        return saveKeywordChange(article_id, item, checked);
+    }
 }
 // Function to handle keyword changes
 async function saveKeywordChange(article_id, keyword, checked) {
+    console.log('Saving keyword change:', article_id, keyword, checked);
     window.unsavedChanges = true;
-    setSaveStatus(`Keyword ${keyword} ${checked ? 'added' : 'removed'}`, "info");
+    setSaveStatus(`Item ${keyword} ${checked ? 'added' : 'removed'}`, "info");
     const data = {
         article_id,
         keyword,
@@ -107,13 +113,43 @@ async function saveKeywordChange(article_id, keyword, checked) {
             },
             body: JSON.stringify(data)
         });
+        console.log('Keyword change response status:', response.status);
+        if (!response.ok) throw new Error('Network response was not ok');
+        const result = await response.json();
+        window.unsavedChanges = false;
+        
+        return result;
+    } catch (error) {
+        setSaveStatus(`Error ${checked ? 'adding' : 'removing'} keyword ${keyword}`, "error");
+        console.error('Error sending keyword data:', error);
+        throw error;
+    }
+}
+
+// Function to handle category changes (single select)
+async function saveCategoryChange(article_id, category, checked) {
+    window.unsavedChanges = true;
+    setSaveStatus(`Category ${category} ${checked ? 'selected' : 'updated'}`, "info");
+    const data = {
+        article_id,
+        category,
+        checked
+    };
+    try {
+        const response = await fetch('/article/category', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
         if (!response.ok) throw new Error('Network response was not ok');
         const result = await response.json();
         window.unsavedChanges = false;
         return result;
     } catch (error) {
-        setSaveStatus(`Error ${checked ? 'adding' : 'removing'} keyword ${keyword}`, "error");
-        console.error('Error sending keyword data:', error);
+        setSaveStatus(`Error setting category ${category}`, "error");
+        console.error('Error sending category data:', error);
         throw error;
     }
 }
