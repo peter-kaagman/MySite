@@ -1,93 +1,46 @@
-<h1>Nieuw artikel toevoegen</h1>
-<form id="add-article-form">
-  <input type='hidden' id='article_id' value='0'>  
-  <div class='row mb-3 title_row'>
-    <div class="col-sm-2">
-      <label for="edit_title" class="form-label">Title: </label>
-    </div>
-    <div class='col-sm-10'>
-      <input type="text" class="form-control" id="edit_title" name="edit_title" required>
-    </div>
+<h1>Nieuw artikel</h1>
+
+<div id="save-status" class="alert" style="display:none;" aria-live="polite"></div>
+
+<form id="add-article-form" class="mt-3" autocomplete="off">
+  <div class="mb-3">
+    <label for="title" class="form-label">Titel</label>
+    <input type="text" class="form-control" id="title" name="title" required>
   </div>
-  <!-- Slug input -->
-  <div class='row mb-3 slug_row'>
-    <div class='col-sm-2'>
-        <label for="edit_slug" class="form-label">Slug: </label>
+
+  <div class="mb-3">
+    <div class="form-check form-switch mb-2">
+      <input class="form-check-input" type="checkbox" id="slugtitle" name="slugtitle" checked>
+      <label class="form-check-label" for="slugtitle">Slug volgt titel</label>
     </div>
-    <div class='col-sm-10'>
-      <div class="row mb-3 ">
-        <div class="col-sm-1 form-check form-switch">
-          <input class="form-check-input" type="checkbox" id="edit_slugtitle" name="edit_slugtitle" checked  >
-        </div>
-        <div class="col-sm-11">
-          <input type="text" class="form-control" id="edit_slug" name="edit_slug" readonly required >
-        </div>
-      </div>
-    </div>
+    <label for="slug" class="form-label">Slug</label>
+    <input type="text" class="form-control" id="slug" name="slug" readonly required>
   </div>
-  <!-- Category input -->
-  <div class='row mb-3 category_row'>
-    <div class="col-sm-2">
-        <label for="edit_category" class="form-label">Categorie: </label>
-    </div>
-    <div class='col-sm-10'>
-      <select class="form-select" id="edit_category" name="edit_category">
-        <% FOR category IN categories.all %>
-          <option value='<% category.id %>' <% IF category.id == article.categoryid.id %>selected<% END %> >
-            <% category.title %>
-          </option>
-        <% END %>
-      </select>
-    </div>
+
+  <div class="mb-3">
+    <label for="categoryid" class="form-label">Categorie</label>
+    <select class="form-select" id="categoryid" name="categoryid" required>
+      <% FOR category IN categories.all %>
+        <option value="<% category.category_id %>"><% category.title %></option>
+      <% END %>
+    </select>
   </div>
-  <!-- Keywords input -->
-  <div class='row mb-3 keywords_row'>
-    <div class="col-sm-2">
-        Keywords:
-    </div>
-    <div class='col-sm-10'>
-      <div class="row">
-        <div class="col-sm-2">
-          <label for="search_keywords" class="form-label">Search: </label>
-        </div>
-        <div class="col-sm-10">
-          <input type="text" class="form-control" id="search_keywords" name="search_keywords">
-        </div>
-        <div class="col-sm-2">
-          <label for="selected_keywords" class="form-label">Selected: </label>
-        </div>
-        <div class="col-sm-10">
-          <input 
-            readonly 
-            type="text" 
-            class="form-control" 
-            id="selected_keywords" 
-            name="selected_keywords"
-            value="<% keywords.join(', ') %>"
-          >
-        </div>
-        <div class="col-sm-2">
-          <label for="list_keywords" class="form-label">Available: </label>
-        </div>
-        <div class="col-sm-10 list-group" id="list_keywords">
-        </div>
-      </div>
-    </div>
+
+  <div class="mb-3">
+    <label for="abstract" class="form-label">Abstract</label>
+    <textarea class="form-control" id="abstract" name="abstract" rows="3" required></textarea>
   </div>
-  <!-- Published input -->
-  <div class='row mb-3 published_row'>
-    <div class="col-sm-2">
-        <label for="edit_published" class="form-label">Published: </label>
-    </div>
-    <div class='col-sm-10'>
-        <input type="datetime-local" class="form-control" id="edit_published" name="edit_published" value="<% article.published %>">
-    </div>
-  </div>  
-  <button type="submit" class="btn btn-primary">Opslaan</button>
-  <button type="reset" class="btn btn-secondary">Reset</button>
-  <button type="button" class="btn btn-secondary" id="cancel_button">Annuleren</button>
+
+  <div class="mb-3">
+    <label for="content" class="form-label">Inhoud</label>
+    <textarea class="form-control" id="content" name="content" rows="10" required></textarea>
+  </div>
+
+  <div class="d-flex gap-2">
+    <button type="submit" class="btn btn-primary">Opslaan</button>
+    <button type="button" class="btn btn-secondary" id="cancel_button">Annuleren</button>
+  </div>
 </form>
-<div id="save-status" style="display:none;" aria-live="polite"></div>
 
 <script type="module" src="/javascripts/article_add.js"></script>
 

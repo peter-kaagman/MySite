@@ -1,7 +1,7 @@
 package MySite;
 
 use utf8;
-use Dancer2;
+use Dancer2 with => {};
 use Dancer2::Plugin::Auth::Tiny;
 use Dancer2::Plugin::DBIC;
 use Data::Dumper;
@@ -10,6 +10,7 @@ use MySite::User;
 use MySite::Article;
 
 our $VERSION = '0.1';
+# set serializer => 'JSON';
 # $ENV{DBIC_TRACE} = '1';
 
 

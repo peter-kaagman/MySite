@@ -2,7 +2,7 @@ package MySite::User;
 
 use v5.11;
 use utf8;
-use Dancer2 appname => 'MySite';
+use Dancer2 appname => 'MySite', with => {};
 use Dancer2::Plugin::Auth::OAuth;
 # use Dancer2::Plugin::Auth::Tiny;
 # use Dancer2::Plugin::Database;
@@ -28,7 +28,7 @@ sub _login {
   );
   debug "Wat is page";
   debug $page->name;
-  template 'page' =>{
+  template 'page' => {
     'title' => 'Login', 
     'page' => $page,#->get_column('content'),
   };
@@ -70,7 +70,7 @@ sub _ok {
 };
 
 sub _failed {
-  template 'user/loginfailed' =>{ 'title' => 'Login failed'};
+  template 'user/loginfailed' => { 'title' => 'Login failed' };
 };
 
 sub _checkUser{
@@ -126,7 +126,7 @@ sub _profile {
     # say $user_data->roleid->role_id;
     # say $user_data->roleid->name;
     if ($user_data){
-      template 'user/profile' =>{ 
+      template 'user/profile' => { 
         'title' => 'Profile'.$username,
         'user' => $user_data
       };

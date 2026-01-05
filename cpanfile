@@ -1,4 +1,4 @@
-requires "Dancer2" => "1.1.1";
+requires "Dancer2" => "2.0.1";
 requires "Dancer2::Plugin::Auth::Tiny" => "0";
 requires "Dancer2::Plugin::DBIC" => "0";
 requires "Text::Markdown" => "0";

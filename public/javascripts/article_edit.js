@@ -22,14 +22,12 @@ document.addEventListener('DOMContentLoaded', function() {
     titleManager.init();
 
     // Category manager
-    // Could be done with a droprdown, but keeping consistent with keywords for now
-    const categoryManager = new SearchCombo();
-    // categoryManager.init('article_id', 'list_categories', 'search_category', 'selected_categories', false);
-    categoryManager.init('article_id','categoryid', 'Categorie:','categoryContainer', false);
+    // const categoryManager = new SearchCombo();
+    // categoryManager.init('article_id','category', 'Categorie:', false);
     
     // Keyword manager
-    // const keywordManager = new SearchCombo();
-    // keywordManager.init('article_id', 'list_keywords', 'search_keywords', 'selected_keywords', true);
+    const keywordManager = new SearchCombo();
+    keywordManager.init('article_id', 'keywords', 'Keywords:', true);
 
     // Save button for content (if not already in toolbar)
     const saveBtn = document.getElementById('save-content');

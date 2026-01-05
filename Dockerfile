@@ -1,0 +1,56 @@
+# Multi-stage Dockerfile for MySite Dancer2 application
+FROM perl:5.38 AS builder
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libssl-dev \
+    zlib1g-dev \
+    sqlite3 \
+    libsqlite3-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Copy cpanfile and install Perl dependencies
+COPY cpanfile cpanfile.snapshot ./
+RUN cpanm --installdeps --notest .
+
+# Copy application code
+COPY . .
+
+# Production stage
+FROM perl:5.38-slim
+
+# Install runtime dependencies only
+RUN apt-get update && apt-get install -y \
+    libssl3 \
+    sqlite3 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create non-root user
+RUN useradd -m -u 1000 dancer && \
+    mkdir -p /app/logs /app/sessions && \
+    chown -R dancer:dancer /app
+
+WORKDIR /app
+
+# Copy Perl modules from builder
+COPY --from=builder /usr/local/lib/perl5 /usr/local/lib/perl5
+COPY --from=builder /usr/local/bin /usr/local/bin
+
+# Copy application files
+COPY --chown=dancer:dancer . .
+
+# Switch to non-root user
+USER dancer
+
+# Expose Plack default port
+EXPOSE 5000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
+    CMD perl -e 'use LWP::Simple; exit(defined(head("http://localhost:5000/")) ? 0 : 1);'
+
+# Start application via plackup
+CMD ["plackup", "-s", "Starman", "-p", "5000", "-E", "production", "bin/app.psgi"]
