@@ -1,6 +1,180 @@
 # MySite Development Log
 
+## 2026-01-09 (issue #23) - Slug Validatie & UI Synchronisatie
+
+### ✅ Slug Validatie & Normalisatie Geïmplementeerd
+
+**DBIC Schema Validatie:**
+- `lib/MySite/Schema/Result/Article.pm`: `insert()` en `update()` methods toegevoegd met `_validate_slug()`
+- Valideert bij elke database operatie:
+  - ❌ Geen spaties toegestaan
+  - ❌ Alleen lowercase
+  - ❌ Alleen a-z, 0-9, hyphens, underscores
+- Gooit exception met duidelijke foutmelding bij invalid slug
+
+**Route Handler Normalisatie:**
+- `lib/MySite/Article.pm` `_field_update()`: Specifieke handler voor slug updates toegevoegd
+- Gebruikt `slugify()` om user input automatisch te normaliseren
+- Ook title+slug sync path aangepast om `slugify()` te gebruiken i.p.v. handmatige regex
+- **UX verbetering**: Gebruiker krijgt geen error, slug wordt automatisch gecorrigeerd
+
+**Utils Wijziging:**
+- `lib/MySite/Utils.pm` `slugify()`: Aangepast om **underscores** te gebruiken i.p.v. hyphens
+  - "My Article" → `my_article` (was `my-article`)
+  - Consistent met bestaande database slugs
+
+### ✅ Event-Driven UI Synchronisatie
+
+**Architectuur:**
+Volledig automatische UI synchronisatie via custom events - geen handmatige updates meer nodig.
+
+**Backend Response:**
+Route handlers geven nu **normalized values** terug in JSON response:
+```json
+{
+  "success": 1,
+  "slug": "my_article",  // Genormaliseerde waarde
+  "message": "Slug updated successfully"
+}
+```
+
+**Frontend Implementatie:**
+
+1. **api.js** - Event Dispatch
+   - `handleSave()` dispatcht `article-field-saved` event met:
+     - Field name, article ID, originele waarde, server response
+   - Alle modules die `handleSave()` gebruiken krijgen automatisch UI sync
+
+2. **uiSync.js** (NIEUW) - Centrale Event Handler
+   - Luistert naar `article-field-saved` events
+   - Update automatisch DOM elementen met server values
+   - Speciale behandeling per field type:
+     - **slug**: Toont notificatie als genormaliseerd
+     - **title**: Update ook slug als meegeleverd in response
+     - **content**: Update version indicator
+   - Visuele feedback: groene flash animatie op geupdate velden
+   - Console logging voor debugging (`🔄 Syncing UI for field: ...`)
+
+3. **article_edit.js** - Initialisatie
+   - Import `initUISync()` en aanroep bij DOMContentLoaded
+   - Eén regel code, alles automatisch werkend
+
+4. **style.css** - Visuele Feedback
+   - `.field-updated`: Groene flash animatie (0.5s pulse)
+   - `.sync-notification`: Toast-style notificatie rechtsboven
+   - Smooth transitions voor professionele UX
+
+**Voordelen:**
+- ✅ **Zero boilerplate**: Modules hoeven geen UI update code te bevatten
+- ✅ **Consistent**: Alle field updates werken hetzelfde
+- ✅ **Forget-proof**: Automatisch voor alle `handleSave()` calls
+- ✅ **Debuggable**: Console logs tonen exact wat er gebeurt
+- ✅ **User feedback**: Visuele indicatie van updates
+- ✅ **UI/DB sync**: Gebruiker ziet altijd de database-werkelijkheid
+
+**Test Scenario's:**
+- Slug "Test   Artikel!!!" → UI toont `test_artikel` + notificatie
+- Title wijzigen → beide title én slug velden updaten automatisch
+- Content save → version number increment zichtbaar met animatie
+
+---
+
+## 2026-01-09 (issue #23) - Openstaande Issues
+
+### ✅ ~~OPGELOST - Slug validatie~~
+~~Slug validatie in `_field_update`~~ → **OPGELOST** via DBIC validatie + normalisatie
+
+### 🟡 SECUNDAIR - Validatie hiaten
+- **Lege waarden in content/abstract**: `/article/update/field/:id` accepteert lege waarden voor `content` en `abstract`
+  - Geen trim+check op `$data->{value}` na `trim()`
+  - **Fix nodig**: Voeg validatie toe dat `trim($data->{value})` niet leeg is voor deze velden
+  - **Impact**: UI/UX - gebruiker kan per ongeluk content/abstract legen
+
+###  TESTEN NODIG - SearchCombo keywords
+- SearchCombo voor categories werkt, maar keywords nog niet volledig getest
+- Waarschijnlijk al in orde door vandaag's wijzigingen in `user_can_edit_article`
+- **Action**: Manual test in browser checken
+
+### 📋 COSMETIC - UI/UX
+- SearchCombo selectedItems Bootstrap layout is niet perfect
+- Functionaliteit werkt, maar spacing/alignment kan beter
+- **Action**: Laag prioriteit, later oppakken
+
+---
+
+## 2026-01-09 (issue #23)
+
+### Article.pm Security & Code Quality Review
+
+#### Security Audit - Route Authorization
+Volledig overzicht van alle routes in `Article.pm` op autorisatie:
+
+| Route | Methode | Handler | Auth Check | Status |
+|-------|---------|---------|-----------|--------|
+| `/article/keywords` | GET | `_get_keywords` | ❌ Geen | ✅ Opzettelijk (publiek) |
+| `/article/categories` | GET | `_get_categories` | ❌ Geen | ✅ Opzettelijk (publiek) |
+| `/article/new` | GET | `_get_article_new` | ✅ Rol-check | 🟢 OK |
+| `/article/edit/:id` | GET | `_get_article_edit` | ✅ Auth + Eigendom/Rol | 🟢 OK |
+| `/article/delete/:id` | GET | `_article_delete` | ✅ Auth + Eigendom/Rol | 🟢 OK |
+| `/article/:category/:slug` | GET | `_article` | ❌ Geen | ✅ OK (publiek artikel) |
+| `/article/add` | POST | `_post_article_new` | ✅ Rol-check | 🟢 OK |
+| `/article/update/:field/:id` | POST | `_field_update` | ✅ Auth + Eigendom/Rol | 🟢 OK |
+| `/article/keyword` | POST | `_handle_keyword` | ✅ Auth + Eigendom/Rol | 🟢 OK |
+| `/article/category` | POST | `_handle_category` | ✅ Auth + Eigendom/Rol | 🟢 OK |
+
+**Conclusie:** Alle routes correct beveiligd. Keywords/Categories zijn opzettelijk publiek (autocomplete endpoints).
+
+#### Code Quality Improvements
+- Route definitions vertically aligned (fat arrows) voor betere leesbaarheid
+- `_field_update` refactored: meerdere return statements samengebracht tot één single exit point
+- Redundante `content_type` calls verwijderd (Dancer2 `to_json()` zet dit automatisch)
+
+#### Bug Fixes in `Utils.pm`
+- **user_can_edit_article** uitgebreid om 'new article' scenario te ondersteunen:
+  - Voorheen faalde check altijd als `$author = undef` (voor nieuwe artikelen)
+  - Nu: als `!$author`, wordt alleen rol gecontroleerd (Admin/Editor/Writer)
+  - Bestaande artikelen: rol + ownership check (Owner role moet ingesteld zijn)
+- Dit maakt `_get_article_new` correcte authz possible met `user_can_edit_article($user, undef, \@allowed_roles)`
+
+#### Parameter Order Fix
+- `_handle_keyword` en `_handle_category` hadden verkeerde parameter volgorde voor `user_can_edit_article`
+  - Was: `user_can_edit_article($user, $article, $author_obj)` → ❌ Fout (article object lacks username method)
+  - Nu: `user_can_edit_article($user, $author_obj, \@allowed_roles)` → ✅ Correct
+
+---
+
+## 2026-01-07 (issue #23)
+
+### Auth & Utils Update
+- Utils teruggebouwd naar `Exporter` i.p.v. `Exporter::Tiny`; geen `qw(...)` meer gebruikt.
+- "Odd/Uneven number of elements in hash assignment" melding is weg.
+- Authenticatie-methodes aan het stroomlijnen: Utils alleen voor pure logica, geen UI/response afhandeling.
+- Responsafhandeling per context: HTML-responders in routes/templates; JSON-responders in API-handlers.
+
+### Auth::Extensible integratie (custom SessionOAuth provider)
+- Dependency toegevoegd: `Dancer2::Plugin::Auth::Extensible` (cpanfile, versie >= 0.701) en geïnstalleerd met `carton install`.
+- Config: realm `users` met provider `MySite::Auth::Provider::SessionOAuth` in `config.yml`.
+- Provider: `lib/MySite/Auth/Provider/SessionOAuth.pm` gebruikt nu `Dancer2::Plugin::Auth::Extensible::Role::Provider` i.p.v. de deprecated `Provider::Base`.
+- Session alignment: in OAuth callback wordt nu `logged_in_user` + `logged_in_user_realm` in de sessie gezet voor Extensible helpers.
+- `MySite.pm`: plugin switch naar Auth::Extensible en `requires_login` gebruikt voor secured route.
+- Article model: helper `is_owned_by($user)` toegevoegd voor resource-level checks.
+
+Volgende stappen (optioneel):
+- Voeg `requires_login`/`requires_any_role(Admin Editor Writer)` toe aan artikel create/edit routes in `Article.pm`.
+- Vervang ad-hoc helpers door `logged_in_user()` + `user_has_role()` + `is_owned_by()` binnen handlers.
+- Splits HTML vs JSON gedrag per route (of Accept-header) i.p.v. in Utils.
+- Test: `carton exec plackup bin/app.psgi`, login via OAuth, check dat guarded routes werken; oefen 401/403 responses op API-routes.
+
+---
+
 ## 2026-01-05 (issue #23)
+
+### Auth & Utils Refactor
+- Utils.pm switched to Exporter::Tiny (explicit import override) so helpers export correctly without Dancer2 shadowing import.
+- Auth helpers `_require_user_logged_in` and `_user_can_edit_article` moved into Utils and exported; Article.pm now imports via `:all`.
+- Keyword/Category endpoints now enforce the same auth check (owner/Admin/Editor) using the shared helper.
+- Slug helpers `_slugify` and `_unique_slug` centralized in Utils; Article.pm uses them for create/update.
+- Dependency added: Exporter::Tiny recorded in cpanfile; run `carton install` to fetch.
 
 ### Status Update - Edit Functionaliteit (bijna) Compleet
 

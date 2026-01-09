@@ -17,8 +17,20 @@ export async function handleSave(article, data, field) {
         });
         if (response.status === 200) {
             window.unsavedChanges = false;
+            const result = await response.json();
             setSaveStatus("Changes saved successfully", "success");
-            return await response.json();
+            
+            // Dispatch custom event for UI synchronization
+            document.dispatchEvent(new CustomEvent('article-field-saved', {
+                detail: {
+                    field: field,
+                    articleId: article,
+                    originalValue: data.value,
+                    responseData: result
+                }
+            }));
+            
+            return result;
         } else {
             setSaveStatus(`Error saving changes: ${response.statusText}`, "error");
             throw new Error(response.statusText);

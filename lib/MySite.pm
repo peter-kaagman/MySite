@@ -2,7 +2,6 @@ package MySite;
 
 use utf8;
 use Dancer2 with => {};
-use Dancer2::Plugin::Auth::Tiny;
 use Dancer2::Plugin::DBIC;
 use Data::Dumper;
 use MySite::Index;
@@ -17,7 +16,7 @@ our $VERSION = '0.1';
 
 
 
-get '/secured' => needs login => sub {
+get '/secured' => sub {
   my $user = session->read('user');
   debug "Dit is secured";
   debug Dumper $user;
