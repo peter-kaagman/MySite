@@ -1,6 +1,7 @@
 import { initEditors } from './modules/editor.js';
 import { SearchCombo } from './modules/searchcombo.js';
 import { TitleManager } from './modules/title_slug.js';
+import { initUISync } from './modules/uiSync.js';
 // import { registerFieldHandlers } from './modules/fields.js'; // refactoring out
 // import { fieldDefinitions } from './modules/fieldDefinitions.js'; // refactoring out
 
@@ -13,6 +14,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Initialize UI synchronization (listens to article-field-saved events)
+    initUISync();
+
     // Init editors and expose for debugging
     const editors = initEditors();
     // registerFieldHandlers(fieldDefinitions); // refactoring out
@@ -22,8 +26,8 @@ document.addEventListener('DOMContentLoaded', function() {
     titleManager.init();
 
     // Category manager
-    // const categoryManager = new SearchCombo();
-    // categoryManager.init('article_id','category', 'Categorie:', false);
+    const categoryManager = new SearchCombo();
+    categoryManager.init('article_id','category', 'Categorie:', false);
     
     // Keyword manager
     const keywordManager = new SearchCombo();

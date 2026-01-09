@@ -71,4 +71,4 @@ plugins:
       schema_class: MySite::Schema
       options:
         sqlite_unicode: 1
-      
+  Auth::Extensible:

@@ -223,5 +223,48 @@ sub returnURL {
   );
 }
 
+sub is_owned_by {
+  my ($self, $user) = @_;
+  return 0 unless $user && $user->{username};
+  my $author = $self->search_related('authorid')->first;
+  return 0 unless $author;
+  return $author->username eq $user->{username} ? 1 : 0;
+}
+
+# Slug validation
+sub insert {
+  my $self = shift;
+  $self->_validate_slug();
+  return $self->next::method(@_);
+}
+
+sub update {
+  my $self = shift;
+  $self->_validate_slug();
+  return $self->next::method(@_);
+}
+
+sub _validate_slug {
+  my $self = shift;
+  my $slug = $self->slug or return;
+  
+  # Check voor spaties
+  if ($slug =~ /\s/) {
+    die "Slug cannot contain spaces: '$slug'";
+  }
+  
+  # Check voor lowercase
+  if ($slug ne lc($slug)) {
+    die "Slug must be lowercase: '$slug'";
+  }
+  
+  # Check voor alleen toegestane karakters (lowercase letters, numbers, hyphens, underscores)
+  if ($slug =~ /[^a-z0-9_-]/) {
+    die "Slug can only contain lowercase letters, numbers, hyphens and underscores: '$slug'";
+  }
+  
+  return 1;
+}
+
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 1;

@@ -51,10 +51,13 @@ export class SearchCombo {
         });
         
         this.selectedItems.addEventListener('click', () => {
+            console.log('Selected items input clicked');
             if (this.searchWrapper.style.display === 'none' || this.searchWrapper.style.display === '') {
+                console.log('Showing search box');
                 this.searchWrapper.style.display = 'block';
                 this.searchBox.focus();
             } else {
+                console.log('Hiding search box');
                 this.searchWrapper.style.display = 'none';
                 this.selectedItems.focus();
             }
