@@ -3,41 +3,30 @@
 <div id="save-status" class="alert" style="display:none;" aria-live="polite"></div>
 
 <form id="add-article-form" class="mt-3" autocomplete="off">
+  
+  <!-- Title and Slug using TitleManager module -->
   <div class="mb-3">
-    <label for="title" class="form-label">Titel</label>
-    <input type="text" class="form-control" id="title" name="title" required>
+    <label for="edit_title" class="form-label">Titel</label>
+    <input type="text" class="form-control" id="edit_title" name="title" required>
   </div>
 
   <div class="mb-3">
     <div class="form-check form-switch mb-2">
-      <input class="form-check-input" type="checkbox" id="slugtitle" name="slugtitle" checked>
-      <label class="form-check-label" for="slugtitle">Slug volgt titel</label>
+      <input class="form-check-input" type="checkbox" id="edit_slugtitle" name="slugtitle" checked>
+      <label class="form-check-label" for="edit_slugtitle">Slug volgt titel</label>
     </div>
-    <label for="slug" class="form-label">Slug</label>
-    <input type="text" class="form-control" id="slug" name="slug" readonly required>
+    <label for="edit_slug" class="form-label">Slug</label>
+    <input type="text" class="form-control" id="edit_slug" name="slug" readonly required>
   </div>
 
-  <div class="mb-3">
-    <label for="categoryid" class="form-label">Categorie</label>
-    <select class="form-select" id="categoryid" name="categoryid" required>
-      <% FOR category IN categories.all %>
-        <option value="<% category.category_id %>"><% category.title %></option>
-      <% END %>
-    </select>
-  </div>
+  <!-- Category using SearchCombo module -->
+  <div id="categoryContainer"></div>
 
-  <div class="mb-3">
-    <label for="abstract" class="form-label">Abstract</label>
-    <textarea class="form-control" id="abstract" name="abstract" rows="3" required></textarea>
-  </div>
+  <!-- Keywords using SearchCombo module -->
+  <div id="keywordsContainer"></div>
 
-  <div class="mb-3">
-    <label for="content" class="form-label">Inhoud</label>
-    <textarea class="form-control" id="content" name="content" rows="10" required></textarea>
-  </div>
-
-  <div class="d-flex gap-2">
-    <button type="submit" class="btn btn-primary">Opslaan</button>
+  <div class="d-flex gap-2 mt-4">
+    <button type="submit" class="btn btn-primary">Artikel aanmaken</button>
     <button type="button" class="btn btn-secondary" id="cancel_button">Annuleren</button>
   </div>
 </form>
