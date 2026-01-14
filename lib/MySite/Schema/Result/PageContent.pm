@@ -43,7 +43,8 @@ __PACKAGE__->table("page_content");
 =head2 created
 
   data_type: 'timestamp'
-  is_nullable: 0
+  default_value: current_timestamp
+  is_nullable: 1
 
 =head2 published
 
@@ -71,7 +72,11 @@ __PACKAGE__->add_columns(
   "version",
   { data_type => "integer", is_nullable => 0 },
   "created",
-  { data_type => "timestamp", is_nullable => 0 },
+  {
+    data_type     => "timestamp",
+    default_value => \"current_timestamp",
+    is_nullable   => 1,
+  },
   "published",
   { data_type => "timestamp", is_nullable => 1 },
   "editorid",
@@ -125,8 +130,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07052 @ 2024-11-20 11:15:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:NUc1HQvmQoUjtP6gVhD8sQ
+# Created by DBIx::Class::Schema::Loader v0.07052 @ 2025-08-14 12:07:56
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:OzfhfSpGhxwAcelWb1xIFg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

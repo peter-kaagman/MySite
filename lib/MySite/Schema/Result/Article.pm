@@ -39,6 +39,12 @@ __PACKAGE__->table("article");
   data_type: 'text'
   is_nullable: 0
 
+=head2 slugtitle
+
+  data_type: 'integer'
+  default_value: 1
+  is_nullable: 1
+
 =head2 authorid
 
   data_type: 'integer'
@@ -47,14 +53,20 @@ __PACKAGE__->table("article");
 
 =head2 categoryid
 
-  data_type: 'text'
+  data_type: 'integer'
   is_foreign_key: 1
   is_nullable: 0
 
 =head2 created
 
   data_type: 'timestamp'
-  is_nullable: 0
+  default_value: current_timestamp
+  is_nullable: 1
+
+=head2 published
+
+  data_type: 'timestamp'
+  is_nullable: 1
 
 =head2 abstract
 
@@ -70,12 +82,20 @@ __PACKAGE__->add_columns(
   { data_type => "text", is_nullable => 0 },
   "slug",
   { data_type => "text", is_nullable => 0 },
+  "slugtitle",
+  { data_type => "integer", default_value => 1, is_nullable => 1 },
   "authorid",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
   "categoryid",
-  { data_type => "text", is_foreign_key => 1, is_nullable => 0 },
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
   "created",
-  { data_type => "timestamp", is_nullable => 0 },
+  {
+    data_type     => "timestamp",
+    default_value => \"current_timestamp",
+    is_nullable   => 1,
+  },
+  "published",
+  { data_type => "timestamp", is_nullable => 1 },
   "abstract",
   { data_type => "text", is_nullable => 0 },
 );
@@ -181,8 +201,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07052 @ 2024-11-24 21:49:28
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:W2A6ZsKTS+SVnjHkc1RWnw
+# Created by DBIx::Class::Schema::Loader v0.07052 @ 2025-08-20 21:54:46
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:IspvZobdRV8EN5xvRTOOXQ
 
 __PACKAGE__->many_to_many(
    
@@ -201,6 +221,49 @@ sub returnURL {
     "/" .
     $self->slug 
   );
+}
+
+sub is_owned_by {
+  my ($self, $user) = @_;
+  return 0 unless $user && $user->{username};
+  my $author = $self->search_related('authorid')->first;
+  return 0 unless $author;
+  return $author->username eq $user->{username} ? 1 : 0;
+}
+
+# Slug validation
+sub insert {
+  my $self = shift;
+  $self->_validate_slug();
+  return $self->next::method(@_);
+}
+
+sub update {
+  my $self = shift;
+  $self->_validate_slug();
+  return $self->next::method(@_);
+}
+
+sub _validate_slug {
+  my $self = shift;
+  my $slug = $self->slug or return;
+  
+  # Check voor spaties
+  if ($slug =~ /\s/) {
+    die "Slug cannot contain spaces: '$slug'";
+  }
+  
+  # Check voor lowercase
+  if ($slug ne lc($slug)) {
+    die "Slug must be lowercase: '$slug'";
+  }
+  
+  # Check voor alleen toegestane karakters (lowercase letters, numbers, hyphens, underscores)
+  if ($slug =~ /[^a-z0-9_-]/) {
+    die "Slug can only contain lowercase letters, numbers, hyphens and underscores: '$slug'";
+  }
+  
+  return 1;
 }
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

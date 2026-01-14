@@ -1,13 +1,17 @@
-<div class='row sidebar-top'>
-  <p>Sidebar</p>
+<div class='sidebar-top'>
+  <h3>Sidebar</h3>
 </div>
 
-<div class='row sidebar_bottom'>
+<div class='sidebar_bottom'>
   <% IF user %>
     <ul class='sidebar_list'>
       <li>Welkom: <a href='/user/profile/<% user.username %>'><% user.username %></a></li>
       <li>Je rol is: <% user.role %></li>
       <li><img src="<% user.avatar %>" width="100px"></li>
+    </ul>
+    <h4>Menu</h4>
+    <ul class="sidebar_list">
+      <li><a href="/article/new">New article</a></li>
       <li><a href='/user/logout'>LogOut</a></li>
     </ul>
   <% ELSE %>

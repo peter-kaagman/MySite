@@ -1,34 +1,132 @@
-<link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
-
+<!-- Hidden field for article ID -->
 <input type='hidden' id='article_id' value='<% article.id %>'>
-<div class='row' id='article_header'>
+<!-- Hidden field for category data-->
+<input type='hidden' id='category_data' value='<% category %>'>
+<!-- Hidden field for keywords data-->
+<input type='hidden' id='keywords_data' value='<% keywords %>'>
 
-    <div class='row title_row'>
-      <div class="col-sm-2">
-        <label for="edit_title" class="form-label">Title: </label>
-      </div>
-      <div class='col-sm-10'>
-        <input type="text" class="form-control" id="edit_title" name="username" value="<% article.title %>" readonly>
-      </div>
-    </div>
-
-    <div class='row'>
-        <div id='editor_container' class='col-sm-12'>
-            <div id="article_editor" class='row'>
-                <% article_content.first.content %>
-            </div>
-        </div>
-    </div>
-</div>
-<div class='row' id='article_actions'>
-    <div class='col-sm-12'>
-        <a id='cancel' href='#'>Cancel</a>
-        <a id='save' href='#'>Save</a>
-    </div>
+<!-- Row 1: Title input field -->
+<div class="row mb-3 title_row">
+	<div class="col-sm-2">
+		<label for="edit_title" class="form-label">Title: </label>
+	</div>
+	<div class="col-sm-10">
+		<!-- Article title goes here -->
+		<input type="text" class="form-control" id="edit_title" name="edit_title" value="<% article.title %>">
+	</div>
 </div>
 
-<!-- Include the Quill library -->
-<script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
-<script src="/javascripts/article_edit.js"></script>
+<!-- Row 2: Tabbed editor interface -->
+<div class="row">
+	<div class="col-12">
+		<div class="card mt-2">
+			<div class="card-body p-0">
+				<!-- Tab navigation for Content, Abstract, and Meta data -->
+				<ul class="nav nav-tabs" id="editorTabs" role="tablist">
+					<!-- Tab 1: Content -->
+					<li class="nav-item" role="presentation">
+						<button class="nav-link active" id="tab-content" data-bs-toggle="tab" data-bs-target="#pane-content" type="button" role="tab" aria-controls="pane-content" aria-selected="true">Content</button>
+					</li>
+					<!-- Tab 2: Abstract -->
+					<li class="nav-item" role="presentation">
+						<button class="nav-link" id="tab-abstract" data-bs-toggle="tab" data-bs-target="#pane-abstract" type="button" role="tab" aria-controls="pane-abstract" aria-selected="false" tabindex="-1">Abstract</button>
+					</li>
+					<!-- Tab 3: Meta data -->
+					<li class="nav-item" role="presentation">
+						<button class="nav-link" id="tab-meta" data-bs-toggle="tab" data-bs-target="#pane-meta" type="button" role="tab" aria-controls="pane-meta" aria-selected="false" tabindex="-1">Meta data</button>
+					</li>
+				</ul>
 
+				<div class="tab-content p-3" id="editorTabsContent">
+					
+					<!-- Tab pane: Content -->
+					<div class="tab-pane show active fade p-3" id="pane-content" role="tabpanel" aria-labelledby="tab-content">
+						<fieldset>
+							<!-- Main content editor textarea -->
+              <textarea id="content_editor" class="form-control" rows="12" placeholder="Edit content here..."><% article_content.first.content | trim %></textarea>
+						</fieldset>
+					</div>
 
+					<!-- Tab pane: Abstract -->
+					<div class="tab-pane fade p-3" id="pane-abstract" role="tabpanel" aria-labelledby="tab-abstract">
+						<fieldset>
+							<!-- Abstract editor textarea -->
+							<textarea id="abstract_editor" class="form-control" rows="4" placeholder="Edit abstract here..."><% article.abstract | trim %></textarea>
+						</fieldset>
+					</div>
+
+					<!-- Tab pane: Meta data -->
+					<div class="tab-pane fade p-3" id="pane-meta" role="tabpanel" aria-labelledby="tab-meta">
+						<fieldset>
+
+              <!-- Slug input -->
+              <div class='row mb-3 slug_row align-items-center'>
+                <div class='col-sm-2'>
+                    <label for="edit_slug" class="form-label">Slug: </label>
+                </div>
+                <div class='col-sm-1 form-check form-switch'>
+                  <input class="form-check-input" type="checkbox" id="edit_slugtitle" name="edit_slugtitle" <% if article.slugtitle %>checked<% end %>  >
+                </div>
+                <div class='col-sm-9'>
+                  <input type="text" class="form-control" id="edit_slug" name="edit_slug" <% IF article.slugtitle  %>readonly<% END %> value="<% article.slug %>">
+                </div>
+              </div>
+
+              <!-- Author input -->
+              <div class='row mb-3 author_row'>
+                <div class="col-sm-2">
+                    <label for="edit_author" class="form-label">Author: </label>
+                </div>
+                <div class='col-sm-10'>
+                    <input readonly type="text" class="form-control" id="edit_author" name="edit_author"  value="<% author.name %>">
+                </div>
+              </div>
+
+              <!-- Category input -->
+              <div id='categoryContainer'></div>
+
+              <!-- Keywords input -->
+              <div id='keywordsContainer'></div>
+              
+
+              <!-- Created input -->
+              <div class='row mb-3 created_row'>
+                <div class="col-sm-2">
+                    <label for="edit_created" class="form-label">Created: </label>
+                </div>
+                <div class='col-sm-10'>
+                    <input readonly type="datetime-local" class="form-control" id="edit_created" name="edit_created" value="<% article.created %>">
+                </div>
+              </div>
+
+              <!-- Published input -->
+              <div class='row mb-3 published_row'>
+                <div class="col-sm-2">
+                    <label for="edit_published" class="form-label">Published: </label>
+                </div>
+                <div class='col-sm-10'>
+                    <input type="datetime-local" class="form-control" id="edit_published" name="edit_published" value="<% article.published %>">
+                </div>
+              </div>
+
+              <!-- Version count input -->
+              <div class='row mb-3 version_count_row'>
+                <div class="col-sm-2">
+                    <label for="edit_version_count" class="form-label">Version Count: </label>
+                </div>
+                <div class='col-sm-10'>
+                    <input readonly type="text" class="form-control" id="edit_version_count" name="edit_version_count"  value="<% content_count %>">
+                </div>
+              </div>
+
+						</fieldset>
+					</div>
+          
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Save status message area -->
+<div id="save-status" style="display:none;" aria-live="polite"></div>
