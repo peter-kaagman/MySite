@@ -34,7 +34,7 @@ sub slugify {
 # Generate a unique slug based on base text
 sub unique_slug {
   my ($base_text) = @_;
-  my $base = _slugify($base_text);
+  my $base = slugify($base_text);
   my $slug = $base;
   my $counter = 2;
 

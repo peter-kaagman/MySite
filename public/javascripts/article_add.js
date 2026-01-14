@@ -1,57 +1,54 @@
-import { setSaveStatus } from '/javascripts/modules/utils.js';
+import { setSaveStatus } from './modules/utils.js';
+import { TitleManager } from './modules/title_slug.js';
+import { SearchCombo } from './modules/searchcombo.js';
 
-function slugify(text) {
-    return text
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/^-+|-+$/g, '')
-        .replace(/--+/g, '-')
-        || 'artikel';
-}
-
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const form = document.getElementById('add-article-form');
-    const titleInput = document.getElementById('title');
-    const slugInput = document.getElementById('slug');
-    const slugtitleInput = document.getElementById('slugtitle');
-    const categorySelect = document.getElementById('categoryid');
-    const abstractInput = document.getElementById('abstract');
-    const contentInput = document.getElementById('content');
     const cancelButton = document.getElementById('cancel_button');
 
     if (!form) return;
 
-    const syncSlug = () => {
-        if (slugtitleInput.checked) {
-            slugInput.value = slugify(titleInput.value.trim());
-            slugInput.setAttribute('readonly', 'readonly');
-        } else {
-            slugInput.removeAttribute('readonly');
-        }
-    };
+    // Initialize TitleManager (auto-detects create mode - no article_id element)
+    const titleManager = new TitleManager();
+    await titleManager.init();
 
-    titleInput.addEventListener('input', syncSlug);
-    slugtitleInput.addEventListener('change', syncSlug);
-    syncSlug();
+    // Initialize Category SearchCombo (auto-detects create mode)
+    const categoryManager = new SearchCombo();
+    await categoryManager.init(null, 'category', 'Categorie:', false);
 
+    // Initialize Keywords SearchCombo (auto-detects create mode)
+    const keywordManager = new SearchCombo();
+    await keywordManager.init(null, 'keywords', 'Keywords:', true);
+
+    // Form submission: Create skeleton article
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const payload = {
-            title: titleInput.value.trim(),
-            slug: slugInput.value.trim(),
-            slugtitle: slugtitleInput.checked ? 1 : 0,
-            categoryid: categorySelect.value,
-            abstract: abstractInput.value.trim(),
-            content: contentInput.value.trim(),
-        };
 
-        if (!payload.title || !payload.abstract || !payload.content || !payload.categoryid) {
-            setSaveStatus('Titel, abstract, inhoud en categorie zijn verplicht.', 'error');
+        // Validate required fields
+        const title = titleManager.titleInput?.value.trim();
+        const category = categoryManager.articleItems[0]; // First selected category
+
+        if (!title) {
+            setSaveStatus('Titel is verplicht.', 'error');
             return;
         }
 
-        setSaveStatus('Bezig met opslaan...', 'info');
+        if (!category) {
+            setSaveStatus('Categorie is verplicht.', 'error');
+            return;
+        }
+
+        setSaveStatus('Bezig met aanmaken artikel...', 'info');
+
         try {
+            const payload = {
+                title: title,
+                slug: titleManager.slugInput?.value.trim() || '',
+                slugtitle: titleManager.slugtitleInput?.checked ? 1 : 0,
+                categoryid: category, // Category is title string, but API expects ID
+                keywords: keywordManager.articleItems, // Array of keyword strings
+            };
+
             const response = await fetch('/article/add', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -61,12 +58,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json().catch(() => ({}));
 
             if (response.ok && data.success) {
-                setSaveStatus('Artikel succesvol aangemaakt.', 'success');
-                if (data.url) {
-                    setTimeout(() => { window.location.href = data.url; }, 600);
+                setSaveStatus('Artikel aangemaakt. Verder bewerken...', 'success');
+                // Redirect to edit page with new article ID
+                if (data.article_id) {
+                    setTimeout(() => {
+                        window.location.href = `/article/edit/${data.article_id}`;
+                    }, 600);
+                } else if (data.url) {
+                    setTimeout(() => {
+                        window.location.href = data.url;
+                    }, 600);
                 }
             } else {
-                setSaveStatus(data.error || 'Opslaan mislukt.', 'error');
+                setSaveStatus(data.error || 'Aanmaken mislukt.', 'error');
             }
         } catch (err) {
             setSaveStatus('Netwerkfout: ' + err, 'error');

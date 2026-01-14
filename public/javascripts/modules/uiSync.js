@@ -27,14 +27,14 @@ export function initUISync() {
             case 'title':
                 // If title update also returns slug, update that too
                 if (responseData.slug) {
-                    updateElement('slug', responseData.slug);
+                    updateElement('edit_slug', responseData.slug);
                     showNotification('Title and slug updated');
                 }
                 break;
                 
             case 'slug':
                 // Show normalized slug value
-                updateElement('slug', responseData.slug);
+                updateElement('edit_slug', responseData.slug);
                 if (responseData.slug !== originalValue) {
                     showNotification(`Slug normalized to: ${responseData.slug}`);
                 }
@@ -74,7 +74,7 @@ function updateElement(fieldId, value) {
         return;
     }
     
-    const oldValue = element.value || element.textContent;
+    const oldValue = element.tagName === 'INPUT' || element.tagName === 'TEXTAREA' ? element.value : element.textContent;
     
     // Skip if value hasn't changed
     if (oldValue === value) {

@@ -4,14 +4,16 @@ import { searchItems, saveItemChange } from './api.js';
 
 export class SearchCombo {
     constructor() {
+        this.displayLookup = new Map(); // value -> display label
     }
 
     async init(article_id, field, label, multiSelect) {
         this.field = field;
         this.multiSelect = multiSelect;
         this.label = label;
-        // Reading hidden fields
-        this.articleId = document.getElementById(article_id).value;
+        // Reading hidden fields - safe retrieval for create mode
+        const articleIdEl = article_id ? document.getElementById(article_id) : null;
+        this.articleId = articleIdEl?.value || null;
         
         // Parse selected items data with error handling
         // const dataElement = document.getElementById(selectedItemDataId);
@@ -35,10 +37,19 @@ export class SearchCombo {
             this.selectedItemsData = [parsedData];
         }
 
-        // Build a normalized list of selected item strings for checkbox state
+        // Build a normalized list of selected item ids (or fall back to title)
         this.articleItems = this.selectedItemsData
-            .map(item => item && typeof item === 'object' ? item.title ?? item.value ?? '' : item)
+            .map(item => item && typeof item === 'object' ? (item.id ?? item.value ?? item.title) : item)
             .filter(Boolean);
+
+        // Seed display lookup from parsed data
+        this.selectedItemsData.forEach(item => {
+            if (item && typeof item === 'object') {
+                const val = item.id ?? item.value;
+                const disp = item.title ?? item.value ?? '';
+                if (val) this.displayLookup.set(String(val), disp);
+            }
+        });
         
         this.container = document.getElementById(field + 'Container');
 
@@ -124,14 +135,17 @@ export class SearchCombo {
         if (this.list) {
             console.log('Loaded items:', items);
             items.forEach(item => {
-                const checked = this.articleItems.some(selected => selected.toLowerCase() === item.toLowerCase());
-                this.addItemToList(item,checked);
+                const display = item && typeof item === 'object' ? item.title : item;
+                const value   = item && typeof item === 'object' ? item.id    : item;
+                if (value) this.displayLookup.set(String(value), display);
+                const checked = this.articleItems.some(selected => String(selected) === String(value));
+                this.addItemToList(display, value, checked);
             });
         }
     }
 
     // Add a item to the list
-    addItemToList(item,checked) {
+    addItemToList(display,value,checked) {
         const div = document.createElement('div');
         div.classList.add('form-check','form-switch');
         const input = document.createElement('input');
@@ -140,18 +154,18 @@ export class SearchCombo {
         if (!this.multiSelect) {
             input.name = `${this.field}_choice`; // group radios together
         }
-        input.id = item;
-        input.value = item;
+        input.id = value;
+        input.value = value;
         input.checked = checked;
         input.addEventListener('change', (event) => {
             window.unsavedChanges = true; // Set unsaved changes flag
-            setSaveStatus(`Item ${item} ${event.target.checked ? 'added' : 'removed'}`, "info");
-            this.handleItemChange(item, event.target.checked);
+            setSaveStatus(`Item ${display} ${event.target.checked ? 'added' : 'removed'}`, "info");
+            this.handleItemChange(value ?? display, event.target.checked);
         });
         const label = document.createElement('label')
-        label.htmlFor = item;
+        label.htmlFor = value;
         label.classList.add('form-check-label');
-        label.textContent = item;
+        label.textContent = display;
         div.appendChild(input);
         div.appendChild(label);
         this.list.appendChild(div);
@@ -168,9 +182,12 @@ export class SearchCombo {
             console.log("Search results:", keywords);
             if (this.list) {
                 this.list.innerHTML = '';
-                keywords.forEach(keyword => {
-                    const checked = this.articleItems.some(selected => selected.toLowerCase() === keyword.toLowerCase());
-                    this.addItemToList(keyword,checked);
+                keywords.forEach(item => {
+                    const display = item && typeof item === 'object' ? item.title : item;
+                    const value   = item && typeof item === 'object' ? item.id    : item;
+                    if (value) this.displayLookup.set(String(value), display);
+                    const checked = this.articleItems.some(selected => String(selected) === String(value));
+                    this.addItemToList(display, value, checked);
                 });
             }
         } else if (e.type === 'keyup') {
@@ -196,7 +213,7 @@ export class SearchCombo {
                         setSaveStatus(`${query} added as a new keyword`, "info");
                         // this.articleItems.push(query);
                         if (this.list) {
-                            this.addItemToList(query, true);
+                            this.addItemToList(query, query, true);
                             this.handleItemChange(query, true);
                         }
                     }
@@ -210,29 +227,68 @@ export class SearchCombo {
     // Handle item change
     async handleItemChange(item, checked) {
         window.unsavedChanges = true; // Set unsaved changes flag
-        setSaveStatus(`Item ${item} ${checked ? 'added' : 'removed'}`, "info");
-        try {
-            const result = await saveItemChange(this.field, this.articleId, item, checked);
+        setSaveStatus(`Item ${item} ${checked ? 'adding' : 'removing'}...`, "info");
+        
+        // Only save to server if article exists (edit mode)
+        if (!this.articleId) {
+            // Create mode: just update UI immediately
             if (checked) {
                 if (this.multiSelect) {
-                    this.articleItems.push(item); // Add item to the list
+                    this.articleItems.push(item);
+                    this.rebuildListWithSelection(null);
                 } else {
-                    this.articleItems = [item]; // Single selection
-                    this.uncheckOtherInputs(item);
+                    this.articleItems = [item];
+                    this.rebuildListWithSelection(item);
                 }
-                setSaveStatus(`Item ${item} added successfully`, "success");
             } else {
                 if (this.multiSelect) {
-                    this.articleItems = this.articleItems.filter(i => i !== item); // Remove item from the list
+                    this.articleItems = this.articleItems.filter(i => String(i) !== String(item));
+                    this.rebuildListWithSelection(null);
                 } else {
                     this.articleItems = [];
                 }
-                setSaveStatus(`Item ${item} removed successfully`, "success");
             }
-            this.selectedItems.value = this.articleItems.join(',');
-            window.unsavedChanges = false; // Reset unsaved changes flag
+            // Render selected items
+            this.selectedItems.value = this.articleItems
+                .map(val => this.displayLookup.get(String(val)) || val)
+                .join(',');
+            
+            setSaveStatus(`Item ${item} ${checked ? 'selected' : 'deselected'} (will save on create)`, "success");
+            window.unsavedChanges = false;
+            return;
+        }
+        
+        // Edit mode: save to server first, then update UI
+        const itemToSend = this.displayLookup.get(String(item)) || item;
+        try {
+            const result = await saveItemChange(this.field, this.articleId, itemToSend, checked);
+            
+            // Only update UI after successful save
+            if (checked) {
+                if (this.multiSelect) {
+                    this.articleItems.push(item);
+                    this.rebuildListWithSelection(null);
+                } else {
+                    this.articleItems = [item];
+                    this.rebuildListWithSelection(item);
+                }
+            } else {
+                if (this.multiSelect) {
+                    this.articleItems = this.articleItems.filter(i => String(i) !== String(item));
+                    this.rebuildListWithSelection(null);
+                } else {
+                    this.articleItems = [];
+                }
+            }
+            // Render selected items
+            this.selectedItems.value = this.articleItems
+                .map(val => this.displayLookup.get(String(val)) || val)
+                .join(',');
+            
+            setSaveStatus(`Item ${itemToSend} ${checked ? 'added' : 'removed'} successfully`, "success");
+            window.unsavedChanges = false;
         } catch (error) {
-            setSaveStatus(`Error ${checked ? 'adding' : 'removing'} item ${item}`, "error");
+            setSaveStatus(`Error ${checked ? 'adding' : 'removing'} item ${itemToSend}`, "error");
             console.error('Error sending item data:', error);
         }
     }
@@ -248,4 +304,25 @@ export class SearchCombo {
             }
         });
     }
-}
+
+    // For single/multi-select: rebuild the list to properly update Bootstrap styling
+    rebuildListWithSelection(selectedItem) {
+        if (!this.list) return;
+        // Get all current items from the list
+        const items = [];
+        this.list.querySelectorAll('input').forEach(input => {
+            items.push({
+                value: input.value,
+                display: input.nextElementSibling?.textContent || input.value,
+                checked: this.multiSelect 
+                    ? this.articleItems.some(sel => String(sel) === String(input.value))
+                    : String(input.value) === String(selectedItem)
+            });
+        });
+        
+        // Rebuild the list with correct checked states
+        this.list.innerHTML = '';
+        items.forEach(item => {
+            this.addItemToList(item.display, item.value, item.checked);
+        });
+    }}

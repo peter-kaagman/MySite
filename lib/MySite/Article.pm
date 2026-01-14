@@ -46,12 +46,18 @@ sub _article {
     }
   );
   
+  # Handle skeleton articles with no content yet
+  my $content_text = '';
+  if (my $content_row = $content->first) {
+    $content_text = $content_row->content;
+  }
+  
   template 'article/article' => {
     'title' => $article->title,
     'user' => session->read('user'),
     'author' => $author->first,
     'article' => $article,
-    'article_content' => $content->first->content,
+    'article_content' => $content_text,
     'render_markdown' => \&MySite::Utils::render_markdown,
   }
 }
@@ -177,8 +183,14 @@ sub _field_update {
           page => 1
       }
     );
+    
+    # Handle skeleton articles with no content yet
     my $t = localtime;
-    my $newVersion = $content->first->version() + 1;
+    my $newVersion = 1;
+    if (my $latest = $content->first) {
+      $newVersion = $latest->version() + 1;
+    }
+    
     $content->create({
       content  => trim($data->{value}),
       version  => $newVersion,
@@ -337,64 +349,60 @@ sub _post_article_new {
   # start auth check
   my $user = session->read('user');
   unless ($user) {
-    debug "No user", route_parameters->get('id');
-    return template 'error' => {
-      'title' => "No user error",
-      'user' => 'unknown',
-      'error_content' => "Need to be logged in to edit articles.",
-    };
+    status 401;
+    return to_json({ success => 0, error => 'Unauthorized' });
   }
 
   # Een nieuw artikel aanmaken, dus geen article ophalen, dus ook geen author_obj
-  # (1, 'Admin'),
-  # (2, 'Editor'),
-  # (3, 'Writer'),
-  # (4, 'Visitor')
   my @allowed_roles = qw(Admin Editor Writer);
-  # Er is geen artikel dus ook geen author_obj
   my $author_obj = undef;
   unless (user_can_edit_article($user, $author_obj, \@allowed_roles)) {
-    debug "Edit not allowed", route_parameters->get('id'), 'User:', $user->{username};
-    return template 'error' => {
-      'title' => "New article error",
-      'user' => session->read('user'),
-      'error_content' => "Nieuw artikel niet toegestaan voor gebruiker " . session->read('user'),
-    };
+    debug "New article not allowed for user: ", $user->{username};
+    status 403;
+    return to_json({ success => 0, error => 'Nieuw artikel niet toegestaan voor dit account' });
   }
   # end auth check
 
   my $params;
   eval { $params = from_json(request->body); 1 } or do {
     status 400;
-    return { success => 0, error => 'Ongeldige JSON payload.' };
+    return to_json({ success => 0, error => 'Ongeldige JSON payload' });
   };
 
+  # Skeleton create: MINIMAL validation
   my $title      = trim($params->{title} // '');
   my $slug_input = trim($params->{slug} // '');
   my $slugtitle  = exists $params->{slugtitle} ? ($params->{slugtitle} ? 1 : 0) : 1;
-  my $abstract   = trim($params->{abstract} // '');
-  my $content    = trim($params->{content} // '');
-  my $categoryid = $params->{categoryid};
-  my $published  = $params->{published};
+  my $category_input = $params->{categoryid};
+  my @keywords       = @{$params->{keywords} // []};
 
-  my @missing;
-  push @missing, 'title'     unless length $title;
-  push @missing, 'abstract'  unless length $abstract;
-  push @missing, 'content'   unless length $content;
-  push @missing, 'category'  unless $categoryid;
-  if (@missing) {
+  # Validate required fields (title + category ONLY)
+  unless (length $title) {
     status 400;
-    return { success => 0, error => 'Ontbrekende velden: ' . join(', ', @missing) };
+    return to_json({ success => 0, error => 'Titel is verplicht' });
   }
 
-  my $category = schema->resultset('Category')->find($categoryid);
+  unless ($category_input) {
+    status 400;
+    return to_json({ success => 0, error => 'Categorie is verplicht' });
+  }
+
+  # Validate category exists (accept ID or title)
+  my $category;
+  if (defined $category_input && $category_input =~ /^\d+$/) {
+    $category = schema->resultset('Category')->find($category_input);
+  } else {
+    $category = schema->resultset('Category')->find({ title => $category_input });
+  }
   unless ($category) {
     status 400;
-    return { success => 0, error => 'Ongeldige categorie.' };
+    return to_json({ success => 0, error => 'Ongeldige categorie' });
   }
 
+  # Generate slug
   my $slug = unique_slug(length $slug_input ? $slug_input : $title);
 
+  # Create skeleton article (no content, empty abstract)
   my $article;
   eval {
     $article = schema->resultset('Article')->create({
@@ -403,31 +411,31 @@ sub _post_article_new {
       slugtitle  => $slugtitle,
       authorid   => $user->{id},
       categoryid => $category->category_id,
-      abstract   => $abstract,
-      published  => $published,
+      abstract   => '', # Empty for now, will be filled in edit view
     });
 
-    $article->create_related('article_contents', {
-      content  => $content,
-      version  => 1,
-      editorid => $user->{id},
-    });
+    # Add keywords if provided
+    foreach my $keyword_title (@keywords) {
+      next unless length trim($keyword_title);
+      my $keyword = schema->resultset('Keyword')->find_or_create(
+        { title => trim($keyword_title) }
+      );
+      $article->add_to_keywords($keyword);
+    }
   };
 
   if ($@ || !$article) {
     warning "Error creating article: $@";
     status 500;
-    return { success => 0, error => 'Artikel kon niet worden opgeslagen.' };
+    return to_json({ success => 0, error => 'Artikel kon niet worden aangemaakt' });
   }
 
+  debug "Created skeleton article: ", $article->article_id, " by user: ", $user->{username};
   status 201;
-  return {
-    success => 1,
-    id      => $article->article_id,
-    slug    => $article->slug,
-    category_slug => $category->slug,
-    url     => $article->returnURL(),
-  };
+  return to_json({
+    success    => 1,
+    article_id => $article->article_id,
+  });
 }
 
 # heeft auth check
@@ -522,10 +530,11 @@ sub _handle_category {
   }
   # End auth check
 
-  # Now handle the keyword add/remove
+  # Now handle the category change
   eval {
     if ($data->{checked}) {
       debug "Set category: $data->{category} for article: $data->{article_id}";
+      # Frontend always sends title now
       my $category = schema->resultset('Category')->find_or_create({ title => $data->{category} });
       $article->update({ categoryid => $category->category_id });
     } else {
@@ -558,10 +567,10 @@ sub _get_keywords {
           order_by => {'-desc' => ['title']},
       }
   );
-  my @keywords_list = map { $_->title } $keywords->all;
-  # debug "Keywords: ", join(', ', @keywords_list);
+  my @keyword_objects = map { { id => $_->keyword_id, title => $_->title } } $keywords->all;
+  # debug "Keywords: ", join(', ', map { $_->{title} } @keyword_objects);
   content_type 'application/json';
-  return to_json({ values => \@keywords_list });
+  return to_json({ values => \@keyword_objects });
 }
 
 # geen auth check nodig
@@ -576,10 +585,10 @@ sub _get_categories {
           order_by => {'-desc' => ['title']},
       }
   );
-  my @category_list = map { $_->title } $categories->all;
-  # debug "Categories: ", join(', ', @category_list);
+  my @category_objects = map { { id => $_->category_id, title => $_->title } } $categories->all;
+  # debug "Categories: ", join(', ', map { $_->{title} } @category_objects);
   content_type 'application/json';
-  return to_json({ values => \@category_list });
+  return to_json({ values => \@category_objects });
 }
 
 

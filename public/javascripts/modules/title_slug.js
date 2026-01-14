@@ -1,27 +1,51 @@
 import { setSaveStatus } from './utils.js';
 import { handleSave } from './api.js';
 
+// Local slugify helper (client-side, mirrors backend slugify)
+function localSlugify(text) {
+    if (!text) return 'artikel';
+    return text
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '_')
+        .replace(/^_+|_+$/g, '')
+        || 'artikel';
+}
+
 export class TitleManager {
     addFieldListener(input, eventType, field, getValue, callback) {
         input.addEventListener(eventType, async () => {
             const value = getValue();
-            const result = await TitleManager.handleChange(this.articleId, value, field);
-            if (callback) {
-                callback(result, value);
+            
+            // Only save if article exists (edit mode)
+            if (this.articleId) {
+                const result = await TitleManager.handleChange(this.articleId, value, field);
+                if (callback) {
+                    callback(result, value);
+                }
+            } else {
+                // Create mode: just update local state, no API call
+                if (callback) {
+                    callback({ success: true }, value);
+                }
             }
         });
     }
     constructor() {
-        this.articleId = document.getElementById('article_id').value;
+        // Safe retrieval of article_id (may not exist in create mode)
+        const articleIdEl = document.getElementById('article_id');
+        this.articleId = articleIdEl?.value || null;
+        
         // Title
         this.titleInput = document.getElementById('edit_title');
-        this.initialTitle = this.titleInput ? this.titleInput.value : '';
+        this.initialTitle = this.titleInput?.value || '';
+        
         // Slugtitle
         this.slugtitleInput = document.getElementById('edit_slugtitle');
         this.initialSlugtitle = this.slugtitleInput ? (this.slugtitleInput.checked ? '1' : '0') : '0';
+        
         // Slug
         this.slugInput = document.getElementById('edit_slug');
-        this.initialSlug = this.slugInput ? this.slugInput.value : '';
+        this.initialSlug = this.slugInput?.value || '';
     }
 
     async init() {
@@ -82,10 +106,20 @@ export class TitleManager {
             "title",
             () => this.titleInput.value.trim(),
             (result, newTitle) => {
+                // Create mode: no articleId, just sync slug locally
+                if (!this.articleId) {
+                    this.initialTitle = newTitle;
+                    if (this.slugtitleInput && this.slugtitleInput.checked && this.slugInput) {
+                        this.slugInput.value = localSlugify(newTitle);
+                    }
+                    return;
+                }
+
+                // Edit mode (API result available)
                 if (result.success) {
                     setSaveStatus('Titel succesvol opgeslagen.', 'success');
                     this.initialTitle = newTitle;
-                    if (this.slugtitleInput && this.slugtitleInput.checked && result.data.slug) {
+                    if (this.slugtitleInput && this.slugtitleInput.checked && result.data && result.data.slug) {
                         this.slugInput.value = result.data.slug;
                     }
                 } else {
@@ -101,6 +135,13 @@ export class TitleManager {
             "slug",
             () => this.slugInput.value.trim(),
             (result, newSlug) => {
+                // Create mode: only local update
+                if (!this.articleId) {
+                    this.initialSlug = newSlug;
+                    this.slugInput.value = localSlugify(newSlug);
+                    return;
+                }
+
                 if (result.success) {
                     setSaveStatus('Slug succesvol opgeslagen.', 'success');
                     this.initialSlug = newSlug;
