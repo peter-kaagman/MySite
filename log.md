@@ -1,5 +1,100 @@
 # MySite Development Log
 
+## 2026-01-14 (Productie Voorbereiding) - Aanmaken Issues #30, #31, #32
+
+### Strategie voor Productie Deployment
+
+Na afronding van issue #23 (SearchCombo) en merge naar main, is de focus verschoven naar productie voorbereiding. Drie grote issues zijn gedefinieerd voor het stap-voor-stap opbouwen van een production-ready deployment stack.
+
+### Issues Aangemaakt
+
+#### Issue #30: Docker & Environment Configuration
+**Doel**: Containerization en environment-based config zonder externe dependencies
+
+**Scope**:
+- Dockerfile voor production build
+- docker-compose.yml voor development
+- Multi-stage build optimalisatie
+- Health checks implementatie
+- PLACK_ENV environment variable support
+- Config files per environment (development/production)
+- Logging levels per environment
+- GitHub Actions CI/CD pipeline
+
+**Opmerking**: SQLite database en YAML sessions blijven. Dit issue focust puur op Docker + configuratie.
+
+#### Issue #31: Redis voor Session Management
+**Doel**: Schaalbaarheid session management (Dependency: #30)
+
+**Scope**:
+- Redis service in docker-compose
+- Perl Redis module integratie
+- Session persistence testen
+- Fallback naar YAML sessions
+- Health check Redis connectivity
+- Performance optimalisatie
+
+**Opmerking**: Redis wordt geintroduceerd NADAT Docker werkend is.
+
+#### Issue #32: PostgreSQL Migratie
+**Doel**: Database migratie voor production (Dependency: #30, #31)
+
+**Scope**:
+- PostgreSQL service setup
+- Schema migratie SQLite → PostgreSQL
+- Data migratie scripts
+- Connection pooling
+- Backup/restore procedures
+- Performance testing
+
+**Opmerking**: SQLite blijft voor development beschikbaar.
+
+### Design Decisions
+
+1. **Gradual Approach**: 
+   - Issue #30 maakt Docker werkend
+   - Issue #31 voegt Redis toe
+   - Issue #32 voegt PostgreSQL toe
+   - Elk issue is zelfstandig testbaar
+
+2. **SQLite in Development**:
+   - Productie: PostgreSQL
+   - Development: SQLite
+   - Fallback: YAML sessions
+   - Promotes eenvoudig lokaal development
+
+3. **Environment Configuration**:
+   - PLACK_ENV: development/production
+   - Config files per environment
+   - Secrets via environment variables
+   - Clear separation of concerns
+
+4. **Scope Management**:
+   - Kubernetes is NIET op de horizon
+   - Focus op Docker + config management
+   - Load balancer/CDN later
+
+### Next Steps
+
+- Issue #30: Docker setup implementeren
+- Testen in Docker container
+- Issue #31: Redis integratie
+- Issue #32: PostgreSQL migratie
+- Infrastructure improvements (load balancer, monitoring, etc.)
+
+### Voorbereiding Afgerond
+
+Alle drie issues zijn gedocumenteerd met:
+- ✅ Duidelijke acceptance criteria
+- ✅ Implementation details met code voorbeelden
+- ✅ Testing strategie
+- ✅ Subtasks checklists
+- ✅ Dependencies vastgesteld
+
+Klaar voor implementatie!
+
+---
+
 ## ✅ COMPLETED: Issue #23 - SearchCombo Selection & UI State Management
 
 ### Overview
