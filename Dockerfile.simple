@@ -1,0 +1,61 @@
+# Simple Dockerfile for MySite (Issue #30)
+# Uses SQLite + YAML sessions (no PostgreSQL, no Redis)
+
+FROM perl:5.38 AS builder
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libssl-dev \
+    zlib1g-dev \
+    sqlite3 \
+    libsqlite3-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Copy cpanfile and install Perl dependencies
+COPY cpanfile cpanfile.snapshot ./
+RUN cpanm --installdeps --notest .
+
+# Copy application code
+COPY . .
+
+# Production stage
+FROM perl:5.38-slim
+
+# Install runtime dependencies
+RUN apt-get update && apt-get install -y \
+    libssl3 \
+    sqlite3 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create non-root user
+RUN useradd -m -u 1000 dancer && \
+    mkdir -p /app/logs /app/sessions /app/db && \
+    chown -R dancer:dancer /app
+
+WORKDIR /app
+
+# Copy Perl modules from builder
+COPY --from=builder /usr/local/lib/perl5 /usr/local/lib/perl5
+COPY --from=builder /usr/local/bin /usr/local/bin
+
+# Copy application files
+COPY --chown=dancer:dancer . .
+
+# Ensure directories are writable
+RUN chmod 755 /app/sessions /app/logs /app/db
+
+# Switch to non-root user
+USER dancer
+
+# Expose port 3000 (as per issue #30)
+EXPOSE 3000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD perl -e 'use LWP::Simple; getprint("http://localhost:3000/health") or exit 1'
+
+# Start the application (use development mode for console logging)
+CMD ["plackup", "-p", "3000", "-E", "development", "bin/app.psgi"]
