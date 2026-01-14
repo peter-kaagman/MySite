@@ -9,14 +9,10 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - PLACK_ENV=development
+      - PLACK_ENV=production
     volumes:
-      # Live code development - changes immediately visible in container
-      - ./lib:/app/lib              # Perl modules
-      - ./views:/app/views          # Templates
-      - ./public:/app/public        # Static files
-      - ./bin:/app/bin              # Scripts
-      - ./db:/app/db                # SQLite database
+      # Only persist SQLite database - no live code syncing
+      - ./db:/app/db
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
       interval: 30s

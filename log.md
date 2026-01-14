@@ -1,5 +1,222 @@
 # MySite Development Log
 
+## 2026-01-14 (Issue #30) - Docker Setup Succesvol Geïmplementeerd ✅
+
+### Overzicht
+Docker Desktop geïnstalleerd op Windows met WSL 2 integratie. MySite applicatie draait nu succesvol in een Docker container met SQLite database en YAML file sessions (zonder PostgreSQL en Redis zoals gepland voor Issue #30).
+
+### Uitgevoerde Stappen
+
+#### 1. Docker Desktop Installatie & Configuratie
+- Docker Desktop geïnstalleerd op Windows
+- WSL 2 integratie geconfigureerd in Docker Desktop Settings
+- User toegevoegd aan docker groep: `sudo usermod -aG docker $USER`
+- Docker versie: 29.1.3
+- Docker Compose versie: v5.0.0-desktop.1
+
+#### 2. Health Check Endpoint Toegevoegd
+Nieuw endpoint toegevoegd aan [lib/MySite.pm](lib/MySite.pm):
+```perl
+get '/health' => sub {
+  content_type 'application/json';
+  return to_json({ 
+    status => 'ok', 
+    version => $VERSION,
+    timestamp => time()
+  });
+};
+```
+
+#### 3. Dockerfile Aangemaakt (Dockerfile.simple)
+Multi-stage build voor geoptimaliseerde image:
+- **Builder stage**: perl:5.38 met build dependencies
+  - `build-essential`, `libssl-dev`, `zlib1g-dev`, `sqlite3`, `libsqlite3-dev`
+  - cpanm installatie van alle dependencies
+- **Production stage**: perl:5.38-slim voor kleinere image
+  - Runtime dependencies: `libssl3`, `sqlite3`
+  - Non-root user (dancer) voor security
+  - Health check met LWP::Simple
+  - Poort 3000 exposed
+
+**SSL/SSLeay Dependencies**: Correct afgehandeld via `libssl-dev` (build) en `libssl3` (runtime). Net::SSLeay v1.94 geïnstalleerd en werkend.
+
+#### 4. Docker Compose Configuratie (Two-Tier Setup)
+
+**docker-compose.yml** (Development - DEFAULT)
+```yaml
+- Plackup -E development voor console logging
+- Volume mounts voor live code updates:
+  - ./lib:/app/lib (Perl modules)
+  - ./views:/app/views (Templates)
+  - ./public:/app/public (Static files)
+  - ./bin:/app/bin (Scripts)
+  - ./db:/app/db (SQLite persistence)
+- Port 3000 exposed
+```
+
+**docker-compose.prod.yml** (Production)
+```yaml
+- Plackup -E production (of manueel ingesteld)
+- Geen volume mounts (snapshot-based)
+- Alleen ./db:/app/db voor database persistentie
+- Port 3000 exposed
+```
+
+#### 5. Database Configuratie Aangepast
+[config.yml](config.yml) aangepast voor relatieve pad:
+```yaml
+DBIC:
+  default:
+    dsn: dbi:SQLite:dbname=db/mysite.sqlite  # Was: /home/pkn/MySite/db/mysite.sqlite
+```
+
+#### 6. Development Workflow
+- Code wijzigen in VS Code
+- `docker-compose restart mysite` om plackup te herstarten
+- Code wijzigingen zijn onmiddellijk beschikbaar via volume mounts
+- Geen rebuild nodig tenzij dependencies wijzigen
+
+### Build & Deploy
+```bash
+# Development (met live code updates)
+docker-compose up -d
+
+# Production (snapshot-based)
+docker-compose -f docker-compose.prod.yml up -d
+
+# Plackup herstarten na code wijzigingen
+docker-compose restart mysite
+
+# Container stoppen
+docker-compose down
+```
+
+### Verificatie & Testing
+✅ Docker Desktop: Werkend (WSL 2 integratie)
+✅ Docker image `mysite:simple`: Gebouwd en beschikbaar
+✅ Container status: UP en healthy
+✅ Health endpoint: http://localhost:3000/health → `{"status":"ok","version":"0.1","timestamp":...}`
+✅ Homepage: http://localhost:3000/ → Volledige HTML response
+✅ Database connectivity: SQLite werkt correct met relatief pad
+✅ Net::SSLeay: Versie 1.94 correct geïnstalleerd
+✅ Volume mounts: Live code updates werken via docker-compose.yml
+✅ Two-tier setup: Zowel development als production ready
+
+### Belangrijke Decisions
+1. **Logging**: Console logging (development mode) in beide configs
+2. **Sessions**: Blijven in container (niet gemount) - ephemeral maar voldoende voor development
+3. **Database**: Alleen db/ directory gemount voor persistentie van SQLite
+4. **Port**: 3000 zoals gespecificeerd in Issue #30
+5. **Auto-reload**: Manual restart via `docker-compose restart` i.p.v. `-R` flag (sneller voor Perl modules)
+
+### Acceptatie Criteria Issue #30 - ALLEMAAL ✅
+- ✅ Dockerfile voor production build
+- ✅ docker-compose.yml voor lokale development
+- ✅ Multi-stage build voor optimized image
+- ✅ Health checks geconfigureerd
+- ✅ .dockerignore proper configured
+- ✅ Image built en app draait in container
+- ✅ Poort 3000 accessible
+- ✅ App accessible op localhost:3000
+- ✅ Health check endpoint werkt
+- ✅ Configuration management (PLACK_ENV per environment)
+- ✅ Volume mounts voor live development
+
+### Files Gewijzigd/Aangemaakt
+- ✨ [Dockerfile.simple](Dockerfile.simple) - Nieuw
+- ✨ [docker-compose.yml](docker-compose.yml) - Herschreven (development)
+- ✨ [docker-compose.prod.yml](docker-compose.prod.yml) - Nieuw (production)
+- ✏️ [lib/MySite.pm](lib/MySite.pm) - Health endpoint toegevoegd
+- ✏️ [config.yml](config.yml) - Database pad aangepast naar relatief
+
+### Docker Commands Referentie
+```bash
+# Development bouwen en starten
+docker build -f Dockerfile.simple -t mysite:simple .
+docker-compose up -d
+
+# Plackup herstarten na code wijzigingen
+docker-compose restart mysite
+
+# Production setup
+docker-compose -f docker-compose.prod.yml up -d
+
+# Stoppen
+docker-compose down
+
+# Logs bekijken
+docker-compose logs -f mysite
+
+# Status
+docker ps
+docker images | grep mysite
+```
+
+### Next Steps
+Issue #30 is **100% compleet** en **mergeable naar main**. Volgende issues:
+- **Issue #31**: Redis voor Session Management (Dependency: #30 ✅)
+- **Issue #32**: PostgreSQL Migratie (Dependency: #30 ✅, #31)
+
+### ⚠️ Zorgenpunten & Technical Debt
+
+#### Database Path: Relatief vs Absoluut - ROOT CAUSE ONBEKEND
+**Zorgenpunt**: Database configuratie in [config.yml](config.yml) werkt met relatief pad, maar **origineel probleem onbekend**.
+
+**Historie**:
+1. Origineel: Relatief pad `db/mysite.sqlite` werkte niet in bepaalde setup
+2. Quick fix: Absolute pad `/home/pkn/MySite/db/mysite.sqlite` toegepast
+3. Huidige status: Relatief pad werkt nu in Docker, maar **root cause van origineel probleem is niet opgelost**
+
+**Waarom problematisch**:
+- ❓ **Root cause onbekend** - We weten niet waarom relatief pad niet werkte
+- ❌ Absolute pad is niet portable (hardcoded path naar /home/pkn/MySite)
+- ❌ Zal breken in productie op ander server/directory
+- ❌ Code bevat "magic path" zonder documentatie van waarom
+
+**Aanbeveling voor Issue #33 (Toekomstig)**:
+1. **Onderzoeken** waarom relatief pad origineel niet werkte
+2. **Root cause fixen** i.p.v. path workaround
+3. Eventueel environment variable gebruiken:
+```yaml
+dsn: dbi:SQLite:dbname=$ENV{DB_PATH}/mysite.sqlite
+```
+
+**Impact**: Medium (werkt voor huidige dev/Docker use case, maar onclean en niet begrijpelijk)
+
+**TODO**: Documenteer waarom `/home/pkn/MySite` absoluut pad nodig was - mogelijk:
+- Dancer2 pwd behavior
+- Plackup startup directory
+- Carton/PERL5LIB issue
+- Iets anders?
+
+---
+
+---
+
+---
+
+## 2026-01-14 (Issue #30) - Vereisten om MySite in Docker te draaien
+
+### Wat er nodig is
+- Dockerfile op basis van `perl:5.38-slim` (of vergelijkbare lichte Perl base image)
+- System packages: `build-essential`, `make`, `gcc`, `libssl-dev`, `libexpat1-dev`, `libsqlite3-dev`, `curl` (voor module builds en SQLite)
+- App dependencies via Carton: `cpanfile` + `cpanfile.snapshot` kopiëren en `carton install --deployment`
+- Applicatiecode kopiëren naar `/app` en `WORKDIR /app`
+- Omgevingsvariabelen: `PLACK_ENV` (development/production), optioneel `PORT` (default 3000)
+- Expose poort 3000 en start met `carton exec -- plackup -E production -s Starman --port 3000 bin/app.psgi`
+- `.dockerignore` voor `local/`, `node_modules/`, `sessions/`, `log/`, `tmp/`, `cpanfile.snapshot` (optioneel), `*.swp`
+- Healthcheck endpoint (`/health`) voor container status
+
+### Dockerfile schets
+- Stage 1: base image + apt-get deps + `cpanfile*` -> `carton install --deployment`
+- Stage 2: copy vendor libs uit stage 1, copy app code, set env `PLACK_ENV=production`, expose 3000, `CMD` naar plackup/Starman
+
+### docker-compose (dev)
+- Service `app` met poortmapping `3000:3000`
+- Mount source code optioneel voor snelle iteratie
+- Milieuvariabelen uit `.env` (niet committen)
+- (Redis/PostgreSQL komen pas in latere issues #31/#32)
+
 ## 2026-01-14 (Productie Voorbereiding) - Aanmaken Issues #30, #31, #32
 
 ### Strategie voor Productie Deployment

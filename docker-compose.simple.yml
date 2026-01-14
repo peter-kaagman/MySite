@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   mysite:
     build:
@@ -11,12 +13,8 @@ services:
     environment:
       - PLACK_ENV=development
     volumes:
-      # Live code development - changes immediately visible in container
-      - ./lib:/app/lib              # Perl modules
-      - ./views:/app/views          # Templates
-      - ./public:/app/public        # Static files
-      - ./bin:/app/bin              # Scripts
-      - ./db:/app/db                # SQLite database
+      # Persist SQLite database only
+      - ./db:/app/db
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
       interval: 30s
