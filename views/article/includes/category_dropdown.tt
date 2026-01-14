@@ -1,0 +1,18 @@
+<!--
+<div class='row mb-3 keywords_row'>
+    <div class="col-sm-2">
+        <label for="search_category" class="form-label">Category:</label>
+    </div>
+    <div class='col-sm-10'>
+        <div class='row mb-3 show_category_row'>
+            <input readonly type="text" class="form-control mb-2" id="selected_categories" name="selected_categories" value="<% categories.join(', ') %>">
+        </div>
+        <div class='row mb-3 search_category_row'>
+            <input type="text" class="form-control mb-2" id="search_category" name="search_category" placeholder="Search...">
+            <label for="list_categories" class="form-label mt-2">Available:</label>
+            <div class="list-group" id="list_categories"></div>
+        </div>
+    </div>
+</div>
+-->
+<div id='categoryContainer'></div>

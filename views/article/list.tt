@@ -53,7 +53,7 @@
                 </div>
                 <div id='article_abstract'>
                     <a class='anchor_abstract' href='./article/<% article.slug %>'>
-                        <% article.abstract %>
+                        <% render_markdown(article.abstract) %>
                     </a>
                 </div>
                 <div class='row'>

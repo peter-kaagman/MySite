@@ -41,6 +41,7 @@ engines:
       start_tag: '<%'
       end_tag:   '%>'
       pre_chomp: 1
+    
 
 # session engine
 #
@@ -66,8 +67,8 @@ plugins:
     #     database: './db/mysite.sqlite'
   DBIC:
     default:
-      dsn: dbi:SQLite:dbname=/var/www/MySite/db/mysite.sqlite
+      dsn: dbi:SQLite:dbname=/home/pkn/MySite/db/mysite.sqlite
       schema_class: MySite::Schema
       options:
         sqlite_unicode: 1
-      
+  Auth::Extensible:

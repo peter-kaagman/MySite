@@ -76,22 +76,53 @@ ul.sidebar_list{
     list-style-type: none;
 }
 
-#editor_container {
-  /* 
-  width: 200px;
-  height: 200px; 
-  border: 1px solid red;
-  */
+#abstract_container {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
 }
 
-#article_editor {
+#abstract_editor {
   overflow-y: hidden;
 }
 
 .title_row{
     margin-bottom: 1em;
+}
+
+/* UI Sync visual feedback */
+.field-updated {
+    animation: fieldPulse 0.5s ease-in-out;
+}
+
+@keyframes fieldPulse {
+    0%, 100% { 
+        background-color: transparent; 
+    }
+    50% { 
+        background-color: #d4edda; 
+    }
+}
+
+.sync-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #28a745;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    opacity: 0;
+    transform: translateX(400px);
+    transition: all 0.3s ease-in-out;
+    z-index: 9999;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.sync-notification.show {
+    opacity: 1;
+    transform: translateX(0);
 }

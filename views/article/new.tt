@@ -1,0 +1,45 @@
+<form id="new-article-form" method="post" autocomplete="off">
+  <div class="mb-3">
+    <label for="article-title" class="form-label">Title</label>
+    <input type="text" class="form-control" id="article-title" name="title" required>
+  </div>
+  <div class="mb-3">
+    <label for="article-slug" class="form-label">Slug</label>
+    <input type="text" class="form-control" id="article-slug" name="slug" required>
+  </div>
+  <div class="mb-3">
+    <label for="article-category" class="form-label">Category</label>
+    <input type="text" class="form-control" id="article-category" name="category">
+  </div>
+  <div class="mb-3">
+    <label for="article-abstract" class="form-label">Abstract</label>
+    <div id="article-abstract" style="height: 200px;"></div>
+  </div>
+  <button type="submit" class="btn btn-primary">Create Article</button>
+  <button type="button" class="btn btn-secondary" id="cancel-btn">Cancel</button>
+</form>
+
+<!-- Quill editor -->
+<link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+<script>
+  // Initialize Quill
+  var quill = new Quill('#article-abstract', { theme: 'snow' });
+
+  document.getElementById('new-article-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const data = {
+      title: document.getElementById('article-title').value,
+      slug: document.getElementById('article-slug').value,
+      category: document.getElementById('article-category').value,
+      abstract: quill.root.innerHTML
+    };
+    // TODO: Send data via fetch() or AJAX to your backend
+    // Example:
+    // fetch('/article/create', { method: 'POST', body: JSON.stringify(data), headers: { 'Content-Type': 'application/json' } })
+  });
+
+  document.getElementById('cancel-btn').addEventListener('click', function() {
+    window.location.href = '/';
+  });
+</script>

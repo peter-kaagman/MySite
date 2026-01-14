@@ -1,0 +1,39 @@
+# Version control
+.git
+.gitignore
+
+# Local development
+local/
+sessions/*.yml
+logs/
+*.log
+
+# Documentation
+README
+log.md
+looking
+
+# IDE and editor files
+.vscode/
+*.code-workspace
+.idea/
+
+# Node modules (if any)
+node_modules/
+
+# Test files
+t/
+
+# Build artifacts
+*.swp
+*.swo
+*~
+
+# Environment files
+.env
+.env.*
+
+# Database (use external DB in production)
+db/mysite
+*.db
+*.sqlite
