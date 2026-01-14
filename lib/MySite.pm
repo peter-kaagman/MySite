@@ -27,6 +27,14 @@ get '/secured' => sub {
   };
 };
 
-
+# Health check endpoint for Docker
+get '/health' => sub {
+  content_type 'application/json';
+  return to_json({ 
+    status => 'ok', 
+    version => $VERSION,
+    timestamp => time()
+  });
+};
 
 true;
