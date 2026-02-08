@@ -1,5 +1,5 @@
 # Multi-stage Dockerfile for MySite Dancer2 application
-FROM perl:5.38 AS builder
+FROM perl:5.40 AS builder
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -20,7 +20,7 @@ RUN cpanm --installdeps --notest .
 COPY . .
 
 # Production stage
-FROM perl:5.38-slim
+FROM perl:5.40-slim
 
 # Install runtime dependencies only
 RUN apt-get update && apt-get install -y \
