@@ -117,16 +117,21 @@ Zie [GitHub CLI Setup entry](ProjectLog.md) voor details.
 - ✅ GitHub CLI integration
 - ✅ Project documentation herstructurering
 
+### 🔴 Critical (Production Blockers)
+- 🔥 Issue #38: **Production-ready error handling & logging** (2-3 dagen)
+
 ### In Progress
 - 🔄 Issue #36: Empty field validation (ready for branch)
 
 ### Planned
-- 📋 Issue #31: Redis voor Session Management
-- 📋 Issue #32: PostgreSQL migratie
 - 📋 Issue #34: Database path investigation
+- 📋 Issue #31: Redis voor Session Management (nice-to-have)
+- 📋 Issue #32: PostgreSQL migratie (nice-to-have)
 
 ### Technical Debt
 - ⚠️ Database path configuration (relatief vs absoluut - root cause onbekend)
+- ⚠️ Minimal error handling (uncontrolled exception propagation)
+- ⚠️ Debug-level logging only (no structured logging)
 
 ---
 
