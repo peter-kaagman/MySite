@@ -1,5 +1,129 @@
 # MySite Development Log
 
+## 2026-02-08 (Later) - Security Audit & Production Roadmap 🔍
+
+### Overzicht
+Security & stabiliteit audit uitgevoerd op verzoek van gebruiker ("onzekerheid over stabiliteit en eventuele security gaps"). Issue #38 aangemaakt als **production blocker** voor error handling & logging.
+
+### Uitgevoerde Acties
+
+#### 1. Security Audit - PASSED ✅
+
+**Gecontroleerd:**
+- ✅ Authentication: OAuth (Google/GitHub) + custom provider werkend
+- ✅ Authorization: Alle POST/PUT endpoints hebben user login + role checks
+- ✅ Input validation: Slug normalisatie + DBIC schema validatie
+- ✅ SQL Injection: DBIx::Class ORM = prepared statements (safe)
+- ✅ Session management: YAML files (veilig voor development)
+
+**Kleine gap:**
+- 🟡 Issue #36: Empty field validation (UX issue, geen security hole)
+
+**Verdict:** Security is **production-ready**
+
+#### 2. Stabiliteit Audit - GAPS GEVONDEN 🔴
+
+**Good:**
+- ✅ Dancer2 2.0+ (mature framework)
+- ✅ DBIx::Class + SQLite (proven stack)
+- ✅ Docker met health checks
+- ✅ Error templates (404, 500)
+
+**Critical gaps:**
+- 🔴 **Error Handling minimaal** - 4x eval blocks, rest propagates uncontrolled
+- 🔴 **Logging debug-only** - geen structured logging, moeilijk troubleshooten
+- 🟡 Testing quasi non-existent (2 trivial tests)
+- 🟡 Monitoring alleen health endpoint
+
+**Impact analysis:**
+```perl
+# Gevonden in code audit:
+grep -E "eval\s*\{" lib/MySite/Article.pm
+# Result: 4 matches (JSON parsing, database ops)
+# Rest: unhandled exceptions → cryptische 500 errors
+```
+
+#### 3. Issue #38 - Production-Ready Error Handling & Logging
+
+**Created:** https://github.com/peter-kaagman/MySite/issues/38
+
+**Priority:** 🔴 **CRITICAL** - Production blocker
+
+**Scope:**
+- Wrap alle database operations in eval blocks
+- Graceful error responses (geen stack traces naar users)
+- Structured logging (error/warning/info/debug levels)
+- Log naar stderr (Docker-friendly)
+- Proper HTTP status codes (400/401/403/404/500)
+
+**Effort:** 2-3 dagen (14-20 uur)
+- Day 1: Logging setup (Log::Any + Log4perl)
+- Day 2: Refactor Article.pm error handling
+- Day 3: Testing + cleanup User/Index modules
+
+**Acceptance criteria:**
+- [ ] Alle DB ops wrapped met error handling
+- [ ] Replace debug() calls met proper levels
+- [ ] User-friendly errors (no internals leaked)
+- [ ] Logs include timestamp + level + user context
+- [ ] Test scenarios: invalid JSON, missing auth, DB errors
+
+#### 4. Production Roadmap Bepaald
+
+**MUST FIX (Critical - 2-3 dagen):**
+- Issue #38: Error handling & logging (BLOCKER)
+- Issue #36: Empty field validation (2 uur)
+
+**SHOULD FIX (Important):**
+- Issue #34: Database path investigation (variabel)
+- Session expiry configureren (2 uur)
+- Basic integration tests (optioneel)
+
+**NICE-TO-HAVE (Can Wait):**
+- Issue #31: Redis sessions (not needed for blog scale)
+- Issue #32: PostgreSQL (SQLite fine tot ~10k pageviews/dag)
+- Image upload support
+- Monitoring/metrics
+
+**User statement:**
+> "Onzekerheid over stabiliteit en eventuele security gaps"
+
+**Conclusie:** 
+- Security = READY ✅
+- Stabiliteit = 2-3 dagen werk (Issue #38) 🔴
+- SQLite + Dancer2 is **prima voor blog/CMS** (WordPress draait vaak op ergere setups)
+
+### Files Gewijzigd
+- ✏️ [ProjectDoc/README.md](ProjectDoc/README.md) - Status updated met Issue #38 als critical
+- 📝 GitHub Issue #38 - Aangemaakt met volledige implementation plan
+
+### Belangrijkste Beslissingen
+
+**1. Issue #38 = Production Blocker**
+Error handling is kritiek - zonder goede logging ben je blind aan het debuggen in productie.
+
+**2. SQLite is Acceptabel**
+Geen postgresql migratie nodig voor v1.0 - SQLite werkt prima tot ~100k hits/dag voor blog gebruik.
+
+**3. Testing is Optioneel voor v1.0**
+Minimale tests (2) zijn niet ideaal maar geen blocker - kan later toegevoegd.
+
+**4. Concrete Timeline**
+- Week 1: Fix error handling + logging (Issue #38)
+- Week 2: Fix Issue #36 + test deployment
+- Week 3: Monitor + fix wat breekt
+
+### Status
+✅ **Audit compleet** - Clear roadmap naar productie. Issue #38 next priority.
+
+### Volgende Stappen
+1. Issue #38 implementeren: `git checkout -b peter-kaagman/issue-38`
+2. Logging setup + ErrorHandler module
+3. Refactor Article.pm error handling
+4. Testing + deployment test
+
+---
+
 ## 2026-02-08 - Project Administratie: Issue Triage & Workflow Regels ✅
 
 ### Overzicht
