@@ -1,5 +1,293 @@
 # MySite Development Log
 
+## 2026-02-08 - Project Administratie: Issue Triage & Workflow Regels ✅
+
+### Overzicht
+Project administratie sessie: bestaande security/validation issues geanalyseerd, nieuwe issues aangemaakt, en kritieke workflow regel vastgelegd (code changes alleen in issue branches).
+
+### Uitgevoerde Acties
+
+#### 1. Issue Triage - Security & Validation Gaps
+**Aangemaakt (nieuw):**
+- Issue #34: Database Path Configuration - Root Cause Investigation (technical debt)
+- Issue #35: Security - Validate Slug Format on Direct Updates
+- Issue #36: Validation - Content & Abstract Should Not Be Empty
+- Issue #37: Security - Add Authorization to Keyword/Category Endpoints
+
+**Analyse resultaat:**
+- ✅ Issue #37 (Keyword/Category Auth) - **GESLOTEN** - Al geïmplementeerd op 2026-01-09
+- ✅ Issue #35 (Slug Validation) - **GESLOTEN** - Al geïmplementeerd op 2026-01-09
+- ⏸️ Issue #36 (Empty Field Validation) - **BLIJFT OPEN** - Moet nog geïmplementeerd
+- 🔍 Issue #34 (Database Path) - **INVESTIGATION** - Root cause onderzoek eerst
+
+**Details:**
+- Issue #37 had al auth checks in `_handle_keyword` en `_handle_category` (regel 448, 502)
+- Issue #35 had al `slugify()` normalisatie + `_validate_slug()` DBIC schema validatie
+- Issue #36: Code gap bevestigd - geen empty check in `_field_update` (line 242)
+- Issue #34: Investigation approach i.p.v. env var workaround (user voorkeur)
+
+#### 2. Kritieke Workflow Regel Vastgelegd
+
+**Nieuwe regel in GenericProjectRules.md:**
+> **Code wijzigingen UITSLUITEND in issue branch**
+
+**Rationale:**
+- Main branch = stable, alleen documentatie en admin
+- Code changes = atomic per issue, easy rollback
+- Clear separation project administratie vs development
+
+**Toegestaan op main:**
+- ✅ Documentation (ProjectLog, Rules, README)
+- ✅ Project admin (issues via gh CLI)
+- ✅ Git read operations
+
+**Verboden op main:**
+- ❌ Code changes lib/, views/, public/
+- ❌ Schema/config updates
+- ❌ Dependency changes
+
+**Workflow:**
+```bash
+# Eerst branch
+git checkout -b username/issue-XX
+# Dan pas code changes
+# Commit, push, PR, merge
+```
+
+#### 3. Issue #36 Gevalideerd
+
+**Problem bevestigd:**
+`_field_update` handler (Article.pm line 242) heeft geen empty check:
+```perl
+$article->update({
+  route_parameters->get('field') => trim($data->{value})
+});
+```
+
+**Impact:** 
+- Content kan leeg gemaakt worden (breaks display)
+- Abstract kan leeg gemaakt worden (unprofessional)
+
+**Voorgestelde oplossing (Option A):**
+Explicit field check voor content/abstract voordat update:
+```perl
+my $field = route_parameters->get('field');
+if (grep { $field eq $_ } qw(content abstract)) {
+  my $trimmed = trim($data->{value});
+  unless ($trimmed) {
+    status 400;
+    return to_json({ success => 0, error => 'Field cannot be empty' });
+  }
+}
+```
+
+**Status:** Wacht op implementatie in issue branch.
+
+### Files Gewijzigd
+- ✏️ [ProjectDoc/GenericProjectRules.md](ProjectDoc/GenericProjectRules.md) - Sectie 9 uitgebreid met workflow regel
+- 📝 GitHub Issues #34, #35, #36, #37 - Aangemaakt en getriaged
+- 🔒 GitHub Issues #35, #37 - Gesloten (already implemented)
+- 💬 GitHub Issue #36 - Geüpdate met analyse en oplossing
+
+### Belangrijkste Beslissingen
+
+**1. Code Changes Policy**
+Vanaf nu: code wijzigingen ALLEEN in issue-specifieke branches. Main = admin only.
+
+**2. Issue #34 Approach**
+Database path: investigation first, geen env var workaround. Zoek root cause van waarom relatief pad niet werkte.
+
+**3. Issue Triage Efficiency**
+Van 4 nieuwe issues bleken er 2 al opgelost (50% duplicate detection via code review). Goede lesson: check implementation status voordat issue aanmaken.
+
+### Status
+✅ **Compleet** - Project administratie afgerond. Issue #36 klaar voor implementatie in aparte branch.
+
+### Volgende Stappen
+1. Issue #36 implementeren: `git checkout -b peter-kaagman/issue-36`
+2. Empty field validation toevoegen volgens voorgestelde oplossing
+3. Testen + PR + merge
+4. Issue #34 (database path investigation) - later
+
+---
+
+## 2026-02-08 - GitHub CLI Setup & Workflow Verbetering ✅
+
+### Overzicht
+GitHub CLI (`gh`) geïnstalleerd en geconfigureerd voor geautomatiseerde issue management vanuit terminal/VS Code. Dit lost het "documentation disconnect" probleem op en maakt bidirectionele linking tussen Issues en ProjectLog mogelijk.
+
+### Uitgevoerde Acties
+
+#### 1. GitHub CLI Installatie
+```bash
+sudo snap install gh  # versie 2.74.0
+gh auth login         # SSH protocol, bestaande key hergebruikt
+```
+
+**Verificatie:**
+```bash
+gh auth status
+# ✓ Logged in to github.com account peter-kaagman
+# - Git operations protocol: ssh
+# - Token scopes: 'gist', 'read:org', 'repo'
+
+gh issue list --limit 5
+# Toont 5 van 13 open issues (werkt!)
+```
+
+#### 2. GenericProjectRules.md Updates
+
+**Toegevoegd:**
+- Sectie "Issue Closing Workflow" met templates voor commit messages en closing comments
+- GitHub CLI commands (`gh issue close`, `gh issue comment`)
+- Bidirectionele linking strategie: ProjectLog ↔ GitHub Issues
+- Primair/secundair doel verduidelijking voor ProjectLog (AI context vs developer reference)
+
+**Key Beslissing:**
+```markdown
+Bij issue completion:
+1. Commit message met "Closes #XX" + ProjectLog reference
+2. GitHub issue closing comment met link naar ProjectLog entry + summary
+```
+
+**Rationale:** 
+- Forward: ProjectLog → Issue (via header `(Issue #XX)`) ✅ Al gedaan
+- Reverse: Issue → ProjectLog (via closing comment) ✅ Nieuw
+- Result: Volledig traceerbaar in beide richtingen
+
+#### 3. Workflow Impact
+
+**Voor (zonder gh CLI):**
+- Issue sluiten via browser
+- Geen gestandaardiseerde closing messages
+- Geen directe link van Issue naar ProjectLog
+- "Documentation disconnect" probleem
+
+**Na (met gh CLI):**
+- AI kan issues sluiten met gestandaardiseerde messages
+- Elk afgesloten issue linkt naar ProjectLog entry
+- Commit messages linken terug naar issue
+- Volledig traceerbaar: Code → Commit → Issue → ProjectLog → Beslissingen
+
+### Commands Nu Beschikbaar
+
+```bash
+# Issue sluiten met comment
+gh issue close 31 --comment "✅ Completed. See ProjectLog.md (2026-02-08)"
+
+# Comment toevoegen
+gh issue comment 31 --body "[detailed closing message]"
+
+# Issue details opvragen
+gh issue view 31
+
+# Issues bekijken
+gh issue list --limit 10
+```
+
+### Files Gewijzigd
+- ✏️ [ProjectDoc/GenericProjectRules.md](ProjectDoc/GenericProjectRules.md) - Sectie 9 uitgebreid met Issue Closing Workflow
+- ✏️ [ProjectDoc/GenericProjectRules.md](ProjectDoc/GenericProjectRules.md) - Sectie 10 "Documentation disconnect" gemarkeerd als ✅ OPGELOST
+
+### Status
+✅ **Compleet** - gh CLI werkend, workflow gedocumenteerd, klaar voor gebruik bij volgende issue completion.
+
+### Volgende Stappen
+Bij afronden van volgende issue (bijv. security fixes uit ProjectLog) testen we de nieuwe workflow in de praktijk.
+
+---
+
+## 2026-02-07 - Project Documentatie Herstructurering ✅
+
+### Overzicht
+Project documentatie georganiseerd in `ProjectDoc/` folder. GenericProjectRules.md (van AP Monitoring project) geanalyseerd en volledig aangepast voor MySite specifieke context en technische stack.
+
+### Uitgevoerde Acties
+
+#### 1. Documentatie Herstructurering
+- `log.md` verplaatst naar `ProjectDoc/ProjectLog.md`
+- Nieuwe folder structuur: alle markdown docs in `ProjectDoc/`
+- Consistent met Dancer2 project layout (code/views/public gescheiden van docs)
+
+#### 2. GenericProjectRules.md Aanpassing
+Volledig herschreven van AP Monitoring (Perl/SNMP/RRD) naar MySite (Dancer2/DBIC/Docker):
+
+**Structurele Wijzigingen:**
+- Directory layout: Dancer2 standaard structuur met `lib/`, `views/`, `public/`, `ProjectDoc/`
+- Planning: GitHub Issues i.p.v. ToDo.md voor tracking
+- Documentatie: ProjectLog.md voor technische details, Issues voor high-level planning
+
+**Tech Stack Updates:**
+- Database: Raw SQL → **DBIC (ORM)** met relationships
+- Frontend: Geen framework → **Modular ES6 JavaScript** (SearchCombo, TitleManager, uiSync)
+- Deployment: **Docker First** met multi-stage builds
+- Auth: **OAuth + Custom Provider** (Dancer2::Plugin::Auth::Extensible)
+- Database Strategy: **SQLite (dev) → PostgreSQL (prod)**
+- Sessions: **YAML (dev) → Redis (planned)**
+
+**Nieuwe Secties Toegevoegd:**
+- Security & Authorization patterns (alle write endpoints moeten auth checken)
+- Slug handling best practices (lowercase, underscores, validatie)
+- JSON API response standards
+- Frontend module patterns (auto-context detection, event-driven)
+- Docker development workflow (volume mounts, when to rebuild)
+- Template organization (Dancer2/TT specifiek)
+- MySite Current Status (feb 2026)
+- Lessons Learned MySite specifiek (7 bugs opgelost, 5 pitfalls)
+- New Dancer2 Project Checklist
+
+**Verwijderd:**
+- RRD/SNMP/AP monitoring specifieke regels
+- Archive folder strategy (gebruik git history)
+- Data collection patterns
+
+#### 3. AI Assistant Guidelines
+Expliciete sectie toegevoegd: **"Omgaan met Rule Violations"**
+
+**Workflow:**
+```
+Developer wijkt af van regel
+    ↓
+AI signaleert zonder oordeel: "Dit wijkt af van regel X"
+    ↓
+Vraag intentie: "Bewuste keuze?"
+    ↓
+Twee opties:
+├─ Ja, goede reden → Documenteer in ProjectLog
+└─ Nee, regel past niet → Update GenericProjectRules.md
+```
+
+**Rationale:** Rules zijn **leermiddel**, geen **keurslijf**. Afwijkingen triggeren reflectie en verbetering.
+
+### Files Gewijzigd/Aangemaakt
+- 🔄 `log.md` → `ProjectDoc/ProjectLog.md` (verplaatst)
+- ✏️ [ProjectDoc/GenericProjectRules.md](ProjectDoc/GenericProjectRules.md) - Volledig herschreven (v2.0)
+- ✨ Nieuwe sectie 15: "Omgaan met Rule Violations"
+
+### Belangrijkste Beslissingen
+
+**DBIC vs Raw SQL:**
+- AP Monitoring gebruikte raw SQL (portable, eenvoudiger)
+- MySite gebruikt DBIC (relationships makkelijker, vooral many-to-many)
+- Trade-off: meer overhead, maar cleanere code voor web app
+
+**Documentatie Strategie:**
+- ProjectLog.md = technische details, context, code snippets
+- GitHub Issues = high-level planning, acceptance criteria
+- GenericProjectRules.md = best practices, patterns, beslissingen
+- Cross-reference tussen alle drie
+
+**Living Document Principe:**
+Rules moeten **buigen naar werkelijkheid**, niet andersom. AI signaleert afwijkingen, samen beslissen we of developer fout is of rule moet aanpassen.
+
+### Status
+✅ **Compleet** - GenericProjectRules.md is nu MySite-specifiek en klaar voor gebruik als actief hulpmiddel.
+
+### Volgende Stappen
+Rules toepassen tijdens development. Bij eerste echte "rule violation" testen we of het signaleer-mechanisme werkt zoals bedoeld.
+
+---
+
 ## 2026-01-14 (Issue #30) - Docker Setup Succesvol Geïmplementeerd ✅
 
 ### Overzicht
@@ -67,7 +355,7 @@ Multi-stage build voor geoptimaliseerde image:
 ```yaml
 DBIC:
   default:
-    dsn: dbi:SQLite:dbname=db/mysite.sqlite  # Was: /home/pkn/MySite/db/mysite.sqlite
+    dsn: dbi:SQLite:dbname=db/mysite.sqlite  # Was: /absolute/path/to/MySite/db/mysite.sqlite
 ```
 
 #### 6. Development Workflow
@@ -164,12 +452,12 @@ Issue #30 is **100% compleet** en **mergeable naar main**. Volgende issues:
 
 **Historie**:
 1. Origineel: Relatief pad `db/mysite.sqlite` werkte niet in bepaalde setup
-2. Quick fix: Absolute pad `/home/pkn/MySite/db/mysite.sqlite` toegepast
+2. Quick fix: Absolute pad `$PROJECT_ROOT/db/mysite.sqlite` toegepast
 3. Huidige status: Relatief pad werkt nu in Docker, maar **root cause van origineel probleem is niet opgelost**
 
 **Waarom problematisch**:
 - ❓ **Root cause onbekend** - We weten niet waarom relatief pad niet werkte
-- ❌ Absolute pad is niet portable (hardcoded path naar /home/pkn/MySite)
+- ❌ Absolute pad is niet portable (hardcoded path naar specific directory)
 - ❌ Zal breken in productie op ander server/directory
 - ❌ Code bevat "magic path" zonder documentatie van waarom
 
@@ -183,7 +471,7 @@ dsn: dbi:SQLite:dbname=$ENV{DB_PATH}/mysite.sqlite
 
 **Impact**: Medium (werkt voor huidige dev/Docker use case, maar onclean en niet begrijpelijk)
 
-**TODO**: Documenteer waarom `/home/pkn/MySite` absoluut pad nodig was - mogelijk:
+**TODO**: Documenteer waarom absoluut pad nodig was - mogelijk:
 - Dancer2 pwd behavior
 - Plackup startup directory
 - Carton/PERL5LIB issue

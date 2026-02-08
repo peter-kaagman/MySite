@@ -1,0 +1,64 @@
+# Optimized Dockerfile for MySite
+# Uses Perl 5.40-slim (newer, more secure than 5.38)
+# SQLite + YAML sessions
+
+FROM perl:5.40-slim AS builder
+
+# Install build dependencies
+RUN apt-get update && apt-get upgrade -y && apt-get install -y \
+    build-essential \
+    libssl-dev \
+    zlib1g-dev \
+    sqlite3 \
+    libsqlite3-dev \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Copy cpanfile and install Perl dependencies
+COPY cpanfile cpanfile.snapshot ./
+RUN cpanm --installdeps --notest .
+
+# Copy application code
+COPY . .
+
+# Production stage - slim Debian with Perl 5.40
+FROM perl:5.40-slim
+
+# Install only runtime dependencies
+RUN apt-get update && apt-get upgrade -y && apt-get install -y \
+    libssl3 \
+    sqlite3 \
+    curl \
+    ca-certificates \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Create non-root user
+RUN useradd -m -u 1000 dancer && \
+    mkdir -p /app/logs /app/sessions /app/db && \
+    chown -R dancer:dancer /app
+
+WORKDIR /app
+
+# Copy Perl modules from builder
+COPY --from=builder /usr/local/lib/perl5 /usr/local/lib/perl5
+COPY --from=builder /usr/local/bin /usr/local/bin
+
+# Copy application files
+COPY --chown=dancer:dancer . .
+
+# Ensure directories are writable
+RUN chmod 755 /app/sessions /app/logs /app/db
+
+# Switch to non-root user
+USER dancer
+
+# Expose port 3000
+EXPOSE 3000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:3000/health || exit 1
+
+# Start the application
+CMD ["plackup", "-p", "3000", "-E", "development", "bin/app.psgi"]

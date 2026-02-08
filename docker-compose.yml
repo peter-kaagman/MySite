@@ -2,8 +2,8 @@ services:
   mysite:
     build:
       context: .
-      dockerfile: Dockerfile.simple
-    image: mysite:simple
+      dockerfile: Dockerfile.alpine
+    image: mysite:slim
     container_name: mysite-app
     restart: unless-stopped
     ports:
