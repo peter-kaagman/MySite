@@ -9,6 +9,7 @@ requires "String::Util" => "0";
 requires "Log::Log4perl" => "0";
 requires "Log::Any" => "0";
 requires "Log::Any::Adapter::Log4perl" => "0";
+requires "Dancer2::Logger::Log4perl" => "0";
 
 recommends "YAML"                    => "0";
 recommends "URL::Encode::XS"         => "0";
