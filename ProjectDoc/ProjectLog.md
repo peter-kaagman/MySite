@@ -1,5 +1,41 @@
 # MySite Development Log
 
+## 2026-02-09 (Issue #38) - Production-Ready Error Handling & Logging ✅
+
+### Overzicht
+Uitgebreide error handling en logging-refactor geïmplementeerd per Issue #38. Log4perl setup in beide environments, ErrorHandler module, en alle kritieke DB-operaties wrapped met proper error handling en contextuele logging.
+
+### Gerealiseerde Onderdelen
+
+**Phase 1:** ✅ Logging setup (Log4perl config + environment setup)
+**Phase 2:** ✅ ErrorHandler module (db_guard, json_error, template_error helpers)
+**Phase 3:** ✅ Refactor Article/User/Index/Utils met error handling wrapping
+**Phase 4:** ✅ Cleanup debug calls, structured logging levels
+
+### Acceptance Criteria Met
+
+- [x] Alle database operations wrapped in db_guard
+- [x] Graceful error responses (JSON voor API, templates voor HTML)
+- [x] Geen stack traces naar gebruikers
+- [x] Proper HTTP status codes (400/401/403/404/500)
+- [x] Error logging met timestamp + level + user context
+- [x] Logs naar stderr (Docker-friendly)  
+- [x] Environment-specifieke log config (dev debug, prod warning)
+
+### Files Gewijzigd
+
+- ✏️ `cpanfile` - Log4perl dependencies
+- ✏️ `environments/production.yml` - Log4perl config für warning level
+- ✏️ `environments/development.yml` - Log4perl config für debug level
+- ✨ `lib/MySite/ErrorHandler.pm` - New error handling module
+- ✏️ `lib/MySite/Article.pm`, `User.pm`, `Index.pm`, `Utils.pm` - Refactor met db_guard wrapping
+
+### Status
+
+✅ **COMPLEET** - Issue #38 fully implemented. Ready voor testing en production.
+
+---
+
 ## 2026-02-09 (Issue #36) - Validate Content/Abstract Not Empty ✅
 
 ### Overzicht

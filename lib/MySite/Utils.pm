@@ -46,16 +46,10 @@ sub unique_slug {
   return $slug;
 }
 
-# # Auth helper: return user hashref if logged in, else 401 response
+# Auth helper: return user hashref if logged in, else 401 response
 sub require_user_logged_in {
-  # my $user = session->read('user');
-  # # unless ($user) {
-  # #   status 401;
-  # #   content_type 'application/json';
-  # #   return to_json({ error => 'Unauthorized' });
-  # # }
-  # return ($user && $user->{username}) ? $user : undef;
-  debug "Dit zou niet meer aangeroep moeten worden";
+  # Deprecated: use session->read('user') directly in routes
+  info "require_user_logged_in called (deprecated)";
   return 1;
 }
 
@@ -67,21 +61,17 @@ sub user_can_edit_article {
   # For new articles (no author yet), check role only
   if (!$author) {
     if ($user && grep { $_ eq $user->{role} } @$allowed_roles) {
-      debug "Role ", $user->{role}, " is allowed for new article";
+      debug "Authorization check passed: role ", $user->{role}, " allowed for new article";
       $result = 1;
     }
   } elsif ($user && $author) {
     # For existing articles, check role or ownership
     my $author_name = $author->username();
-    # (1, 'Admin'),
-    # (2, 'Editor'),
-    # (3, 'Writer'),
-    # (4, 'Visitor')
     if (grep { $_ eq $user->{role} } @$allowed_roles) {
-      debug "Role ", $user->{role}, " is allowed";
+      debug "Authorization check passed: role ", $user->{role}, " allowed for article";
       $result = 1;
     } elsif ($user->{username} && $user->{username} eq $author_name && grep { $_ eq 'Owner' } @$allowed_roles) {
-      debug "User ", $user->{username}, " is owner and allowed";
+      debug "Authorization check passed: user ", $user->{username}, " is owner";
       $result = 1;
     }
   }
