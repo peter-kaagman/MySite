@@ -168,9 +168,18 @@ sub _field_update {
   # Now handle the field update
   my $data = from_json(request->body);
   my %response = (success => 1);
+  my $field = route_parameters->get('field');
+  my $trimmed_value = trim($data->{value} // '');
+
+  if ($field eq 'content' || $field eq 'abstract') {
+    unless (length $trimmed_value) {
+      status 400;
+      return to_json({ success => 0, error => 'Field cannot be empty' });
+    }
+  }
   
   # For content, we need to create a new version
-  if (route_parameters->get('field') eq 'content') {
+  if ($field eq 'content') {
     debug "Update content with value ", $data->{value};
 
     # Get the article content
@@ -192,7 +201,7 @@ sub _field_update {
     }
     
     $content->create({
-      content  => trim($data->{value}),
+      content  => $trimmed_value,
       version  => $newVersion,
       editorid => $user->{'id'},
       created  => $t->datetime,
@@ -200,21 +209,21 @@ sub _field_update {
     
     %response = (
       success => 1,
-      content => trim($data->{value}),
+      content => $trimmed_value,
       version => $newVersion,
       message => "Content updated successfully"
     );
     
   } elsif (
     # If title and slug are linked, we update both
-    (route_parameters->get('field') eq 'title') &&
+    ($field eq 'title') &&
     ($article->{'slugtitle'} eq '1')
   ) {
     # Update title and slug if slugtitle is set to 1
     debug "Update title and slug";
     $article->update({
-      title => trim($data->{value}),
-      slug  => slugify(trim($data->{value}))
+      title => $trimmed_value,
+      slug  => slugify($trimmed_value)
     });
     
     %response = (
@@ -224,10 +233,10 @@ sub _field_update {
       message => "Title and slug updated successfully"
     );
     
-  } elsif (route_parameters->get('field') eq 'slug') {
+  } elsif ($field eq 'slug') {
     # Normalize slug using slugify
     debug "Update slug with normalized value";
-    my $normalized_slug = slugify(trim($data->{value}));
+    my $normalized_slug = slugify($trimmed_value);
     $article->update({ slug => $normalized_slug });
     
     %response = (
@@ -237,15 +246,15 @@ sub _field_update {
     );
     
   } else {
-    debug "Generic Update field ", route_parameters->get('field'), " with value ", $data->{value};
+    debug "Generic Update field ", $field, " with value ", $data->{value};
     $article->update({
-      route_parameters->get('field') => trim($data->{value})
+      $field => $trimmed_value
     });
     
     %response = (
       success => 1,
-      route_parameters->get('field') => trim($data->{value}),
-      message => "Field " . route_parameters->get('field') . " updated successfully"
+      $field => $trimmed_value,
+      message => "Field " . $field . " updated successfully"
     );
   }
   
