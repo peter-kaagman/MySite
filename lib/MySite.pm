@@ -18,10 +18,20 @@ our $VERSION = '0.1';
 {
     my $app_root = abs_path("$FindBin::Bin/..");
     my $db_path = "$app_root/db/mysite.sqlite";
+use Log::Log4perl;
     
     # Override the DBIC dsn with absolute path
     # This is set in config.yml as relative, but we convert it to absolute here
+# Manually initialize Log::Log4perl from config if not already done
+BEGIN {
+    my $log_conf = eval { config->{log4perl}->{config} };
+    if ($log_conf) {
+        Log::Log4perl->init(\$log_conf);
+    }
+}
     my $config = config;
+    debug "Logger config: " . ($config->{logger} // 'undef');
+    debug "Log4perl config:\n" . ($config->{log4perl}->{config} // 'undef');
     if ($config->{plugins}->{DBIC}->{default}->{dsn} =~ /dbname=db\/mysite\.sqlite/) {
         my $original_dsn = $config->{plugins}->{DBIC}->{default}->{dsn};
         $config->{plugins}->{DBIC}->{default}->{dsn} =~ s|dbname=db/mysite\.sqlite|dbname=$db_path|;

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "echo 'No build step defined'",
-    "start": "carton exec plackup -R ./lib ./bin/app.psgi"
+    "start": "DANCER_ENVIRONMENT=development carton exec plackup -R ./lib ./bin/app.psgi"
   },
   "author": "Peter Kaagman",
   "license": "MIT",
