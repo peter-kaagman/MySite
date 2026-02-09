@@ -381,6 +381,7 @@ sub _article_delete {
     'user' => session->read('user'),
     'error_content' => "Function nog niet geimplementeerd " . session->read('user'),
   };
+}
 
 # heeft auth check
 sub _get_article_new {
@@ -588,6 +589,14 @@ sub _handle_keyword {
   );
 
   debug "Keyword operation result for article: ", $data->{article_id};
+
+  unless ($keyword_ok) {
+    return json_error(message => 'Database error', status => 500);
+  }
+
+  content_type 'application/json';
+  return to_json({ result => "Ok"});
+}
 
 # heeft auth check
 sub _handle_category {
