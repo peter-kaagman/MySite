@@ -11,6 +11,7 @@ use Dancer2::Plugin::DBIC;
 use Time::Piece;
 use Data::Dumper;
 use Switch;
+use MySite::ErrorHandler qw(db_guard json_error template_error user_context);
 
 sub _login {
   my $return_url;
@@ -26,8 +27,7 @@ sub _login {
     { name => 'Login'},
     { }
   );
-  debug "Wat is page";
-  debug $page->name;
+  debug "Login page loaded" if $page;
   template 'page' => {
     'title' => 'Login', 
     'page' => $page,#->get_column('content'),
@@ -57,7 +57,7 @@ sub _ok {
     }
   }
   if (%user){
-    #debug Dumper \%user;
+    # User data processed from OAuth provider
     _checkUser(\%user);
     session->write(%user);
   }
@@ -75,15 +75,29 @@ sub _failed {
 
 sub _checkUser{
   my $user = shift;
-  debug "Searching for:";
-  debug Dumper $user;
-  my $found = schema->resultset('User')->find(
-    {
-      username => $user->{'user'}->{'username'}
-    },{}
+  my $username = $user->{'user'}->{'username'};
+  
+  debug "Checking/creating user: $username";
+  
+  my ($db_ok, $found) = db_guard(
+    action => "find user by username",
+    user => undef,
+    code => sub {
+      return schema->resultset('User')->find(
+        { username => $username },
+        {}
+      );
+    }
   );
+  
+  unless ($db_ok) {
+    error "Database error during user lookup for: $username";
+    return;
+  }
+  
   if ($found){
     # Setup user for session from db
+    debug "User found in database: $username";
     if ($found->name eq 'unknown'){
       $user->{'user'}->{'name'} = $found->username;
     }else{
@@ -96,18 +110,31 @@ sub _checkUser{
     $user->{'user'}->{'id'} = $found->user_id;
   }else{
     # Setup a default user for session and db
-    my $t = localtime;
-    my $role = schema->resultset('Role')->find(
-      {
-        name => 'Visitor'
+    info "Creating new Visitor user: $username";
+    my ($create_ok) = db_guard(
+      action => "create new user",
+      user => undef,
+      code => sub {
+        my $t = localtime;
+        my $role = schema->resultset('Role')->find(
+          { name => 'Visitor' }
+        );
+        if (!$role) {
+          error "Visitor role not found in database";
+          return 0;
+        }
+        $user->{'user'}->{'created'} = $t->datetime;
+        $user->{'user'}->{'roleid'} = $role->role_id;
+        schema->resultset('User')->create($user->{'user'});
+        $user->{'user'}->{'role'} = 'Visitor';
+        $user->{'user'}->{'name'} = $user->{'user'}->{'username'};
+        return 1;
       }
     );
-    # $user->{'user'}->{'name'} = 'Peter';
-    $user->{'user'}->{'created'} = $t->datetime;
-    $user->{'user'}->{'roleid'} = $role->role_id;
-    schema->resultset('User')->create($user->{'user'});
-    $user->{'user'}->{'role'} = 'Visitor';
-    $user->{'user'}->{'name'} = $user->{'user'}->{'username'};
+    unless ($create_ok) {
+      error "Failed to create new user: $username";
+      return;
+    }
   }
 }
 
@@ -116,25 +143,37 @@ sub _profile {
   my $username = route_parameters->get('username');
   my $user = session->read('user');
   if ($user && $user->{username} eq $username){
-    say "Eigen profiel";
-    my $user_data = schema->resultset('User')->find(
-      {
-        username => $username
-      },{}
+    debug "Loading own profile for: $username";
+    my ($db_ok, $user_data) = db_guard(
+      action => "fetch user profile",
+      user => $user,
+      code => sub {
+        return schema->resultset('User')->find(
+          { username => $username },
+          {}
+        );
+      }
     );
-    # say "Blaat";
-    # say $user_data->roleid->role_id;
-    # say $user_data->roleid->name;
+    
+    unless ($db_ok) {
+      return template_error(
+        title => 'Profile Error',
+        error => 'Could not load profile',
+        status => 500
+      );
+    }
+    
     if ($user_data){
       template 'user/profile' => { 
-        'title' => 'Profile'.$username,
+        'title' => 'Profile '.$username,
         'user' => $user_data
       };
     }else {
+      warning "Profile not found for user: $username";
       return redirect '/'; # return if not found
     }
   }else{
-    say "Niet eigen profiel";
+    warning "Unauthorized profile access attempt";
     return redirect '/'; # return if not own profile
   }
 
