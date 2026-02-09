@@ -1,0 +1,42 @@
+[2026/02/09 16:16:13] [DEBUG] Test log to file and console
+[2026/02/09 16:21:20] [DEBUG] [MySite:26705] debug @2026-02-09 16:21:20> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 33
+[2026/02/09 16:21:20] [DEBUG] [MySite:26705] debug @2026-02-09 16:21:20> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/09 16:21:20] [DEBUG] [MySite:26705] debug @2026-02-09 16:21:20> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 38
+[2026/02/09 16:21:31] [DEBUG] [MySite:26813] debug @2026-02-09 16:21:31> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 33
+[2026/02/09 16:21:31] [DEBUG] [MySite:26813] debug @2026-02-09 16:21:31> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/09 16:21:31] [DEBUG] [MySite:26813] debug @2026-02-09 16:21:31> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 38
+[2026/02/09 16:21:42] [DEBUG] [MySite:26813] debug @2026-02-09 16:21:42> find article by slug succeeded - user=prjv.kaagman@gmail.com (id=1) (role=Admin) in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/09 16:21:42] [DEBUG] [MySite:26813] debug @2026-02-09 16:21:42> Article displayed: 6 in /home/pkn/MySite/bin/../lib/MySite/Article.pm l. 51
+[2026/02/09 16:22:12] [DEBUG] [MySite:27036] debug @2026-02-09 16:22:12> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 33
+[2026/02/09 16:22:12] [DEBUG] [MySite:27036] debug @2026-02-09 16:22:12> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/09 16:22:12] [DEBUG] [MySite:27036] debug @2026-02-09 16:22:12> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 38

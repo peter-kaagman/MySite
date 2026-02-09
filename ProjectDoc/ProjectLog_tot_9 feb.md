@@ -1163,7 +1163,7 @@ Now rebuilds list after both adding AND removing keywords.
 ---
 
 #### 6. **UI Reported Keyword Removed But Not Actually Removed**
-**Problem:** 
+**Problem:**
 - UI showed "keyword removed successfully"
 - But keyword was still saved in database
 
