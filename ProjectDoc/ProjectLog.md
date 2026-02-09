@@ -1,5 +1,42 @@
 # MySite Development Log
 
+## 2026-02-09 (Issue #36) - Validate Content/Abstract Not Empty ✅
+
+### Overzicht
+In `_field_update` is validatie toegevoegd voor `content` en `abstract`. Na trim() worden lege waarden geweigerd met HTTP 400 en foutmelding "Field cannot be empty".
+
+### Uitgevoerde Acties
+
+#### 1. Input validatie toegevoegd
+
+**Locatie:** [lib/MySite/Article.pm](lib/MySite/Article.pm)
+
+**Wijziging:**
+```perl
+my $field = route_parameters->get('field');
+my $trimmed_value = trim($data->{value} // '');
+
+if ($field eq 'content' || $field eq 'abstract') {
+  unless (length $trimmed_value) {
+    status 400;
+    return to_json({ success => 0, error => 'Field cannot be empty' });
+  }
+}
+```
+
+### Test Scenarios
+
+- `POST /article/update/content/:id` met value="   " -> 400 + "Field cannot be empty"
+- `POST /article/update/abstract/:id` met value="" -> 400 + "Field cannot be empty"
+
+### Status
+✅ **COMPLEET** - Validatie aanwezig en foutmelding voldoet aan acceptance criteria.
+
+### Notitie
+Besproken dat de validatie alleen in `_field_update` zit en het aanmaken van een nieuw artikel (skeleton) niet blokkeert. Als later blijkt dat drafts met lege `content/abstract` toch toegestaan moeten blijven, dan kan de validatie conditioneel worden gemaakt.
+
+---
+
 ## 2026-02-09 (Issue #34) - Database Path Root Cause Investigation & Fix ✅
 
 ### Overzicht
