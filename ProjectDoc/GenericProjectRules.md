@@ -260,20 +260,54 @@ Implementation details: ProjectLog.md (2026-02-08 entry)
 **Branch Strategy:**
 - `main` = stable, werkende code
 - Feature branches: `username/issue-number` of `feature/description`
-- Merge via Pull Requests (optioneel: met review)
+- Merge via Pull Requests (verplicht voor code changes)
+
+**Complete Workflow:**
+```bash
+# 1. Create issue branch
+git checkout -b peter-kaagman/issue-XX
+
+# 2. Implement & commit
+git add <files>
+git commit -m "fix/feat: Description (Issue #XX)"
+
+# 3. Push branch
+git push origin peter-kaagman/issue-XX
+
+# 4. Create Pull Request
+gh pr create --base main --head peter-kaagman/issue-XX \
+  --title "Fix/Feat: Title" \
+  --body "Resolves #XX\n\n## Changes\n- ...\n\n## Testing\n- ✅ ..."
+
+# 5. Merge PR (squash merge recommended)
+gh pr merge XX --squash --delete-branch
+
+# 6. Sync local main
+git checkout main
+git pull origin main
+
+# 7. Close issue with reference
+gh issue close XX --comment "✅ Completed. See ProjectLog.md (YYYY-MM-DD)"
+```
 
 **Commit Messages:**
 ```bash
 # Good
-git commit -m "Add Redis session support (Issue #31)"
-git commit -m "Fix keyword authorization check (Security)"
+git commit -m "feat: Add Redis session support (Issue #31)"
+git commit -m "fix: Keyword authorization check (Security, Issue #XX)"
+git commit -m "docs: Update ProjectLog with Issue #XX completion"
 
 # Bad  
 git commit -m "Update file"
 git commit -m "Fix bug"
 ```
 
-**Rule:** Commit messages moeten standalone begrijpelijk zijn zonder context.
+**Rules:**
+- Commit messages moeten standalone begrijpelijk zijn zonder context
+- Altijd PR maken voor code changes (branch → main)
+- Squash merge voor cleane history
+- Delete branch na merge (automatisch met --delete-branch)
+- Pull main na merge om lokaal sync te houden
 
 ---
 
@@ -787,12 +821,27 @@ git checkout -b peter-kaagman/issue-36
 # 2. NOW you can make code changes
 # Edit files, implement feature...
 
-# 3. Commit, push
-git commit -m "Implement empty field validation (Issue #36)"
+# 3. Commit changes
+git add <files>
+git commit -m "fix: Implement empty field validation (Issue #36)"
+
+# 4. Push branch to GitHub
 git push origin peter-kaagman/issue-36
 
-# 4. Create PR naar main
-# 5. Merge after review/testing
+# 5. Create Pull Request
+gh pr create --base main --head peter-kaagman/issue-36 \
+  --title "Fix(Issue #36): Empty field validation" \
+  --body "Resolves #36..."
+
+# 6. Merge PR (squash merge preferred for clean history)
+gh pr merge 36 --squash --delete-branch
+
+# 7. Switch back to main and sync
+git checkout main
+git pull origin main
+
+# 8. Close issue with reference to ProjectLog
+gh issue close 36 --comment "✅ Completed. See ProjectLog.md (YYYY-MM-DD)"
 ```
 
 **Toegestaan op main branch:**
