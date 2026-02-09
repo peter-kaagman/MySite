@@ -1,10 +1,14 @@
 # configuration file for development environment
 
-# the logger engine to use
-# console: log messages to STDOUT (your console where you started the
-#          application server)
-# file:    log message to a file in log/
-logger: "console"
+# use Log4perl for structured logging
+logger: "log4perl"
+log4perl:
+  config: |
+    log4perl.rootLogger = DEBUG, STDERR
+    log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+    log4perl.appender.STDERR.stderr = 1
+    log4perl.appender.STDERR.layout = PatternLayout
+    log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n
 
 # the log level for this environment
 # core is the lowest, it shows Dancer2's core log messages as well as yours
