@@ -1,3 +1,10 @@
+## 2026-02-10 - Debug logging OAuth callback_url
+
+**Onderwerp:**
+- Debug-logregels toegevoegd aan User.pm om bij het opstarten van de app te tonen welke callback_url voor Google en Github daadwerkelijk uit de config geladen wordt.
+
+**Resultaat:**
+- In de logs is nu direct zichtbaar of de juiste (https) callback_url actief is in de productieomgeving.
 ## 2026-02-10 - npm postinstall, symlinks en Docker
 
 **Onderwerp:**
