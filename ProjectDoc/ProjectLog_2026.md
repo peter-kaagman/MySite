@@ -1,3 +1,12 @@
+## 2026-02-10 - npm postinstall, symlinks en Docker
+
+**Onderwerp:**
+- Symlinks naar node_modules werkten niet in Docker (public/css/vendor en public/javascripts/vendor).
+- Oplossing: npm postinstall-script toegevoegd dat benodigde JS- en CSS-bestanden van bootstrap en simplemde fysiek kopieert naar de juiste vendor directories.
+- Bestaande symlinks/bestanden verwijderd om conflicts te voorkomen.
+
+**Resultaat:**
+- npm install werkt nu altijd, zowel lokaal als in Docker, en de benodigde bestanden zijn altijd beschikbaar zonder symlinks.
 
 ## 2026-02-10 - HTTPS, vhost, mixed content & OAuth productieconfig
 

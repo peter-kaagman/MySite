@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "echo 'No build step defined'",
-    "start": "DANCER_ENVIRONMENT=development carton exec plackup -R ./lib ./bin/app.psgi"
+    "start": "DANCER_ENVIRONMENT=development carton exec plackup -R ./lib ./bin/app.psgi",
+    "postinstall": "mkdir -p public/css/vendor public/javascripts/vendor && cp node_modules/bootstrap/dist/css/bootstrap.min.css public/css/vendor/ && cp node_modules/bootstrap/dist/js/bootstrap.bundle.min.js public/javascripts/vendor/ && cp node_modules/simplemde/dist/simplemde.min.js public/javascripts/vendor/ && cp node_modules/simplemde/dist/simplemde.min.css public/css/vendor/"
   },
   "author": "Peter Kaagman",
   "license": "MIT",
