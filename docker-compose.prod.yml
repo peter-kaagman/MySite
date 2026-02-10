@@ -2,7 +2,7 @@ services:
   mysite:
     build:
       context: .
-      dockerfile: Dockerfile.simple
+      dockerfile: Dockerfile
     image: mysite:simple
     container_name: mysite-app
     restart: unless-stopped
