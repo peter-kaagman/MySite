@@ -7,10 +7,10 @@
     content="width=device-width, initial-scale=1.0, user-scalable=yes"
   >
   <title><% title %></title>
-  <link href="<% request.uri_base %>/css/vendor/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="<% request.uri_base %>/css/style.css">
+  <link href="/css/vendor/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
   <% IF page == 'article_edit' %>
-    <link rel="stylesheet" href="<% request.uri_base %>/css/vendor/simplemde.min.css">
+    <link rel="stylesheet" href="/css/vendor/simplemde.min.css">
   <% END %>
 
 </head>
@@ -34,7 +34,7 @@
       <div id='footer'><% INCLUDE includes/footer.tt %></div>
     </div>
   </div>
-  <script src="<% request.uri_base %>/javascripts/vendor/bootstrap.bundle.min.js"></script>
+  <script src="/javascripts/vendor/bootstrap.bundle.min.js"></script>
   <% IF page == 'article_edit' %>
     <script src="/javascripts/vendor/simplemde.min.js"></script>
     <script type="module" src="/javascripts/article_edit.js"></script>

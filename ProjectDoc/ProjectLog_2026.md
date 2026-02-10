@@ -1,3 +1,22 @@
+
+## 2026-02-10 - HTTPS, vhost, mixed content & OAuth productieconfig
+
+**Onderwerpen:**
+- Apache vhost configuratie voor Docker/Plack reverse proxy
+- HTTPS redirect en statische bestanden via ProxyPass uitzonderingen
+- Mixed content opgelost door root-relatieve paden in main.tt
+- Analyse van alle templates op mixed content risico's
+- Uitleg developer console (Network tab) voor CSS/JS laadsucces
+- OAuth callback-URL probleem: intern http, extern https
+- Oplossing: expliciete callback_url in Dancer2::Plugin::Auth::OAuth
+- Per omgeving (production.yml) juiste callback instellen
+- Docker compose productieomgeving laadt automatisch de juiste config (PLACK_ENV=production)
+- Best practice: secrets in config_local.yml, omgevingsspecifiek in environments/production.yml
+
+**Resultaat:**
+- Site werkt nu correct via HTTPS, zonder mixed content
+- OAuth werkt correct in productie dankzij expliciete callback_url in production.yml
+- Documentatie en configuratie zijn up-to-date en gescheiden per omgeving
 # MySite Development Log - Deel 2 (2026)
 
 ## 2026-02-09 - Refactor & Modularisatie Analyse (Projectorganisatie)
