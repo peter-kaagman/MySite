@@ -13,11 +13,10 @@ use Data::Dumper;
 use Switch;
 use MySite::ErrorHandler qw(db_guard json_error template_error user_context);
 
-debug "Google callback_url: " . (config->{plugins}->{'Auth::OAuth'}{providers}{Google}{callback_url} // '[not set]');
-debug "Github callback_url: " . (config->{plugins}->{'Auth::OAuth'}{providers}{Github}{callback_url} // '[not set]');
-
 
 sub _login {
+  debug "Google callback_url: " . (config->{plugins}->{'Auth::OAuth'}{providers}{Google}{callback_url} // '[not set]');
+  debug "Github callback_url: " . (config->{plugins}->{'Auth::OAuth'}{providers}{Github}{callback_url} // '[not set]');
   my $return_url;
   if (request->{'_query_params'}->{'return_url'}){
     $return_url = request->{'_query_params'}->{'return_url'};
