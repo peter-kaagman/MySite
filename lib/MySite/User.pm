@@ -16,7 +16,11 @@ use MySite::ErrorHandler qw(db_guard json_error template_error user_context);
 
 sub _login {
   debug "Google callback_url: " . (config->{plugins}->{'Auth::OAuth'}{providers}{Google}{callback_url} // '[not set]');
+  debug "Google client_id: " . (config->{plugins}->{'Auth::OAuth'}{providers}{Google}{tokens}{client_id} // '[not set]');
+  debug "Google client_secret: " . (config->{plugins}->{'Auth::OAuth'}{providers}{Google}{tokens}{client_secret} // '[not set]');
   debug "Github callback_url: " . (config->{plugins}->{'Auth::OAuth'}{providers}{Github}{callback_url} // '[not set]');
+  debug "Github client_id: " . (config->{plugins}->{'Auth::OAuth'}{providers}{Github}{tokens}{client_id} // '[not set]');
+  debug "Github client_secret: " . (config->{plugins}->{'Auth::OAuth'}{providers}{Github}{tokens}{client_secret} // '[not set]');
   my $return_url;
   if (request->{'_query_params'}->{'return_url'}){
     $return_url = request->{'_query_params'}->{'return_url'};
