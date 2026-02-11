@@ -1,5 +1,5 @@
 *sqlite
 *local.yml
 sessions/*
-# Ignore log file
+node_modules/
 logs/mysite.log
