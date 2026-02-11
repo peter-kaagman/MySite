@@ -12,6 +12,8 @@ requires "Log::Log4perl" => "0";
 requires "Log::Any" => "0";
 requires "Log::Any::Adapter::Log4perl" => "0";
 
+requires "LWP::UserAgent" => "0";
+
 requires "Plack::Handler::Starman" => "0";
 requires "Dancer2::Logger::Log4perl" => "0";
 
