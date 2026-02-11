@@ -2,4 +2,5 @@
 *local.yml
 sessions/*
 node_modules/
+local/
 logs/mysite.log
