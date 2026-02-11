@@ -1,4 +1,4 @@
-requires "OAuth2::Client" => "0";
+# requires "OAuth2::Client" => "0";
 requires "Dancer2::Plugin::Auth::Extensible" => "0";
 requires "Dancer2" => "2.0.1";
 requires "Dancer2::Plugin::Auth::Tiny" => "0";
