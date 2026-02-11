@@ -114,15 +114,6 @@ DISTRIBUTIONS
       overload 0
       perl 5.006
       strict 0
-  Class-Accessor-0.51
-    pathname: K/KA/KASEI/Class-Accessor-0.51.tar.gz
-    provides:
-      Class::Accessor 0.51
-      Class::Accessor::Fast 0.51
-      Class::Accessor::Faster 0.51
-    requirements:
-      ExtUtils::MakeMaker 0
-      base 1.01
   Class-Accessor-Grouped-0.10014
     pathname: H/HA/HAARG/Class-Accessor-Grouped-0.10014.tar.gz
     provides:
@@ -731,38 +722,6 @@ DISTRIBUTIONS
       YAML 0
       namespace::clean 0
       perl 5.006000
-  Dancer2-Plugin-Auth-OAuth-0.20
-    pathname: B/BI/BIAFRA/Dancer2-Plugin-Auth-OAuth-0.20.tar.gz
-    provides:
-      Dancer2::Plugin::Auth::OAuth 0.20
-      Dancer2::Plugin::Auth::OAuth::Provider undef
-      Dancer2::Plugin::Auth::OAuth::Provider::AzureAD undef
-      Dancer2::Plugin::Auth::OAuth::Provider::Facebook undef
-      Dancer2::Plugin::Auth::OAuth::Provider::Github undef
-      Dancer2::Plugin::Auth::OAuth::Provider::Google undef
-      Dancer2::Plugin::Auth::OAuth::Provider::Linkedin undef
-      Dancer2::Plugin::Auth::OAuth::Provider::MailRU undef
-      Dancer2::Plugin::Auth::OAuth::Provider::Odnoklassniki undef
-      Dancer2::Plugin::Auth::OAuth::Provider::Salesforce undef
-      Dancer2::Plugin::Auth::OAuth::Provider::Stackexchange undef
-      Dancer2::Plugin::Auth::OAuth::Provider::Twitter undef
-      Dancer2::Plugin::Auth::OAuth::Provider::VKontakte undef
-      Dancer2::Plugin::Auth::OAuth::Provider::Yandex undef
-    requirements:
-      Dancer2 0.150000
-      DateTime 0
-      Digest::MD5 0
-      HTTP::Message 0
-      Hash::Merge 0
-      JSON::MaybeXS 0
-      LWP::Protocol::https 0
-      LWP::UserAgent 0
-      Module::Build::Tiny 0.034
-      Module::Load 0
-      Net::OAuth 0
-      Scalar::Util 0
-      URI::Query 0
-      perl 5.008005
   Dancer2-Plugin-Auth-Tiny-0.008
     pathname: X/XS/XSAWYERX/Dancer2-Plugin-Auth-Tiny-0.008.tar.gz
     provides:
@@ -796,6 +755,20 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 0
       Ref::Util 0
       Test::More 0
+      perl 5.006
+  Data-Dump-1.25
+    pathname: G/GA/GARU/Data-Dump-1.25.tar.gz
+    provides:
+      Data::Dump 1.25
+      Data::Dump::FilterContext undef
+      Data::Dump::Filtered undef
+      Data::Dump::Trace 0.02
+      Data::Dump::Trace::Call 0.02
+      Data::Dump::Trace::Wrapper 0.02
+    requirements:
+      ExtUtils::MakeMaker 0
+      Symbol 0
+      Test 0
       perl 5.006
   Data-Dumper-Concise-2.023
     pathname: E/ET/ETHER/Data-Dumper-Concise-2.023.tar.gz
@@ -1380,20 +1353,6 @@ DISTRIBUTIONS
       perl 5.008
       strict 0
       warnings 0
-  File-Listing-6.16
-    pathname: P/PL/PLICEASE/File-Listing-6.16.tar.gz
-    provides:
-      File::Listing 6.16
-      File::Listing::apache 6.16
-      File::Listing::dosftp 6.16
-      File::Listing::netware 6.16
-      File::Listing::unix 6.16
-      File::Listing::vms 6.16
-    requirements:
-      Exporter 5.57
-      ExtUtils::MakeMaker 0
-      HTTP::Date 0
-      perl 5.006
   File-Share-0.27
     pathname: I/IN/INGY/File-Share-0.27.tar.gz
     provides:
@@ -1610,14 +1569,14 @@ DISTRIBUTIONS
       Test::Deep 0
       Test::More 0.88
       perl 5.008001
-  HTTP-Negotiate-6.01
-    pathname: G/GA/GAAS/HTTP-Negotiate-6.01.tar.gz
+  HTTP-Parser-XS-0.17
+    pathname: K/KA/KAZUHO/HTTP-Parser-XS-0.17.tar.gz
     provides:
-      HTTP::Negotiate 6.01
+      HTTP::Parser::XS 0.17
+      HTTP::Parser::XS::PP undef
     requirements:
-      ExtUtils::MakeMaker 0
-      HTTP::Headers 6
-      perl 5.008001
+      ExtUtils::MakeMaker 6.36
+      Test::More 0.96
   HTTP-XSCookies-0.000021
     pathname: G/GO/GONZUS/HTTP-XSCookies-0.000021.tar.gz
     provides:
@@ -1671,23 +1630,6 @@ DISTRIBUTIONS
       Exporter 5.57
       ExtUtils::MakeMaker 0
       perl 5.008
-  IO-Socket-SSL-2.096
-    pathname: S/SU/SULLR/IO-Socket-SSL-2.096.tar.gz
-    provides:
-      IO::Socket::SSL 2.096
-      IO::Socket::SSL::Intercept 2.056
-      IO::Socket::SSL::OCSP_Cache 2.096
-      IO::Socket::SSL::OCSP_Resolver 2.096
-      IO::Socket::SSL::PublicSuffix undef
-      IO::Socket::SSL::SSL_Context 2.096
-      IO::Socket::SSL::SSL_HANDLE 2.096
-      IO::Socket::SSL::Session_Cache 2.096
-      IO::Socket::SSL::Trace 2.096
-      IO::Socket::SSL::Utils 2.015
-    requirements:
-      ExtUtils::MakeMaker 0
-      Net::SSLeay 1.46
-      Scalar::Util 0
   Import-Into-1.002005
     pathname: H/HA/HAARG/Import-Into-1.002005.tar.gz
     provides:
@@ -1720,20 +1662,6 @@ DISTRIBUTIONS
       File::Basename 0
       Scalar::Util 0
       perl 5.006002
-      strict 0
-  LWP-Protocol-https-6.14
-    pathname: O/OA/OALDERS/LWP-Protocol-https-6.14.tar.gz
-    provides:
-      LWP::Protocol::https 6.14
-      LWP::Protocol::https::Socket 6.14
-    requirements:
-      ExtUtils::MakeMaker 0
-      IO::Socket::SSL 1.970
-      LWP::Protocol::http 0
-      LWP::UserAgent 6.06
-      Net::HTTPS 6
-      base 0
-      perl 5.008001
       strict 0
   List-MoreUtils-0.430
     pathname: R/RE/REHSACK/List-MoreUtils-0.430.tar.gz
@@ -2031,62 +1959,43 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 0
       Moo 2.004
       Type::Tiny 1.008
-  Net-HTTP-6.24
-    pathname: O/OA/OALDERS/Net-HTTP-6.24.tar.gz
+  Net-Server-2.017
+    pathname: B/BB/BBB/Net-Server-2.017.tar.gz
     provides:
-      Net::HTTP 6.24
-      Net::HTTP::Methods 6.24
-      Net::HTTP::NB 6.24
-      Net::HTTPS 6.24
+      Net::Server 2.017
+      Net::Server::Daemonize 0.06
+      Net::Server::Fork undef
+      Net::Server::HTTP undef
+      Net::Server::INET undef
+      Net::Server::INET::Handle undef
+      Net::Server::IP undef
+      Net::Server::Log::Log::Log4perl undef
+      Net::Server::Log::Sys::Syslog undef
+      Net::Server::MultiType undef
+      Net::Server::Multiplex undef
+      Net::Server::Multiplex::MUX undef
+      Net::Server::PSGI undef
+      Net::Server::PreFork undef
+      Net::Server::PreForkSimple undef
+      Net::Server::Proto undef
+      Net::Server::Proto::SSL undef
+      Net::Server::Proto::SSLEAY undef
+      Net::Server::Proto::TCP undef
+      Net::Server::Proto::UDP undef
+      Net::Server::Proto::UNIX undef
+      Net::Server::Proto::UNIXDGRAM undef
+      Net::Server::SIG 0.03
+      Net::Server::Single undef
+      Net::Server::Thread undef
+      Net::Server::TiedHandle 2.017
     requirements:
       Carp 0
-      Compress::Raw::Zlib 0
       ExtUtils::MakeMaker 0
-      IO::Socket::INET 0
-      IO::Uncompress::Gunzip 0
-      URI 0
-      base 0
-      perl 5.006002
-      strict 0
-      warnings 0
-  Net-OAuth-0.31
-    pathname: R/RR/RRWO/Net-OAuth-0.31.tar.gz
-    provides:
-      Net::OAuth 0.31
-      Net::OAuth::AccessToken undef
-      Net::OAuth::AccessTokenRequest undef
-      Net::OAuth::AccessTokenResponse undef
-      Net::OAuth::Client 0.31
-      Net::OAuth::ConsumerRequest undef
-      Net::OAuth::Message undef
-      Net::OAuth::ProtectedResourceRequest undef
-      Net::OAuth::Request 0.31
-      Net::OAuth::RequestTokenRequest undef
-      Net::OAuth::RequestTokenResponse undef
-      Net::OAuth::Response undef
-      Net::OAuth::SignatureMethod::HMAC_SHA1 undef
-      Net::OAuth::SignatureMethod::HMAC_SHA256 undef
-      Net::OAuth::SignatureMethod::PLAINTEXT undef
-      Net::OAuth::SignatureMethod::RSA_SHA1 undef
-      Net::OAuth::UserAuthRequest undef
-      Net::OAuth::UserAuthResponse undef
-      Net::OAuth::V1_0A::AccessTokenRequest undef
-      Net::OAuth::V1_0A::RequestTokenRequest undef
-      Net::OAuth::V1_0A::RequestTokenResponse undef
-      Net::OAuth::V1_0A::UserAuthResponse undef
-      Net::OAuth::XauthAccessTokenRequest undef
-      Net::OAuth::YahooAccessTokenRefreshRequest undef
-    requirements:
-      Class::Accessor 0.31
-      Class::Data::Inheritable 0.06
-      Crypt::URandom 0.37
-      Digest::SHA 5.47
-      Encode 2.35
-      ExtUtils::MakeMaker 0
-      LWP::UserAgent 1
-      Test::More 0.66
-      Test::Warn 0.21
-      URI 5.15
+      File::Temp 0
+      IO::Socket 0
+      POSIX 0
+      Socket 0
+      Time::HiRes 0
   POSIX-strftime-Compiler-0.46
     pathname: K/KA/KAZEBURO/POSIX-strftime-Compiler-0.46.tar.gz
     provides:
@@ -2672,6 +2581,24 @@ DISTRIBUTIONS
       strict 0
       version 0.83
       warnings 0
+  Starman-0.4017
+    pathname: M/MI/MIYAGAWA/Starman-0.4017.tar.gz
+    provides:
+      HTTP::Server::PSGI::Net::Server::PreFork undef
+      Plack::Handler::Starman undef
+      Starman 0.4017
+      Starman::Server undef
+    requirements:
+      Data::Dump 0
+      HTTP::Date 0
+      HTTP::Parser::XS 0
+      HTTP::Status 0
+      Module::Build::Tiny 0.034
+      Net::Server 2.007
+      Plack 0.9971
+      Test::TCP 2.00
+      parent 0
+      perl 5.008001
   Stream-Buffered-0.03
     pathname: D/DO/DOY/Stream-Buffered-0.03.tar.gz
     provides:
@@ -3230,19 +3157,6 @@ DISTRIBUTIONS
       strict 0
       utf8 0
       warnings 0
-  URI-Query-0.16
-    pathname: G/GA/GAVINC/URI-Query-0.16.tar.gz
-    provides:
-      URI::Query 0.16
-    requirements:
-      Carp 0
-      Clone 0
-      ExtUtils::MakeMaker 0
-      URI::Escape 0
-      overload 0
-      parent 0
-      strict 0
-      vars 0
   URL-Encode-0.03
     pathname: C/CH/CHANSEN/URL-Encode-0.03.tar.gz
     provides:
@@ -3307,18 +3221,6 @@ DISTRIBUTIONS
     requirements:
       Exporter 0
       Module::Build 0.4005
-      perl 5.008001
-  WWW-RobotRules-6.02
-    pathname: G/GA/GAAS/WWW-RobotRules-6.02.tar.gz
-    provides:
-      WWW::RobotRules 6.02
-      WWW::RobotRules::AnyDBM_File 6.00
-      WWW::RobotRules::InCore 6.02
-    requirements:
-      AnyDBM_File 0
-      ExtUtils::MakeMaker 0
-      Fcntl 0
-      URI 1.10
       perl 5.008001
   XString-0.005
     pathname: A/AT/ATOOMIC/XString-0.005.tar.gz
@@ -3402,67 +3304,6 @@ DISTRIBUTIONS
       XSLoader 0
       lib 0
       perl 5.008001
-  libwww-perl-6.81
-    pathname: O/OA/OALDERS/libwww-perl-6.81.tar.gz
-    provides:
-      LWP 6.81
-      LWP::Authen::Basic 6.81
-      LWP::Authen::Digest 6.81
-      LWP::Authen::Ntlm 6.81
-      LWP::ConnCache 6.81
-      LWP::Debug 6.81
-      LWP::Debug::TraceHTTP 6.81
-      LWP::DebugFile 6.81
-      LWP::MemberMixin 6.81
-      LWP::Protocol 6.81
-      LWP::Protocol::cpan 6.81
-      LWP::Protocol::data 6.81
-      LWP::Protocol::file 6.81
-      LWP::Protocol::ftp 6.81
-      LWP::Protocol::gopher 6.81
-      LWP::Protocol::http 6.81
-      LWP::Protocol::loopback 6.81
-      LWP::Protocol::mailto 6.81
-      LWP::Protocol::nntp 6.81
-      LWP::Protocol::nogo 6.81
-      LWP::RobotUA 6.81
-      LWP::Simple 6.81
-      LWP::UserAgent 6.81
-    requirements:
-      Digest::MD5 0
-      Encode 2.12
-      Encode::Locale 0
-      ExtUtils::MakeMaker 0
-      File::Copy 0
-      File::Listing 6
-      File::Temp 0
-      Getopt::Long 0
-      HTML::Entities 0
-      HTML::HeadParser 3.71
-      HTTP::Cookies 6
-      HTTP::Date 6
-      HTTP::Message 7.01
-      HTTP::Negotiate 6
-      HTTP::Request 7.01
-      HTTP::Request::Common 6.18
-      HTTP::Response 7.01
-      HTTP::Status 6.18
-      IO::Select 0
-      IO::Socket 0
-      LWP::MediaTypes 6
-      MIME::Base64 2.1
-      Module::Load 0
-      Net::FTP 2.58
-      Net::HTTP 6.18
-      Scalar::Util 0
-      Try::Tiny 0
-      URI 1.10
-      URI::Escape 0
-      WWW::RobotRules 6
-      parent 0.217
-      perl 5.008001
-      strict 0
-      warnings 0
   multidimensional-0.014
     pathname: I/IL/ILMARI/multidimensional-0.014.tar.gz
     provides:
