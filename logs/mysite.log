@@ -40,3 +40,706 @@ log4perl.appender.STDERR.stderr = 1
 log4perl.appender.STDERR.layout = PatternLayout
 log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
 [2026/02/09 16:22:12] [DEBUG] [MySite:27036] debug @2026-02-09 16:22:12> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 38
+[2026/02/11 08:26:14] [DEBUG] [MySite:96288] debug @2026-02-11 08:26:14> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 33
+[2026/02/11 08:26:14] [DEBUG] [MySite:96288] debug @2026-02-11 08:26:14> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/11 08:26:14] [DEBUG] [MySite:96288] debug @2026-02-11 08:26:14> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 38
+[2026/02/11 08:26:31] [DEBUG] [MySite:96288] debug @2026-02-11 08:26:31> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/11 08:26:31] [DEBUG] [MySite:96288] debug @2026-02-11 08:26:31> Found 6 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/11 08:26:31] [DEBUG] [MySite:96288] debug @2026-02-11 08:26:31> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 08:26:38] [DEBUG] [MySite:96288] debug @2026-02-11 08:26:38> Login page loaded in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 176
+[2026/02/11 08:54:08] [DEBUG] [MySite:101240] debug @2026-02-11 08:54:08> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 33
+[2026/02/11 08:54:08] [DEBUG] [MySite:101240] debug @2026-02-11 08:54:08> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/11 08:54:08] [DEBUG] [MySite:101240] debug @2026-02-11 08:54:08> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 38
+[2026/02/11 09:03:50] [DEBUG] [MySite:102953] debug @2026-02-11 09:03:50> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 33
+[2026/02/11 09:03:50] [DEBUG] [MySite:102953] debug @2026-02-11 09:03:50> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/11 09:03:50] [DEBUG] [MySite:102953] debug @2026-02-11 09:03:50> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 38
+[2026/02/11 09:04:08] [DEBUG] [MySite:102953] debug @2026-02-11 09:04:08> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 189
+[2026/02/11 09:04:08] [ERROR] [MySite:102953] error @2026-02-11 09:04:08> Route exception: Undefined subroutine &MySite::User::uri_escape called at /home/pkn/MySite/bin/../lib/MySite/User.pm line 201. in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/App.pm l. 1587
+[2026/02/11 09:04:08] [DEBUG] [MySite:102953] debug @2026-02-11 09:04:08> bless( ['file','500.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:04:08] [DEBUG] [MySite:102953] debug @2026-02-11 09:04:08> Login page loaded in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 178
+[2026/02/11 09:05:34] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:34> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 33
+[2026/02/11 09:05:34] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:34> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/11 09:05:34] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:34> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 38
+[2026/02/11 09:05:43] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:43> Login page loaded in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 179
+[2026/02/11 09:05:43] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:43> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:45] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:45> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:46] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:46> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:46] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:46> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:46] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:46> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:46] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:46> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:46] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:46> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:46] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:46> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:47] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:47> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:47] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:47> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:47] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:47> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:47] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:47> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:47] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:47> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:47] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:47> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:48] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:48> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:48] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:48> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:48] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:48> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:48] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:48> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:48] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:48> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:48] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:48> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:49] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:49> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:50] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:50> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:50] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:50> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:50] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:50> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:50] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:50> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:50] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:50> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:51] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:51> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:51] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:51> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:51] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:51> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:51] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:51> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:51] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:51> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:51] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:51> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:52] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:52> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:52] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:52> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:52] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:52> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:52] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:52> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:52] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:52> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:52] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:52> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:52] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:52> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:53] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:53> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:53] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:53> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:57] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:57> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:58] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:58> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:58] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:58> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:58] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:58> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:58] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:58> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:59] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:59> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:59] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:59> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:59] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:59> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:59] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:59> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:59] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:59> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:05:59] [DEBUG] [MySite:103331] debug @2026-02-11 09:05:59> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:00] [DEBUG] [MySite:103331] debug @2026-02-11 09:06:00> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:00] [DEBUG] [MySite:103331] debug @2026-02-11 09:06:00> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:00] [DEBUG] [MySite:103331] debug @2026-02-11 09:06:00> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:00] [DEBUG] [MySite:103331] debug @2026-02-11 09:06:00> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:00] [DEBUG] [MySite:103331] debug @2026-02-11 09:06:00> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:00] [DEBUG] [MySite:103331] debug @2026-02-11 09:06:00> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:01] [DEBUG] [MySite:103331] debug @2026-02-11 09:06:01> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:01] [DEBUG] [MySite:103331] debug @2026-02-11 09:06:01> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:01] [DEBUG] [MySite:103331] debug @2026-02-11 09:06:01> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:01] [DEBUG] [MySite:103331] debug @2026-02-11 09:06:01> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:01] [DEBUG] [MySite:103331] debug @2026-02-11 09:06:01> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:01] [DEBUG] [MySite:103331] debug @2026-02-11 09:06:01> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:01] [DEBUG] [MySite:103331] debug @2026-02-11 09:06:01> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:02] [DEBUG] [MySite:103331] debug @2026-02-11 09:06:02> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:02] [DEBUG] [MySite:103331] debug @2026-02-11 09:06:02> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:02] [DEBUG] [MySite:103331] debug @2026-02-11 09:06:02> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:02] [DEBUG] [MySite:103331] debug @2026-02-11 09:06:02> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:02] [DEBUG] [MySite:103331] debug @2026-02-11 09:06:02> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:02] [DEBUG] [MySite:103331] debug @2026-02-11 09:06:02> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:03] [DEBUG] [MySite:103331] debug @2026-02-11 09:06:03> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:03] [DEBUG] [MySite:103331] debug @2026-02-11 09:06:03> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:03] [DEBUG] [MySite:103331] debug @2026-02-11 09:06:03> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:03] [DEBUG] [MySite:103331] debug @2026-02-11 09:06:03> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:03] [DEBUG] [MySite:103331] debug @2026-02-11 09:06:03> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:04] [DEBUG] [MySite:103331] debug @2026-02-11 09:06:04> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:04] [DEBUG] [MySite:103331] debug @2026-02-11 09:06:04> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:08] [DEBUG] [MySite:103576] debug @2026-02-11 09:06:08> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 33
+[2026/02/11 09:06:08] [DEBUG] [MySite:103576] debug @2026-02-11 09:06:08> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/11 09:06:08] [DEBUG] [MySite:103576] debug @2026-02-11 09:06:08> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 38
+[2026/02/11 09:06:25] [DEBUG] [MySite:103576] debug @2026-02-11 09:06:25> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/11 09:06:25] [DEBUG] [MySite:103576] debug @2026-02-11 09:06:25> Found 6 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/11 09:06:30] [DEBUG] [MySite:103576] debug @2026-02-11 09:06:30> Login page loaded in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 179
+[2026/02/11 09:06:33] [DEBUG] [MySite:103576] debug @2026-02-11 09:06:33> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:33] [DEBUG] [MySite:103576] debug @2026-02-11 09:06:33> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:33] [DEBUG] [MySite:103576] debug @2026-02-11 09:06:33> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:33] [DEBUG] [MySite:103576] debug @2026-02-11 09:06:33> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:34] [DEBUG] [MySite:103576] debug @2026-02-11 09:06:34> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:34] [DEBUG] [MySite:103576] debug @2026-02-11 09:06:34> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:34] [DEBUG] [MySite:103576] debug @2026-02-11 09:06:34> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:34] [DEBUG] [MySite:103576] debug @2026-02-11 09:06:34> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:34] [DEBUG] [MySite:103576] debug @2026-02-11 09:06:34> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:34] [DEBUG] [MySite:103576] debug @2026-02-11 09:06:34> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:34] [DEBUG] [MySite:103576] debug @2026-02-11 09:06:34> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:35] [DEBUG] [MySite:103576] debug @2026-02-11 09:06:35> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:35] [DEBUG] [MySite:103576] debug @2026-02-11 09:06:35> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:35] [DEBUG] [MySite:103576] debug @2026-02-11 09:06:35> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:35] [DEBUG] [MySite:103576] debug @2026-02-11 09:06:35> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:35] [DEBUG] [MySite:103576] debug @2026-02-11 09:06:35> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:36] [DEBUG] [MySite:103576] debug @2026-02-11 09:06:36> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:36] [DEBUG] [MySite:103576] debug @2026-02-11 09:06:36> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:36] [DEBUG] [MySite:103576] debug @2026-02-11 09:06:36> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:36] [DEBUG] [MySite:103576] debug @2026-02-11 09:06:36> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:37] [DEBUG] [MySite:103576] debug @2026-02-11 09:06:37> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:37] [DEBUG] [MySite:103576] debug @2026-02-11 09:06:37> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:38] [DEBUG] [MySite:103576] debug @2026-02-11 09:06:38> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:38] [DEBUG] [MySite:103576] debug @2026-02-11 09:06:38> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:38] [DEBUG] [MySite:103576] debug @2026-02-11 09:06:38> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:38] [DEBUG] [MySite:103576] debug @2026-02-11 09:06:38> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:06:38] [DEBUG] [MySite:103576] debug @2026-02-11 09:06:38> $VAR1 = undef; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 190
+[2026/02/11 09:10:02] [DEBUG] [MySite:104397] debug @2026-02-11 09:10:02> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 33
+[2026/02/11 09:10:02] [DEBUG] [MySite:104397] debug @2026-02-11 09:10:02> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/11 09:10:02] [DEBUG] [MySite:104397] debug @2026-02-11 09:10:02> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 38
+[2026/02/11 09:10:07] [DEBUG] [MySite:104397] debug @2026-02-11 09:10:07> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/11 09:10:07] [DEBUG] [MySite:104397] debug @2026-02-11 09:10:07> Found 6 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/11 09:10:10] [DEBUG] [MySite:104397] debug @2026-02-11 09:10:10> Login page loaded in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 179
+[2026/02/11 09:10:38] [DEBUG] [MySite:104397] debug @2026-02-11 09:10:38> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/11 09:10:38] [DEBUG] [MySite:104397] debug @2026-02-11 09:10:38> Found 6 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/11 09:10:40] [DEBUG] [MySite:104397] debug @2026-02-11 09:10:40> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:10:40] [DEBUG] [MySite:104397] debug @2026-02-11 09:10:40> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:10:40] [DEBUG] [MySite:104397] debug @2026-02-11 09:10:40> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:13:04] [DEBUG] [MySite:104397] debug @2026-02-11 09:13:04> find article by slug succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/11 09:13:04] [DEBUG] [MySite:104397] debug @2026-02-11 09:13:04> Article displayed: 6 in /home/pkn/MySite/bin/../lib/MySite/Article.pm l. 51
+[2026/02/11 09:13:04] [DEBUG] [MySite:104397] debug @2026-02-11 09:13:04> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:13:04] [DEBUG] [MySite:104397] debug @2026-02-11 09:13:04> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:13:04] [DEBUG] [MySite:104397] debug @2026-02-11 09:13:04> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:13:19] [DEBUG] [MySite:104397] debug @2026-02-11 09:13:19> find article by slug succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/11 09:13:19] [DEBUG] [MySite:104397] debug @2026-02-11 09:13:19> Article displayed: 6 in /home/pkn/MySite/bin/../lib/MySite/Article.pm l. 51
+[2026/02/11 09:13:19] [DEBUG] [MySite:104397] debug @2026-02-11 09:13:19> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:13:19] [DEBUG] [MySite:104397] debug @2026-02-11 09:13:19> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:13:19] [DEBUG] [MySite:104397] debug @2026-02-11 09:13:19> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:13:24] [DEBUG] [MySite:104397] debug @2026-02-11 09:13:24> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/11 09:13:24] [DEBUG] [MySite:104397] debug @2026-02-11 09:13:24> Found 6 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/11 09:13:24] [DEBUG] [MySite:104397] debug @2026-02-11 09:13:24> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:13:24] [DEBUG] [MySite:104397] debug @2026-02-11 09:13:24> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:13:24] [DEBUG] [MySite:104397] debug @2026-02-11 09:13:24> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:15:10] [DEBUG] [MySite:105505] debug @2026-02-11 09:15:10> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 33
+[2026/02/11 09:15:10] [DEBUG] [MySite:105505] debug @2026-02-11 09:15:10> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/11 09:15:10] [DEBUG] [MySite:105505] debug @2026-02-11 09:15:10> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 38
+[2026/02/11 09:15:13] [DEBUG] [MySite:105505] debug @2026-02-11 09:15:13> Login page loaded in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 179
+[2026/02/11 09:15:13] [DEBUG] [MySite:105505] debug @2026-02-11 09:15:13> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:15:13] [DEBUG] [MySite:105505] debug @2026-02-11 09:15:13> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:15:14] [DEBUG] [MySite:105505] debug @2026-02-11 09:15:14> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:15:16] [DEBUG] [MySite:105505] debug @2026-02-11 09:15:16> $VAR1 = {
+          'userinfo_url' => 'https://openidconnect.googleapis.com/v1/userinfo',
+          'client_id' => '153234952349-cu4oo3tjk3lknv0tjrnt4tt24hc2r1s2.apps.googleusercontent.com',
+          'scope' => 'openid email profile',
+          'client_secret' => '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',
+          'token_url' => 'https://oauth2.googleapis.com/token',
+          'authorize_url' => 'https://accounts.google.com/o/oauth2/auth'
+        }; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 195
+[2026/02/11 09:15:21] [DEBUG] [MySite:105505] debug @2026-02-11 09:15:21> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:16:32] [DEBUG] [MySite:105833] debug @2026-02-11 09:16:32> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 33
+[2026/02/11 09:16:32] [DEBUG] [MySite:105833] debug @2026-02-11 09:16:32> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/11 09:16:32] [DEBUG] [MySite:105833] debug @2026-02-11 09:16:32> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 38
+[2026/02/11 09:16:46] [DEBUG] [MySite:105833] debug @2026-02-11 09:16:46> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/11 09:16:46] [DEBUG] [MySite:105833] debug @2026-02-11 09:16:46> Found 6 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/11 09:16:46] [DEBUG] [MySite:105833] debug @2026-02-11 09:16:46> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/11 09:16:46] [DEBUG] [MySite:105833] debug @2026-02-11 09:16:46> Found 6 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/11 09:16:46] [DEBUG] [MySite:105833] debug @2026-02-11 09:16:46> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:16:47] [DEBUG] [MySite:105833] debug @2026-02-11 09:16:47> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:16:47] [DEBUG] [MySite:105833] debug @2026-02-11 09:16:47> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:16:49] [DEBUG] [MySite:105833] debug @2026-02-11 09:16:49> Login page loaded in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 179
+[2026/02/11 09:16:49] [DEBUG] [MySite:105833] debug @2026-02-11 09:16:49> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:16:49] [DEBUG] [MySite:105833] debug @2026-02-11 09:16:49> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:16:49] [DEBUG] [MySite:105833] debug @2026-02-11 09:16:49> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:16:50] [DEBUG] [MySite:105833] debug @2026-02-11 09:16:50> $VAR1 = {
+          'authorize_url' => 'https://accounts.google.com/o/oauth2/auth',
+          'client_secret' => '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',
+          'token_url' => 'https://oauth2.googleapis.com/token',
+          'scope' => 'openid email profile',
+          'userinfo_url' => 'https://openidconnect.googleapis.com/v1/userinfo',
+          'client_id' => '153234952349-cu4oo3tjk3lknv0tjrnt4tt24hc2r1s2.apps.googleusercontent.com'
+        }; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 195
+[2026/02/11 09:20:12] [DEBUG] [MySite:105833] debug @2026-02-11 09:20:12> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/11 09:20:12] [DEBUG] [MySite:105833] debug @2026-02-11 09:20:12> Found 6 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/11 09:20:13] [DEBUG] [MySite:105833] debug @2026-02-11 09:20:13> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/11 09:20:13] [DEBUG] [MySite:105833] debug @2026-02-11 09:20:13> Found 6 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/11 09:20:13] [DEBUG] [MySite:105833] debug @2026-02-11 09:20:13> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:20:13] [DEBUG] [MySite:105833] debug @2026-02-11 09:20:13> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:20:13] [DEBUG] [MySite:105833] debug @2026-02-11 09:20:13> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:20:15] [DEBUG] [MySite:105833] debug @2026-02-11 09:20:15> Login page loaded in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 179
+[2026/02/11 09:20:15] [DEBUG] [MySite:105833] debug @2026-02-11 09:20:15> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:20:15] [DEBUG] [MySite:105833] debug @2026-02-11 09:20:15> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:20:15] [DEBUG] [MySite:105833] debug @2026-02-11 09:20:15> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:20:17] [DEBUG] [MySite:105833] debug @2026-02-11 09:20:17> $VAR1 = {
+          'authorize_url' => 'https://accounts.google.com/o/oauth2/auth',
+          'client_secret' => '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',
+          'token_url' => 'https://oauth2.googleapis.com/token',
+          'scope' => 'openid email profile',
+          'userinfo_url' => 'https://openidconnect.googleapis.com/v1/userinfo',
+          'client_id' => '153234952349-cu4oo3tjk3lknv0tjrnt4tt24hc2r1s2.apps.googleusercontent.com'
+        }; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 195
+[2026/02/11 09:20:49] [DEBUG] [MySite:105833] debug @2026-02-11 09:20:49> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:20:49] [DEBUG] [MySite:105833] debug @2026-02-11 09:20:49> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:20:49] [DEBUG] [MySite:105833] debug @2026-02-11 09:20:49> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:20:49] [DEBUG] [MySite:105833] debug @2026-02-11 09:20:49> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:20:49] [DEBUG] [MySite:105833] debug @2026-02-11 09:20:49> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:21:00] [DEBUG] [MySite:106735] debug @2026-02-11 09:21:00> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 33
+[2026/02/11 09:21:00] [DEBUG] [MySite:106735] debug @2026-02-11 09:21:00> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/11 09:21:00] [DEBUG] [MySite:106735] debug @2026-02-11 09:21:00> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 38
+[2026/02/11 09:21:09] [DEBUG] [MySite:106735] debug @2026-02-11 09:21:09> Login page loaded in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 179
+[2026/02/11 09:21:09] [DEBUG] [MySite:106735] debug @2026-02-11 09:21:09> Login page loaded in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 179
+[2026/02/11 09:21:09] [DEBUG] [MySite:106735] debug @2026-02-11 09:21:09> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:21:09] [DEBUG] [MySite:106735] debug @2026-02-11 09:21:09> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:21:09] [DEBUG] [MySite:106735] debug @2026-02-11 09:21:09> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:21:15] [DEBUG] [MySite:106735] debug @2026-02-11 09:21:15> $VAR1 = {
+          'client_id' => '153234952349-cu4oo3tjk3lknv0tjrnt4tt24hc2r1s2.apps.googleusercontent.com',
+          'token_url' => 'https://oauth2.googleapis.com/token',
+          'authorize_url' => 'https://accounts.google.com/o/oauth2/auth',
+          'userinfo_url' => 'https://openidconnect.googleapis.com/v1/userinfo',
+          'client_secret' => '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',
+          'scope' => 'openid email profile'
+        }; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 195
+[2026/02/11 09:25:05] [DEBUG] [MySite:106735] debug @2026-02-11 09:25:05> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/11 09:25:05] [DEBUG] [MySite:106735] debug @2026-02-11 09:25:05> Found 6 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/11 09:25:05] [DEBUG] [MySite:106735] debug @2026-02-11 09:25:05> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:25:05] [DEBUG] [MySite:106735] debug @2026-02-11 09:25:05> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:25:05] [DEBUG] [MySite:106735] debug @2026-02-11 09:25:05> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:25:08] [DEBUG] [MySite:106735] debug @2026-02-11 09:25:08> Login page loaded in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 179
+[2026/02/11 09:25:08] [DEBUG] [MySite:106735] debug @2026-02-11 09:25:08> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:25:08] [DEBUG] [MySite:106735] debug @2026-02-11 09:25:08> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:25:08] [DEBUG] [MySite:106735] debug @2026-02-11 09:25:08> bless( ['file','404.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 09:25:09] [DEBUG] [MySite:106735] debug @2026-02-11 09:25:09> $VAR1 = {
+          'client_id' => '153234952349-cu4oo3tjk3lknv0tjrnt4tt24hc2r1s2.apps.googleusercontent.com',
+          'token_url' => 'https://oauth2.googleapis.com/token',
+          'authorize_url' => 'https://accounts.google.com/o/oauth2/auth',
+          'userinfo_url' => 'https://openidconnect.googleapis.com/v1/userinfo',
+          'client_secret' => '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',
+          'scope' => 'openid email profile'
+        }; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 195
+[2026/02/11 10:05:25] [DEBUG] [MySite:114356] debug @2026-02-11 10:05:25> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 33
+[2026/02/11 10:05:25] [DEBUG] [MySite:114356] debug @2026-02-11 10:05:25> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/11 10:05:25] [DEBUG] [MySite:114356] debug @2026-02-11 10:05:25> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 38
+[2026/02/11 10:05:45] [DEBUG] [MySite:114356] debug @2026-02-11 10:05:45> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/11 10:05:45] [DEBUG] [MySite:114356] debug @2026-02-11 10:05:45> Found 6 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/11 10:05:47] [DEBUG] [MySite:114356] debug @2026-02-11 10:05:47> Login page loaded in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 179
+[2026/02/11 10:05:48] [DEBUG] [MySite:114356] debug @2026-02-11 10:05:48> $VAR1 = {
+          'client_id' => '153234952349-cu4oo3tjk3lknv0tjrnt4tt24hc2r1s2.apps.googleusercontent.com',
+          'token_url' => 'https://oauth2.googleapis.com/token',
+          'client_secret' => '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',
+          'userinfo_url' => 'https://openidconnect.googleapis.com/v1/userinfo',
+          'authorize_url' => 'https://accounts.google.com/o/oauth2/auth',
+          'scope' => 'openid email profile'
+        }; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 195
+[2026/02/11 10:05:56] [ERROR] [MySite:114356] error @2026-02-11 10:05:56> Route exception: Undefined subroutine &MySite::User::_callback_provider called at /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Route.pm line 168. in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/App.pm l. 1587
+[2026/02/11 10:05:56] [DEBUG] [MySite:114356] debug @2026-02-11 10:05:56> bless( ['file','500.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 10:07:56] [DEBUG] [MySite:114906] debug @2026-02-11 10:07:56> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 33
+[2026/02/11 10:07:56] [DEBUG] [MySite:114906] debug @2026-02-11 10:07:56> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/11 10:07:56] [DEBUG] [MySite:114906] debug @2026-02-11 10:07:56> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 38
+[2026/02/11 10:08:06] [DEBUG] [MySite:114906] debug @2026-02-11 10:08:06> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/11 10:08:06] [DEBUG] [MySite:114906] debug @2026-02-11 10:08:06> Found 6 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/11 10:08:08] [DEBUG] [MySite:114906] debug @2026-02-11 10:08:08> Login page loaded in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 179
+[2026/02/11 10:08:11] [DEBUG] [MySite:114906] debug @2026-02-11 10:08:11> $VAR1 = {
+          'userinfo_url' => 'https://openidconnect.googleapis.com/v1/userinfo',
+          'client_secret' => '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',
+          'token_url' => 'https://oauth2.googleapis.com/token',
+          'client_id' => '153234952349-cu4oo3tjk3lknv0tjrnt4tt24hc2r1s2.apps.googleusercontent.com',
+          'scope' => 'openid email profile',
+          'authorize_url' => 'https://accounts.google.com/o/oauth2/auth'
+        }; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 214
+[2026/02/11 10:10:44] [DEBUG] [MySite:114906] debug @2026-02-11 10:10:44> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/11 10:10:44] [DEBUG] [MySite:114906] debug @2026-02-11 10:10:44> Found 6 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/11 10:10:44] [DEBUG] [MySite:114906] debug @2026-02-11 10:10:44> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/11 10:10:44] [DEBUG] [MySite:114906] debug @2026-02-11 10:10:44> Found 6 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/11 10:10:47] [DEBUG] [MySite:114906] debug @2026-02-11 10:10:47> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/11 10:10:47] [DEBUG] [MySite:114906] debug @2026-02-11 10:10:47> Found 6 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/11 10:10:50] [DEBUG] [MySite:114906] debug @2026-02-11 10:10:50> Login page loaded in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 179
+[2026/02/11 10:10:54] [DEBUG] [MySite:114906] debug @2026-02-11 10:10:54> $VAR1 = {
+          'userinfo_url' => 'https://openidconnect.googleapis.com/v1/userinfo',
+          'client_secret' => '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',
+          'token_url' => 'https://oauth2.googleapis.com/token',
+          'client_id' => '153234952349-cu4oo3tjk3lknv0tjrnt4tt24hc2r1s2.apps.googleusercontent.com',
+          'scope' => 'openid email profile',
+          'authorize_url' => 'https://accounts.google.com/o/oauth2/auth'
+        }; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 214
+[2026/02/11 10:11:48] [DEBUG] [MySite:114906] debug @2026-02-11 10:11:48> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/11 10:11:48] [DEBUG] [MySite:114906] debug @2026-02-11 10:11:48> Found 6 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/11 10:11:50] [DEBUG] [MySite:114906] debug @2026-02-11 10:11:50> Login page loaded in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 179
+[2026/02/11 10:11:52] [DEBUG] [MySite:114906] debug @2026-02-11 10:11:52> $VAR1 = {
+          'userinfo_url' => 'https://openidconnect.googleapis.com/v1/userinfo',
+          'client_secret' => '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',
+          'token_url' => 'https://oauth2.googleapis.com/token',
+          'client_id' => '153234952349-cu4oo3tjk3lknv0tjrnt4tt24hc2r1s2.apps.googleusercontent.com',
+          'scope' => 'openid email profile',
+          'authorize_url' => 'https://accounts.google.com/o/oauth2/auth'
+        }; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 214
+[2026/02/11 10:12:25] [DEBUG] [MySite:114906] debug @2026-02-11 10:12:25> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/11 10:12:25] [DEBUG] [MySite:114906] debug @2026-02-11 10:12:25> Found 6 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/11 10:12:27] [DEBUG] [MySite:114906] debug @2026-02-11 10:12:27> Login page loaded in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 179
+[2026/02/11 10:12:32] [DEBUG] [MySite:114906] debug @2026-02-11 10:12:32> $VAR1 = {
+          'userinfo_url' => 'https://openidconnect.googleapis.com/v1/userinfo',
+          'client_secret' => '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',
+          'token_url' => 'https://oauth2.googleapis.com/token',
+          'client_id' => '153234952349-cu4oo3tjk3lknv0tjrnt4tt24hc2r1s2.apps.googleusercontent.com',
+          'scope' => 'openid email profile',
+          'authorize_url' => 'https://accounts.google.com/o/oauth2/auth'
+        }; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 214
+[2026/02/11 10:15:09] [DEBUG] [MySite:116380] debug @2026-02-11 10:15:09> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 33
+[2026/02/11 10:15:09] [DEBUG] [MySite:116380] debug @2026-02-11 10:15:09> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/11 10:15:09] [DEBUG] [MySite:116380] debug @2026-02-11 10:15:09> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 38
+[2026/02/11 10:15:20] [DEBUG] [MySite:116380] debug @2026-02-11 10:15:20> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/11 10:15:20] [DEBUG] [MySite:116380] debug @2026-02-11 10:15:20> Found 6 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/11 10:15:22] [DEBUG] [MySite:116380] debug @2026-02-11 10:15:22> Login page loaded in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 179
+[2026/02/11 10:15:32] [DEBUG] [MySite:116380] debug @2026-02-11 10:15:32> Handling OAuth callback in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 213
+[2026/02/11 10:15:32] [DEBUG] [MySite:116380] debug @2026-02-11 10:15:32> OAuth provider: google in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 215
+[2026/02/11 10:15:32] [DEBUG] [MySite:116380] debug @2026-02-11 10:15:32> $VAR1 = {
+          'userinfo_url' => 'https://openidconnect.googleapis.com/v1/userinfo',
+          'token_url' => 'https://oauth2.googleapis.com/token',
+          'client_secret' => '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',
+          'client_id' => '153234952349-cu4oo3tjk3lknv0tjrnt4tt24hc2r1s2.apps.googleusercontent.com',
+          'scope' => 'openid email profile',
+          'authorize_url' => 'https://accounts.google.com/o/oauth2/auth'
+        }; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 217
+[2026/02/11 10:17:22] [DEBUG] [MySite:116908] debug @2026-02-11 10:17:22> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 33
+[2026/02/11 10:17:22] [DEBUG] [MySite:116908] debug @2026-02-11 10:17:22> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/11 10:17:22] [DEBUG] [MySite:116908] debug @2026-02-11 10:17:22> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 38
+[2026/02/11 10:17:31] [DEBUG] [MySite:116908] debug @2026-02-11 10:17:31> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/11 10:17:31] [DEBUG] [MySite:116908] debug @2026-02-11 10:17:31> Found 6 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/11 10:17:33] [DEBUG] [MySite:116908] debug @2026-02-11 10:17:33> Login page loaded in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 179
+[2026/02/11 10:17:38] [DEBUG] [MySite:116908] debug @2026-02-11 10:17:38> $VAR1 = {
+          'scope' => 'openid email profile',
+          'authorize_url' => 'https://accounts.google.com/o/oauth2/auth',
+          'client_secret' => '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',
+          'token_url' => 'https://oauth2.googleapis.com/token',
+          'client_id' => '153234952349-cu4oo3tjk3lknv0tjrnt4tt24hc2r1s2.apps.googleusercontent.com',
+          'userinfo_url' => 'https://openidconnect.googleapis.com/v1/userinfo'
+        }; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 195
+[2026/02/11 10:17:38] [DEBUG] [MySite:116908] debug @2026-02-11 10:17:38> Redirecting to OAuth provider: https://accounts.google.com/o/oauth2/auth?scope=openid%20email%20profile&prompt=consent&client_id=153234952349-cu4oo3tjk3lknv0tjrnt4tt24hc2r1s2.apps.googleusercontent.com&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A5000%2Fauth%2Fcallback%2Fgoogle&access_type=offline in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 208
+[2026/02/11 10:17:50] [DEBUG] [MySite:116908] debug @2026-02-11 10:17:50> Handling OAuth callback in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 213
+[2026/02/11 10:17:50] [DEBUG] [MySite:116908] debug @2026-02-11 10:17:50> OAuth provider: google in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 215
+[2026/02/11 10:17:50] [DEBUG] [MySite:116908] debug @2026-02-11 10:17:50> $VAR1 = {
+          'scope' => 'openid email profile',
+          'authorize_url' => 'https://accounts.google.com/o/oauth2/auth',
+          'client_secret' => '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',
+          'token_url' => 'https://oauth2.googleapis.com/token',
+          'client_id' => '153234952349-cu4oo3tjk3lknv0tjrnt4tt24hc2r1s2.apps.googleusercontent.com',
+          'userinfo_url' => 'https://openidconnect.googleapis.com/v1/userinfo'
+        }; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 217
+[2026/02/11 10:17:50] [ERROR] [MySite:116908] error @2026-02-11 10:17:50> Route exception: Can't locate object method "new" via package "LWP::UserAgent" at /home/pkn/MySite/bin/../lib/MySite/User.pm line 222. in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/App.pm l. 1587
+[2026/02/11 10:17:50] [DEBUG] [MySite:116908] debug @2026-02-11 10:17:50> bless( ['file','500.tt: not found',undef], 'Template::Exception' ) in /home/pkn/MySite/local/lib/perl5/Dancer2/Core/Error.pm l. 119
+[2026/02/11 10:19:15] [DEBUG] [MySite:117333] debug @2026-02-11 10:19:15> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 33
+[2026/02/11 10:19:15] [DEBUG] [MySite:117333] debug @2026-02-11 10:19:15> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/11 10:19:15] [DEBUG] [MySite:117333] debug @2026-02-11 10:19:15> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 38
+[2026/02/11 10:19:23] [DEBUG] [MySite:117333] debug @2026-02-11 10:19:23> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/11 10:19:23] [DEBUG] [MySite:117333] debug @2026-02-11 10:19:23> Found 6 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/11 10:19:23] [DEBUG] [MySite:117333] debug @2026-02-11 10:19:23> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/11 10:19:23] [DEBUG] [MySite:117333] debug @2026-02-11 10:19:23> Found 6 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/11 10:19:24] [DEBUG] [MySite:117333] debug @2026-02-11 10:19:24> Login page loaded in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 180
+[2026/02/11 10:19:26] [DEBUG] [MySite:117333] debug @2026-02-11 10:19:26> $VAR1 = {
+          'userinfo_url' => 'https://openidconnect.googleapis.com/v1/userinfo',
+          'client_id' => '153234952349-cu4oo3tjk3lknv0tjrnt4tt24hc2r1s2.apps.googleusercontent.com',
+          'client_secret' => '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',
+          'token_url' => 'https://oauth2.googleapis.com/token',
+          'scope' => 'openid email profile',
+          'authorize_url' => 'https://accounts.google.com/o/oauth2/auth'
+        }; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 196
+[2026/02/11 10:19:26] [DEBUG] [MySite:117333] debug @2026-02-11 10:19:26> Redirecting to OAuth provider: https://accounts.google.com/o/oauth2/auth?prompt=consent&scope=openid%20email%20profile&access_type=offline&redirect_uri=http%3A%2F%2Flocalhost%3A5000%2Fauth%2Fcallback%2Fgoogle&response_type=code&client_id=153234952349-cu4oo3tjk3lknv0tjrnt4tt24hc2r1s2.apps.googleusercontent.com in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 209
+[2026/02/11 10:19:32] [DEBUG] [MySite:117333] debug @2026-02-11 10:19:32> Handling OAuth callback in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 214
+[2026/02/11 10:19:32] [DEBUG] [MySite:117333] debug @2026-02-11 10:19:32> OAuth provider: google in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 216
+[2026/02/11 10:19:32] [DEBUG] [MySite:117333] debug @2026-02-11 10:19:32> $VAR1 = {
+          'userinfo_url' => 'https://openidconnect.googleapis.com/v1/userinfo',
+          'client_id' => '153234952349-cu4oo3tjk3lknv0tjrnt4tt24hc2r1s2.apps.googleusercontent.com',
+          'client_secret' => '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',
+          'token_url' => 'https://oauth2.googleapis.com/token',
+          'scope' => 'openid email profile',
+          'authorize_url' => 'https://accounts.google.com/o/oauth2/auth'
+        }; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 218
+[2026/02/11 10:19:32] [DEBUG] [MySite:117333] debug @2026-02-11 10:19:32> $VAR1 = {
+          'google' => {
+                        'user_info' => {
+                                         'name' => 'Peter Kaagman',
+                                         'email_verified' => bless( do{\(my $o = '1')}, 'JSON::PP::Boolean' ),
+                                         'given_name' => 'Peter',
+                                         'family_name' => 'Kaagman',
+                                         'email' => 'prjv.kaagman@gmail.com',
+                                         'picture' => 'https://lh3.googleusercontent.com/a/ACg8ocJz_3jraZyN6OFhqPYHc_50z8qkf0i9a2ZN2SjrylddAFljKdc=s96-c',
+                                         'sub' => '108395428024810500108'
+                                       }
+                      }
+        }; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 24
+[2026/02/11 10:19:32] [DEBUG] [MySite:117333] debug @2026-02-11 10:19:32> Checking/creating user: prjv.kaagman@gmail.com in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 62
+[2026/02/11 10:19:32] [DEBUG] [MySite:117333] debug @2026-02-11 10:19:32> find user by username succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/11 10:19:32] [DEBUG] [MySite:117333] debug @2026-02-11 10:19:32> User found in database: prjv.kaagman@gmail.com in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 82
+[2026/02/11 10:19:33] [DEBUG] [MySite:117333] debug @2026-02-11 10:19:33> fetch articles for homepage succeeded - user=prjv.kaagman@gmail.com (id=1) (role=Admin) in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/11 10:19:33] [DEBUG] [MySite:117333] debug @2026-02-11 10:19:33> Found 6 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/11 10:35:29] [DEBUG] [MySite:120021] debug @2026-02-11 10:35:29> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 33
+[2026/02/11 10:35:29] [DEBUG] [MySite:120021] debug @2026-02-11 10:35:29> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/11 10:35:29] [DEBUG] [MySite:120021] debug @2026-02-11 10:35:29> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 38
+[2026/02/11 10:37:44] [DEBUG] [MySite:120440] debug @2026-02-11 10:37:44> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 33
+[2026/02/11 10:37:44] [DEBUG] [MySite:120440] debug @2026-02-11 10:37:44> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/11 10:37:44] [DEBUG] [MySite:120440] debug @2026-02-11 10:37:44> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 38
+[2026/02/11 10:37:50] [DEBUG] [MySite:120487] debug @2026-02-11 10:37:50> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 33
+[2026/02/11 10:37:50] [DEBUG] [MySite:120487] debug @2026-02-11 10:37:50> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/11 10:37:50] [DEBUG] [MySite:120487] debug @2026-02-11 10:37:50> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 38
+[2026/02/11 10:43:03] [DEBUG] [MySite:121457] debug @2026-02-11 10:43:03> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 33
+[2026/02/11 10:43:03] [DEBUG] [MySite:121457] debug @2026-02-11 10:43:03> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/11 10:43:03] [DEBUG] [MySite:121457] debug @2026-02-11 10:43:03> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 38
+[2026/02/11 10:43:18] [DEBUG] [MySite:121535] debug @2026-02-11 10:43:18> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 33
+[2026/02/11 10:43:18] [DEBUG] [MySite:121535] debug @2026-02-11 10:43:18> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/11 10:43:18] [DEBUG] [MySite:121535] debug @2026-02-11 10:43:18> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 38
+[2026/02/11 10:44:48] [DEBUG] [MySite:121829] debug @2026-02-11 10:44:48> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 33
+[2026/02/11 10:44:48] [DEBUG] [MySite:121829] debug @2026-02-11 10:44:48> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/11 10:44:48] [DEBUG] [MySite:121829] debug @2026-02-11 10:44:48> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 38
+[2026/02/11 10:49:30] [DEBUG] [MySite:122634] debug @2026-02-11 10:49:30> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 33
+[2026/02/11 10:49:30] [DEBUG] [MySite:122634] debug @2026-02-11 10:49:30> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/11 10:49:30] [DEBUG] [MySite:122634] debug @2026-02-11 10:49:30> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 38
+[2026/02/11 10:54:32] [DEBUG] [MySite:123492] debug @2026-02-11 10:54:32> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 33
+[2026/02/11 10:54:32] [DEBUG] [MySite:123492] debug @2026-02-11 10:54:32> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/11 10:54:32] [DEBUG] [MySite:123492] debug @2026-02-11 10:54:32> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 38
+[2026/02/11 11:10:17] [DEBUG] [MySite:126371] debug @2026-02-11 11:10:17> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 33
+[2026/02/11 11:10:17] [DEBUG] [MySite:126371] debug @2026-02-11 11:10:17> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/11 11:10:17] [DEBUG] [MySite:126371] debug @2026-02-11 11:10:17> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 38
+[2026/02/11 11:10:28] [DEBUG] [MySite:126371] debug @2026-02-11 11:10:28> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/11 11:10:28] [DEBUG] [MySite:126371] debug @2026-02-11 11:10:28> Found 6 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/11 11:10:29] [DEBUG] [MySite:126371] debug @2026-02-11 11:10:29> Login page loaded in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 196
+[2026/02/11 11:10:32] [DEBUG] [MySite:126371] debug @2026-02-11 11:10:32> $VAR1 = {
+          'scope' => 'openid email profile',
+          'client_id' => '153234952349-cu4oo3tjk3lknv0tjrnt4tt24hc2r1s2.apps.googleusercontent.com',
+          'client_secret' => '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',
+          'token_url' => 'https://oauth2.googleapis.com/token',
+          'authorize_url' => 'https://accounts.google.com/o/oauth2/auth',
+          'userinfo_url' => 'https://openidconnect.googleapis.com/v1/userinfo'
+        }; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 212
+[2026/02/11 11:10:32] [DEBUG] [MySite:126371] debug @2026-02-11 11:10:32> Redirecting to OAuth provider: https://accounts.google.com/o/oauth2/auth?prompt=consent&client_id=153234952349-cu4oo3tjk3lknv0tjrnt4tt24hc2r1s2.apps.googleusercontent.com&access_type=offline&redirect_uri=http%3A%2F%2Flocalhost%3A5000%2Fauth%2Fcallback%2Fgoogle&state=457ea3db7d72752b76c4ca25b444e4911e54c0c425f3fb5dd75ae8d57bd292a6&response_type=code&scope=openid%20email%20profile in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 229
+[2026/02/11 11:10:48] [DEBUG] [MySite:126371] debug @2026-02-11 11:10:48> $VAR1 = {
+          'scope' => 'openid email profile',
+          'client_id' => '153234952349-cu4oo3tjk3lknv0tjrnt4tt24hc2r1s2.apps.googleusercontent.com',
+          'client_secret' => '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',
+          'token_url' => 'https://oauth2.googleapis.com/token',
+          'authorize_url' => 'https://accounts.google.com/o/oauth2/auth',
+          'userinfo_url' => 'https://openidconnect.googleapis.com/v1/userinfo'
+        }; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 241
+[2026/02/11 11:10:49] [DEBUG] [MySite:126371] debug @2026-02-11 11:10:49> $VAR1 = {
+          'google' => {
+                        'user_info' => {
+                                         'sub' => '108395428024810500108',
+                                         'picture' => 'https://lh3.googleusercontent.com/a/ACg8ocJz_3jraZyN6OFhqPYHc_50z8qkf0i9a2ZN2SjrylddAFljKdc=s96-c',
+                                         'name' => 'Peter Kaagman',
+                                         'email_verified' => bless( do{\(my $o = '1')}, 'JSON::PP::Boolean' ),
+                                         'email' => 'prjv.kaagman@gmail.com',
+                                         'given_name' => 'Peter',
+                                         'family_name' => 'Kaagman'
+                                       }
+                      }
+        }; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 24
+[2026/02/11 11:10:49] [DEBUG] [MySite:126371] debug @2026-02-11 11:10:49> Checking/creating user: prjv.kaagman@gmail.com in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 74
+[2026/02/11 11:10:49] [DEBUG] [MySite:126371] debug @2026-02-11 11:10:49> find user by username succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/11 11:10:49] [DEBUG] [MySite:126371] debug @2026-02-11 11:10:49> User found in database: prjv.kaagman@gmail.com in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 98
+[2026/02/11 11:10:49] [DEBUG] [MySite:126371] debug @2026-02-11 11:10:49> fetch articles for homepage succeeded - user=prjv.kaagman@gmail.com (id=1) (role=Admin) in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/11 11:10:49] [DEBUG] [MySite:126371] debug @2026-02-11 11:10:49> Found 6 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33

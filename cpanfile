@@ -1,10 +1,12 @@
+requires "OAuth2::Client" => "0";
+requires "Dancer2::Plugin::Auth::Extensible" => "0";
 requires "Dancer2" => "2.0.1";
 requires "Dancer2::Plugin::Auth::Tiny" => "0";
 requires "Dancer2::Plugin::DBIC" => "0";
 requires "Text::Markdown" => "0";
-requires "Dancer2::Plugin::Auth::OAuth" => "0";
-# requires "Exporter::Tiny" => "0";
-requires "Switch" => "0";
+requires "Dancer2::Plugin::Auth::Extensible" => "0";
+# Oude authenticatieplugin, kan na migratie verwijderd worden:
+# requires "Dancer2::Plugin::Auth::OAuth" => "0";
 requires "String::Util" => "0";
 requires "Log::Log4perl" => "0";
 requires "Log::Any" => "0";

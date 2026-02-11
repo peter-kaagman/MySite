@@ -33,38 +33,52 @@
 - Site werkt nu correct via HTTPS, zonder mixed content
 - OAuth werkt correct in productie dankzij expliciete callback_url in production.yml
 - Documentatie en configuratie zijn up-to-date en gescheiden per omgeving
-# MySite Development Log - Deel 2 (2026)
 
-## 2026-02-09 - Refactor & Modularisatie Analyse (Projectorganisatie)
+## 2026-02-10 - Migratieplan: Auth::Extensible voor OAuth
 
-### Gesprek: Opsplitsen van Article.pm en generieke utils
+**Motivatie:**
+- De huidige Dancer2::Plugin::Auth::OAuth plugin biedt te weinig flexibiliteit: de callback_url kan niet via de config worden ingesteld, waardoor problemen ontstaan met reverse proxies en HTTPS/HTTP-mismatches.
+- Auth::Extensible is beter onderhoudbaar, ondersteunt meerdere authenticatieproviders en maakt configuratie van OAuth (inclusief callback) eenvoudiger en explicieter.
+- Toekomstbestendig: eenvoudiger uitbreiden met extra providers (Github, Microsoft, etc.) en betere integratie met rollen/permissions.
 
-**Aanleiding:**
-- Article.pm is te groot geworden en bevat meerdere verantwoordelijkheden (CRUD, keywords, categorieën, validatie, routing, template rendering).
-- Vraag: Kan deze logischer worden opgesplitst?
+**Migratieplan:**
+1. **Dependencies toevoegen**
+   - Voeg `Dancer2::Plugin::Auth::Extensible` en `Dancer2::Plugin::Auth::Extensible::Provider::OAuth` toe aan de cpanfile en installeer deze.
+2. **Configuratie aanpassen**
+   - Voeg een nieuw blok toe aan config.yml/production.yml:
+     ```yaml
+     plugins:
+       Auth::Extensible:
+         realms:
+           - provider: OAuth
+             module: Dancer2::Plugin::Auth::Extensible::Provider::OAuth
+             client_id: ...
+             client_secret: ...
+             authorize_url: ...
+             token_url: ...
+             user_info_url: ...
+             redirect_uri: ...
+             scopes: ...
+     ```
+   - Verwijder oude Auth::OAuth config.
+3. **Routes en login-flow aanpassen**
+   - Pas login/logout-routes aan naar de conventies van Auth::Extensible (`/login`, `/logout`, `/auth/callback`).
+   - Herschrijf bestaande login-logica (_login, _ok, _failed) naar de nieuwe flow.
+4. **Session en user handling**
+   - Gebruik de helpers van Auth::Extensible (`logged_in_user`, `user_roles`, etc.) voor authenticatie en autorisatie.
+   - Pas profiel- en gebruikerslogica aan waar nodig.
+5. **Templates updaten**
+   - Update login- en foutmeldingen-templates voor de nieuwe flow.
+6. **Testen**
+   - Test alle authenticatie-gerelateerde functionaliteit (login, logout, profiel, rechten).
+7. **Documentatie**
+   - Documenteer de nieuwe setup en eventuele breaking changes in het projectlog en de README.
 
-**Analyse:**
-- Article.pm bevat:
-  - CRUD-logica voor artikelen
-  - Keyword- en categoriebeheer
-  - Validatie en error handling
-  - Route-definities
-  - Template rendering
-- Probleem: Mix van business logica, DB-logica, en Dancer2 routing. Moeilijk te testen en te refactoren.
+**Resultaat:**
+- Flexibele, toekomstbestendige OAuth-authenticatie met volledige controle over callback-URL en providers.
+- Minder afhankelijk van workarounds en expliciete codewijzigingen bij omgevingswissels.
+- Eenvoudiger beheer en uitbreiding van authenticatie in de toekomst.
 
-**Advies voor opsplitsing:**
-- Controller (routes): Alleen route-definities en request handling (bijv. ArticleController.pm)
-- Model/Service: DB-logica, validatie, business rules (bijv. ArticleService.pm)
-- Helpers: Utility-functies (slugify, markdown, trim, etc.) in ArticleUtils.pm of generiek in Utils.pm
-
-**Generieke utils:**
-- Functies als `slugify`, `render_markdown`, `trim` zijn breder inzetbaar (bijv. user, comments, categorieën).
-- Advies: Zet deze in een generieke Utils.pm module en importeer waar nodig.
-
-**Concrete vervolgstap:**
-- Lijst maken van alle functies in Article.pm en aangeven welke generiek kunnen.
-- Projectorganisatie: Documenteren van deze refactor in het log, zodat toekomstige uitbreidingen en onderhoud eenvoudiger worden.
-
-**Status:**
-- Analyse en advies genoteerd. Volgende stap: migratieplan en concrete opsplitsing.
+**Afspraak tijdens migratie:**
+- Oude authenticatiecode en configuratie zoveel mogelijk uitcommentariëren in plaats van direct verwijderen. Dit maakt terugvallen, vergelijken en reviewen eenvoudiger tijdens de overgangsfase.
 
