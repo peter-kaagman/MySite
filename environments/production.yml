@@ -1,6 +1,6 @@
 oauth_providers:
   google:
-    redirect_uri: "https://mysite.prjv.nl/auth/google/callback"
+    redirect_uri: "https://mysite.prjv.nl/auth/callback/google"
 
 # OAuth callback URLs voor productie
 # plugins:
