@@ -1179,3 +1179,570 @@ De site is nog volop in ontwikkeling. Heb je ideeÃ«n, tips of wil je gewoon iets
 [2026/02/11 19:02:45] [DEBUG] [MySite:8] debug @2026-02-11 19:02:45> Found 1 articles in /app/bin/../lib/MySite/Index.pm l. 33
 [2026/02/11 19:36:37] [DEBUG] [MySite:7] debug @2026-02-11 19:36:37> fetch articles for homepage succeeded - anonymous in /app/bin/../lib/MySite/ErrorHandler.pm l. 53
 [2026/02/11 19:36:37] [DEBUG] [MySite:7] debug @2026-02-11 19:36:37> Found 1 articles in /app/bin/../lib/MySite/Index.pm l. 33
+[2026/02/12 13:59:53] [DEBUG] [MySite:240328] debug @2026-02-12 13:59:53> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/12 13:59:53] [DEBUG] [MySite:240328] debug @2026-02-12 13:59:53> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 35
+[2026/02/12 13:59:53] [DEBUG] [MySite:240328] debug @2026-02-12 13:59:53> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 39
+[2026/02/12 14:00:52] [DEBUG] [MySite:240328] debug @2026-02-12 14:00:52> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/12 14:00:52] [DEBUG] [MySite:240328] debug @2026-02-12 14:00:52> Found 6 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/12 14:00:52] [DEBUG] [MySite:240328] debug @2026-02-12 14:00:52> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/12 14:00:52] [DEBUG] [MySite:240328] debug @2026-02-12 14:00:52> Found 6 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/12 14:08:44] [DEBUG] [MySite:240328] debug @2026-02-12 14:08:44> Login page loaded in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 196
+[2026/02/12 14:09:28] [DEBUG] [MySite:240328] debug @2026-02-12 14:09:28> Login page loaded in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 196
+[2026/02/12 14:19:59] [DEBUG] [MySite:244546] debug @2026-02-12 14:19:59> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/12 14:19:59] [DEBUG] [MySite:244546] debug @2026-02-12 14:19:59> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 35
+[2026/02/12 14:19:59] [DEBUG] [MySite:244546] debug @2026-02-12 14:19:59> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 39
+[2026/02/12 14:20:12] [DEBUG] [MySite:244647] debug @2026-02-12 14:20:12> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/12 14:20:12] [DEBUG] [MySite:244647] debug @2026-02-12 14:20:12> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 35
+[2026/02/12 14:20:12] [DEBUG] [MySite:244647] debug @2026-02-12 14:20:12> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 39
+[2026/02/12 14:20:23] [DEBUG] [MySite:244647] debug @2026-02-12 14:20:23> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/12 14:20:23] [DEBUG] [MySite:244647] debug @2026-02-12 14:20:23> Found 6 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/12 14:21:39] [DEBUG] [MySite:245273] debug @2026-02-12 14:21:39> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/12 14:21:39] [DEBUG] [MySite:245273] debug @2026-02-12 14:21:39> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 35
+[2026/02/12 14:21:39] [DEBUG] [MySite:245273] debug @2026-02-12 14:21:39> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 39
+[2026/02/12 14:21:42] [DEBUG] [MySite:245273] debug @2026-02-12 14:21:42> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/12 14:21:42] [DEBUG] [MySite:245273] debug @2026-02-12 14:21:42> Found 4 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/12 14:22:02] [DEBUG] [MySite:245273] debug @2026-02-12 14:22:02> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/12 14:22:02] [DEBUG] [MySite:245273] debug @2026-02-12 14:22:02> Found 4 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/12 14:22:03] [DEBUG] [MySite:245273] debug @2026-02-12 14:22:03> find article by slug succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/12 14:22:03] [DEBUG] [MySite:245273] debug @2026-02-12 14:22:03> Article displayed: 4 in /home/pkn/MySite/bin/../lib/MySite/Article.pm l. 51
+[2026/02/12 14:22:06] [DEBUG] [MySite:245273] debug @2026-02-12 14:22:06> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/12 14:22:06] [DEBUG] [MySite:245273] debug @2026-02-12 14:22:06> Found 4 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/12 14:23:17] [DEBUG] [MySite:245712] debug @2026-02-12 14:23:17> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/12 14:23:17] [DEBUG] [MySite:245712] debug @2026-02-12 14:23:17> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 35
+[2026/02/12 14:23:17] [DEBUG] [MySite:245712] debug @2026-02-12 14:23:17> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 39
+[2026/02/12 14:23:24] [DEBUG] [MySite:245712] debug @2026-02-12 14:23:24> Gevonden pagina: Privacy in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 14:23:24] [DEBUG] [MySite:245712] debug @2026-02-12 14:23:24> Laatste content gepubliceerd op: 2026-02-12 13:21:28 in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 14:24:17] [DEBUG] [MySite:245989] debug @2026-02-12 14:24:17> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/12 14:24:17] [DEBUG] [MySite:245989] debug @2026-02-12 14:24:17> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 35
+[2026/02/12 14:24:17] [DEBUG] [MySite:245989] debug @2026-02-12 14:24:17> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 39
+[2026/02/12 14:24:24] [DEBUG] [MySite:245989] debug @2026-02-12 14:24:24> Gevonden pagina: Privacy in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 14:24:24] [DEBUG] [MySite:245989] debug @2026-02-12 14:24:24> Laatste content gepubliceerd op: 2026-02-12 13:21:28 in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 14:24:24] [DEBUG] [MySite:245989] debug @2026-02-12 14:24:24> Content: 
+<h1>Privacy</h1>
+<p>Niet veel hier. Maar hier ga ik iets vertellen over cookies en jouw data.</p>
+	 in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 27
+[2026/02/12 15:45:28] [DEBUG] [MySite:249657] debug @2026-02-12 15:45:28> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/12 15:45:28] [DEBUG] [MySite:249657] debug @2026-02-12 15:45:28> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 35
+[2026/02/12 15:45:28] [DEBUG] [MySite:249657] debug @2026-02-12 15:45:28> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 39
+[2026/02/12 15:45:52] [DEBUG] [MySite:249657] debug @2026-02-12 15:45:52> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/12 15:45:52] [DEBUG] [MySite:249657] debug @2026-02-12 15:45:52> Found 4 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/12 15:45:55] [DEBUG] [MySite:249657] debug @2026-02-12 15:45:55> Gevonden pagina: Privacy in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 15:45:55] [DEBUG] [MySite:249657] debug @2026-02-12 15:45:55> Laatste content gepubliceerd op: 2026-02-12 14:45:12 in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 15:45:55] [DEBUG] [MySite:249657] debug @2026-02-12 15:45:55> Content: 
+# Privacyverklaring
+
+Deze site respecteert jouw privacy. Hieronder lees je wat er gebeurt met jouw gegevens:
+
+- **Login en gebruikersgegevens:**  
+  Je kunt inloggen via Google of GitHub. Bij het inloggen wordt alleen je gebruikersnaam, e-mailadres en (indien beschikbaar) avatar opgeslagen. Er worden geen extra gegevens verzameld of gedeeld met derden.
+
+- **Cookies:**  
+  Er worden alleen functionele cookies gebruikt om je sessie te bewaren tijdens het gebruik van de site. Er worden geen tracking- of advertentiecookies geplaatst.
+
+- **Data-opslag:**  
+  Je gegevens worden opgeslagen in een beveiligde database. Alleen de beheerder heeft toegang tot deze gegevens.
+
+- **Analytics:**  
+  Er wordt geen externe analytics of tracking gebruikt.
+
+- **Contact:**  
+  Voor vragen of verzoeken tot inzage/verwijdering van je gegevens kun je contact opnemen via [prjv.kaagman@gmail.com](mailto:prjv.kaagman@gmail.com).
+
+- **Wijzigingen:**  
+  Deze privacyverklaring kan worden aangepast. De actuele versie is altijd beschikbaar op deze pagina.
+	 in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 27
+[2026/02/12 15:47:12] [DEBUG] [MySite:249657] debug @2026-02-12 15:47:12> Login page loaded in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 196
+[2026/02/12 15:49:17] [DEBUG] [MySite:250555] debug @2026-02-12 15:49:17> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/12 15:49:17] [DEBUG] [MySite:250555] debug @2026-02-12 15:49:17> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 35
+[2026/02/12 15:49:17] [DEBUG] [MySite:250555] debug @2026-02-12 15:49:17> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 39
+[2026/02/12 15:49:24] [DEBUG] [MySite:250555] debug @2026-02-12 15:49:24> Login page loaded in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 196
+[2026/02/12 15:49:26] [DEBUG] [MySite:250555] debug @2026-02-12 15:49:26> Gevonden pagina: License in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 15:49:26] [DEBUG] [MySite:250555] debug @2026-02-12 15:49:26> Laatste content gepubliceerd op: 2026-02-12 14:45:12 in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 15:49:26] [DEBUG] [MySite:250555] debug @2026-02-12 15:49:26> Content: 
+# MIT License
+
+Copyright (c) 2026 Peter Kaagman
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 27
+[2026/02/12 15:49:30] [DEBUG] [MySite:250555] debug @2026-02-12 15:49:30> Gevonden pagina: Privacy in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 15:49:30] [DEBUG] [MySite:250555] debug @2026-02-12 15:49:30> Laatste content gepubliceerd op: 2026-02-12 14:45:12 in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 15:49:30] [DEBUG] [MySite:250555] debug @2026-02-12 15:49:30> Content: 
+# Privacyverklaring
+
+Deze site respecteert jouw privacy. Hieronder lees je wat er gebeurt met jouw gegevens:
+
+- **Login en gebruikersgegevens:**  
+  Je kunt inloggen via Google of GitHub. Bij het inloggen wordt alleen je gebruikersnaam, e-mailadres en (indien beschikbaar) avatar opgeslagen. Er worden geen extra gegevens verzameld of gedeeld met derden.
+
+- **Cookies:**  
+  Er worden alleen functionele cookies gebruikt om je sessie te bewaren tijdens het gebruik van de site. Er worden geen tracking- of advertentiecookies geplaatst.
+
+- **Data-opslag:**  
+  Je gegevens worden opgeslagen in een beveiligde database. Alleen de beheerder heeft toegang tot deze gegevens.
+
+- **Analytics:**  
+  Er wordt geen externe analytics of tracking gebruikt.
+
+- **Contact:**  
+  Voor vragen of verzoeken tot inzage/verwijdering van je gegevens kun je contact opnemen via [prjv.kaagman@gmail.com](mailto:prjv.kaagman@gmail.com).
+
+- **Wijzigingen:**  
+  Deze privacyverklaring kan worden aangepast. De actuele versie is altijd beschikbaar op deze pagina.
+	 in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 27
+[2026/02/12 15:49:31] [DEBUG] [MySite:250555] debug @2026-02-12 15:49:31> Gevonden pagina: Privacy in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 15:49:31] [DEBUG] [MySite:250555] debug @2026-02-12 15:49:31> Laatste content gepubliceerd op: 2026-02-12 14:45:12 in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 15:49:31] [DEBUG] [MySite:250555] debug @2026-02-12 15:49:31> Content: 
+# Privacyverklaring
+
+Deze site respecteert jouw privacy. Hieronder lees je wat er gebeurt met jouw gegevens:
+
+- **Login en gebruikersgegevens:**  
+  Je kunt inloggen via Google of GitHub. Bij het inloggen wordt alleen je gebruikersnaam, e-mailadres en (indien beschikbaar) avatar opgeslagen. Er worden geen extra gegevens verzameld of gedeeld met derden.
+
+- **Cookies:**  
+  Er worden alleen functionele cookies gebruikt om je sessie te bewaren tijdens het gebruik van de site. Er worden geen tracking- of advertentiecookies geplaatst.
+
+- **Data-opslag:**  
+  Je gegevens worden opgeslagen in een beveiligde database. Alleen de beheerder heeft toegang tot deze gegevens.
+
+- **Analytics:**  
+  Er wordt geen externe analytics of tracking gebruikt.
+
+- **Contact:**  
+  Voor vragen of verzoeken tot inzage/verwijdering van je gegevens kun je contact opnemen via [prjv.kaagman@gmail.com](mailto:prjv.kaagman@gmail.com).
+
+- **Wijzigingen:**  
+  Deze privacyverklaring kan worden aangepast. De actuele versie is altijd beschikbaar op deze pagina.
+	 in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 27
+[2026/02/12 15:49:32] [DEBUG] [MySite:250555] debug @2026-02-12 15:49:32> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/12 15:49:32] [DEBUG] [MySite:250555] debug @2026-02-12 15:49:32> Found 4 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/12 15:49:34] [DEBUG] [MySite:250555] debug @2026-02-12 15:49:34> Gevonden pagina: License in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 15:49:34] [DEBUG] [MySite:250555] debug @2026-02-12 15:49:34> Laatste content gepubliceerd op: 2026-02-12 14:45:12 in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 15:49:34] [DEBUG] [MySite:250555] debug @2026-02-12 15:49:34> Content: 
+# MIT License
+
+Copyright (c) 2026 Peter Kaagman
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 27
+[2026/02/12 16:45:03] [DEBUG] [MySite:253182] debug @2026-02-12 16:45:03> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/12 16:45:03] [DEBUG] [MySite:253182] debug @2026-02-12 16:45:03> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 35
+[2026/02/12 16:45:03] [DEBUG] [MySite:253182] debug @2026-02-12 16:45:03> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 39
+[2026/02/12 16:45:10] [DEBUG] [MySite:253182] debug @2026-02-12 16:45:10> Gevonden pagina: License in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 16:45:10] [DEBUG] [MySite:253182] debug @2026-02-12 16:45:10> Laatste content gepubliceerd op: 2026-02-12 14:45:12 in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 16:45:10] [DEBUG] [MySite:253182] debug @2026-02-12 16:45:10> Content: 
+# MIT License
+
+Copyright (c) 2026 Peter Kaagman
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 27
+[2026/02/12 16:45:17] [DEBUG] [MySite:253182] debug @2026-02-12 16:45:17> Gevonden pagina: Privacy in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 16:45:17] [DEBUG] [MySite:253182] debug @2026-02-12 16:45:17> Laatste content gepubliceerd op: 2026-02-12 14:45:12 in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 16:45:17] [DEBUG] [MySite:253182] debug @2026-02-12 16:45:17> Content: 
+# Privacyverklaring
+
+Deze site respecteert jouw privacy. Hieronder lees je wat er gebeurt met jouw gegevens:
+
+- **Login en gebruikersgegevens:**  
+  Je kunt inloggen via Google of GitHub. Bij het inloggen wordt alleen je gebruikersnaam, e-mailadres en (indien beschikbaar) avatar opgeslagen. Er worden geen extra gegevens verzameld of gedeeld met derden.
+
+- **Cookies:**  
+  Er worden alleen functionele cookies gebruikt om je sessie te bewaren tijdens het gebruik van de site. Er worden geen tracking- of advertentiecookies geplaatst.
+
+- **Data-opslag:**  
+  Je gegevens worden opgeslagen in een beveiligde database. Alleen de beheerder heeft toegang tot deze gegevens.
+
+- **Analytics:**  
+  Er wordt geen externe analytics of tracking gebruikt.
+
+- **Contact:**  
+  Voor vragen of verzoeken tot inzage/verwijdering van je gegevens kun je contact opnemen via [prjv.kaagman@gmail.com](mailto:prjv.kaagman@gmail.com).
+
+- **Wijzigingen:**  
+  Deze privacyverklaring kan worden aangepast. De actuele versie is altijd beschikbaar op deze pagina.
+	 in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 27
+[2026/02/12 16:45:56] [DEBUG] [MySite:253433] debug @2026-02-12 16:45:56> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/12 16:45:56] [DEBUG] [MySite:253433] debug @2026-02-12 16:45:56> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 35
+[2026/02/12 16:45:56] [DEBUG] [MySite:253433] debug @2026-02-12 16:45:56> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 39
+[2026/02/12 16:46:01] [DEBUG] [MySite:253433] debug @2026-02-12 16:46:01> Gevonden pagina: Privacy in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 16:46:01] [DEBUG] [MySite:253433] debug @2026-02-12 16:46:01> Laatste content gepubliceerd op: 2026-02-12 14:45:12 in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 16:46:01] [DEBUG] [MySite:253433] debug @2026-02-12 16:46:01> Content: 
+# Privacyverklaring
+
+Deze site respecteert jouw privacy. Hieronder lees je wat er gebeurt met jouw gegevens:
+
+- **Login en gebruikersgegevens:**  
+  Je kunt inloggen via Google of GitHub. Bij het inloggen wordt alleen je gebruikersnaam, e-mailadres en (indien beschikbaar) avatar opgeslagen. Er worden geen extra gegevens verzameld of gedeeld met derden.
+
+- **Cookies:**  
+  Er worden alleen functionele cookies gebruikt om je sessie te bewaren tijdens het gebruik van de site. Er worden geen tracking- of advertentiecookies geplaatst.
+
+- **Data-opslag:**  
+  Je gegevens worden opgeslagen in een beveiligde database. Alleen de beheerder heeft toegang tot deze gegevens.
+
+- **Analytics:**  
+  Er wordt geen externe analytics of tracking gebruikt.
+
+- **Contact:**  
+  Voor vragen of verzoeken tot inzage/verwijdering van je gegevens kun je contact opnemen via [prjv.kaagman@gmail.com](mailto:prjv.kaagman@gmail.com).
+
+- **Wijzigingen:**  
+  Deze privacyverklaring kan worden aangepast. De actuele versie is altijd beschikbaar op deze pagina.
+	 in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 27
+[2026/02/12 16:46:43] [DEBUG] [MySite:253433] debug @2026-02-12 16:46:43> Gevonden pagina: License in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 16:46:43] [DEBUG] [MySite:253433] debug @2026-02-12 16:46:43> Laatste content gepubliceerd op: 2026-02-12 14:45:12 in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 16:46:43] [DEBUG] [MySite:253433] debug @2026-02-12 16:46:43> Content: 
+# MIT License
+
+Copyright (c) 2026 Peter Kaagman
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 27
+[2026/02/12 16:46:46] [DEBUG] [MySite:253433] debug @2026-02-12 16:46:46> Login page loaded in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 196
+[2026/02/12 16:47:54] [DEBUG] [MySite:253433] debug @2026-02-12 16:47:54> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/12 16:47:54] [DEBUG] [MySite:253433] debug @2026-02-12 16:47:54> Found 4 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/12 16:47:57] [DEBUG] [MySite:253433] debug @2026-02-12 16:47:57> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/12 16:47:57] [DEBUG] [MySite:253433] debug @2026-02-12 16:47:57> Found 4 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/12 16:48:05] [DEBUG] [MySite:253433] debug @2026-02-12 16:48:05> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/12 16:48:05] [DEBUG] [MySite:253433] debug @2026-02-12 16:48:05> Found 4 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/12 16:48:10] [DEBUG] [MySite:253433] debug @2026-02-12 16:48:10> Gevonden pagina: Login in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 16:48:10] [DEBUG] [MySite:253433] debug @2026-02-12 16:48:10> Laatste content gepubliceerd op: 2026-02-12 14:45:12 in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 16:48:10] [DEBUG] [MySite:253433] debug @2026-02-12 16:48:10> Content: 
+<p>Gebruik één van de volgende diensten om in te loggen. De userid van de gekozen service wordt gebruikt om hier in te loggen of een account voor je te maken.</p>
+<ul>
+    <li><a href="/auth/google">Google</a></li>
+    <li><a href="/auth/github">GitHub</a></li>
+</ul>
+<p><emp>Let op:</emp><br>Diensten als Google en GitHub geven een verschillende userid terug. Gebruik dus altijd dezelfde dienst.</p>
+	 in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 27
+[2026/02/12 16:50:01] [DEBUG] [MySite:254272] debug @2026-02-12 16:50:00> Logger config: log4perl in /home/pkn/MySite/bin/../lib/MySite.pm l. 34
+[2026/02/12 16:50:01] [DEBUG] [MySite:254272] debug @2026-02-12 16:50:01> Log4perl config:
+log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+log4perl.appender.LOGFILE.filename = logs/mysite.log
+log4perl.appender.LOGFILE.mode = append
+log4perl.appender.LOGFILE.layout = PatternLayout
+log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+log4perl.appender.STDERR.stderr = 1
+log4perl.appender.STDERR.layout = PatternLayout
+log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n in /home/pkn/MySite/bin/../lib/MySite.pm l. 35
+[2026/02/12 16:50:01] [DEBUG] [MySite:254272] debug @2026-02-12 16:50:01> DBIC: Database path resolved to absolute: /home/pkn/MySite/db/mysite.sqlite in /home/pkn/MySite/bin/../lib/MySite.pm l. 39
+[2026/02/12 16:50:09] [DEBUG] [MySite:254272] debug @2026-02-12 16:50:09> Gevonden pagina: Login in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 16:50:09] [DEBUG] [MySite:254272] debug @2026-02-12 16:50:09> Laatste content gepubliceerd op: 2026-02-12 14:45:12 in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 16:50:09] [DEBUG] [MySite:254272] debug @2026-02-12 16:50:09> Content: 
+<p>Gebruik één van de volgende diensten om in te loggen. De userid van de gekozen service wordt gebruikt om hier in te loggen of een account voor je te maken.</p>
+<ul>
+    <li><a href="/auth/google">Google</a></li>
+    <li><a href="/auth/github">GitHub</a></li>
+</ul>
+<p><emp>Let op:</emp><br>Diensten als Google en GitHub geven een verschillende userid terug. Gebruik dus altijd dezelfde dienst.</p>
+	 in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 27
+[2026/02/12 16:52:32] [DEBUG] [MySite:254272] debug @2026-02-12 16:52:32> Gevonden pagina: Login in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 16:52:32] [DEBUG] [MySite:254272] debug @2026-02-12 16:52:32> Laatste content gepubliceerd op: 2026-02-12 14:45:12 in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 16:52:32] [DEBUG] [MySite:254272] debug @2026-02-12 16:52:32> Content: 
+<p>Gebruik één van de volgende diensten om in te loggen. De userid van de gekozen service wordt gebruikt om hier in te loggen of een account voor je te maken.</p>
+<ul>
+    <li><a href="/auth/google">Google</a></li>
+    <li><a href="/auth/github">GitHub</a></li>
+</ul>
+<p><emp>Let op:</emp><br>Diensten als Google en GitHub geven een verschillende userid terug. Gebruik dus altijd dezelfde dienst.</p>
+	 in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 27
+[2026/02/12 16:53:07] [DEBUG] [MySite:254272] debug @2026-02-12 16:53:07> Gevonden pagina: Login in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 16:53:07] [DEBUG] [MySite:254272] debug @2026-02-12 16:53:07> Laatste content gepubliceerd op: 2026-02-12 14:45:12 in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 16:53:07] [DEBUG] [MySite:254272] debug @2026-02-12 16:53:07> Content: 
+<p>Gebruik één van de volgende diensten om in te loggen. De userid van de gekozen service wordt gebruikt om hier in te loggen of een account voor je te maken.</p>
+<ul>
+    <li><a href="/auth/google">Google</a></li>
+    <li><a href="/auth/github">GitHub</a></li>
+</ul>
+<p><emp>Let op:</emp><br>Diensten als Google en GitHub geven een verschillende userid terug. Gebruik dus altijd dezelfde dienst.</p>
+	 in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 27
+[2026/02/12 16:54:44] [DEBUG] [MySite:254272] debug @2026-02-12 16:54:44> $VAR1 = {
+          'client_id' => '153234952349-cu4oo3tjk3lknv0tjrnt4tt24hc2r1s2.apps.googleusercontent.com',
+          'token_url' => 'https://oauth2.googleapis.com/token',
+          'authorize_url' => 'https://accounts.google.com/o/oauth2/auth',
+          'userinfo_url' => 'https://openidconnect.googleapis.com/v1/userinfo',
+          'scope' => 'openid email profile',
+          'client_secret' => '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'
+        }; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 212
+[2026/02/12 16:54:44] [DEBUG] [MySite:254272] debug @2026-02-12 16:54:44> Redirecting to OAuth provider: https://accounts.google.com/o/oauth2/auth?client_id=153234952349-cu4oo3tjk3lknv0tjrnt4tt24hc2r1s2.apps.googleusercontent.com&access_type=offline&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A5000%2Fauth%2Fcallback%2Fgoogle&prompt=consent&scope=openid%20email%20profile&state=72e0351f7ee53e081cc5e0305ec7af23c81b57d9aabe417788ad6abb2c45a69c in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 229
+[2026/02/12 16:54:50] [DEBUG] [MySite:254272] debug @2026-02-12 16:54:50> $VAR1 = {
+          'client_id' => '153234952349-cu4oo3tjk3lknv0tjrnt4tt24hc2r1s2.apps.googleusercontent.com',
+          'token_url' => 'https://oauth2.googleapis.com/token',
+          'authorize_url' => 'https://accounts.google.com/o/oauth2/auth',
+          'userinfo_url' => 'https://openidconnect.googleapis.com/v1/userinfo',
+          'scope' => 'openid email profile',
+          'client_secret' => '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'
+        }; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 241
+[2026/02/12 16:54:51] [DEBUG] [MySite:254272] debug @2026-02-12 16:54:51> $VAR1 = {
+          'google' => {
+                        'user_info' => {
+                                         'email_verified' => bless( do{\(my $o = '1')}, 'JSON::PP::Boolean' ),
+                                         'sub' => '108395428024810500108',
+                                         'picture' => 'https://lh3.googleusercontent.com/a/ACg8ocJz_3jraZyN6OFhqPYHc_50z8qkf0i9a2ZN2SjrylddAFljKdc=s96-c',
+                                         'name' => 'Peter Kaagman',
+                                         'email' => 'prjv.kaagman@gmail.com',
+                                         'family_name' => 'Kaagman',
+                                         'given_name' => 'Peter'
+                                       }
+                      }
+        }; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 24
+[2026/02/12 16:54:51] [DEBUG] [MySite:254272] debug @2026-02-12 16:54:51> Checking/creating user: prjv.kaagman@gmail.com in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 74
+[2026/02/12 16:54:51] [DEBUG] [MySite:254272] debug @2026-02-12 16:54:51> find user by username succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/12 16:54:51] [DEBUG] [MySite:254272] debug @2026-02-12 16:54:51> User found in database: prjv.kaagman@gmail.com in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 98
+[2026/02/12 16:54:51] [DEBUG] [MySite:254272] debug @2026-02-12 16:54:51> Gevonden pagina: License in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 16:54:51] [DEBUG] [MySite:254272] debug @2026-02-12 16:54:51> Laatste content gepubliceerd op: 2026-02-12 14:45:12 in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 16:54:51] [DEBUG] [MySite:254272] debug @2026-02-12 16:54:51> Content: 
+# MIT License
+
+Copyright (c) 2026 Peter Kaagman
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 27
+[2026/02/12 16:55:12] [DEBUG] [MySite:254272] debug @2026-02-12 16:55:12> fetch articles for homepage succeeded - user=prjv.kaagman@gmail.com (id=1) (role=Admin) in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/12 16:55:12] [DEBUG] [MySite:254272] debug @2026-02-12 16:55:12> Found 4 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/12 16:55:15] [DEBUG] [MySite:254272] debug @2026-02-12 16:55:15> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/12 16:55:15] [DEBUG] [MySite:254272] debug @2026-02-12 16:55:15> Found 4 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/12 16:55:17] [DEBUG] [MySite:254272] debug @2026-02-12 16:55:17> Gevonden pagina: Login in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 16:55:17] [DEBUG] [MySite:254272] debug @2026-02-12 16:55:17> Laatste content gepubliceerd op: 2026-02-12 14:45:12 in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 16:55:17] [DEBUG] [MySite:254272] debug @2026-02-12 16:55:17> Content: 
+<p>Gebruik één van de volgende diensten om in te loggen. De userid van de gekozen service wordt gebruikt om hier in te loggen of een account voor je te maken.</p>
+<ul>
+    <li><a href="/auth/google">Google</a></li>
+    <li><a href="/auth/github">GitHub</a></li>
+</ul>
+<p><emp>Let op:</emp><br>Diensten als Google en GitHub geven een verschillende userid terug. Gebruik dus altijd dezelfde dienst.</p>
+	 in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 27
+[2026/02/12 16:55:19] [DEBUG] [MySite:254272] debug @2026-02-12 16:55:19> $VAR1 = {
+          'client_id' => '153234952349-cu4oo3tjk3lknv0tjrnt4tt24hc2r1s2.apps.googleusercontent.com',
+          'token_url' => 'https://oauth2.googleapis.com/token',
+          'authorize_url' => 'https://accounts.google.com/o/oauth2/auth',
+          'userinfo_url' => 'https://openidconnect.googleapis.com/v1/userinfo',
+          'scope' => 'openid email profile',
+          'client_secret' => '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'
+        }; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 212
+[2026/02/12 16:55:19] [DEBUG] [MySite:254272] debug @2026-02-12 16:55:19> Redirecting to OAuth provider: https://accounts.google.com/o/oauth2/auth?client_id=153234952349-cu4oo3tjk3lknv0tjrnt4tt24hc2r1s2.apps.googleusercontent.com&access_type=offline&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A5000%2Fauth%2Fcallback%2Fgoogle&prompt=consent&scope=openid%20email%20profile&state=70d9edb2ca4f5f91b5008df1420e14dfdc4fb0d11eee8afa012de2dd3a8a5b1b in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 229
+[2026/02/12 16:55:24] [DEBUG] [MySite:254272] debug @2026-02-12 16:55:24> $VAR1 = {
+          'client_id' => '153234952349-cu4oo3tjk3lknv0tjrnt4tt24hc2r1s2.apps.googleusercontent.com',
+          'token_url' => 'https://oauth2.googleapis.com/token',
+          'authorize_url' => 'https://accounts.google.com/o/oauth2/auth',
+          'userinfo_url' => 'https://openidconnect.googleapis.com/v1/userinfo',
+          'scope' => 'openid email profile',
+          'client_secret' => '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'
+        }; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 241
+[2026/02/12 16:55:25] [DEBUG] [MySite:254272] debug @2026-02-12 16:55:25> $VAR1 = {
+          'google' => {
+                        'user_info' => {
+                                         'name' => 'Peter Kaagman',
+                                         'email' => 'prjv.kaagman@gmail.com',
+                                         'sub' => '108395428024810500108',
+                                         'picture' => 'https://lh3.googleusercontent.com/a/ACg8ocJz_3jraZyN6OFhqPYHc_50z8qkf0i9a2ZN2SjrylddAFljKdc=s96-c',
+                                         'email_verified' => bless( do{\(my $o = '1')}, 'JSON::PP::Boolean' ),
+                                         'given_name' => 'Peter',
+                                         'family_name' => 'Kaagman'
+                                       }
+                      }
+        }; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 24
+[2026/02/12 16:55:25] [DEBUG] [MySite:254272] debug @2026-02-12 16:55:25> Checking/creating user: prjv.kaagman@gmail.com in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 74
+[2026/02/12 16:55:25] [DEBUG] [MySite:254272] debug @2026-02-12 16:55:25> find user by username succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/12 16:55:25] [DEBUG] [MySite:254272] debug @2026-02-12 16:55:25> User found in database: prjv.kaagman@gmail.com in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 98
+[2026/02/12 16:55:25] [DEBUG] [MySite:254272] debug @2026-02-12 16:55:25> fetch articles for homepage succeeded - user=prjv.kaagman@gmail.com (id=1) (role=Admin) in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/12 16:55:25] [DEBUG] [MySite:254272] debug @2026-02-12 16:55:25> Found 4 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/12 16:55:35] [DEBUG] [MySite:254272] debug @2026-02-12 16:55:35> Gevonden pagina: Privacy in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 16:55:35] [DEBUG] [MySite:254272] debug @2026-02-12 16:55:35> Laatste content gepubliceerd op: 2026-02-12 14:45:12 in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 16:55:35] [DEBUG] [MySite:254272] debug @2026-02-12 16:55:35> Content: 
+# Privacyverklaring
+
+Deze site respecteert jouw privacy. Hieronder lees je wat er gebeurt met jouw gegevens:
+
+- **Login en gebruikersgegevens:**  
+  Je kunt inloggen via Google of GitHub. Bij het inloggen wordt alleen je gebruikersnaam, e-mailadres en (indien beschikbaar) avatar opgeslagen. Er worden geen extra gegevens verzameld of gedeeld met derden.
+
+- **Cookies:**  
+  Er worden alleen functionele cookies gebruikt om je sessie te bewaren tijdens het gebruik van de site. Er worden geen tracking- of advertentiecookies geplaatst.
+
+- **Data-opslag:**  
+  Je gegevens worden opgeslagen in een beveiligde database. Alleen de beheerder heeft toegang tot deze gegevens.
+
+- **Analytics:**  
+  Er wordt geen externe analytics of tracking gebruikt.
+
+- **Contact:**  
+  Voor vragen of verzoeken tot inzage/verwijdering van je gegevens kun je contact opnemen via [prjv.kaagman@gmail.com](mailto:prjv.kaagman@gmail.com).
+
+- **Wijzigingen:**  
+  Deze privacyverklaring kan worden aangepast. De actuele versie is altijd beschikbaar op deze pagina.
+	 in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 27
+[2026/02/12 16:55:36] [DEBUG] [MySite:254272] debug @2026-02-12 16:55:36> Gevonden pagina: Login in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 16:55:36] [DEBUG] [MySite:254272] debug @2026-02-12 16:55:36> Laatste content gepubliceerd op: 2026-02-12 14:45:12 in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 26
+[2026/02/12 16:55:36] [DEBUG] [MySite:254272] debug @2026-02-12 16:55:36> Content: 
+<p>Gebruik één van de volgende diensten om in te loggen. De userid van de gekozen service wordt gebruikt om hier in te loggen of een account voor je te maken.</p>
+<ul>
+    <li><a href="/auth/google">Google</a></li>
+    <li><a href="/auth/github">GitHub</a></li>
+</ul>
+<p><emp>Let op:</emp><br>Diensten als Google en GitHub geven een verschillende userid terug. Gebruik dus altijd dezelfde dienst.</p>
+	 in /home/pkn/MySite/bin/../lib/MySite/Page.pm l. 27
+[2026/02/12 16:55:39] [DEBUG] [MySite:254272] debug @2026-02-12 16:55:39> $VAR1 = {
+          'client_id' => '153234952349-cu4oo3tjk3lknv0tjrnt4tt24hc2r1s2.apps.googleusercontent.com',
+          'token_url' => 'https://oauth2.googleapis.com/token',
+          'authorize_url' => 'https://accounts.google.com/o/oauth2/auth',
+          'userinfo_url' => 'https://openidconnect.googleapis.com/v1/userinfo',
+          'scope' => 'openid email profile',
+          'client_secret' => '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'
+        }; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 212
+[2026/02/12 16:55:39] [DEBUG] [MySite:254272] debug @2026-02-12 16:55:39> Redirecting to OAuth provider: https://accounts.google.com/o/oauth2/auth?prompt=consent&redirect_uri=http%3A%2F%2Flocalhost%3A5000%2Fauth%2Fcallback%2Fgoogle&response_type=code&access_type=offline&client_id=153234952349-cu4oo3tjk3lknv0tjrnt4tt24hc2r1s2.apps.googleusercontent.com&state=55109e411888bd9b14f13d765a52f0ed8b0cdb608d3aa6d81e490c987a9b2a7c&scope=openid%20email%20profile in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 229
+[2026/02/12 16:55:44] [DEBUG] [MySite:254272] debug @2026-02-12 16:55:44> $VAR1 = {
+          'client_id' => '153234952349-cu4oo3tjk3lknv0tjrnt4tt24hc2r1s2.apps.googleusercontent.com',
+          'token_url' => 'https://oauth2.googleapis.com/token',
+          'authorize_url' => 'https://accounts.google.com/o/oauth2/auth',
+          'userinfo_url' => 'https://openidconnect.googleapis.com/v1/userinfo',
+          'scope' => 'openid email profile',
+          'client_secret' => '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'
+        }; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 241
+[2026/02/12 16:55:45] [DEBUG] [MySite:254272] debug @2026-02-12 16:55:45> $VAR1 = {
+          'google' => {
+                        'user_info' => {
+                                         'picture' => 'https://lh3.googleusercontent.com/a/ACg8ocJz_3jraZyN6OFhqPYHc_50z8qkf0i9a2ZN2SjrylddAFljKdc=s96-c',
+                                         'sub' => '108395428024810500108',
+                                         'email_verified' => bless( do{\(my $o = '1')}, 'JSON::PP::Boolean' ),
+                                         'name' => 'Peter Kaagman',
+                                         'email' => 'prjv.kaagman@gmail.com',
+                                         'family_name' => 'Kaagman',
+                                         'given_name' => 'Peter'
+                                       }
+                      }
+        }; in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 24
+[2026/02/12 16:55:45] [DEBUG] [MySite:254272] debug @2026-02-12 16:55:45> Checking/creating user: prjv.kaagman@gmail.com in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 74
+[2026/02/12 16:55:45] [DEBUG] [MySite:254272] debug @2026-02-12 16:55:45> find user by username succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/12 16:55:45] [DEBUG] [MySite:254272] debug @2026-02-12 16:55:45> User found in database: prjv.kaagman@gmail.com in /home/pkn/MySite/bin/../lib/MySite/User.pm l. 98
+[2026/02/12 16:55:45] [DEBUG] [MySite:254272] debug @2026-02-12 16:55:45> fetch articles for homepage succeeded - user=prjv.kaagman@gmail.com (id=1) (role=Admin) in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/12 16:55:45] [DEBUG] [MySite:254272] debug @2026-02-12 16:55:45> Found 4 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/12 17:25:47] [DEBUG] [MySite:254272] debug @2026-02-12 17:25:47> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/12 17:25:47] [DEBUG] [MySite:254272] debug @2026-02-12 17:25:47> Found 4 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/12 17:25:53] [DEBUG] [MySite:254272] debug @2026-02-12 17:25:53> find article by slug succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/12 17:25:53] [DEBUG] [MySite:254272] debug @2026-02-12 17:25:53> Article displayed: 4 in /home/pkn/MySite/bin/../lib/MySite/Article.pm l. 51
+[2026/02/12 17:25:54] [DEBUG] [MySite:254272] debug @2026-02-12 17:25:54> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/12 17:25:54] [DEBUG] [MySite:254272] debug @2026-02-12 17:25:54> Found 4 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/12 17:27:23] [DEBUG] [MySite:254272] debug @2026-02-12 17:27:23> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/12 17:27:23] [DEBUG] [MySite:254272] debug @2026-02-12 17:27:23> Found 4 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
+[2026/02/12 17:28:10] [DEBUG] [MySite:254272] debug @2026-02-12 17:28:10> fetch articles for homepage succeeded - anonymous in /home/pkn/MySite/bin/../lib/MySite/ErrorHandler.pm l. 53
+[2026/02/12 17:28:10] [DEBUG] [MySite:254272] debug @2026-02-12 17:28:10> Found 4 articles in /home/pkn/MySite/bin/../lib/MySite/Index.pm l. 33
