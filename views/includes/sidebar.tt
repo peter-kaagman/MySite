@@ -15,6 +15,8 @@
       <li><a href='/user/logout'>LogOut</a></li>
     </ul>
   <% ELSE %>
-    <p>Er is niemand ingelogd, <a href='/user/login'>Login</a></p>
+    <p>Er is niemand ingelogd, <a href='/page/login'>Login</a></p>
   <% END %>
+
+
 </div>
