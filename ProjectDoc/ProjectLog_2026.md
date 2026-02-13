@@ -82,3 +82,24 @@
 **Afspraak tijdens migratie:**
 - Oude authenticatiecode en configuratie zoveel mogelijk uitcommentariëren in plaats van direct verwijderen. Dit maakt terugvallen, vergelijken en reviewen eenvoudiger tijdens de overgangsfase.
 
+## 2026-02-12 - Grote opruimactie & documentatie
+
+**Onderwerpen:**
+- Kubernetes (k8s) map en alle YAML-bestanden verwijderd
+- nginx map en configuratie verwijderd
+- Oude Dockerfiles (alpine, distroless) verwijderd
+- Alleen Dockerfile en docker-compose.prod.yml behouden
+- Overbodige docker-compose.yml en docker-compose.simple.yml verwijderd
+- UBUNTU_SETUP.md en SYNOLOGY_SETUP.md verwijderd (Ubuntu instructies geïntegreerd)
+- test_log4perl.pl verwijderd
+- DOCKER_PRODUCTION.md volledig herschreven en samengevoegd met Ubuntu-setup
+- Nieuwe locatie voor Docker handleiding: ProjectDoc/DOCKER_PRODUCTION.md
+- Artikelen/Eerste induk.md herschreven en voorzien van abstract
+- Issue aangemaakt op GitHub met alle directe verbeterpunten uit het artikel 'Eerste indruk'
+
+**Resultaat:**
+- Projectstructuur is opgeschoond en overzichtelijk
+- Documentatie is up-to-date en samengevoegd
+- Alle oude, niet-gebruikte infrastructuur verwijderd
+- Concrete verbeterpunten direct als issue geregistreerd
+
