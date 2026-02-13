@@ -1,0 +1,36 @@
+package MySite::Page;
+
+use Dancer2 appname => 'MySite';
+use Dancer2::Plugin::DBIC;
+use MySite::Utils qw(render_markdown);
+
+# Route handler voor statische pagina's
+get '/page/:slug' => sub {
+    my $slug = route_parameters->get('slug');
+    my $page = schema->resultset('Page')->find({ slug => $slug });
+    
+    unless ($page) {
+        status 404;
+        return template 'error.tt', { message => "Pagina niet gevonden" };
+    }
+
+    # Haal de laatste gepubliceerde content op
+    my $content = schema->resultset('PageContent')->search({
+        pageid   => $page->page_id,
+        published => { '!=', undef },
+    }, {
+        order_by => { -desc => 'published' },
+        rows     => 1,
+    })->first;
+
+    debug "Gevonden pagina: " . $page->name; debug "Laatste content gepubliceerd op: " . ($content ? $content->published : 'geen content gevonden');
+    debug  $content ? "Content: " . $content->content : "Geen content beschikbaar";
+    
+    return template 'page.tt', {
+        #page    => $page,
+        content => $content,
+        'render_markdown' => \&MySite::Utils::render_markdown,
+    };
+};
+
+1;

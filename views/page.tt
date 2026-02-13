@@ -1,3 +1,2 @@
-<% page.name %>
-<% page.page_contents.content %>
+<% render_markdown(content.content) %>
 

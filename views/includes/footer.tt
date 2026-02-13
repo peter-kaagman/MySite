@@ -1,1 +1,5 @@
-<p>footer</p>
+<footer class="footer">
+	<div class="container">
+		<p>© 2026 Peter Kaagman | <a href="/page/license">MIT License</a> | <a href="/page/privacy">Privacy</a> | Contact: <a href="mailto:prjv.kaagman@gmail.com">Peter Kaagman</a></p>
+	</div>
+</footer>
