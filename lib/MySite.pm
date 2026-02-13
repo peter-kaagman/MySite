@@ -9,6 +9,7 @@ use Data::Dumper;
 use MySite::Index;
 use MySite::User;
 use MySite::Article;
+use MySite::Page;
 
 our $VERSION = '0.1';
 

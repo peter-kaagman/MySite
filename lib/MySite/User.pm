@@ -177,28 +177,28 @@ sub _checkUser{
 
 # };
 
-# Toont een login pagina, en slaat de return_url op in de session voor na het inloggen
-sub _login {
-  my $return_url;
-  if (request->{'_query_params'}->{'return_url'}){
-    $return_url = request->{'_query_params'}->{'return_url'};
-  }elsif(request->{'env'}->{'HTTP_REFERER'}){
-    $return_url = request->{'env'}->{'HTTP_REFERER'};
-  }else{
-    $return_url = '/'
-  }
-  # Haalt de feitelijke login pagina op uit de database, zodat deze makkelijk aan te passen is zonder codewijziging
-  session->write('return_url', $return_url);
-  my $page =  schema->resultset('Page')->find(
-    { name => 'Login'},
-    { }
-  );
-  debug "Login page loaded" if $page;
-  template 'page' => {
-    'title' => 'Login', 
-    'page' => $page,#->get_column('content'),
-  };
-};
+# # Toont een login pagina, en slaat de return_url op in de session voor na het inloggen
+# sub _login {
+#   my $return_url;
+#   if (request->{'_query_params'}->{'return_url'}){
+#     $return_url = request->{'_query_params'}->{'return_url'};
+#   }elsif(request->{'env'}->{'HTTP_REFERER'}){
+#     $return_url = request->{'env'}->{'HTTP_REFERER'};
+#   }else{
+#     $return_url = '/'
+#   }
+#   # Haalt de feitelijke login pagina op uit de database, zodat deze makkelijk aan te passen is zonder codewijziging
+#   session->write('return_url', $return_url);
+#   my $page =  schema->resultset('Page')->find(
+#     { name => 'Login'},
+#     { }
+#   );
+#   debug "Login page loaded" if $page;
+#   template 'page' => {
+#     'title' => 'Login', 
+#     'page' => $page,#->get_column('content'),
+#   };
+# };
 
 
 sub _auth_provider {
@@ -314,7 +314,7 @@ sub _logout{
 
 # Routes
 prefix '/user' => sub {
-  get '/login' => \&_login; # toont login pagina waar een keuze gemaakt kan worden voor OAuth provider
+  # get '/login' => \&_login; # toont login pagina waar een keuze gemaakt kan worden voor OAuth provider
   get '/logout' => \&_logout;
   get '/login/ok' => \&_ok;
   get '/login/failed' => \&_failed;
@@ -325,29 +325,5 @@ prefix '/auth' => sub {
   get '/callback/:provider' => \&_auth_callback;
   get '/:provider' => \&_auth_provider;
 };
-
-# # OAuth login routes
-# get '/user/auth/:provider' => sub {
-#     my $provider = route_parameters->get('provider');
-#     my $redirect_url = MySite::Provider::OAuth->oauth_redirect($provider);
-#     return redirect $redirect_url if $redirect_url;
-#     return template_error(
-#         title => 'OAuth Error',
-#         error => 'Unknown provider or misconfigured',
-#         status => 500
-#     );
-# };
-
-# get '/user/auth/:provider/callback' => sub {
-#     my $provider = route_parameters->get('provider');
-#     my $code = query_parameters->get('code');
-#     my $userinfo = MySite::Provider::OAuth->oauth_callback($provider, $code);
-#     if ($userinfo) {
-#         session->write('oauth', { $provider => { user_info => $userinfo } });
-#         return redirect '/user/login/ok';
-#     } else {
-#         return redirect '/user/login/failed';
-#     }
-# };
 
 42;
