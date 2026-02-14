@@ -40,6 +40,66 @@ sub _index {
     };
 }
 
+
+# Sitemap route
+sub _sitemap {
+  my $schema = schema;
+  my $base_url = config->{base_url} // request->base;
+  $base_url .= '/' unless $base_url =~ m{/$};
+  my @urls = (
+    { loc => $base_url, lastmod => undef },
+  );
+  # Voeg alle artikelen toe
+  my $articles = $schema->resultset('Article')->search({}, { order_by => { '-desc' => ['created'] } });
+  while (my $article = $articles->next) {
+    # Zoek de hoogste versie van ArticleContent voor dit artikel
+    my $content = $article->article_contents->search({}, { order_by => { '-desc' => ['version'] }, rows => 1 })->first;
+    my $lastmod = $content ? $content->created : ($article->published // $article->created);
+    if ($lastmod) {
+      if (ref $lastmod && $lastmod->can('ymd')) {
+        $lastmod = $lastmod->ymd;
+      } elsif ($lastmod =~ /^(\d{4}-\d{2}-\d{2})/) {
+        $lastmod = $1;
+      }
+    }
+    push @urls, {
+      loc => URI->new($base_url . 'article/' . $article->slug)->as_string,
+      lastmod => $lastmod,
+    };
+  }
+
+  # Voeg alle pages toe
+  my $pages = $schema->resultset('Page')->search({}, { order_by => { '-desc' => ['created'] } });
+  while (my $page = $pages->next) {
+    # Zoek de hoogste versie van PageContent voor deze page
+    my $content = $page->page_contents->search({}, { order_by => { '-desc' => ['version'] }, rows => 1 })->first;
+    my $lastmod = $content ? ($content->published // $content->created) : $page->created;
+    if ($lastmod) {
+      if (ref $lastmod && $lastmod->can('ymd')) {
+        $lastmod = $lastmod->ymd;
+      } elsif ($lastmod =~ /^(\d{4}-\d{2}-\d{2})/) {
+        $lastmod = $1;
+      }
+    }
+    push @urls, {
+      loc => URI->new($base_url . 'page/' . $page->slug)->as_string,
+      lastmod => $lastmod,
+    };
+  }
+  content_type 'application/xml';
+  my $xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+  $xml .= "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n";
+  for my $url (@urls) {
+    $xml .= "  <url>\n";
+    $xml .= "    <loc>" . $url->{loc} . "</loc>\n";
+    $xml .= "    <lastmod>" . $url->{lastmod} . "</lastmod>\n" if $url->{lastmod};
+    $xml .= "  </url>\n";
+  }
+  $xml .= "</urlset>\n";
+  return $xml;
+};
+
 get '/' => \&_index;
+get '/sitemap.xml' => \&_sitemap;
 
 42;

@@ -1,3 +1,5 @@
+# Externe base URL voor sitemap en andere absolute links
+base_url: "https://mysite.prjv.nl/"
 oauth_providers:
   google:
     redirect_uri: "https://mysite.prjv.nl/auth/callback/google"
