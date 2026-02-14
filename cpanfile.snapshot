@@ -1409,6 +1409,22 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 0
       base 0
       perl 5.006
+  File-pushd-1.016
+    pathname: D/DA/DAGOLDEN/File-pushd-1.016.tar.gz
+    provides:
+      File::pushd 1.016
+    requirements:
+      Carp 0
+      Cwd 0
+      Exporter 0
+      ExtUtils::MakeMaker 6.17
+      File::Path 0
+      File::Spec 0
+      File::Temp 0
+      overload 0
+      perl 5.006
+      strict 0
+      warnings 0
   Filesys-Notify-Simple-0.14
     pathname: M/MI/MIYAGAWA/Filesys-Notify-Simple-0.14.tar.gz
     provides:
@@ -1652,6 +1668,23 @@ DISTRIBUTIONS
       Exporter 5.57
       ExtUtils::MakeMaker 0
       perl 5.008
+  IO-Socket-SSL-2.098
+    pathname: S/SU/SULLR/IO-Socket-SSL-2.098.tar.gz
+    provides:
+      IO::Socket::SSL 2.098
+      IO::Socket::SSL::Intercept 2.056
+      IO::Socket::SSL::OCSP_Cache 2.098
+      IO::Socket::SSL::OCSP_Resolver 2.098
+      IO::Socket::SSL::PublicSuffix undef
+      IO::Socket::SSL::SSL_Context 2.098
+      IO::Socket::SSL::SSL_HANDLE 2.098
+      IO::Socket::SSL::Session_Cache 2.098
+      IO::Socket::SSL::Trace 2.098
+      IO::Socket::SSL::Utils 2.015
+    requirements:
+      ExtUtils::MakeMaker 0
+      Net::SSLeay 1.46
+      Scalar::Util 0
   Import-Into-1.002005
     pathname: H/HA/HAARG/Import-Into-1.002005.tar.gz
     provides:
@@ -1684,6 +1717,20 @@ DISTRIBUTIONS
       File::Basename 0
       Scalar::Util 0
       perl 5.006002
+      strict 0
+  LWP-Protocol-https-6.14
+    pathname: O/OA/OALDERS/LWP-Protocol-https-6.14.tar.gz
+    provides:
+      LWP::Protocol::https 6.14
+      LWP::Protocol::https::Socket 6.14
+    requirements:
+      ExtUtils::MakeMaker 0
+      IO::Socket::SSL 1.970
+      LWP::Protocol::http 0
+      LWP::UserAgent 6.06
+      Net::HTTPS 6
+      base 0
+      perl 5.008001
       strict 0
   List-MoreUtils-0.430
     pathname: R/RE/REHSACK/List-MoreUtils-0.430.tar.gz
@@ -2994,6 +3041,16 @@ DISTRIBUTIONS
       Test::Exception 0
       Test::More 0.42
       Text::Balanced 0
+  Text-Markdown-Hoedown-1.03
+    pathname: T/TO/TOKUHIROM/Text-Markdown-Hoedown-1.03.tar.gz
+    provides:
+      Text::Markdown::Hoedown 1.03
+    requirements:
+      Exporter 0
+      ExtUtils::CBuilder 0
+      Module::Build 0.4005
+      parent 0
+      perl 5.008005
   TimeDate-2.33
     pathname: A/AT/ATOOMIC/TimeDate-2.33.tar.gz
     provides:

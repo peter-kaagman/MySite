@@ -118,3 +118,19 @@
 **Resultaat:**
 - Issue staat open voor toekomstige migratie en modernisering van de Markdown-editor.
 
+## 2026-02-14 - Sitemap-functionaliteit
+
+**Onderwerpen:**
+- Sitemap-route toegevoegd aan Index.pm
+- Sitemap bevat nu alle artikelen en pages
+- lastmod voor artikelen gebaseerd op nieuwste ArticleContent-versie
+- lastmod voor pages gebaseerd op nieuwste PageContent-versie
+- base_url uit config gebruikt indien aanwezig, anders request->base
+- robots.txt aangemaakt met verwijzing naar sitemap
+- Foutafhandeling verbeterd voor datumvelden (string/object)
+- Sitemap getest en gevalideerd
+
+**To do / ideeën:**
+- Eventueel uitbreiden met prioriteit/frequentie per url
+- Automatische update bij content-wijzigingen
+
