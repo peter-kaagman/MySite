@@ -3,7 +3,7 @@ requires "Dancer2::Plugin::Auth::Extensible" => "0";
 requires "Dancer2" => "2.0.1";
 requires "Dancer2::Plugin::Auth::Tiny" => "0";
 requires "Dancer2::Plugin::DBIC" => "0";
-requires "Text::Markdown" => "0";
+requires "Text::Markdown::Hoedown" => "0";
 requires "Dancer2::Plugin::Auth::Extensible" => "0";
 # Oude authenticatieplugin, kan na migratie verwijderd worden:
 # requires "Dancer2::Plugin::Auth::OAuth" => "0";

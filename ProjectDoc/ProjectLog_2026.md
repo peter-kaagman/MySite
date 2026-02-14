@@ -97,9 +97,24 @@
 - Artikelen/Eerste induk.md herschreven en voorzien van abstract
 - Issue aangemaakt op GitHub met alle directe verbeterpunten uit het artikel 'Eerste indruk'
 
+## 2026-02-14 - Verbeterde Markdown-ondersteuning
+
+**Onderwerp:**
+- Text::Markdown vervangen door Text::Markdown::Hoedown in Utils.pm.
+- Standaardextensies geactiveerd: fenced code blocks, tables, autolink, strikethrough, footnotes, highlight, superscript.
+- Reden: Text::Markdown ondersteunt geen moderne GitHub Markdown-features zoals fenced code blocks (```).
+
 **Resultaat:**
-- Projectstructuur is opgeschoond en overzichtelijk
-- Documentatie is up-to-date en samengevoegd
-- Alle oude, niet-gebruikte infrastructuur verwijderd
-- Concrete verbeterpunten direct als issue geregistreerd
+- Artikelen en pagina's met moderne Markdown-features worden nu correct weergegeven.
+- Codeblokken, tabellen en andere GitHub-style Markdown werken nu zoals verwacht.
+
+## 2026-02-14 - Issue aangemaakt: SimpleMDE vervangen
+
+**Onderwerp:**
+- GitHub issue aangemaakt om SimpleMDE te vervangen door een moderne Markdown-editor gebaseerd op CodeMirror 6 (bijv. Milkdown).
+- Reden: SimpleMDE wordt niet langer actief onderhouden en voldoet niet meer aan moderne eisen.
+- Migratie vereist aanpassing van JavaScript-integratie en mogelijk templates. Niet direct op productie doorvoeren, maar plannen en testen in een aparte branch.
+
+**Resultaat:**
+- Issue staat open voor toekomstige migratie en modernisering van de Markdown-editor.
 
