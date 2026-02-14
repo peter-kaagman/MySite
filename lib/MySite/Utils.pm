@@ -4,7 +4,7 @@ use v5.11;
 use utf8;
 use Dancer2 appname => 'MySite', with => {};
 use Dancer2::Plugin::DBIC;
-use Text::Markdown 'markdown';
+use Text::Markdown::Hoedown qw(markdown HOEDOWN_EXT_FENCED_CODE HOEDOWN_EXT_TABLES HOEDOWN_EXT_AUTOLINK HOEDOWN_EXT_STRIKETHROUGH HOEDOWN_EXT_FOOTNOTES HOEDOWN_EXT_HIGHLIGHT HOEDOWN_EXT_SUPERSCRIPT);
 use Exporter 'import';
 # # use parent 'Exporter::Tiny';
 
@@ -16,7 +16,14 @@ our @EXPORT_OK = qw(render_markdown require_user_logged_in user_can_edit_article
 # Use a Markdown rendering library to convert Markdown to HTML
 sub render_markdown {
   my ($text) = @_;
-  my $html = markdown($text);
+  my $ext = HOEDOWN_EXT_FENCED_CODE
+          | HOEDOWN_EXT_TABLES
+          | HOEDOWN_EXT_AUTOLINK
+          | HOEDOWN_EXT_STRIKETHROUGH
+          | HOEDOWN_EXT_FOOTNOTES
+          | HOEDOWN_EXT_HIGHLIGHT
+          | HOEDOWN_EXT_SUPERSCRIPT;
+  my $html = markdown($text, extensions => $ext);
   return $html;
 }
 
