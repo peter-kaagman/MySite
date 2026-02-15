@@ -1,71 +1,43 @@
-#header {
-    background: tomato;
+/* --- Modern, rustig kleurschema --- */
+body {
+  background: #f8f9fa;
+  color: #222;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+#header, #footer {
+  background: #1e293b;
+  color: #fff;
 }
 
 #navbar {
-    background: pink;
-}
-
-#footer {
-    background: lightgreen;
-}
-
-#content {
-    background: deepskyblue;
+  background: #2563eb;
+  color: #fff;
 }
 
 #sidebar {
-    background: gold;
-    height: 100%;
+  background: #e0e7ef;
 }
 
-body {
-    padding: 10px; 
+#content {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(30,41,59,0.04);
+  padding: 16px;
 }
 
 #article_listitem {
-    background-color: lightgray;
-    margin-bottom: 5px;
-    border-style: outset;
+  background-color: #e0e7ef;
+  margin-bottom: 5px;
+  border-style: outset;
 }
 
-a.anchor_abstract {
-    text-decoration: none;
-    color: black;
+a, a.anchor_abstract {
+  color: #2563eb;
+  text-decoration: none;
 }
-a.anchor_abstract:hover {
-    color: blue;
-}
-
-.article_author{
-    font-size: small;
-    font-style: oblique;
-}
-
-.article_category{
-    font-size: small;
-    font-style: oblique;
-}
-
-.article_keywords{
-    font-size: small;
-    font-style: oblique;
-}
-
-ul.horizontal_list {
-    list-style-type: none;
-    padding-left: 0px;
-    margin-bottom: 0px;
-}
-li.horizontal_listitem {
-    display: inline-block;
-    padding-left: 0px;
-    margin-right: 10px;
-}
-#article_listitem_logo img{
-    height: 100%;
-    width: 100%;
-    object-fit: contain;
+a:hover, a.anchor_abstract:hover {
+  color: #1e293b;
 }
 
 #article_abstract{
@@ -125,4 +97,53 @@ ul.sidebar_list{
 .sync-notification.show {
     opacity: 1;
     transform: translateX(0);
+}
+
+/* Copy-knop voor codeblokken */
+.copy-btn {
+  background: #e0e7ef;
+  border: 1px solid #2563eb;
+  color: #2563eb;
+  border-radius: 4px;
+  padding: 2px 10px;
+  font-size: 0.95em;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  transition: background 0.2s, color 0.2s;
+}
+.copy-btn:hover {
+  background: #2563eb;
+  color: #fff;
+}
+.copy-btn:active {
+  background: #d0ffd0;
+  color: #333;
+}
+
+/* Success en error meldingen */
+.success {
+  color: #22c55e;
+}
+.error {
+  color: #ef4444;
+}
+
+/* Oude debugkleuren uitgeschakeld */
+/*
+#header { background: tomato; }
+#navbar { background: pink; }
+#footer { background: lightgreen; }
+#content { background: deepskyblue; }
+#sidebar { background: gold; height: 100%; }
+*/
+
+/* Kader en achtergrond voor codeblokken */
+div.sourceCode, pre.sourceCode, pre code {
+  background: #f3f4f6;
+  border: 1.5px solid #d1d5db;
+  border-radius: 6px;
+  padding: 1em;
+  margin: 1em 0;
+  font-size: 1em;
+  overflow-x: auto;
 }

@@ -4,7 +4,7 @@ use v5.11;
 use utf8;
 use Dancer2 appname => 'MySite', with => {};
 use Dancer2::Plugin::DBIC;
-use Text::Markdown::Hoedown qw(markdown HOEDOWN_EXT_FENCED_CODE HOEDOWN_EXT_TABLES HOEDOWN_EXT_AUTOLINK HOEDOWN_EXT_STRIKETHROUGH HOEDOWN_EXT_FOOTNOTES HOEDOWN_EXT_HIGHLIGHT HOEDOWN_EXT_SUPERSCRIPT);
+
 use Exporter 'import';
 # # use parent 'Exporter::Tiny';
 
@@ -15,16 +15,22 @@ our @EXPORT_OK = qw(render_markdown require_user_logged_in user_can_edit_article
 
 # Use a Markdown rendering library to convert Markdown to HTML
 sub render_markdown {
-  my ($text) = @_;
-  my $ext = HOEDOWN_EXT_FENCED_CODE
-          | HOEDOWN_EXT_TABLES
-          | HOEDOWN_EXT_AUTOLINK
-          | HOEDOWN_EXT_STRIKETHROUGH
-          | HOEDOWN_EXT_FOOTNOTES
-          | HOEDOWN_EXT_HIGHLIGHT
-          | HOEDOWN_EXT_SUPERSCRIPT;
-  my $html = markdown($text, extensions => $ext);
-  return $html;
+  my ($markdown) = @_;
+  return '' unless defined $markdown && length $markdown;
+
+  # Gebruik Pandoc via een systemcall voor conversie (GFM -> HTML)
+  # Veilig: gebruik open2 om output op te vangen
+  require IPC::Open2;
+  my $pid = IPC::Open2::open2(my $out, my $in, 'pandoc', '-f', 'gfm', '-t', 'html');
+  binmode $in,  ':utf8';
+  binmode $out, ':utf8';
+  print $in $markdown;
+  close $in;
+  local $/ = undef;
+  my $html = <$out>;
+  close $out;
+  waitpid($pid, 0);
+  return $html // '';
 }
 
 # Slug helper: normalize text to URL-safe slug
