@@ -73,6 +73,7 @@ sub _article {
     'article' => $article,
     'article_content' => $content_text,
     'render_markdown' => \&MySite::Utils::render_markdown,
+    'show_content' => 1,
   }
 }
 

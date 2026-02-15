@@ -134,3 +134,16 @@
 - Eventueel uitbreiden met prioriteit/frequentie per url
 - Automatische update bij content-wijzigingen
 
+## 2026-02-15 - Moderne Markdown-weergave met highlighting en copy-knop
+
+**Onderwerp:**
+- Pandoc als Markdown-parser geïntegreerd in Utils.pm voor uitgebreide (GFM) ondersteuning.
+- Highlight.js en copy-knop toegevoegd voor codeblokken in de artikelweergave.
+- Nieuwe module codeblock_tools.js aangemaakt voor highlighting en copy-functionaliteit.
+- Entry point content_show.js toegevoegd en alleen geladen als de boolean key `show_content` aan het template wordt meegegeven.
+- show_content wordt nu in de controller gezet voor artikelweergave, en kan eenvoudig ook voor andere templates gebruikt worden.
+
+**Resultaat:**
+- Artikelen tonen nu moderne, fraai gestylede codeblokken met syntax highlighting en een copy-knop.
+- De functionaliteit is generiek en kan eenvoudig op andere contentpagina's worden toegepast door `show_content => 1` mee te geven aan het template.
+
