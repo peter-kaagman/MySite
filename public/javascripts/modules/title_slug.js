@@ -155,7 +155,7 @@ export class TitleManager {
 
     static async handleChange(article, newValue, field) {
         try {
-            const result = await handleSave(article, {value: newValue}, field);
+            const result = await handleSave(article, {value: newValue}, field, 'edit_slug');
             if (result && result.success) {
                 return { success: true, data: result };
             } else {

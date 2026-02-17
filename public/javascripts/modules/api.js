@@ -2,8 +2,8 @@
 import { setSaveStatus } from './utils.js';
 
 // Function to handle saving data
-export async function handleSave(article, data, field) {
-    if (!article || !data || !field) {
+export async function handleSave(article, data, field, inputID) {
+    if (!article || !data || !field || !inputID) {
         console.error("Invalid article, data or field for saving");
         setSaveStatus("Invalid article, data or field for saving", "error");
         throw new Error("Invalid article, data or field for saving");
@@ -23,7 +23,7 @@ export async function handleSave(article, data, field) {
             // Dispatch custom event for UI synchronization
             document.dispatchEvent(new CustomEvent('article-field-saved', {
                 detail: {
-                    field: field,
+                    field: inputID,
                     articleId: article,
                     originalValue: data.value,
                     responseData: result

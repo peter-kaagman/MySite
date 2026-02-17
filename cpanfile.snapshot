@@ -184,6 +184,15 @@ DISTRIBUTIONS
       perl 5.008001
       strict 0
       warnings 0
+  Class-Unload-0.12
+    pathname: I/IL/ILMARI/Class-Unload-0.12.tar.gz
+    provides:
+      Class::Unload 0.12
+    requirements:
+      Class::Inspector 0
+      ExtUtils::MakeMaker 0
+      strict 0
+      warnings 0
   Class-XSAccessor-1.19
     pathname: S/SM/SMUELLER/Class-XSAccessor-1.19.tar.gz
     provides:
@@ -548,6 +557,73 @@ DISTRIBUTIONS
       Text::Balanced 2.00
       Try::Tiny 0.07
       namespace::clean 0.24
+      perl 5.008001
+  DBIx-Class-Schema-Loader-0.07053
+    pathname: V/VE/VEESH/DBIx-Class-Schema-Loader-0.07053.tar.gz
+    provides:
+      DBIx::Class::Schema::Loader 0.07053
+      DBIx::Class::Schema::Loader::Base 0.07053
+      DBIx::Class::Schema::Loader::Column undef
+      DBIx::Class::Schema::Loader::DBI 0.07053
+      DBIx::Class::Schema::Loader::DBI::ADO 0.07053
+      DBIx::Class::Schema::Loader::DBI::ADO::MS_Jet 0.07053
+      DBIx::Class::Schema::Loader::DBI::ADO::Microsoft_SQL_Server 0.07053
+      DBIx::Class::Schema::Loader::DBI::Component::QuotedDefault 0.07053
+      DBIx::Class::Schema::Loader::DBI::DB2 0.07053
+      DBIx::Class::Schema::Loader::DBI::Firebird 0.07053
+      DBIx::Class::Schema::Loader::DBI::Informix 0.07053
+      DBIx::Class::Schema::Loader::DBI::InterBase 0.07053
+      DBIx::Class::Schema::Loader::DBI::MSSQL 0.07053
+      DBIx::Class::Schema::Loader::DBI::ODBC 0.07053
+      DBIx::Class::Schema::Loader::DBI::ODBC::ACCESS 0.07053
+      DBIx::Class::Schema::Loader::DBI::ODBC::Firebird 0.07053
+      DBIx::Class::Schema::Loader::DBI::ODBC::Microsoft_SQL_Server 0.07053
+      DBIx::Class::Schema::Loader::DBI::ODBC::SQL_Anywhere 0.07053
+      DBIx::Class::Schema::Loader::DBI::Oracle 0.07053
+      DBIx::Class::Schema::Loader::DBI::Pg 0.07053
+      DBIx::Class::Schema::Loader::DBI::SQLAnywhere 0.07053
+      DBIx::Class::Schema::Loader::DBI::SQLite 0.07053
+      DBIx::Class::Schema::Loader::DBI::Sybase 0.07053
+      DBIx::Class::Schema::Loader::DBI::Sybase::Common 0.07053
+      DBIx::Class::Schema::Loader::DBI::Sybase::Microsoft_SQL_Server 0.07053
+      DBIx::Class::Schema::Loader::DBI::Writing 0.07053
+      DBIx::Class::Schema::Loader::DBI::mysql 0.07053
+      DBIx::Class::Schema::Loader::DBObject undef
+      DBIx::Class::Schema::Loader::DBObject::Informix undef
+      DBIx::Class::Schema::Loader::DBObject::Sybase undef
+      DBIx::Class::Schema::Loader::Optional::Dependencies undef
+      DBIx::Class::Schema::Loader::RelBuilder 0.07053
+      DBIx::Class::Schema::Loader::RelBuilder::Compat::v0_040 0.07053
+      DBIx::Class::Schema::Loader::RelBuilder::Compat::v0_05 0.07053
+      DBIx::Class::Schema::Loader::RelBuilder::Compat::v0_06 0.07053
+      DBIx::Class::Schema::Loader::RelBuilder::Compat::v0_07 0.07053
+      DBIx::Class::Schema::Loader::Table undef
+      DBIx::Class::Schema::Loader::Table::Informix undef
+      DBIx::Class::Schema::Loader::Table::Sybase undef
+    requirements:
+      Carp::Clan 0
+      Class::Accessor::Grouped 0.10008
+      Class::C3::Componentised 1.0008
+      Class::Inspector 1.27
+      Class::Unload 0.07
+      DBIx::Class 0.08127
+      Data::Dump 1.06
+      Digest::MD5 2.36
+      Exporter 5.63
+      ExtUtils::MakeMaker 0
+      Hash::Merge 0.12
+      Lingua::EN::Inflect::Number 1.1
+      Lingua::EN::Inflect::Phrase 0.15
+      Lingua::EN::Tagger 0.23
+      List::Util 1.33
+      MRO::Compat 0.09
+      Scope::Guard 0.20
+      String::CamelCase 0.04
+      String::ToIdentifier::EN 0.05
+      Sub::Util 1.40
+      Try::Tiny 0
+      curry 1.000000
+      namespace::clean 0.23
       perl 5.008001
   Dancer2-2.0.1
     pathname: C/CR/CROMEDOME/Dancer2-2.0.1.tar.gz
@@ -1216,6 +1292,16 @@ DISTRIBUTIONS
       perl 5.008004
       strict 0
       warnings 0
+  Devel-CheckLib-1.16
+    pathname: M/MA/MATTN/Devel-CheckLib-1.16.tar.gz
+    provides:
+      Devel::CheckLib 1.16
+    requirements:
+      Exporter 0
+      ExtUtils::MakeMaker 0
+      File::Spec 0
+      File::Temp 0.16
+      perl 5.004050
   Devel-GlobalDestruction-0.14
     pathname: H/HA/HAARG/Devel-GlobalDestruction-0.14.tar.gz
     provides:
@@ -1732,6 +1818,147 @@ DISTRIBUTIONS
       base 0
       perl 5.008001
       strict 0
+  Lingua-EN-FindNumber-1.32
+    pathname: N/NE/NEILB/Lingua-EN-FindNumber-1.32.tar.gz
+    provides:
+      Lingua::EN::FindNumber 1.32
+    requirements:
+      Exporter 0
+      ExtUtils::MakeMaker 0
+      Lingua::EN::Words2Nums 0
+      base 0
+      perl 5.006
+      strict 0
+      warnings 0
+  Lingua-EN-Inflect-1.905
+    pathname: D/DC/DCONWAY/Lingua-EN-Inflect-1.905.tar.gz
+    provides:
+      Lingua::EN::Inflect 1.905
+    requirements:
+      ExtUtils::MakeMaker 0
+      Test::More 0
+  Lingua-EN-Inflect-Number-1.12
+    pathname: N/NE/NEILB/Lingua-EN-Inflect-Number-1.12.tar.gz
+    provides:
+      Lingua::EN::Inflect::Number 1.12
+    requirements:
+      Exporter 0
+      ExtUtils::MakeMaker 0
+      Lingua::EN::Inflect 0
+      perl 5.006
+      strict 0
+      warnings 0
+  Lingua-EN-Inflect-Phrase-0.20
+    pathname: R/RK/RKITOVER/Lingua-EN-Inflect-Phrase-0.20.tar.gz
+    provides:
+      Lingua::EN::Inflect::Phrase 0.20
+    requirements:
+      Exporter 0
+      ExtUtils::MakeMaker 0
+      Lingua::EN::FindNumber 0
+      Lingua::EN::Inflect 0
+      Lingua::EN::Inflect::Number 0
+      Lingua::EN::Number::IsOrdinal 0
+      Lingua::EN::Tagger 0
+      perl 5.006
+      strict 0
+      warnings 0
+  Lingua-EN-Number-IsOrdinal-0.05
+    pathname: R/RK/RKITOVER/Lingua-EN-Number-IsOrdinal-0.05.tar.gz
+    provides:
+      Lingua::EN::Number::IsOrdinal 0.05
+    requirements:
+      Exporter 0
+      ExtUtils::MakeMaker 0
+      Lingua::EN::FindNumber 0
+      perl 5.006
+      strict 0
+      warnings 0
+  Lingua-EN-Tagger-0.31
+    pathname: A/AC/ACOBURN/Lingua-EN-Tagger-0.31.tar.gz
+    provides:
+      Lingua::EN::Tagger 0.31
+    requirements:
+      ExtUtils::MakeMaker 0
+      File::Spec 0.84
+      HTML::Parser 3.45
+      HTML::Tagset 3.20
+      Lingua::Stem 0.81
+      Memoize 1.01
+      Memoize::ExpireLRU 0.55
+      Storable 2.10
+      perl 5.008001
+  Lingua-EN-Words2Nums-0.18
+    pathname: J/JO/JOEY/Lingua-EN-Words2Nums-0.18.tar.gz
+    provides:
+      Lingua::EN::Words2Nums undef
+    requirements:
+      ExtUtils::MakeMaker 0
+  Lingua-PT-Stemmer-0.02
+    pathname: N/NE/NEILB/Lingua-PT-Stemmer-0.02.tar.gz
+    provides:
+      Lingua::GL::Stemmer 0.02
+      Lingua::PT::Stemmer 0.02
+    requirements:
+      ExtUtils::MakeMaker 0
+      perl 5.006
+      strict 0
+      warnings 0
+  Lingua-Stem-2.31
+    pathname: S/SN/SNOWHARE/Lingua-Stem-2.31.tar.gz
+    provides:
+      Lingua::Stem 2.31
+      Lingua::Stem::AutoLoader 2.31
+      Lingua::Stem::Da 2.31
+      Lingua::Stem::De 2.31
+      Lingua::Stem::En 2.31
+      Lingua::Stem::EnBroken 2.31
+      Lingua::Stem::Gl 2.31
+      Lingua::Stem::No 2.31
+      Lingua::Stem::Pt 2.31
+      Lingua::Stem::Sv 2.31
+    requirements:
+      Carp 0
+      Lingua::GL::Stemmer 0
+      Lingua::PT::Stemmer 0
+      Lingua::Stem::Fr 0.02
+      Lingua::Stem::It 0
+      Lingua::Stem::Ru 0
+      Lingua::Stem::Snowball::Da 1.01
+      Lingua::Stem::Snowball::No 1.00
+      Lingua::Stem::Snowball::Se 1.01
+      Text::German 0
+      perl 5.006
+      warnings 0
+  Lingua-Stem-Fr-0.02
+    pathname: S/SD/SDP/Lingua-Stem-Fr-0.02.tar.gz
+    provides:
+      Lingua::Stem::Fr 0.02
+    requirements:
+      ExtUtils::MakeMaker 0
+  Lingua-Stem-It-0.02
+    pathname: A/AC/ACALPINI/Lingua-Stem-It-0.02.tar.gz
+    provides:
+      Lingua::Stem::It 0.02
+    requirements:
+      ExtUtils::MakeMaker 0
+  Lingua-Stem-Ru-0.04
+    pathname: N/NE/NEILB/Lingua-Stem-Ru-0.04.tar.gz
+    provides:
+      Lingua::Stem::Ru 0.04
+    requirements:
+      Carp 0
+      Exporter 5.57
+      ExtUtils::MakeMaker 0
+      perl 5.006
+      strict 0
+      warnings 0
+  Lingua-Stem-Snowball-Da-1.01
+    pathname: C/CI/CINE/Lingua-Stem-Snowball-Da-1.01.tar.gz
+    provides:
+      Lingua::Stem::Snowball::Da 1.01
+    requirements:
+      ExtUtils::MakeMaker 0
   List-MoreUtils-0.430
     pathname: R/RE/REHSACK/List-MoreUtils-0.430.tar.gz
     provides:
@@ -1877,6 +2104,17 @@ DISTRIBUTIONS
       Test::More 0.62
       Test::NoWarnings 0.084
       perl 5.006
+  Memoize-ExpireLRU-0.56
+    pathname: N/NE/NEILB/Memoize-ExpireLRU-0.56.tar.gz
+    provides:
+      Memoize::ExpireLRU 0.56
+    requirements:
+      AutoLoader 0
+      Carp 0
+      ExtUtils::MakeMaker 0
+      perl 5.006
+      strict 0
+      warnings 0
   Module-Build-0.4234
     pathname: L/LE/LEONT/Module-Build-0.4234.tar.gz
     provides:
@@ -2594,6 +2832,18 @@ DISTRIBUTIONS
     requirements:
       ExtUtils::MakeMaker 0
       perl 5.008000
+  Snowball-Norwegian-1.2
+    pathname: A/AS/ASKSH/Snowball-Norwegian-1.2.tar.gz
+    provides:
+      Lingua::Stem::Snowball::No 1.2
+    requirements:
+      Test::More 0.42
+  Snowball-Swedish-1.2
+    pathname: A/AS/ASKSH/Snowball-Swedish-1.2.tar.gz
+    provides:
+      Lingua::Stem::Snowball::Se 1.2
+    requirements:
+      Test::More 0.42
   Specio-0.53
     pathname: D/DR/DROLSKY/Specio-0.53.tar.gz
     provides:
@@ -2696,6 +2946,29 @@ DISTRIBUTIONS
     requirements:
       ExtUtils::MakeMaker 6.30
       IO::File 1.14
+  String-CamelCase-0.04
+    pathname: H/HI/HIO/String-CamelCase-0.04.tar.gz
+    provides:
+      String::CamelCase 0.04
+    requirements:
+      ExtUtils::MakeMaker 0
+      Test::More 0
+  String-ToIdentifier-EN-0.12
+    pathname: R/RK/RKITOVER/String-ToIdentifier-EN-0.12.tar.gz
+    provides:
+      String::ToIdentifier::EN 0.12
+      String::ToIdentifier::EN::Unicode 0.12
+    requirements:
+      Exporter 0
+      ExtUtils::MakeMaker 0
+      Lingua::EN::Inflect::Phrase 0
+      Text::Unidecode 0
+      Unicode::UCD 0
+      base 0
+      namespace::clean 0
+      perl 5.008001
+      strict 0
+      warnings 0
   String-Util-1.35
     pathname: B/BA/BAKERSCOT/String-Util-1.35.tar.gz
     provides:
@@ -3027,6 +3300,20 @@ DISTRIBUTIONS
       Exporter 0
       ExtUtils::MakeMaker 0
       perl 5.006
+  Text-German-0.06
+    pathname: U/UL/ULPFR/Text-German-0.06.tar.gz
+    provides:
+      Text::German 0.06
+      Text::German::Adjektiv undef
+      Text::German::Ausnahme undef
+      Text::German::Cache undef
+      Text::German::Endung undef
+      Text::German::Regel undef
+      Text::German::Util undef
+      Text::German::Verb undef
+      Text::German::Vorsilbe undef
+    requirements:
+      ExtUtils::MakeMaker 0
   Text-Markdown-1.000031
     pathname: B/BO/BOBTFISH/Text-Markdown-1.000031.tar.gz
     provides:
@@ -3051,6 +3338,13 @@ DISTRIBUTIONS
       Module::Build 0.4005
       parent 0
       perl 5.008005
+  Text-Unidecode-1.30
+    pathname: S/SB/SBURKE/Text-Unidecode-1.30.tar.gz
+    provides:
+      Text::Unidecode 1.30
+    requirements:
+      ExtUtils::MakeMaker 0
+      perl 5.008
   TimeDate-2.33
     pathname: A/AT/ATOOMIC/TimeDate-2.33.tar.gz
     provides:
@@ -3395,6 +3689,14 @@ DISTRIBUTIONS
       perl 5.008001
       strict 0
       warnings 0
+  curry-2.000001
+    pathname: M/MS/MSTROUT/curry-2.000001.tar.gz
+    provides:
+      curry 2.000001
+      curry::weak 2.000001
+    requirements:
+      ExtUtils::MakeMaker 0
+      perl 5.006
   indirect-0.39
     pathname: V/VP/VPIT/indirect-0.39.tar.gz
     provides:

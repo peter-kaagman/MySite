@@ -73,6 +73,17 @@ __PACKAGE__->table("article");
   data_type: 'text'
   is_nullable: 0
 
+=head2 meta_title
+
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 255
+
+=head2 meta_description
+
+  data_type: 'text'
+  is_nullable: 1
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -98,6 +109,10 @@ __PACKAGE__->add_columns(
   { data_type => "timestamp", is_nullable => 1 },
   "abstract",
   { data_type => "text", is_nullable => 0 },
+  "meta_title",
+  { data_type => "varchar", is_nullable => 1, size => 255 },
+  "meta_description",
+  { data_type => "text", is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
@@ -201,8 +216,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07052 @ 2025-08-20 21:54:46
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:IspvZobdRV8EN5xvRTOOXQ
+# Created by DBIx::Class::Schema::Loader v0.07053 @ 2026-02-15 13:09:49
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Zz7q45c54KclGMJF30TNfg
 
 __PACKAGE__->many_to_many(
    

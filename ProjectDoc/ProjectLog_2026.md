@@ -147,3 +147,29 @@
 - Artikelen tonen nu moderne, fraai gestylede codeblokken met syntax highlighting en een copy-knop.
 - De functionaliteit is generiek en kan eenvoudig op andere contentpagina's worden toegepast door `show_content => 1` mee te geven aan het template.
 
+## Bugfix: UI Sync gebruikt verkeerde veldnaam voor update
+
+**Datum:** 2026-02-17
+
+### Probleem
+Bij het opslaan van velden werd het event 'article-field-saved' getriggerd met de databaseveldnaam als field. De UI synchronisatie (uiSync.js) verwachtte echter het input-id van het HTML-element, waardoor de UI niet correct werd bijgewerkt.
+
+### Oorzaak
+- De functie handleSave in api.js dispatchte het event met field: dbField (databaseveld).
+- Alle aanroepen van handleSave gaven alleen het databaseveld door.
+- uiSync.js gebruikte field als id om het juiste element te updaten.
+
+### Oplossing
+- handleSave accepteert nu een vierde argument: inputID (het id van het inputveld).
+- Het event 'article-field-saved' wordt nu getriggerd met field: inputID.
+- Alle aanroepen van handleSave zijn aangepast zodat het input-id wordt meegegeven.
+
+### Gewijzigde aanroepen
+- **modules/simple_field.js**: saveField(newValue) → handleSave(this.articleId, { value: newValue }, this.dbField, this.fieldInput?.id)
+- **article_edit.js**: saveBtn click handler → handleSave(articleId, data, 'content', 'contentmde')
+- **modules/editor.js**: editor toolbar save → handleSave(articleId, data, field, editor.element?.id || 'contentmde')
+- **modules/title_slug.js**: handleChange → handleSave(article, {value: newValue}, field, 'edit_slug')
+
+### Resultaat
+De UI wordt nu correct gesynchroniseerd na het opslaan van velden, omdat het juiste input-id wordt gebruikt bij het updaten van de elementen.
+

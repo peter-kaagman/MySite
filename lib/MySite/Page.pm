@@ -28,6 +28,9 @@ get '/page/:slug' => sub {
     
     return template 'page.tt', {
         #page    => $page,
+        'canonical_url' => (config->{'base_url'} || request->base) . '/page/' . $slug,
+        'meta_description' => $page->meta_description || $page->name,
+        'title' => $page->meta_title || $page->name,
         content => $content,
         'render_markdown' => \&MySite::Utils::render_markdown,
     };

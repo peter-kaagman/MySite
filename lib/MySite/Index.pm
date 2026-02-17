@@ -34,6 +34,8 @@ sub _index {
     
     template 'article/list' => {
         'title' => 'MySite',
+        'canonical_url' => (config->{'base_url'} || request->base),
+        'meta_description' => 'Welkom op MySite, een persoonlijke website met technische artikelen.',
         'user' => session->read('user'),
         'articles' => $articles,
         'render_markdown' => \&MySite::Utils::render_markdown,
