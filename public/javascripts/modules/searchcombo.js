@@ -6,7 +6,7 @@ export class SearchCombo {
     constructor() {
         this.displayLookup = new Map(); // value -> display label
     }
-
+ 
     async init(article_id, field, label, multiSelect) {
         this.field = field;
         this.multiSelect = multiSelect;

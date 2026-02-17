@@ -35,6 +35,10 @@
 					<li class="nav-item" role="presentation">
 						<button class="nav-link" id="tab-meta" data-bs-toggle="tab" data-bs-target="#pane-meta" type="button" role="tab" aria-controls="pane-meta" aria-selected="false" tabindex="-1">Meta data</button>
 					</li>
+					<!-- Tab 4: SEO data -->
+					<li class="nav-item" role="presentation">
+						<button class="nav-link" id="tab-seo" data-bs-toggle="tab" data-bs-target="#pane-seo" type="button" role="tab" aria-controls="pane-seo" aria-selected="false" tabindex="-1">SEO data</button>
+					</li>
 				</ul>
 
 				<div class="tab-content p-3" id="editorTabsContent">
@@ -118,6 +122,34 @@
                     <input readonly type="text" class="form-control" id="edit_version_count" name="edit_version_count"  value="<% content_count %>">
                 </div>
               </div>
+
+						</fieldset>
+					</div>
+
+					<!-- Tab pane: SEO data -->
+					<div class="tab-pane fade p-3" id="pane-seo" role="tabpanel" aria-labelledby="tab-seo">
+						<fieldset>
+
+              <!-- meta_title input -->
+              <div class='row mb-3 slug_row align-items-center'>
+                <div class='col-sm-2'>
+                    <label for="edit_meta_title" class="form-label">Meta Title: </label>
+                </div>
+                <div class='col-sm-10'>
+                  <input type="text" class="form-control" id="edit_meta_title" name="edit_meta_title" placeholder="Edit meta title here..." value="<% article.meta_title %>">
+                </div>
+              </div>
+
+              <!-- meta_description input -->
+              <div class='row mb-3 slug_row align-items-center'>
+                <div class='col-sm-2'>
+                    <label for="edit_meta_description" class="form-label">Meta Description: </label>
+                </div>
+                <div class='col-sm-10'>
+    							<textarea id="edit_meta_description" class="form-control" rows="4" placeholder="Edit meta description here..."><% article.meta_description | trim %></textarea>
+                </div>
+              </div>
+		
 
 						</fieldset>
 					</div>

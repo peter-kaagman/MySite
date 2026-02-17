@@ -10,18 +10,20 @@
  */
 export function initUISync() {
     document.addEventListener('article-field-saved', (event) => {
+        // Log het volledige event object voor debuggen
+        console.log('🟢 article-field-saved event ontvangen:', event);
         const { field, responseData, originalValue } = event.detail;
-        
+
         console.log('🔄 Syncing UI for field:', field, responseData);
-        
+
         if (!responseData || !responseData.success) {
             console.warn('No success in response, skipping UI sync');
             return;
         }
-        
+
         // Update the primary field
         updateElement(field, responseData[field]);
-        
+
         // Handle special cases per field type
         switch(field) {
             case 'title':
@@ -31,7 +33,7 @@ export function initUISync() {
                     showNotification('Title and slug updated');
                 }
                 break;
-                
+
             case 'slug':
                 // Show normalized slug value
                 updateElement('edit_slug', responseData.slug);

@@ -33,7 +33,7 @@ export function initEditors() {
                         }
                         const data = { value: editor.value() };
                         try {
-                            await handleSave(articleId, data, field);
+                            await handleSave(articleId, data, field, editor.element?.id || 'contentmde');
                             if (typeof window.setSaveStatus === 'function') {
                                 window.setSaveStatus('Changes saved successfully', 'success');
                             }

@@ -56,6 +56,17 @@ __PACKAGE__->table("page");
   data_type: 'text'
   is_nullable: 0
 
+=head2 meta_title
+
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 255
+
+=head2 meta_description
+
+  data_type: 'text'
+  is_nullable: 1
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -75,6 +86,10 @@ __PACKAGE__->add_columns(
   },
   "abstract",
   { data_type => "text", is_nullable => 0 },
+  "meta_title",
+  { data_type => "varchar", is_nullable => 1, size => 255 },
+  "meta_description",
+  { data_type => "text", is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
@@ -148,8 +163,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07052 @ 2025-08-14 12:07:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:zYn+08trjIX2Xx8esHKDKQ
+# Created by DBIx::Class::Schema::Loader v0.07053 @ 2026-02-15 13:09:49
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:zyQ7a22/3EvYgpN93JAJIA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

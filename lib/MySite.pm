@@ -43,21 +43,6 @@ BEGIN {
 # set serializer => 'JSON';
 # $ENV{DBIC_TRACE} = '1';
 
-
-
-
-
-get '/secured' => sub {
-  my $user = session->read('user');
-  debug "Dit is secured";
-  debug Dumper $user;
-  template 'index' => {
-    'title' => 'Secured',
-    'user' => session->read('user')
-
-  };
-};
-
 # Health check endpoint for Docker
 get '/health' => sub {
   content_type 'application/json';

@@ -1,5 +1,8 @@
-#! /usr/bin/sh
 
+#!/usr/bin/sh
+
+# Zorg dat lokale Perl-modules gevonden worden
+export PERL5LIB="$PWD/local/lib/perl5"
 
 /usr/bin/perl \
 	-MDBIx::Class::Schema::Loader=make_schema_at,dump_to_dir:./lib \

@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
     zlib1g-dev \
     sqlite3 \
     libsqlite3-dev \
+    pandoc \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -26,6 +27,7 @@ FROM perl:5.40-slim
 RUN apt-get update && apt-get install -y \
     libssl3 \
     sqlite3 \
+    pandoc \
     && rm -rf /var/lib/apt/lists/*
 
 # Create non-root user

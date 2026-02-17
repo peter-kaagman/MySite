@@ -66,8 +66,13 @@ sub _article {
     $content_text = $content_row->content;
   }
   
+  # The base for in production should be loaded from config, but for development we can assume it's the same as the request base
+  my $base_url = config->{'base_url'} || request->base;
+
   template 'article/article' => {
-    'title' => $article->title,
+    'title' => $article->meta_title || $article->title,
+    'meta_description' => $article->meta_description || '',
+    'canonical_url' => $base_url . 'article/' . $article->categoryid->title . '/' . $article->slug,
     'user' => session->read('user'),
     'author' => $author->first,
     'article' => $article,

@@ -20,3 +20,5 @@
 
 ---
 Deze punten zijn geïdentificeerd na een heranalyse van User.pm en kunnen als losse issues worden opgepakt.
+
+- [ ] Bij het maken van page CRUD functionaliteit ook een meta_description veld toevoegen aan pages, zodat deze in de header als meta description kan worden gebruikt (net als bij artikelen).
