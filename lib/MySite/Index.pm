@@ -87,7 +87,7 @@ sub _sitemap {
     push @urls, {
       loc => URI->new($base_url . 'page/' . $page->slug)->as_string,
       lastmod => $lastmod,
-      publication => ($page->created ? (ref $page->created && $page->created->can('ymd') ? $page->created->ymd : $page->created) : undef),
+      # publication => ($page->created ? (ref $page->created && $page->created->can('ymd') ? $page->created->ymd : $page->created) : undef),
     };
   }
   content_type 'application/xml';
@@ -97,7 +97,7 @@ sub _sitemap {
     $xml .= "  <url>\n";
     $xml .= "    <loc>" . $url->{loc} . "</loc>\n";
     $xml .= "    <lastmod>" . $url->{lastmod} . "</lastmod>\n" if $url->{lastmod};
-    $xml .= "    <publication_date>" . $url->{publication} . "</publication_date>\n" if $url->{publication};
+    # $xml .= "    <publication_date>" . $url->{publication} . "</publication_date>\n" if $url->{publication};
     $xml .= "  </url>\n";
   }
   $xml .= "</urlset>\n";
