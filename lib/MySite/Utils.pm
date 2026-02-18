@@ -18,8 +18,8 @@ sub render_markdown {
   my ($markdown) = @_;
   return '' unless defined $markdown && length $markdown;
 
-  # Gebruik Pandoc via een systemcall voor conversie (GFM -> HTML)
-  # Veilig: gebruik open2 om output op te vangen
+  # Gebruik Pandoc via een systemcall voor conversie (GFM+link_attributes -> HTML)
+  # Hiermee werken attributen als {:target="_blank"} in Markdown-links
   require IPC::Open2;
   my $pid = IPC::Open2::open2(my $out, my $in, 'pandoc', '-f', 'gfm', '-t', 'html');
   binmode $in,  ':utf8';
