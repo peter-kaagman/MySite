@@ -21,7 +21,7 @@ sub render_markdown {
   # Gebruik Pandoc via een systemcall voor conversie (GFM+link_attributes -> HTML)
   # Hiermee werken attributen als {:target="_blank"} in Markdown-links
   require IPC::Open2;
-  my $pid = IPC::Open2::open2(my $out, my $in, 'pandoc', '-f', 'gfm', '-t', 'html');
+  my $pid = IPC::Open2::open2(my $out, my $in, 'pandoc', '-f', 'markdown+link_attributes', '-t', 'html');
   binmode $in,  ':utf8';
   binmode $out, ':utf8';
   print $in $markdown;
