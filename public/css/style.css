@@ -1,3 +1,20 @@
+ul.horizontal_list {
+  display: flex;
+  flex-direction: row;
+  gap: 0.75em;
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+li.horizontal_listitem {
+  display: inline;
+}
+#article_header .article_author, .article_author, .article_category, .article_keywords {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #444;
+}
 /* --- Modern, rustig kleurschema --- */
 body {
   background: #f8f9fa;
