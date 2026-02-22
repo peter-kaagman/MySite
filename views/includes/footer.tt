@@ -1,5 +1,8 @@
 <footer class="footer">
 	<div class="container">
 		<p>© 2026 Peter Kaagman | <a href="/page/license">Licentie</a> | <a href="/page/privacy">Privacy</a> | Contact: <a href="mailto:prjv.kaagman@gmail.com">Peter Kaagman</a></p>
+		<p style="font-size: 0.95em; color: #666; margin-top: 0.5em;">
+			Deze site gebruikt alleen functionele cookies voor de werking van de site. Zie de <a href="/page/privacy">privacyverklaring</a>.
+		</p>
 	</div>
 </footer>

@@ -173,3 +173,20 @@ Bij het opslaan van velden werd het event 'article-field-saved' getriggerd met d
 ### Resultaat
 De UI wordt nu correct gesynchroniseerd na het opslaan van velden, omdat het juiste input-id wordt gebruikt bij het updaten van de elementen.
 
+## 2026-02-22 - Nieuwe artikelen, database, CSS en footer
+
+- Nieuwe artikelen toegevoegd:
+  - Artikelen/GedroogdeDesem.md
+  - Artikelen/basisbrood.md
+- current_schema.sql toegevoegd
+- Nieuwe afbeeldingen toegevoegd in public/images/site/
+- Databasebestanden bijgewerkt:
+  - db/mysite.sqlite
+  - db/mysite_schema.sql
+  - db/mysite (nieuw)
+- CSS aangepast: public/css/style.css
+- Footer-template bijgewerkt: views/includes/footer.tt
+- Oude patch verwijderd: db/patch_add_meta_fields.sql
+
+Deze commit bevat content- en structuurwijzigingen voor artikelen, database, styling en templates.
+

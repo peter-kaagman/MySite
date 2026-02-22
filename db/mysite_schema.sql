@@ -28,6 +28,8 @@ CREATE TABLE  `page` (
 	`authorid` INTEGER NOT NULL,
 	`created` TimeStamp Default CURRENT_TIMESTAMP,
 	`abstract` TEXT NOT NULL,
+	`meta_title` VARCHAR(255),
+	`meta_description` TEXT,
 	FOREIGN KEY(`authorid`) REFERENCES `user`(`user_id`)
 );
 --
@@ -74,6 +76,8 @@ CREATE TABLE `article` (
 	`created` TimeStamp Default CURRENT_TIMESTAMP,
 	`published` TimeStamp,
 	`abstract` TEXT NOT NULL,
+	`meta_title` VARCHAR(255),
+	`meta_description` TEXT,
 	FOREIGN KEY(`authorid`) REFERENCES `user`(`user_id`),
 	Foreign Key('categoryid') References `category`(`category_id`)
 );
