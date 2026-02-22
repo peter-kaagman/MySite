@@ -1,3 +1,12 @@
+/* Links in header/footer goed zichtbaar op donkere achtergrond */
+.footer a, .header a, #footer a, #header a {
+  color: #cce6ff;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+.footer a:hover, .header a:hover, #footer a:hover, #header a:hover {
+  color: #ffe066;
+}
 ul.horizontal_list {
   display: flex;
   flex-direction: row;
