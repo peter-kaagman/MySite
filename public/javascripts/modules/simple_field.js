@@ -78,10 +78,10 @@ export class SimpleFieldManager{
 
     console.log(`SimpleFieldManager: Article ID: ${this.articleId}, Element ID: ${this.elementId}, DB Field: ${this.dbField}`);
 
-  }
-  
-
+    }
 }
+// Zorg dat de class beschikbaar is op window voor legacy code
+window.SimpleFieldManager = SimpleFieldManager;
 
 
 

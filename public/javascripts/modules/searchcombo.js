@@ -182,6 +182,8 @@ export class SearchCombo {
             console.log("Search results:", keywords);
             if (this.list) {
                 this.list.innerHTML = '';
+                // Zorg dat de class beschikbaar is op window voor legacy code
+                window.SearchCombo = SearchCombo;
                 keywords.forEach(item => {
                     const display = item && typeof item === 'object' ? item.title : item;
                     const value   = item && typeof item === 'object' ? item.id    : item;

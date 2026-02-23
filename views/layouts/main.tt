@@ -47,6 +47,9 @@
     <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
     <script src="/javascripts/modules/toast_editor.js"></script>
     <script src="/javascripts/article_edit.js"></script>
+    <script type="module" src="/javascripts/modules/title_slug.js"></script>
+    <script type="module" src="/javascripts/modules/searchcombo.js"></script>
+    <script type="module" src="/javascripts/modules/simple_field.js"></script>
   <% END %>
   <% IF show_content %>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
