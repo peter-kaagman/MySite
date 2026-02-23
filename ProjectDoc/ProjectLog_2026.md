@@ -1,3 +1,7 @@
+# 2026-02-23 - Opschonen editor dependencies
+- Alle SimpleMDE-bestanden, modules en npm dependencies verwijderd (JS, CSS, editor.js, package.json).
+- @toast-ui/editor npm dependency verwijderd; project gebruikt nu alleen CDN voor Toast UI Editor.
+- Project is nu volledig opgeschoond van oude en onnodige editor dependencies.
 23-02-2026: Feature request voor meertalige content en fallback aangemaakt als GitHub issue #52 (https://github.com/peter-kaagman/MySite/issues/52), zie ook ISSUE_meertaligheid_github.md.
 ## 2026-02-10 - Debug logging OAuth callback_url
 
