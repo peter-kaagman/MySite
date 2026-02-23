@@ -18,7 +18,7 @@
   <link href="/css/vendor/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
   <% IF page == 'article_edit' %>
-    <link rel="stylesheet" href="/css/vendor/simplemde.min.css">
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css">
   <% END %>
 
 </head>
@@ -44,8 +44,9 @@
   </div>
   <script src="/javascripts/vendor/bootstrap.bundle.min.js"></script>
   <% IF page == 'article_edit' %>
-    <script src="/javascripts/vendor/simplemde.min.js"></script>
-    <script type="module" src="/javascripts/article_edit.js"></script>
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+    <script src="/javascripts/modules/toast_editor.js"></script>
+    <script src="/javascripts/article_edit.js"></script>
   <% END %>
   <% IF show_content %>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">

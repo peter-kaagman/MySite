@@ -47,7 +47,14 @@
 					<div class="tab-pane show active fade p-3" id="pane-content" role="tabpanel" aria-labelledby="tab-content">
 						<fieldset>
 							<!-- Main content editor textarea -->
-              <textarea id="content_editor" class="form-control" rows="12" placeholder="Edit content here..."><% article_content.first.content | trim %></textarea>
+              <!-- Toast UI Editor container for content -->
+              <div id="content_editor"></div>
+              <!-- Hidden textarea for form submit (optional, sync via JS) -->
+              <textarea id="content_editor_hidden" name="content" style="display:none;"><% article_content.first.content | trim %></textarea>
+                <div class="mt-3 d-flex gap-2">
+                  <button type="button" id="save-content" class="btn btn-primary">Opslaan</button>
+                  <button type="button" id="cancel-content" class="btn btn-secondary">Annuleren</button>
+                </div>
 						</fieldset>
 					</div>
 
@@ -55,7 +62,14 @@
 					<div class="tab-pane fade p-3" id="pane-abstract" role="tabpanel" aria-labelledby="tab-abstract">
 						<fieldset>
 							<!-- Abstract editor textarea -->
-							<textarea id="abstract_editor" class="form-control" rows="4" placeholder="Edit abstract here..."><% article.abstract | trim %></textarea>
+              <!-- Toast UI Editor container for abstract -->
+              <div id="abstract_editor"></div>
+              <!-- Hidden textarea for form submit (optional, sync via JS) -->
+              <textarea id="abstract_editor_hidden" name="abstract" style="display:none;"><% article.abstract | trim %></textarea>
+              <div class="mt-3 d-flex gap-2">
+                <button type="button" id="save-abstract" class="btn btn-primary">Opslaan</button>
+                <button type="button" id="cancel-abstract" class="btn btn-secondary">Annuleren</button>
+              </div>
 						</fieldset>
 					</div>
 

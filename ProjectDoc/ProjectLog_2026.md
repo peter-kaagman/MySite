@@ -1,3 +1,4 @@
+23-02-2026: Feature request voor meertalige content en fallback aangemaakt als GitHub issue #52 (https://github.com/peter-kaagman/MySite/issues/52), zie ook ISSUE_meertaligheid_github.md.
 ## 2026-02-10 - Debug logging OAuth callback_url
 
 **Onderwerp:**
