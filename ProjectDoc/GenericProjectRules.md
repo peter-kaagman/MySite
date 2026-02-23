@@ -1,3 +1,7 @@
+**Belangrijk:**
+- Issues worden altijd via GitHub aangemaakt (bij voorkeur met de gh CLI: `gh issue create`).
+- Maak geen losse ISSUE-bestanden in de repository aan.
+- Vraag je om een log entry, dan wordt deze altijd toegevoegd aan ProjectLog.md (of het relevante logbestand).
 # MySite Project Rules & Best Practices
 
 Deze regels zijn aangepast voor het MySite project (feb 2026), gebaseerd op lessons learned van het AP Monitoring project.
