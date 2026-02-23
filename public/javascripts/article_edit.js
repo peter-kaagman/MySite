@@ -1,8 +1,10 @@
 // LEGACY SimpleMDE setup (niet meer in gebruik)
 // import { initEditors } from './modules/editor.js';
+
 // Zorg dat alle benodigde modules klassiek geladen zijn via <script> tags in de layout
-// import { registerFieldHandlers } from './modules/fields.js'; // refactoring out
-// import { fieldDefinitions } from './modules/fieldDefinitions.js'; // refactoring out
+
+//import { registerFieldHandlers } from './modules/fields.js'; // refactoring out
+//import { fieldDefinitions } from './modules/fieldDefinitions.js'; // refactoring out
 
 
 document.addEventListener('DOMContentLoaded', function() {

@@ -47,21 +47,19 @@ export class TitleManager {
         this.slugInput = document.getElementById('edit_slug');
         this.initialSlug = this.slugInput?.value || '';
     }
-
+    // ...existing code...
     async init() {
         // Early return if required elements are missing
         if (!this.titleInput || !this.slugtitleInput || !this.slugInput) {
             console.warn('TitleManager: Required form elements not found');
             return;
         }
-        
         // Set the initial readonly state of slug
         if (this.initialSlugtitle === '1') {
             this.slugInput.setAttribute("readonly", "readonly");
         } else {
             this.slugInput.removeAttribute("readonly");  
         }
-
         // Helper to update readonly state
         const updateSlugReadonly = () => {
             if (this.slugtitleInput.checked) {
@@ -70,7 +68,6 @@ export class TitleManager {
                 this.slugInput.removeAttribute("readonly");
             }
         };
-
         // Generic event listeners using addFieldListener
         // slugtitleInput change listener
         this.addFieldListener(
@@ -98,7 +95,6 @@ export class TitleManager {
                 }
             }
         );
-
         // titleInput blur listener
         this.addFieldListener(
             this.titleInput,
@@ -114,7 +110,6 @@ export class TitleManager {
                     }
                     return;
                 }
-
                 // Edit mode (API result available)
                 if (result.success) {
                     setSaveStatus('Titel succesvol opgeslagen.', 'success');
@@ -127,7 +122,6 @@ export class TitleManager {
                 }
             }
         );
-
         // slugInput blur listener
         this.addFieldListener(
             this.slugInput,
@@ -141,7 +135,6 @@ export class TitleManager {
                     this.slugInput.value = localSlugify(newSlug);
                     return;
                 }
-
                 if (result.success) {
                     setSaveStatus('Slug succesvol opgeslagen.', 'success');
                     this.initialSlug = newSlug;
@@ -151,8 +144,6 @@ export class TitleManager {
             }
         );
     }
-
-
     static async handleChange(article, newValue, field) {
         try {
             const result = await handleSave(article, {value: newValue}, field, 'edit_slug');
@@ -167,5 +158,6 @@ export class TitleManager {
             return { success: false, error: err.message };
         }
     }
-
 }
+// Zorg dat de class beschikbaar is op window voor legacy code
+window.TitleManager = TitleManager;

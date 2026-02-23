@@ -16,7 +16,7 @@ services:
       # Logbestanden zichtbaar op de host
       - ./logs:/app/logs
       # Images opslaan op de host
-      - ./images:/app/public/images
+      - ./public/images:/app/public/images
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
       interval: 30s
