@@ -1,5 +1,27 @@
+
+## 2026-02-24 - Refactor en standaardisatie JavaScript modules (ES6-methodiek)
+
+**Onderwerpen:**
+- Grote opschoning en modernisering van article_edit.js: alle field managers (TitleManager, SearchCombo, SimpleFieldManager, ToastWrapper) worden nu als ES6 modules geïmporteerd en als class geïnitialiseerd, zonder window-prefix.
+- Oude SimpleMDE/legacy-code verwijderd; Toast UI Editor volledig geïntegreerd via een nieuwe ToastWrapper-module.
+- ToastWrapper beheert nu meerdere editors (content, abstract) generiek, inclusief save/cancel-handlers.
+- Consistente initialisatie van alle managers, met duidelijke scheiding van verantwoordelijkheden.
+- Projectregels nageleefd: alle issues direct via GitHub aangemaakt, geen losse issue-bestanden.
+- Issue aangemaakt voor standaardisatie van het gebruik van article_id in managers (#56).
+
+**ES6-methodiek voor modules:**
+- Alle modules worden als ES6 modules geïmporteerd (import { ... } from ...).
+- Geen gebruik meer van globale window-objecten voor managers of helpers.
+- Functies en klassen worden direct geïmporteerd en aangeroepen.
+- typeof-checks op window zijn niet meer nodig; als de import werkt, bestaat de functie/klasse.
+- Dit zorgt voor betere testbaarheid, onderhoudbaarheid en consistentie in de codebase.
+
+**Resultaat:**
+- article_edit.js is nu overzichtelijk, efficiënt en volledig ES6-conform.
+- Toast UI Editor werkt weer correct: toast_editor.js wordt nu altijd vóór toastWrapper geladen en zet ToastEditor expliciet op window, zodat initialisatie vanuit ToastWrapper altijd werkt.
+- De codebase is klaar voor verdere uitbreiding en modernisering.
+- Volgende stap: standaardisatie van het gebruik van article_id in alle managers.
 # 2026-02-23 - Opschonen editor dependencies
-- Alle SimpleMDE-bestanden, modules en npm dependencies verwijderd (JS, CSS, editor.js, package.json).
 - @toast-ui/editor npm dependency verwijderd; project gebruikt nu alleen CDN voor Toast UI Editor.
 - Project is nu volledig opgeschoond van oude en onnodige editor dependencies.
 23-02-2026: Feature request voor meertalige content en fallback aangemaakt als GitHub issue #52 (https://github.com/peter-kaagman/MySite/issues/52), zie ook ISSUE_meertaligheid_github.md.
@@ -14,7 +36,6 @@
 
 **Onderwerp:**
 - Symlinks naar node_modules werkten niet in Docker (public/css/vendor en public/javascripts/vendor).
-- Oplossing: npm postinstall-script toegevoegd dat benodigde JS- en CSS-bestanden van bootstrap en simplemde fysiek kopieert naar de juiste vendor directories.
 - Bestaande symlinks/bestanden verwijderd om conflicts te voorkomen.
 
 **Resultaat:**
@@ -113,11 +134,8 @@
 - Artikelen en pagina's met moderne Markdown-features worden nu correct weergegeven.
 - Codeblokken, tabellen en andere GitHub-style Markdown werken nu zoals verwacht.
 
-## 2026-02-14 - Issue aangemaakt: SimpleMDE vervangen
 
 **Onderwerp:**
-- GitHub issue aangemaakt om SimpleMDE te vervangen door een moderne Markdown-editor gebaseerd op CodeMirror 6 (bijv. Milkdown).
-- Reden: SimpleMDE wordt niet langer actief onderhouden en voldoet niet meer aan moderne eisen.
 - Migratie vereist aanpassing van JavaScript-integratie en mogelijk templates. Niet direct op productie doorvoeren, maar plannen en testen in een aparte branch.
 
 **Resultaat:**
@@ -172,7 +190,6 @@ Bij het opslaan van velden werd het event 'article-field-saved' getriggerd met d
 ### Gewijzigde aanroepen
 - **modules/simple_field.js**: saveField(newValue) → handleSave(this.articleId, { value: newValue }, this.dbField, this.fieldInput?.id)
 - **article_edit.js**: saveBtn click handler → handleSave(articleId, data, 'content', 'contentmde')
-- **modules/editor.js**: editor toolbar save → handleSave(articleId, data, field, editor.element?.id || 'contentmde')
 - **modules/title_slug.js**: handleChange → handleSave(article, {value: newValue}, field, 'edit_slug')
 
 ### Resultaat

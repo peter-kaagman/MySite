@@ -10,6 +10,15 @@ Deze regels zijn aangepast voor het MySite project (feb 2026), gebaseerd op less
 
 ## 1. Project Structuur
 
+### Database-bestanden (SQLite)
+
+- Standaard wordt `db/mysite.sqlite` **niet getrackt** (staat in `.gitignore`).
+- Wil je de database toch committen (bijvoorbeeld voor een specifieke migratie of test), doe dan:
+    1. Verwijder `db/mysite.sqlite` tijdelijk uit `.gitignore` of gebruik `git add -f db/mysite.sqlite`.
+    2. Commit de wijziging.
+    3. Zet daarna `db/mysite.sqlite` weer terug in `.gitignore`.
+- Zo voorkom je merge-conflicten en blijft de workflow flexibel.
+
 ### Directory Layout
 ```
 MySite/
