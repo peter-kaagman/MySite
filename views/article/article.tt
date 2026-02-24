@@ -1,3 +1,11 @@
+<% IF user.role == 'Admin' || user.role == 'Editor' || user.username == author.username %>
+    <div class='row' id='article_footer'>
+        <div class='col-sm-12'>
+            <a class='anchor_delete' href='/article/delete/<% article.article_id %>'>Delete</a>
+            <a class='anchor_edit' href='/article/edit/<% article.article_id %>'>Edit</a>
+        </div>
+    </div>
+<% END %>
 <div class='row' id='article_header'>
     <div class='row'>
         <!-- <a class='anchor_title' href='./article/<% article.slug %>'>-->

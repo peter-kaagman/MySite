@@ -85,4 +85,4 @@ class ToastEditor {
 }
 
 // Globaal beschikbaar maken (klassiek gebruik)
-window.ToastEditor = ToastEditor;
+if (typeof window !== 'undefined') window.ToastEditor = ToastEditor;
