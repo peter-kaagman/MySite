@@ -228,7 +228,7 @@ __PACKAGE__->many_to_many(
 );
 
 
-sub returnURL {
+sub articleURL {
   my ($self) = shift;
   return(
     "/article/" .

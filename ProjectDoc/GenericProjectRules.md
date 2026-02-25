@@ -1,12 +1,179 @@
-**Belangrijk:**
-- Issues worden altijd via GitHub aangemaakt (bij voorkeur met de gh CLI: `gh issue create`).
-- Maak geen losse ISSUE-bestanden in de repository aan.
-- Vraag je om een log entry, dan wordt deze altijd toegevoegd aan ProjectLog.md (of het relevante logbestand).
-# MySite Project Rules & Best Practices
 
-Deze regels zijn aangepast voor het MySite project (feb 2026), gebaseerd op lessons learned van het AP Monitoring project.
+# MySite Projectregels & Best Practices
+
+**TL;DR: Belangrijkste regels**
+
+1. Issues altijd via GitHub aanmaken (gh CLI of web), nooit als los bestand.
+2. Codewijzigingen alleen in issue branches, nooit direct op main.
+3. Elke significante wijziging loggen in ProjectLog.md, met issue-nummer.
+4. Bidirectionele linking: ProjectLog ↔ Issue (zie workflow).
+5. Commit messages zijn duidelijk, bevatten issue-nummer en context.
+6. Documentatie en logs in ProjectDoc/, code in lib/, views/, public/.
+7. Security: altijd authorization checks op write endpoints.
+8. Planning en status via GitHub Issues, niet via losse todo-lijsten.
+9. Afwijken van regels? Documenteer waarom in ProjectLog.md.
 
 ---
+
+## Inhoudsopgave
+1. [Projectstructuur & Bestanden](#projectstructuur--bestanden)
+2. [Documentatie & Logging](#documentatie--logging)
+3. [Workflow & Git](#workflow--git)
+4. [Technische Keuzes & Best Practices](#technische-keuzes--best-practices)
+5. [Planning & Scope](#planning--scope)
+6. [Communicatie & AI](#communicatie--ai)
+7. [Lessons Learned & Templates](#lessons-learned--templates)
+8. [Status & Review](#status--review)
+
+---
+
+## 1. Projectstructuur & Bestanden
+
+Zie onderstaand schema voor de standaard indeling. Houd je aan deze structuur voor vindbaarheid en consistentie.
+
+```
+MySite/
+├── ProjectDoc/            # Documentatie & logs
+├── lib/                   # Perl modules (Dancer2 app + DBIC schema)
+├── views/                 # Templates
+├── public/                # Static assets (CSS, JS, images)
+├── db/                    # Database files (SQLite dev)
+├── bin/                   # Startup scripts
+├── t/                     # Tests
+├── environments/          # Configs
+├── sessions/              # Session storage
+├── logs/                  # Application logs
+└── [docker/k8s/nginx]     # Infra/config
+```
+
+**Rationale:**
+- Duidelijke scheiding frontend/backend
+- ProjectDoc voor markdown documentatie
+- Geen archive folder (gebruik git history)
+
+---
+
+## 2. Documentatie & Logging
+
+### ProjectLog.md
+- Log elke significante wijziging, met datum en issue-nummer.
+- Gebruik vaste structuur:
+    - Bevindingen/Beslissingen
+    - Implementatie
+    - Status (✅/🔄/⏸️/❌)
+- Link naar relevante issues en bestanden.
+
+### GitHub Issues
+- Gebruik voor alle planning, tracking, en status.
+- Issue-format: Description, Acceptance Criteria, Implementation Details, Dependencies, Testing Strategy.
+- Sluit issues altijd met een verwijzing naar de relevante ProjectLog entry.
+
+### Bidirectionele linking
+- ProjectLog → Issue: `(Issue #XX)` in header
+- Issue → ProjectLog: "Completed. See ProjectLog.md (YYYY-MM-DD)"
+
+---
+
+## 3. Workflow & Git
+
+### Branches
+- `main` = alleen documentatie/admin, nooit codewijzigingen
+- Feature branches: `username/issue-XX` of `feature/omschrijving`
+- Hotfix branches: `hotfix/omschrijving`
+
+### Commit messages
+- Formaat: `<type>: <omschrijving> (Issue #XX)`
+- Duidelijk, contextvol, geen vage teksten
+
+### Pull Requests
+- Altijd via PR naar main
+- Squash merge aanbevolen
+- Branch verwijderen na merge
+
+### Issue closing
+- Sluit issue met comment: "✅ Completed. See ProjectLog.md (YYYY-MM-DD)"
+
+### Allowed op main:
+- ✅ Documentatie, ProjectLog, administratie
+- ❌ Code, schema, dependencies, configs
+
+---
+
+## 4. Technische Keuzes & Best Practices
+
+### Database
+- DBIx::Class (DBIC) als ORM
+- SQLite voor dev, PostgreSQL voor productie (zie migraties)
+
+### Frontend
+- ES6 modules, geen framework
+- Event-driven, single responsibility per module
+
+### Containerization
+- Docker als standaard, compose voor dev/prod
+
+### Security
+- Altijd authorization checks op write endpoints
+- Server-side validatie verplicht
+
+### API & Templates
+- JSON responses: vaste structuur (success, message/data, error)
+- Templates: DRY, feature folders, minimale logica
+
+---
+
+## 5. Planning & Scope
+
+### Issue-based planning
+- Gebruik GitHub Issues, geen vaste fases
+- Dependencies expliciet maken (#31 requires #30)
+
+### Status markers
+- ✅ Completed, 🔄 In Progress, ⏸️ Waiting, ❌ Blocked
+
+### Scope clarification
+- Bij onduidelijkheid: maak aanname, documenteer in ProjectLog, implementeer, verifieer
+
+---
+
+## 6. Communicatie & AI
+
+### Taalgebruik
+- Nederlands voor uitleg, Engels voor technische termen
+- Geen geforceerde vertalingen
+
+### AI assistant gedrag
+- Direct handelen, kort en technisch correct
+- Signaleer afwijkingen van regels, vraag intentie, documenteer
+
+---
+
+## 7. Lessons Learned & Templates
+
+### Lessons Learned
+- Zie sectie "Wat goed werkte" en "Wat beter kan" voor concrete verbeterpunten
+
+### Project Start Checklist (Dancer2)
+- Zie template onderaan voor nieuwe projecten
+
+---
+
+## 8. Status & Review
+
+### Living document
+- Deze regels zijn leidraad, geen wet. Pas aan als de praktijk daarom vraagt en documenteer waarom.
+- Volgende review: bij completion Issue #32 (PostgreSQL migratie)
+
+---
+
+**Voor details, rationale, voorbeelden en volledige uitwerking: zie de secties verderop in dit bestand.**
+
+---
+
+<!-- De volledige originele secties, voorbeelden, rationale, en templates blijven behouden onder deze samenvatting voor naslag en verdieping. -->
+
+---
+...existing code...
 
 ## 1. Project Structuur
 

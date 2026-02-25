@@ -1,4 +1,3 @@
-
 ## 2026-02-24 - Refactor en standaardisatie JavaScript modules (ES6-methodiek)
 
 **Onderwerpen:**
@@ -211,4 +210,33 @@ De UI wordt nu correct gesynchroniseerd na het opslaan van velden, omdat het jui
 - Oude patch verwijderd: db/patch_add_meta_fields.sql
 
 Deze commit bevat content- en structuurwijzigingen voor artikelen, database, styling en templates.
+
+## 2026-02-25 - Nieuwe category logo functionaliteit, template refactor en projectregels update
+
+**Onderwerpen:**
+- Toevoeging van dynamische category logo's bij artikelen:
+  - Nieuwe CSS voor `.category-logo-wrapper` en `.category-logo-img` (responsive, centraal uitgelijnd).
+  - Nieuwe `logo`-methode in Category.pm bepaalt automatisch het juiste logo-pad.
+  - list.tt toont nu per artikel het logo van de categorie.
+- Template refactor:
+  - list.tt gebruikt nu nieuwe methoden (`articleURL`, `categoryURL`, `userURL`, `keywordURL`).
+  - sidebar.tt toont nu de echte naam van de gebruiker.
+- DBIC schema updates:
+  - Methoden als `returnURL` hernoemd naar `articleURL`, `categoryURL`, `userURL`, `keywordURL`.
+- Kleine codewijzigingen:
+  - Debugregel in Index.pm uitgecommentarieerd.
+  - Stijlaanpassingen in style.css (o.a. abstracts, readmore, layout).
+- Documentatie:
+  - ProjectDoc/GenericProjectRules.md volledig herzien en uitgebreid.
+  - ProjectDoc/ContestPrompt.md verwijderd.
+- Database:
+  - db/mysite.sqlite gewijzigd (mogelijk nieuwe data of structuur).
+- Nieuwe assets:
+  - Nieuwe category logo's toegevoegd in public/images/categories/ (o.a. mysite.png).
+
+**Resultaat:**
+- Artikellijst toont nu per categorie een eigen logo, volledig responsive.
+- Codebase is consistenter qua methodenamen en template-aanroepen.
+- Projectregels zijn duidelijker en uitgebreider vastgelegd.
+- Documentatie en code zijn opgeschoond en voorbereid op verdere uitbreiding.
 

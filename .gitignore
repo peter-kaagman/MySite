@@ -1,4 +1,4 @@
-# *sqlite
+*sqlite
 db/mysite.sqlite
 *local.yml
 sessions/*

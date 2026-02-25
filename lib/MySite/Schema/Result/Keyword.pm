@@ -114,7 +114,7 @@ sub slug {
     return lc($self->title) =~ s/\s+/-/gr;
 }
 
-sub returnURL {
+sub keywordURL {
   my ($self) = shift;
   return(
     "/keyword/" .

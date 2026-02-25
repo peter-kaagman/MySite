@@ -5,7 +5,7 @@
 <div class='sidebar_bottom'>
   <% IF user %>
     <ul class='sidebar_list'>
-      <li>Welkom: <a href='/user/profile/<% user.username %>'><% user.username %></a></li>
+      <li>Welkom: <a href='/user/profile/<% user.username %>'><% user.name %></a></li>
       <li>Je rol is: <% user.role %></li>
       <li><img src="<% user.avatar %>" width="100px"></li>
     </ul>

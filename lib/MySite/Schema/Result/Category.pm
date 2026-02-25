@@ -115,12 +115,20 @@ sub slug {
     return lc($self->title) =~ s/\s+/-/gr;
 }
 
-sub returnURL {
+sub categoryURL {
   my ($self) = shift;
   return(
     "/category/" .
     lc($self->title) =~ s/\s+/-/gr 
   );
+}
+
+sub logo {
+  my $self = shift;
+  my $slug = $self->slug;
+  my $appdir = $ENV{DANCER_APPDIR} // '.';
+  my $path = "$appdir/public/images/categories/$slug.png";
+  return -e $path ? "/images/categories/$slug.png" : "/images/categories/default.png";
 }
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

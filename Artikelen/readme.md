@@ -1,0 +1,1 @@
+Dit is niet de bron voor de site. Dat is de database. In deze folder staan concepten van artikelen zodat ik er samen met AI aan kan werken.

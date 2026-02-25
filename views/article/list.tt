@@ -1,66 +1,64 @@
 <% FOR article IN articles.all %>
-    <% category = article.search_related('categoryid', {}) %>
-    <% author = article.search_related('authorid', {}) %>
-    <% article_url = article.returnURL() %>
-    <% category_url = article.categoryid.returnURL() %>
-    <% author_url = article.authorid.returnURL() %>
-    <!-- blaat -->
     <div id='article_listitem'>
-        <div class='row'>
-            <div id='article_listitem_logo' class='col-sm-3'>
-                <img src='./images/graphapilogo.png' >
+        <div class='row'> <!-- Logo and meta information -->
+            <div id='article_listitem_logo' class='col-sm-3'> <!-- Category logo -->
+                <figure class='category-logo-wrapper'>
+                    <img src='<% article.categoryid.logo %>' class='category-logo-img' alt='Categorie logo'>
+                </figure>
             </div>
-            <div id='article_listitem_meta' class='col-sm-9'>
-                <div class='row'>
-                    <!-- <a class='anchor_title' href='./article/<% category.slug %>/<% article.slug %>'> -->
-                    <a class='anchor_title' href='<% article_url %>'>
+            <div id='article_listitem_meta' class='col-sm-9'> <!-- Meta information -->
+                <div class='row'> <!-- Title -->
+                    <a class='anchor_title' href='<% article.articleURL %>'>
                         <h1 class='article_title'><% article.title %></h1>
                     </a>
                 </div>
-                <div class='row'>
+                <div class='row'> <!-- Author and created date -->
                     <h2 class='article_author'>
-                        <a class='anchor_author' href='<% author_url %>'>
-                            <% author.name %>
+                        <a class='anchor_author' href='<% article.authorid.userURL %>'>
+                            <% article.authorid.name %>
                         </a>
                         @
                         <% article.created %>
                     </h2>
                 </div>
-                <div class='row'>
+                <div class='row'> <!-- Category -->
                     <h2 class='article_category'>
                         <ul class='horizontal_list'>
                             <li class='horizontal_listitem'>Category:</li>
                             <li class='horizontal_listitem'>
-                                <a class='anchor_category' href='<% category_url %>'>
-                                    <% category.title %>
+                                <a class='anchor_category' href='<% article.categoryid.categoryURL %>'>
+                                    <% article.categoryid.title %>
                                 </a>
                             </li>
                         <ul>
                     </h2>
                 </div>
-                <div class='row'>
+                <div class='row'> <!-- Keywords -->
                     <h2 class='article_keywords'>
                         <ul class='horizontal_list'>
                             <li class='horizontal_listitem'>Keywords:</li>
                             <% FOR keyword IN article.keywords %>
                                 
-                                <a href='<% keyword.returnURL %>'>
+                                <a href='<% keyword.keywordURL %>'>
                                     <li class='horizontal_listitem'><% keyword.title %></li>
                                 </a>
                             <% END %>        
                         </ul>
                     </h2>
                 </div>
-                <div id='article_abstract'>
+            </div>
+        </div>
+        <div class='row'> <!-- Abstract and read more -->
+                <div id='article_abstract' class='row'>
+                    <hr>
                     <!-- <a class='anchor_abstract' href='./article/<% article.slug %>'> -->
                     <!-- <a class='anchor_abstract' href='<% article_url %>'> -->
                         <% render_markdown(article.abstract) %>
                     <!-- </a> -->
                 </div>
                 <div class='row'>
-                    <a class='anchor_readmore' href='<% article_url %>'> <h3 class='article_readmore'>Lees meer...</h3> </a>
+                    <a class='anchor_readmore' href='<% article_url %>'>Lees meer...</a>
                 </div>
-            </div>
         </div>
     </div>
 <% END %>

@@ -192,7 +192,7 @@ __PACKAGE__->belongs_to(
 # Created by DBIx::Class::Schema::Loader v0.07052 @ 2025-08-14 12:07:56
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Vn5UqiREv8sjhmvRlz10qA
 
-sub returnURL {
+sub userURL {
   my ($self) = shift;
   return(
     "/user/" .
