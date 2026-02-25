@@ -84,6 +84,11 @@ __PACKAGE__->table("article");
   data_type: 'text'
   is_nullable: 1
 
+=head2 deleted_at
+
+  data_type: 'datetime'
+  is_nullable: 1
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -113,6 +118,8 @@ __PACKAGE__->add_columns(
   { data_type => "varchar", is_nullable => 1, size => 255 },
   "meta_description",
   { data_type => "text", is_nullable => 1 },
+  "deleted_at",
+  { data_type => "datetime", is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
@@ -216,8 +223,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07053 @ 2026-02-15 13:09:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Zz7q45c54KclGMJF30TNfg
+# Created by DBIx::Class::Schema::Loader v0.07053 @ 2026-02-25 20:05:55
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:2M5OejQ6A1Ptfxpcm7gd3A
 
 __PACKAGE__->many_to_many(
    
