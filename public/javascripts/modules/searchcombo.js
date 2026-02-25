@@ -7,13 +7,12 @@ export class SearchCombo {
         this.displayLookup = new Map(); // value -> display label
     }
  
-    async init(article_id, field, label, multiSelect) {
+    async init(articleId, field, label, multiSelect) {
         this.field = field;
         this.multiSelect = multiSelect;
         this.label = label;
-        // Reading hidden fields - safe retrieval for create mode
-        const articleIdEl = article_id ? document.getElementById(article_id) : null;
-        this.articleId = articleIdEl?.value || null;
+        // Store articleId directly (no DOM lookup)
+        this.articleId = articleId;
         
         // Parse selected items data with error handling
         // const dataElement = document.getElementById(selectedItemDataId);
