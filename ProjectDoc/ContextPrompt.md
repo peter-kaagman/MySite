@@ -2,6 +2,9 @@
 
 Let op: In deze workspace staan projectafspraken en logbestanden in de map ProjectDoc. Gebruik deze altijd als leidraad voor alle taken, code, issues en antwoorden. Haal context uit de logbestanden en volg de regels uit de documentatie bij elke opdracht.
 
+
+
+
 Prompt om te kopiëren:
 
 ---

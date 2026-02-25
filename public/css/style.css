@@ -1,3 +1,50 @@
+.category-logo-wrapper {
+    width: 300px;
+    max-width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.category-logo-img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    display: block;
+}
+
+/* Responsive scaling for category logo */
+@media (max-width: 600px) {
+  .category-logo-wrapper {
+    width: 150px;
+  }
+  .category-logo-img {
+    max-width: 150px;
+  }
+}
+@media (min-width: 1200px) {
+  .category-logo-wrapper {
+    width: 400px;
+  }
+  .category-logo-img {
+    max-width: 400px;
+  }
+}
+/* Category logo styling */
+.category-logo-wrapper {
+  width: 300px;
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.category-logo-img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  display: block;
+}
 /* Links in header/footer goed zichtbaar op donkere achtergrond */
 .footer a, .header a, #footer a, #header a {
   color: #cce6ff;
@@ -52,6 +99,14 @@ body {
   padding: 16px;
 }
 
+#article_abstract {
+    padding-left: 1.5em;
+    padding-right: 0.5em;
+}
+.anchor_readmore {
+    padding-left: 1.5em;
+}
+
 #article_listitem {
   background-color: #e0e7ef;
   margin-bottom: 5px;
@@ -64,10 +119,6 @@ a, a.anchor_abstract {
 }
 a:hover, a.anchor_abstract:hover {
   color: #1e293b;
-}
-
-#article_abstract{
-    border-top: solid 1px;
 }
 
 ul.sidebar_list{

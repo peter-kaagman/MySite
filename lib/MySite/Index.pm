@@ -30,7 +30,7 @@ sub _index {
       );
     }
     
-    debug "Found " . ($articles ? $articles->count : 0) . " articles";
+    # debug "Found " . ($articles ? $articles->count : 0) . " articles";
     
     template 'article/list' => {
         'title' => 'MySite',
