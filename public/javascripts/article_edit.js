@@ -4,7 +4,7 @@ import { initUISync } from './modules/uiSync.js';
 import { SimpleFieldManager } from './modules/simple_field.js';
 import './modules/toast_editor.js';
 import { ToastWrapper } from './modules/toastWrapper.js';
-import { saveItemChange } from './modules/api.js';
+import { handleSave } from './modules/api.js';
 import { setSaveStatus } from './modules/utils.js';
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -60,7 +60,8 @@ window.addEventListener("beforeunload", function (e) {
             if (confirm('Weet je zeker dat je dit artikel wilt verwijderen? Dit kan niet ongedaan worden gemaakt.')) {
                 setSaveStatus('Bezig met verwijderen...', 'info');
                 try {
-                    await saveItemChange('deleted_at', articleId, new Date().toISOString(), true);
+                    await handleSave(articleId, { value: new Date().toISOString() }, 'deleted_at', 'delete-article');
+                    // await handleSave('deleted_at', articleId, new Date().toISOString(), true);
                     setSaveStatus('Artikel verwijderd', 'success');
                     setTimeout(() => {
                         window.location.href = '/';

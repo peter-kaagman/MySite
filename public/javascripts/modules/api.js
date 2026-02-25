@@ -21,15 +21,19 @@ export async function handleSave(article, data, field, inputID) {
             setSaveStatus("Changes saved successfully", "success");
             
             // Dispatch custom event for UI synchronization
-            document.dispatchEvent(new CustomEvent('article-field-saved', {
-                detail: {
-                    fieldId: inputID,
-                    dbField: field,
-                    articleId: article,
-                    originalValue: data.value,
-                    responseData: result
-                }
-            }));
+            // Do not do this on delete, there is no visual element to update
+            // console.log(`Dispatching article-field-saved event for field: ${field}, article: ${article}`);
+            if(field !== 'deleted_at'){
+                document.dispatchEvent(new CustomEvent('article-field-saved', {
+                    detail: {
+                        fieldId: inputID,
+                        dbField: field,
+                        articleId: article,
+                        originalValue: data.value,
+                        responseData: result
+                    }
+                }));
+            }
             
             return result;
         } else {
