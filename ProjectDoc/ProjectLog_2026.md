@@ -24,6 +24,21 @@
 - @toast-ui/editor npm dependency verwijderd; project gebruikt nu alleen CDN voor Toast UI Editor.
 - Project is nu volledig opgeschoond van oude en onnodige editor dependencies.
 23-02-2026: Feature request voor meertalige content en fallback aangemaakt als GitHub issue #52 (https://github.com/peter-kaagman/MySite/issues/52), zie ook ISSUE_meertaligheid_github.md.
+## 2026-02-23 - Field managers laden niet in productie
+
+**Probleem:**
+- De title, category en keyword managers (TitleManager, SearchCombo, SimpleFieldManager) werden niet geladen in de productieomgeving.
+- Geen foutmeldingen in de browserconsole.
+- typeof-checks in article_edit.js faalden, vermoedelijk omdat de ES6 modules niet correct op window werden gezet of niet goed geladen werden.
+- Pogingen om de klassen op window te zetten en script-tags aan te passen (type="module") losten het probleem niet op.
+- Lint- en syntaxfouten zijn inmiddels opgelost, maar het functionele probleem bleef bestaan.
+
+**Actie:**
+- Oplossen en verder debuggen is verplaatst naar de development-omgeving.
+- Geen verdere wijzigingen in productie tot het probleem in devel is opgelost.
+
+**Besluit:**
+- Issue is gesloten op productie, verder onderzoek volgt op devel.
 ## 2026-02-10 - Debug logging OAuth callback_url
 
 **Onderwerp:**
@@ -239,4 +254,20 @@ Deze commit bevat content- en structuurwijzigingen voor artikelen, database, sty
 - Codebase is consistenter qua methodenamen en template-aanroepen.
 - Projectregels zijn duidelijker en uitgebreider vastgelegd.
 - Documentatie en code zijn opgeschoond en voorbereid op verdere uitbreiding.
+
+## 2026-02-25 - Structurele oplossing databasepad (issue #62)
+
+**Onderwerp:**
+- Structurele oplossing voor databasepad-complexiteit (zie issue #62, opvolger van issue #34).
+- Probleem: SQLite databasepad stond als relatief pad in config.yml, wat leidde tot fouten bij verschillende werkdirectories (systemd, Docker, etc).
+
+**Oplossing:**
+- In config.yml blijft het relatieve pad voor development.
+- In environments/production.yml is nu een absoluut pad opgenomen (bijv. /app/db/mysite.sqlite).
+- De Perl-code in MySite.pm die het pad runtime aanpaste is verwijderd; geen padmanipulatie meer in de code.
+
+**Resultaat:**
+- Applicatie start nu altijd correct, ongeacht werkdirectory of deployment-methode.
+- Configuratie is transparant en onderhoudbaar per omgeving.
+- Geen hacks of workarounds meer nodig in de Perl-code.
 
