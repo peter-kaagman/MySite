@@ -22,7 +22,11 @@ export function initUISync() {
         }
 
         // Update the primary field
-        updateElement(fieldId, responseData[dbField]);
+        if (Object.prototype.hasOwnProperty.call(responseData, dbField)) {
+            updateElement(fieldId, responseData[dbField]);
+        } else {
+            console.warn(`Response did not include expected field '${dbField}', skipping UI update to avoid clearing input`);
+        }
 
         // Handle special cases per field type
         switch(dbField) {
