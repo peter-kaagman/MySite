@@ -12,9 +12,9 @@ export function initUISync() {
     document.addEventListener('article-field-saved', (event) => {
         // Log het volledige event object voor debuggen
         console.log('🟢 article-field-saved event ontvangen:', event);
-        const { field, responseData, originalValue } = event.detail;
+        const { fieldId, dbField, responseData, originalValue } = event.detail;
 
-        console.log('🔄 Syncing UI for field:', field, responseData);
+        console.log('🔄 Syncing UI for field:', dbField, responseData);
 
         if (!responseData || !responseData.success) {
             console.warn('No success in response, skipping UI sync');
@@ -22,10 +22,14 @@ export function initUISync() {
         }
 
         // Update the primary field
-        updateElement(field, responseData[field]);
+        if (Object.prototype.hasOwnProperty.call(responseData, dbField)) {
+            updateElement(fieldId, responseData[dbField]);
+        } else {
+            console.warn(`Response did not include expected field '${dbField}', skipping UI update to avoid clearing input`);
+        }
 
         // Handle special cases per field type
-        switch(field) {
+        switch(dbField) {
             case 'title':
                 // If title update also returns slug, update that too
                 if (responseData.slug) {
