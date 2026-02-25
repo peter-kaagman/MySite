@@ -23,6 +23,9 @@ export class SimpleFieldManager{
   //   });
   // }
   async handleChange() {
+    if (this.isSaving) {
+        return;
+    }
     const newValue = this.fieldInput.value;
     if (newValue === this.currentValue) {
         return; // No change, do nothing
@@ -34,11 +37,17 @@ export class SimpleFieldManager{
     }
 
     try {
+        this.isSaving = true;
+        // Prevent blur-triggered double save while request is in flight
+        this.currentValue = newValue;
         await handleSave(this.articleId, { value: newValue }, this.dbField, this.fieldInput?.id);
-        this.currentValue = newValue; // Update current value on successful save
         setSaveStatus(`${this.dbField} saved`, 'success');
     } catch (err) {
+        // Revert optimistic update so user can retry saving
+        this.currentValue = this.fieldInput.value;
         setSaveStatus(`Error saving ${this.dbField}`, 'error');
+    } finally {
+        this.isSaving = false;
     }
   }
 
@@ -66,6 +75,7 @@ export class SimpleFieldManager{
     this.dbField = dbField;
 
     this.currentValue = this.fieldInput.value;
+    this.isSaving = false;
 
     // Add event listeners for blur and enter key
     this.fieldInput.addEventListener('blur', () => this.handleChange());
