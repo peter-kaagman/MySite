@@ -16,7 +16,7 @@ sub _index {
       user => session->read('user'),
       code => sub {
         return schema->resultset('Article')->search(
-          {},
+          { deleted_at => undef },
           { order_by => {'-desc' => ['created']} }
         );
       }
@@ -52,7 +52,7 @@ sub _sitemap {
     { loc => $base_url, lastmod => undef },
   );
   # Voeg alle artikelen toe
-  my $articles = $schema->resultset('Article')->search({}, { order_by => { '-desc' => ['created'] } });
+  my $articles = $schema->resultset('Article')->search({ deleted_at => undef }, { order_by => { '-desc' => ['created'] } });
   while (my $article = $articles->next) {
     # Zoek de hoogste versie van ArticleContent voor dit artikel
     my $content = $article->article_contents->search({}, { order_by => { '-desc' => ['version'] }, rows => 1 })->first;

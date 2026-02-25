@@ -23,7 +23,7 @@ sub _article {
     user => session->read('user'),
     code => sub {
       return schema->resultset('Article')->find(
-        { slug => route_parameters->get('slug') },
+        { slug => route_parameters->get('slug'), deleted_at => undef },
         {}
       );
     }

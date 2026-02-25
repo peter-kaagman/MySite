@@ -4,6 +4,9 @@ import { initUISync } from './modules/uiSync.js';
 import { SimpleFieldManager } from './modules/simple_field.js';
 import './modules/toast_editor.js';
 import { ToastWrapper } from './modules/toastWrapper.js';
+import { saveItemChange } from './modules/api.js';
+import { setSaveStatus } from './modules/utils.js';
+
 document.addEventListener('DOMContentLoaded', function() {
 
 window.addEventListener("beforeunload", function (e) {
@@ -49,5 +52,24 @@ window.addEventListener("beforeunload", function (e) {
     toastWrapper.initEditor('abstract_editor', 'abstract', 'abstract_editor_hidden', articleId);
     toastWrapper.bindSave('abstract', 'save-abstract');
     toastWrapper.bindCancel('abstract', 'cancel-abstract', document.getElementById('abstract_editor_hidden')?.value || '');
+
+    // Delete button functionality
+    const deleteButton = document.getElementById('delete-article');
+    if (deleteButton && articleId) {
+        deleteButton.addEventListener('click', async () => {
+            if (confirm('Weet je zeker dat je dit artikel wilt verwijderen? Dit kan niet ongedaan worden gemaakt.')) {
+                setSaveStatus('Bezig met verwijderen...', 'info');
+                try {
+                    await saveItemChange('deleted_at', articleId, new Date().toISOString(), true);
+                    setSaveStatus('Artikel verwijderd', 'success');
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 1000);
+                } catch (error) {
+                    setSaveStatus('Fout bij verwijderen', 'error');
+                }
+            }
+        });
+    }
 
 });

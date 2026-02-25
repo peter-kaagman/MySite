@@ -78,6 +78,7 @@ CREATE TABLE `article` (
 	`abstract` TEXT NOT NULL,
 	`meta_title` VARCHAR(255),
 	`meta_description` TEXT,
+	`deleted_at` DATETIME NULL,
 	FOREIGN KEY(`authorid`) REFERENCES `user`(`user_id`),
 	Foreign Key('categoryid') References `category`(`category_id`)
 );

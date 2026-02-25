@@ -54,6 +54,7 @@
                 <div class="mt-3 d-flex gap-2">
                   <button type="button" id="save-content" class="btn btn-primary">Opslaan</button>
                   <button type="button" id="cancel-content" class="btn btn-secondary">Annuleren</button>
+                  <button type="button" id="delete-article" class="btn btn-danger">Verwijderen</button>
                 </div>
 						</fieldset>
 					</div>

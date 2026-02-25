@@ -51,7 +51,7 @@ sub unique_slug {
   my $slug = $base;
   my $counter = 2;
 
-  while (schema->resultset('Article')->find({ slug => $slug })) {
+  while (schema->resultset('Article')->find({ slug => $slug, deleted_at => undef })) {
     $slug = $base . '_' . $counter;
     $counter++;
   }
