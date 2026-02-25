@@ -41,12 +41,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         setSaveStatus('Bezig met aanmaken artikel...', 'info');
 
         try {
+            // Convert keyword IDs to titles using displayLookup
+            const keywordTitles = keywordManager.articleItems.map(id => 
+                keywordManager.displayLookup.get(String(id)) || id
+            );
+            
             const payload = {
                 title: title,
                 slug: titleManager.slugInput?.value.trim() || '',
                 slugtitle: titleManager.slugtitleInput?.checked ? 1 : 0,
                 categoryid: category, // Category is title string, but API expects ID
-                keywords: keywordManager.articleItems, // Array of keyword strings
+                keywords: keywordTitles, // Array of keyword titles (not IDs)
             };
 
             const response = await fetch('/article/add', {
