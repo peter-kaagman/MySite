@@ -344,51 +344,6 @@ sub _field_update {
   return to_json(\%response);
 }
 
-sub _article_delete {
-  # start auth check
-  my $user = session->read('user');
-  unless ($user) {
-    debug "No user", route_parameters->get('id');
-    return template 'error' => {
-      'title' => "No user error",
-      'user' => 'unknown',
-      'error_content' => "Need to be logged in to edit articles.",
-    };
-  }
-  my $article = schema->resultset('Article')->find({ article_id => route_parameters->get('id') }, {});
-  unless ($article) {
-    debug "Article not found in _get_article_edit ", route_parameters->get('id');
-    return template 'error' => {
-      'title' => "Article not found",
-      'user' => session->read('user'),
-      'error_content' => "Article not found.",
-    };
-  }
-  my $author_obj = $article->search_related('authorid')->first;
-  # (1, 'Admin'),
-  # (2, 'Editor'),
-  # (3, 'Writer'),
-  # (4, 'Visitor')
-  my @allowed_roles = qw(Admin Editor Owner);
-  unless (user_can_edit_article($user, $author_obj, \@allowed_roles)) {
-    debug "Edit not allowed", route_parameters->get('id'), 'User:', $user->{username};
-    return template 'error' => {
-      'title' => $article->title . " error",
-      'user' => session->read('user'),
-      'error_content' => "Editing not allowed by user " . session->read('user'),
-    };
-  }
-  # end auth check
-
-  debug "Delete ", route_parameters->get('id');
-  debug "Not implemented yet";
-  return template 'error' => {
-    'title' => $article->title . " error",
-    'user' => session->read('user'),
-    'error_content' => "Function nog niet geimplementeerd " . session->read('user'),
-  };
-}
-
 # heeft auth check
 sub _get_article_new {
   # start auth check
@@ -720,7 +675,6 @@ prefix '/article' => sub {
   get  '/categories'         => \&_get_categories;
   get  '/new'                => \&_get_article_new;
   get  '/edit/:id'           => \&_get_article_edit;
-  get  '/delete/:id'         => \&_article_delete;
   get  '/:category/:slug'    => \&_article;
   post '/add'                => \&_post_article_new;
   post '/update/:field/:id'  => \&_field_update;
