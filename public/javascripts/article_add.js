@@ -8,15 +8,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (!form) return;
 
-    // Initialize TitleManager (auto-detects create mode - no article_id element)
-    const titleManager = new TitleManager();
+    // Initialize TitleManager (create mode - no articleId)
+    const titleManager = new TitleManager(null);
     await titleManager.init();
 
-    // Initialize Category SearchCombo (auto-detects create mode)
+    // Initialize Category SearchCombo (create mode - no articleId)
     const categoryManager = new SearchCombo();
     await categoryManager.init(null, 'category', 'Categorie:', false);
 
-    // Initialize Keywords SearchCombo (auto-detects create mode)
+    // Initialize Keywords SearchCombo (create mode - no articleId)
     const keywordManager = new SearchCombo();
     await keywordManager.init(null, 'keywords', 'Keywords:', true);
 
