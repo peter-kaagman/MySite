@@ -6,8 +6,10 @@
   "scripts": {
     "dev": "DANCER_ENVIRONMENT=development carton exec plackup -R ./lib,./views,./public ./bin/app.psgi",
     "docker-prod": "docker-compose -f docker-compose.prod.yml up --build",
+    "docker-restart": "docker-compose -f docker-compose.prod.yml restart",
+    "docker-stop": "docker-compose -f docker-compose.prod.yml down",
     "build": "echo 'No build step defined'",
-    "start": "DANCER_ENVIRONMENT=development carton exec plackup -R ./lib ./bin/app.psgi",
+    "start": "DANCER_ENVIRONMENT=production carton exec plackup -R ./lib ./bin/app.psgi",
     "postinstall": "mkdir -p public/css/vendor public/javascripts/vendor && cp node_modules/bootstrap/dist/css/bootstrap.min.css public/css/vendor/ && cp node_modules/bootstrap/dist/js/bootstrap.bundle.min.js public/javascripts/vendor/"
   },
   "author": "Peter Kaagman",

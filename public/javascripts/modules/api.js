@@ -23,7 +23,8 @@ export async function handleSave(article, data, field, inputID) {
             // Dispatch custom event for UI synchronization
             document.dispatchEvent(new CustomEvent('article-field-saved', {
                 detail: {
-                    field: inputID,
+                    fieldId: inputID,
+                    dbField: field,
                     articleId: article,
                     originalValue: data.value,
                     responseData: result
