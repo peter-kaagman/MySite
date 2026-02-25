@@ -16,28 +16,30 @@ window.addEventListener("beforeunload", function (e) {
     initUISync();
 
 
+    // Get articleId from DOM once
+    const articleId = document.getElementById('article_id')?.value || null;
+
     // Title manager
-    const titleManager = new TitleManager();
+    const titleManager = new TitleManager(articleId);
     titleManager.init();
 
     // Category manager
     const categoryManager = new SearchCombo();
-    categoryManager.init('article_id','category', 'Categorie:', false);
+    categoryManager.init(articleId, 'category', 'Categorie:', false);
 
     // Keyword manager
     const keywordManager = new SearchCombo();
-    keywordManager.init('article_id', 'keywords', 'Keywords:', true);
+    keywordManager.init(articleId, 'keywords', 'Keywords:', true);
 
     // Meta_title manager
     const metaTitleManager = new SimpleFieldManager();
-    metaTitleManager.init('article_id', 'edit_meta_title', 'meta_title');
+    metaTitleManager.init(articleId, 'edit_meta_title', 'meta_title');
 
     // Meta_description manager
     const metaDescriptionManager = new SimpleFieldManager();
-    metaDescriptionManager.init('article_id', 'edit_meta_description', 'meta_description');
+    metaDescriptionManager.init(articleId, 'edit_meta_description', 'meta_description');
 
     // --- ToastWrapper integratie ---
-    const articleId = document.getElementById('article_id')?.value || null;
     const toastWrapper = new ToastWrapper();
     // Content editor
     toastWrapper.initEditor('content_editor', 'content', 'content_editor_hidden', articleId);

@@ -42,16 +42,16 @@ export class SimpleFieldManager{
     }
   }
 
-  async init(articleIdField, elementId, dbField) {
+  async init(articleId, elementId, dbField) {
     // Bail out if required parameters are missing
-    if (!articleIdField || !elementId || !dbField) {
+    if (!elementId || !dbField) {
         console.warn('SimpleFieldManager: Missing required parameters for init');
         return;
     }
 
-    console.log(`Initializing SimpleFieldManager for ${elementId} (db field: ${dbField}) for article #${articleIdField}`);
+    console.log(`Initializing SimpleFieldManager for ${elementId} (db field: ${dbField}) for article #${articleId}`);
 
-    this.articleId = document.getElementById(articleIdField).value || null;
+    this.articleId = articleId;
     if (!this.articleId) {
         console.warn('SimpleFieldManager: article_id not found, field will not be saved');
     }

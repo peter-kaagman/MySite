@@ -30,10 +30,9 @@ export class TitleManager {
             }
         });
     }
-    constructor() {
-        // Safe retrieval of article_id (may not exist in create mode)
-        const articleIdEl = document.getElementById('article_id');
-        this.articleId = articleIdEl?.value || null;
+    constructor(articleId = null) {
+        // Store articleId directly (no DOM lookup)
+        this.articleId = articleId;
         
         // Title
         this.titleInput = document.getElementById('edit_title');
