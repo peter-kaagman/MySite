@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "DANCER_ENVIRONMENT=development carton exec plackup -R ./lib,./views,./public ./bin/app.psgi",
+    "prod": "DANCER_ENVIRONMENT=production carton exec plackup -R ./lib,./views,./public ./bin/app.psgi",
     "docker-prod": "docker-compose -f docker-compose.prod.yml up --build",
     "docker-restart": "docker-compose -f docker-compose.prod.yml restart",
     "docker-stop": "docker-compose -f docker-compose.prod.yml down",
