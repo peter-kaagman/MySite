@@ -90,6 +90,17 @@ DISTRIBUTIONS
       Moo 0
       Moo::Role 0
       Path::Tiny 0
+  Cache-Memcached-1.30
+    pathname: D/DO/DORMANDO/Cache-Memcached-1.30.tar.gz
+    provides:
+      Cache::Memcached 1.30
+      Cache::Memcached::GetParser undef
+    requirements:
+      Encode 0
+      ExtUtils::MakeMaker 0
+      Storable 0
+      String::CRC32 0
+      Time::HiRes 0
   Capture-Tiny-0.50
     pathname: D/DA/DAGOLDEN/Capture-Tiny-0.50.tar.gz
     provides:
@@ -822,6 +833,22 @@ DISTRIBUTIONS
       perl 5.006
       strict 0
       utf8 0
+      warnings 0
+  Dancer2-Session-Memcached-0.007
+    pathname: Y/YA/YANICK/Dancer2-Session-Memcached-0.007.tar.gz
+    provides:
+      Dancer2::Session::Memcached 0.007
+    requirements:
+      Cache::Memcached 0
+      Carp 0
+      Dancer2 0.15000
+      Dancer2::Core::Role::SessionFactory 0
+      ExtUtils::MakeMaker 0
+      Moo 0
+      Type::Tiny 0
+      Types::Standard 0
+      perl 5.006
+      strict 0
       warnings 0
   Data-Censor-0.04
     pathname: B/BI/BIGPRESH/Data-Censor-0.04.tar.gz
@@ -2946,6 +2973,12 @@ DISTRIBUTIONS
     requirements:
       ExtUtils::MakeMaker 6.30
       IO::File 1.14
+  String-CRC32-2.100
+    pathname: L/LE/LEEJO/String-CRC32-2.100.tar.gz
+    provides:
+      String::CRC32 2.100
+    requirements:
+      ExtUtils::MakeMaker 0
   String-CamelCase-0.04
     pathname: H/HI/HIO/String-CamelCase-0.04.tar.gz
     provides:
