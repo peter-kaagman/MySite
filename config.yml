@@ -63,7 +63,7 @@ engines:
         # is_secure: 1
         # is_http_only: 1
     Memcached:
-      memcached_servers: ["127.0.0.1:11211"]
+      memcached_servers: ["memcached:11211"]
       namespace: "mysite_session:"
       expire_time: 3600
 plugins:
