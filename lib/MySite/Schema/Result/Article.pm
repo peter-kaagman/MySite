@@ -235,7 +235,7 @@ __PACKAGE__->many_to_many(
 );
 
 
-sub articleURL {
+sub url {
   my ($self) = shift;
   return(
     "/article/" .
@@ -243,6 +243,13 @@ sub articleURL {
     "/" .
     $self->slug 
   );
+}
+
+sub canonicalURL {
+  my ($self, $base_url) = @_;
+  $base_url ||= ''; # fallback als niet meegegeven
+  $base_url =~ s{/$}{}; # trailing slash verwijderen
+  return $base_url . $self->url;
 }
 
 sub is_owned_by {

@@ -165,7 +165,20 @@ __PACKAGE__->has_many(
 
 # Created by DBIx::Class::Schema::Loader v0.07053 @ 2026-02-15 13:09:49
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:zyQ7a22/3EvYgpN93JAJIA
+sub url {
+  my ($self) = shift;
+  return(
+    "/page/" .
+    lc($self->slug)
+  );
+}
 
+sub canonicalURL {
+  my ($self, $base_url) = @_;
+  $base_url ||= ''; # fallback als niet meegegeven
+  $base_url =~ s{/$}{}; # trailing slash verwijderen
+  return $base_url . $self->url;
+}
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 1;
