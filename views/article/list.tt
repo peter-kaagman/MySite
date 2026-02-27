@@ -8,13 +8,13 @@
             </div>
             <div id='article_listitem_meta' class='col-sm-9'> <!-- Meta information -->
                 <div class='row'> <!-- Title -->
-                    <a class='anchor_title' href='<% article.articleURL %>'>
+                    <a class='anchor_title' href='<% article.url %>'>
                         <h1 class='article_title'><% article.title %></h1>
                     </a>
                 </div>
                 <div class='row'> <!-- Author and created date -->
                     <h2 class='article_author'>
-                        <a class='anchor_author' href='<% article.authorid.userURL %>'>
+                        <a class='anchor_author' href='<% article.authorid.url %>'>
                             <% article.authorid.name %>
                         </a>
                         @
@@ -26,7 +26,7 @@
                         <ul class='horizontal_list'>
                             <li class='horizontal_listitem'>Category:</li>
                             <li class='horizontal_listitem'>
-                                <a class='anchor_category' href='<% article.categoryid.categoryURL %>'>
+                                <a class='anchor_category' href='<% article.categoryid.url %>'>
                                     <% article.categoryid.title %>
                                 </a>
                             </li>
@@ -39,7 +39,7 @@
                             <li class='horizontal_listitem'>Keywords:</li>
                             <% FOR keyword IN article.keywords %>
                                 
-                                <a href='<% keyword.keywordURL %>'>
+                                <a href='<% keyword.url %>'>
                                     <li class='horizontal_listitem'><% keyword.title %></li>
                                 </a>
                             <% END %>        
@@ -57,7 +57,7 @@
                     <!-- </a> -->
                 </div>
                 <div class='row'>
-                    <a class='anchor_readmore' href='<% article_url %>'>Lees meer...</a>
+                    <a class='anchor_readmore' href='<% article.url %>'>Lees meer...</a>
                 </div>
         </div>
     </div>
