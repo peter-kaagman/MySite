@@ -1,8 +1,35 @@
-<% IF user %>
-<div id="navbar">
-  <div class='navbar-right'>
-    
+<div id="navbar" class="d-flex justify-content-between align-items-center">
+  <div class="navbar-left">
+    <ul class="nav align-items-center">
+      <li class="nav-item">
+        <a class="nav-link" href="/" title="Home">
+          <img src="/images/site_logo_128.png" alt="Home" style="height:32px;">
+        </a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Site</a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="/article/list">Artikelen</a></li>
+          <li><a class="dropdown-item" href="/page/about">Over</a></li>
+          <li><a class="dropdown-item" href="/page/contact">Contact</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="navbar-right">
+    <ul class="nav">
+      <% IF user %>
+          <li class="nav-item"><a class="nav-link" href="/article/new">Nieuw artikel</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">User</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="<% user.url %>">Profile</a></li>
+              <li><a class="dropdown-item" href="/user/logout">Logout</a></li>
+            </ul>
+          </li>
+      <% ELSE %>
+        <li><a href="/page/login">Login</a></li>
+      <% END %>
+    </ul>
   </div>
 </div>
-<% ELSE %>
-<% END %>
