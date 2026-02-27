@@ -296,3 +296,22 @@ Deze commit bevat content- en structuurwijzigingen voor artikelen, database, sty
 - Productie is stabiel, alle containers draaien correct.
 - Log entry toegevoegd voor referentie en toekomstige troubleshooting.
 
+## 2026-02-27 - Header, Navbar en CSS opschoning; Bootstraploze gedachte
+
+**Onderwerpen:**
+- Nieuwe header en menubalk (navbar) geïmplementeerd, met duidelijke scheiding tussen header (branding) en navigatie.
+- CSS opgeschoond: layout-gerelateerde regels verplaatst naar layout.css, overige component/utility CSS in style.css.
+- Oude, dubbele en conflicterende CSS verwijderd voor voorspelbare layout en eenvoudiger onderhoud.
+- Category-logo nu compact en responsive gemaakt.
+- Diverse uitlijn- en paddingproblemen opgelost in content, sidebar en navbar.
+
+**Gedachte:**
+- Overwogen om het Bootstrap grid systeem volledig te vervangen door een eigen minimal CSS grid (zonder externe afhankelijkheden).
+- Voordeel: maximale controle, minimale CSS, geen ongebruikte klassen of overrides.
+- Besloten om dit eerst in een los experiment te proberen voordat het in MySite wordt geïntegreerd.
+
+**Resultaat:**
+- De site heeft nu een strakke, overzichtelijke layout met duidelijke structuur.
+- CSS is overzichtelijker en eenvoudiger te onderhouden.
+- Bootstrap blijft voorlopig actief, maar een bootstraploze oplossing wordt onderzocht.
+

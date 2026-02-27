@@ -1,0 +1,66 @@
+/* Layout-gerelateerde CSS: structuur, uitlijning, containers, kolommen, header, navbar, content, sidebar, footer */
+
+.header {
+  background: linear-gradient(90deg, #2563eb 0%, #1e40af 100%);
+  color: #fff;
+  padding: 1.5em 1em;
+  margin-bottom: 0;
+}
+.header img {
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+}
+
+#navbar {
+  background: #1e293b;
+  color: #fff;
+  padding: 0.5em 1em;
+  margin-bottom: 0;
+}
+#navbar .dropdown-menu {
+  background: #1e293b;
+}
+#navbar .dropdown-item {
+  color: #fff !important;
+  background: #1e293b;
+  transition: background 0.2s, color 0.2s;
+}
+#navbar .dropdown-item:hover, #navbar .dropdown-item:focus {
+  color: #ffe066 !important;
+  background: #2563eb;
+}
+#navbar .nav li {
+  padding: 0 0.75em;
+}
+#navbar a, #navbar .nav a {
+  color: #fff !important;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+#navbar a:hover, #navbar .nav a:hover {
+  color: #ffe066 !important;
+}
+
+#content {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(30,41,59,0.06);
+  padding: 1em;
+  width: 100%;
+  margin: 0 0 1em 0;
+}
+
+#sidebar {
+  background: #e0e7ef;
+  border-radius: 8px;
+  padding: 1em;
+  margin-bottom: 1em;
+}
+
+#footer {
+  background: #1e293b;
+  color: #fff;
+  padding: 1em;
+  text-align: center;
+  border-radius: 8px 8px 0 0;
+  margin-top: 2em;
+}

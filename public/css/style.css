@@ -1,58 +1,81 @@
-.category-logo-wrapper {
-    width: 300px;
-    max-width: 100%;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* Navbar styling: donkerblauw, egale kleur, duidelijk onderscheid met header */
+#navbar {
+  background: #1e293b;
+  box-shadow: 0 2px 8px rgba(30,40,59,0.08);
+  padding: 0.5em 1em;
 }
-.category-logo-img {
-    width: 100%;
-    max-width: 300px;
-    height: auto;
-    display: block;
+#navbar .dropdown-menu {
+  background: #1e293b;
+}
+@import url('layout.css');
+/* Header styling */
+.header {
+  background: linear-gradient(90deg, #2563eb 0%, #1e40af 100%);
+  color: #fff;
+  padding: 1.5em 1em;
+  margin-bottom: 0;
+}
+.header img {
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
 }
 
-/* Responsive scaling for category logo */
-@media (max-width: 600px) {
-  .category-logo-wrapper {
-    width: 150px;
-  }
-  .category-logo-img {
-    max-width: 150px;
-  }
+/* Navbar styling */
+#navbar {
+  background: #1e293b;
+  color: #fff;
+  padding: 0.5em 1em;
+  margin-bottom: 0;
 }
-@media (min-width: 1200px) {
-  .category-logo-wrapper {
-    width: 400px;
-  }
-  .category-logo-img {
-    max-width: 400px;
-  }
+#navbar .dropdown-menu {
+  background: #1e293b;
 }
-/* Category logo styling */
-.category-logo-wrapper {
-  width: 300px;
-  max-width: 100%;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+#navbar .dropdown-item {
+  color: #fff !important;
+  background: #1e293b;
+  transition: background 0.2s, color 0.2s;
 }
-.category-logo-img {
-  width: 100%;
-  max-width: 300px;
-  height: auto;
-  display: block;
+#navbar .dropdown-item:hover, #navbar .dropdown-item:focus {
+  color: #ffe066 !important;
+  background: #2563eb;
 }
-/* Links in header/footer goed zichtbaar op donkere achtergrond */
-.footer a, .header a, #footer a, #header a {
-  color: #cce6ff;
-  text-decoration: underline;
+#navbar .nav li {
+  padding: 0 0.75em;
+}
+#navbar a, #navbar .nav a {
+  color: #fff !important;
+  text-decoration: none;
   transition: color 0.2s;
 }
-.footer a:hover, .header a:hover, #footer a:hover, #header a:hover {
-  color: #ffe066;
+#navbar a:hover, #navbar .nav a:hover {
+  color: #ffe066 !important;
+}
+
+/* Content styling */
+#content {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(30,41,59,0.06);
+  padding: 1em;
+  width: 100%;
+  margin: 0 0 1em 0;
+}
+
+/* Sidebar styling */
+#sidebar {
+  background: #e0e7ef;
+  border-radius: 8px;
+  padding: 1em;
+  margin-bottom: 1em;
+}
+
+/* Footer styling */
+#footer {
+  background: #1e293b;
+  color: #fff;
+  padding: 1em;
+  text-align: center;
+  border-radius: 8px 8px 0 0;
+  margin-top: 2em;
 }
 ul.horizontal_list {
   display: flex;
@@ -95,8 +118,10 @@ body {
 #content {
   background: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(30,41,59,0.04);
-  padding: 16px;
+  box-shadow: 0 1px 2px rgba(30,41,59,0.06);
+  padding: 0.5em 0;
+  width: 100%;
+  margin: 0;
 }
 
 #article_abstract {
@@ -188,39 +213,25 @@ ul.sidebar_list{
   box-shadow: 0 1px 2px rgba(0,0,0,0.04);
   transition: background 0.2s, color 0.2s;
 }
-.copy-btn:hover {
-  background: #2563eb;
-  color: #fff;
+/* Compacte, responsive category logo */
+.category-logo-wrapper {
+  width: 100%;
+  max-width: 120px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.copy-btn:active {
-  background: #d0ffd0;
-  color: #333;
+.category-logo-img {
+  width: 100%;
+  max-width: 120px;
+  height: auto;
+  display: block;
 }
-
-/* Success en error meldingen */
-.success {
-  color: #22c55e;
+@media (max-width: 600px) {
+  .category-logo-wrapper,
+  .category-logo-img {
+    max-width: 64px;
+  }
 }
-.error {
-  color: #ef4444;
-}
-
-/* Oude debugkleuren uitgeschakeld */
-/*
-#header { background: tomato; }
-#navbar { background: pink; }
 #footer { background: lightgreen; }
-#content { background: deepskyblue; }
-#sidebar { background: gold; height: 100%; }
-*/
-
-/* Kader en achtergrond voor codeblokken */
-div.sourceCode, pre.sourceCode, pre code {
-  background: #f3f4f6;
-  border: 1.5px solid #d1d5db;
-  border-radius: 6px;
-  padding: 1em;
-  margin: 1em 0;
-  font-size: 1em;
-  overflow-x: auto;
-}

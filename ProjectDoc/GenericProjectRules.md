@@ -1,4 +1,3 @@
-
 # MySite Projectregels & Best Practices
 
 **TL;DR: Belangrijkste regels**
@@ -1311,7 +1310,7 @@ Dit document dient verschillende doelen:
 **Omgaan met Rule Violations:**
 
 Wanneer developer afwijkt van rules:
-1. **Signaleer de afwijking**: *"Dit wijkt af van regel X (zie sectie Y)"*
+1. **Signaleer de afwijking**: *"Dit wijkt af van regel X (zie sectie Y)"
 2. **Vraag intentie**: *"Is dit opzettelijk? Werkt de regel niet voor deze situatie?"*
 3. **Twee outcomes:**
    - Developer heeft goede reden → documenteer afwijking in ProjectLog
