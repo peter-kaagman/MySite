@@ -65,7 +65,7 @@ sub _sitemap {
       }
     }
     push @urls, {
-      loc => URI->new($base_url . 'article/' . $article->slug)->as_string,
+      loc => $article->canonicalURL($base_url),
       lastmod => $lastmod,
       publication => ($article->created ? (ref $article->created && $article->created->can('ymd') ? $article->created->ymd : $article->created) : undef),
     };
@@ -85,7 +85,7 @@ sub _sitemap {
       }
     }
     push @urls, {
-      loc => URI->new($base_url . 'page/' . $page->slug)->as_string,
+      loc => $page->canonicalURL($base_url),
       lastmod => $lastmod,
       # publication => ($page->created ? (ref $page->created && $page->created->can('ymd') ? $page->created->ymd : $page->created) : undef),
     };

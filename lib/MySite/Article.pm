@@ -72,7 +72,8 @@ sub _article {
   template 'article/article' => {
     'title' => $article->meta_title || $article->title,
     'meta_description' => $article->meta_description || '',
-    'canonical_url' => $base_url . 'article/' . $article->categoryid->title . '/' . $article->slug,
+    # 'canonical_url' => $base_url . 'article/' . $article->categoryid->title . '/' . $article->slug,
+    'canonical_url' => $article->canonicalURL($base_url),
     'user' => session->read('user'),
     'author' => $author->first,
     'article' => $article,

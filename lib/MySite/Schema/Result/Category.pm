@@ -115,13 +115,21 @@ sub slug {
     return lc($self->title) =~ s/\s+/-/gr;
 }
 
-sub categoryURL {
+sub url {
   my ($self) = shift;
   return(
     "/category/" .
-    lc($self->title) =~ s/\s+/-/gr 
+    lc($self->slug)
   );
 }
+
+sub canonicalURL {
+  my ($self, $base_url) = @_;
+  $base_url ||= ''; # fallback als niet meegegeven
+  $base_url =~ s{/$}{}; # trailing slash verwijderen
+  return $base_url . $self->url;
+}
+
 
 sub logo {
   my $self = shift;

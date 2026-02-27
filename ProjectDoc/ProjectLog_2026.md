@@ -271,3 +271,28 @@ Deze commit bevat content- en structuurwijzigingen voor artikelen, database, sty
 - Configuratie is transparant en onderhoudbaar per omgeving.
 - Geen hacks of workarounds meer nodig in de Perl-code.
 
+## 2026-02-26 - Deployment problemen: CSRF, container conflicts, diskspace
+
+**Problemen:**
+- Tijdens deployment naar productie traden meerdere issues op:
+  - CSRF-bescherming faalde: login en POST requests werden geweigerd door Dancer2::Plugin::CSRF, ondanks correcte config. Debugging wees uit dat de session manager (Memcached) correct draaide, maar de CSRF-token niet werd geaccepteerd in productie.
+  - Container conflicts: Bij het rebuilden van Docker Compose ontstonden conflicts door oude containers die niet correct verwijderd werden. Dit veroorzaakte port binding errors en onvolledige service restarts.
+  - Diskspace: Productiecontainer liep vast door onvoldoende diskspace, met als gevolg incomplete database writes en foutmeldingen bij het starten van services.
+
+**Acties:**
+- CSRF-fout is verplaatst naar de development-omgeving voor verdere debug. Productie draait tijdelijk zonder CSRF-bescherming tot fix is gevonden.
+- Container conflicts opgelost door alle containers te verwijderen vóór rebuild (`docker compose down --remove-orphans`).
+- Diskspace opgeschoond en monitoring ingesteld.
+- Branch opnieuw gedeployed na cleanup; Memcached-container draait, healthcheck status ok.
+
+**Lessons learned:**
+- Environment separation is cruciaal: productie/development moeten volledig gescheiden configs en containers hebben.
+- Container management vereist expliciete cleanup bij rebuilds.
+- Security features (CSRF) moeten altijd getest worden in een representatieve omgeving vóór deployment.
+- Monitoring van diskspace en healthchecks voorkomt onverwachte downtime.
+
+**Status:**
+- CSRF-bescherming pending fix; debugging loopt in development.
+- Productie is stabiel, alle containers draaien correct.
+- Log entry toegevoegd voor referentie en toekomstige troubleshooting.
+

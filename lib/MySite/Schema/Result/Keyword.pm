@@ -114,13 +114,21 @@ sub slug {
     return lc($self->title) =~ s/\s+/-/gr;
 }
 
-sub keywordURL {
+sub url {
   my ($self) = shift;
   return(
     "/keyword/" .
-    lc($self->title) =~ s/\s+/-/gr
+    lc($self->slug)
   );
 }
+
+sub canonicalURL {
+  my ($self, $base_url) = @_;
+  $base_url ||= ''; # fallback als niet meegegeven
+  $base_url =~ s{/$}{}; # trailing slash verwijderen
+  return $base_url . $self->url;
+}
+
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 1;

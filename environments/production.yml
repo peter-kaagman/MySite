@@ -1,3 +1,6 @@
+# Session manager
+session: "Memcached"
+
 # Externe base URL voor sitemap en andere absolute links
 base_url: "https://mysite.prjv.nl/"
 oauth_providers:

@@ -192,13 +192,21 @@ __PACKAGE__->belongs_to(
 # Created by DBIx::Class::Schema::Loader v0.07052 @ 2025-08-14 12:07:56
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Vn5UqiREv8sjhmvRlz10qA
 
-sub userURL {
+sub url {
   my ($self) = shift;
   return(
     "/user/" .
     $self->user_id 
   );
 }
+
+sub canonicalURL {
+  my ($self, $base_url) = @_;
+  $base_url ||= ''; # fallback als niet meegegeven
+  $base_url =~ s{/$}{}; # trailing slash verwijderen
+  return $base_url . $self->url;
+}
+
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 1;

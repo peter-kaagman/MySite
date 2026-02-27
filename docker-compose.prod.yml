@@ -2,7 +2,7 @@ services:
   mysite:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile_MySite
     image: mysite:simple
     container_name: mysite-app
     restart: unless-stopped
@@ -23,3 +23,9 @@ services:
       timeout: 3s
       retries: 3
       start_period: 10s
+  memcached:
+    image: memcached:latest
+    container_name: memcached
+    restart: unless-stopped
+    ports:
+      - "11211:11211"
