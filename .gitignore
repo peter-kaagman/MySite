@@ -5,3 +5,4 @@ sessions/*
 node_modules/
 local/
 logs/mysite.log
+public/images/site/*

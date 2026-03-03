@@ -1,3 +1,23 @@
+# Image upload configuratie
+image_upload:
+  copyright: '© 2026 Peter Kaagman / MySite'
+  # max_size: 2097152   # 2MB in bytes
+  max_size: 4194304   # 2MB in bytes
+  allowed_ext: ['.jpg', '.jpeg', '.png', '.gif', '.webp']
+  allowed_mime: ['image/jpeg', 'image/png', 'image/gif', 'image/webp']
+  sizes:
+  - name: "thumb"
+    width: 400
+    height: 400
+  - name: "medium"
+    width: 800
+    height: 800
+  - name: "large"
+    width: 1600
+    height: 1200
+  resize:
+    max_width: 1920
+    max_height: 1200
 # This is the main configuration file of your Dancer2 app
 # env-related settings should go to environments/$env.yml
 # all the settings in this file will be loaded at Dancer's startup.
@@ -76,4 +96,3 @@ plugins:
       schema_class: MySite::Schema
       options:
         sqlite_unicode: 1
-  Auth::Extensible:

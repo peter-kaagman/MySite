@@ -1,5 +1,50 @@
+## 2026-02-28 - Besluit: geen CSRF-plugin, eigen implementatie
+
+**Besluit:**
+- Na uitgebreide analyse van Dancer2::Plugin::CSRF en Dancer2::Plugin::CSRFI is besloten om voorlopig geen CSRF-plugin te gebruiken.
+- Beide plugins zijn niet actief onderhouden of bieden geen volledige dekking voor moderne webapps met veel JSON/AJAX.
+- Voor nu draait de applicatie zonder CSRF-bescherming.
+- In de toekomst wordt een eigen CSRF-implementatie of custom plugin overwogen voor maximale controle en transparantie.
+
+**Reden:**
+- Eigen implementatie biedt meer zekerheid, eenvoud en onderhoudbaarheid dan afhankelijk zijn van verouderde of onvolledige plugins.
+
+## 2026-02-28 - CSRF-plugins, AJAX/JSON en security
+
+**Bevindingen:**
+- Migratie uitgevoerd van Dancer2::Plugin::CSRF naar Dancer2::Plugin::CSRFI (actief onderhouden, 2022).
+- CSRFI werkt direct voor traditionele forms (POST met form-encoded/multipart-data), maar **niet automatisch voor AJAX/JSON-POSTs** (content-type: application/json).
+- Voor AJAX/JSON-POSTs moet handmatig `validate_csrf(request_header('X-CSRF-Token'))` worden aangeroepen in elke relevante route of via een before hook.
+- Zonder deze extra check zijn API-routes kwetsbaar voor CSRF-aanvallen via aangepaste JavaScript of tools als curl/Postman.
+- De plugin genereert en bewaart CSRF-tokens correct in de session en templates.
+- Frontend (JS) kan het token veilig uitlezen uit een meta-tag en meesturen als header.
+
+**Lessons learned:**
+- Vertrouw niet blind op automatische CSRF-bescherming bij moderne webapps met veel JSON/AJAX.
+- Controleer altijd of je backend daadwerkelijk requests zonder token blokkeert.
+- Overweeg een eigen CSRF-check of een universele before hook voor volledige dekking.
+
 ## 2026-02-24 - Refactor en standaardisatie JavaScript modules (ES6-methodiek)
 
+## 2026-02-27 - CSRF fix: Memcached firewall & Docker network
+
+**Probleem:**
+- CSRF-bescherming faalde in productie doordat Memcached niet bereikbaar was; firewall blokkeerde verbinding tussen app-container en Memcached.
+
+**Oplossing:**
+- Firewall-regels aangepast zodat containers via het Docker netwerk communiceren.
+- Memcached is nu bereikbaar vanuit de app-container.
+- CSRF-bescherming (Dancer2::Plugin::CSRF) werkt weer correct in productie.
+
+**Resultaat:**
+- Security is hersteld; POST requests en login zijn weer beschermd tegen CSRF.
+- Productie draait nu met volledige CSRF-bescherming.
+
+**Lessons learned:**
+- Container networking en firewall-regels moeten altijd getest worden in een representatieve omgeving.
+- Security features (zoals CSRF) zijn afhankelijk van correcte netwerkconfiguratie.
+
+---
 **Onderwerpen:**
 - Grote opschoning en modernisering van article_edit.js: alle field managers (TitleManager, SearchCombo, SimpleFieldManager, ToastWrapper) worden nu als ES6 modules geïmporteerd en als class geïnitialiseerd, zonder window-prefix.
 - Oude SimpleMDE/legacy-code verwijderd; Toast UI Editor volledig geïntegreerd via een nieuwe ToastWrapper-module.
@@ -296,7 +341,21 @@ Deze commit bevat content- en structuurwijzigingen voor artikelen, database, sty
 - Productie is stabiel, alle containers draaien correct.
 - Log entry toegevoegd voor referentie en toekomstige troubleshooting.
 
-## 2026-02-27 - Header, Navbar en CSS opschoning; Bootstraploze gedachte
+
+## 2026-02-27 - CSRF frontend integratie en fix
+
+**Acties:**
+- CSRF-bescherming opnieuw geactiveerd in productie na fix van Memcached/firewall.
+- CSRF-token als meta-tag toegevoegd aan main.tt voor JavaScript toegang.
+- Utility getCsrfToken() gemaakt in utils.js om het token uit de meta-tag te lezen.
+- Alle POST-fetch calls in modules/api.js sturen nu automatisch het CSRF-token mee als header ("X-CSRF-Token").
+- article_edit.js, article_add.js en andere modules zijn nu CSRF-proof zonder extra imports.
+
+**Lessons learned:**
+- Frontend moet altijd het CSRF-token meesturen bij POST/PUT/DELETE requests.
+- Centralisatie van fetch-calls in api.js maakt security eenvoudig en onderhoudbaar.
+- Documentatie en logging van security fixes zijn essentieel voor troubleshooting.
+
 
 **Onderwerpen:**
 - Nieuwe header en menubalk (navbar) geïmplementeerd, met duidelijke scheiding tussen header (branding) en navigatie.
@@ -314,4 +373,22 @@ Deze commit bevat content- en structuurwijzigingen voor artikelen, database, sty
 - De site heeft nu een strakke, overzichtelijke layout met duidelijke structuur.
 - CSS is overzichtelijker en eenvoudiger te onderhouden.
 - Bootstrap blijft voorlopig actief, maar een bootstraploze oplossing wordt onderzocht.
+## [2026-03-03] Image uploader: grote refactor en uitbreidingen
+
+- Multi-resize op basis van config (thumb, medium, large) met aspect ratio behoud
+- WebP-generatie voor alle formaten
+- Originele bestandsnaam en copyright automatisch in metadata (EXIF/IPTC/XMP) voor JPEG/PNG
+- Copyright wordt alleen toegevoegd als er nog geen copyright aanwezig is
+- Automatische aanmaak van een JSON-bestand per upload met:
+    - Originele bestandsnaam
+    - Upload-tijdstip
+    - Copyright
+    - Alle gegenereerde formaten (pad, type, afmetingen)
+- Paden in JSON zijn relatief t.o.v. public/
+- Toast UI Editor:
+    - Upload blokkeert tijdens upload (spinner/overlay)
+    - Na upload kan gebruiker kiezen welk formaat (original, thumb, medium, large) wordt ingevoegd
+    - Eenvoudige modale keuzedialoog (uitbreidbaar naar Bootstrap)
+- Robuuste validatie en foutafhandeling
+- Code opgeschoond, debug verwijderd, toekomstbestendig voor gallery/AI
 

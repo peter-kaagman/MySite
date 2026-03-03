@@ -21,6 +21,11 @@ requires "LWP::Protocol::https" => "0";
 requires "Plack::Handler::Starman" => "0";
 requires "Dancer2::Logger::Log4perl" => "0";
 
+requires 'Imager';
+requires 'Imager::File::JPEG';
+requires 'Imager::File::WEBP';
+requires 'Image::ExifTool';
+
 recommends "YAML"                    => "0";
 recommends "URL::Encode::XS"         => "0";
 recommends "CGI::Deurl::XS"          => "0";

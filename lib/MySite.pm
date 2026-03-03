@@ -10,6 +10,7 @@ use MySite::Index;
 use MySite::User;
 use MySite::Article;
 use MySite::Page;
+use MySite::ImageUpload;
 
 our $VERSION = '0.1';
 

@@ -1,4 +1,10 @@
 // utils.js - Utility functions
+
+// Haal CSRF-token uit meta-tag
+export function getCsrfToken() {
+    const meta = document.querySelector('meta[name="csrf-token"]');
+    return meta ? meta.getAttribute('content') : '';
+}
 export function setSaveStatus(msg, type = 'info') {
     const status = document.getElementById('save-status');
     if (!status) return;

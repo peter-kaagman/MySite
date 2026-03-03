@@ -1,3 +1,24 @@
+### Perl module structuur
+
+**Conventie:** In Perl modules altijd eerst de `package`-regel, gevolgd door alle `use`/`require`-statements, en daarna pas de subroutines (hulpfuncties en hoofdcode). Zet nooit subroutines of code vóór de `package`-regel of vóór de imports.
+
+**AI/ontwikkelaars:** Houd je bij refactoren en codegeneratie aan deze volgorde. Plaats hulpfuncties altijd ná de package en imports, niet erboven. Dit voorkomt fouten en handmatig herstelwerk.
+
+**Voorbeeld:**
+
+```perl
+package MySite::ImageUpload;
+use v5.20;
+use utf8;
+use Dancer2 appname => 'MySite', with => {};
+use ...;
+
+# subroutines hieronder
+sub foo { ... }
+sub bar { ... }
+```
+
+**Let op:** Overtreding van deze conventie leidt tot extra werk en fouten bij gebruik van Perl tools en tijdens development.
 # MySite Projectregels & Best Practices
 
 **TL;DR: Belangrijkste regels**
