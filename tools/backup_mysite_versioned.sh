@@ -1,17 +1,23 @@
 #!/bin/bash
 
-# Pad naar de originele database
-SRC="/home/pkn/MySite/db/mysite.sqlite"
+
+# Directories en bestanden voor backup
+INCLUDE=(
+	"db"
+	"public/images"
+	"config.yml"
+	"config_local.yml"
+)
 
 # Genereer een bestandsnaam met datum en tijd
 TS=$(date +%Y%m%d_%H%M%S)
-BASENAME="mysite_${TS}.sqlite"
+ARCHIVE="mysite_${TS}.tgz"
 
-# Maak een tijdelijke kopie met timestamp
-cp "$SRC" "/tmp/$BASENAME"
+# Maak een tarball van de relevante content
+tar czf "/tmp/$ARCHIVE" "${INCLUDE[@]}"
 
 # Rsync naar Synology (let op: pad en module moeten kloppen)
-sudo /usr/bin/rsync --no-group --password-file=/etc/rsync.secrets -az "/tmp/$BASENAME" rsync_user@syno.prjv.nl::backup/MySite/
+sudo /usr/bin/rsync --no-group --password-file=/etc/rsync.secrets -az "/tmp/$ARCHIVE" rsync_user@syno.prjv.nl::backup/MySite/
 
-# Verwijder de tijdelijke kopie
-rm "/tmp/$BASENAME"
+# Verwijder de tijdelijke tgz
+rm "/tmp/$ARCHIVE"
