@@ -9,6 +9,7 @@ use File::Path qw(make_path);
 use POSIX qw(strftime);
 use Imager;
 use Image::ExifTool qw(:Public);
+use MySite::ErrorHandler;
 
 #
 # Helper functies
@@ -332,14 +333,14 @@ sub _upload_image {
     return MySite::ErrorHandler::json_error(message => 'Unauthorized', status => 401) unless $user;
 
     my $upload = request->upload('image');
-    return _json_error(message => 'Geen bestand ontvangen.') unless $upload;
+    return MySite::ErrorHandler::json_error(message => 'Geen bestand ontvangen.') unless $upload;
 
     my $conf = config->{image_upload} || {};
     my ($target_path, $url, $err) = _validate_and_save_upload($upload, $conf);
-    return _json_error(message => $err) unless $target_path;
+    return MySite::ErrorHandler::json_error(message => $err) unless $target_path;
 
     my $process_err = _process_image($target_path, $conf, $upload->filename);
-    return _json_error(message => $process_err) if $process_err;
+    return MySite::ErrorHandler::json_error(message => $process_err) if $process_err;
 
     return _build_upload_response($url);
 }
