@@ -151,15 +151,11 @@ sub _process_image {
             { path => $_->{path}, type => $_->{type}, width => $_->{width}, height => $_->{height} }
         } @formats ],
     };
-    debug("[ImageUpload] Probeer JSON-bestand te schrijven: $json_path");
     eval {
         require JSON;
         open my $fh, '>', $json_path or die "open $json_path: $!";
-        my $json = JSON::encode_json($meta);
-        debug("[ImageUpload] JSON-content: $json");
-        print $fh $json;
+        print $fh JSON::encode_json($meta);
         close $fh;
-        debug("[ImageUpload] JSON-bestand succesvol geschreven: $json_path");
     };
     if ($@) {
         error("[ImageUpload] Fout bij schrijven JSON-bestand $json_path: $@");

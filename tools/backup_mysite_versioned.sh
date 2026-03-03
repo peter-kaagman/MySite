@@ -2,11 +2,12 @@
 
 
 # Directories en bestanden voor backup
+HOME="/home/pkn/MySite"
 INCLUDE=(
 	"db"
-	"public/images"
-	"config.yml"
-	"config_local.yml"
+	"$HOME/public/images"
+	"$HOME/config.yml"
+	"$HOME/config_local.yml"
 )
 
 # Genereer een bestandsnaam met datum en tijd
