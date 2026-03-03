@@ -1,5 +1,5 @@
 // api.js - Centralized API calls
-import { setSaveStatus } from './utils.js';
+import { setSaveStatus, getCsrfToken } from './utils.js';
 
 // Function to handle saving data
 export async function handleSave(article, data, field, inputID) {
@@ -10,9 +10,15 @@ export async function handleSave(article, data, field, inputID) {
     }
     setSaveStatus("Saving...", "info");
     try {
+        // SABOTAGE: CSRF-token niet meesturen
+        const token = getCsrfToken();
+        console.debug('CSRF-token (sabotage test):', token);
         const response = await fetch(`/article/update/${field}/${article}`, {
             method: "POST",
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Content-Type': 'application/json'
+                // 'X-CSRF-Token': token // tijdelijk uitgeschakeld
+            },
             body: JSON.stringify(data)
         });
         if (response.status === 200) {
@@ -123,10 +129,14 @@ async function saveKeywordChange(article_id, keyword, checked) {
         checked
     };
     try {
+        // SABOTAGE: CSRF-token niet meesturen
+        const token = getCsrfToken();
+        console.debug('CSRF-token (sabotage test):', token);
         const response = await fetch('/article/keyword', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
+                // 'X-CSRF-Token': token // tijdelijk uitgeschakeld
             },
             body: JSON.stringify(data)
         });
@@ -153,10 +163,14 @@ async function saveCategoryChange(article_id, category, checked) {
         checked
     };
     try {
+        // SABOTAGE: CSRF-token niet meesturen
+        const token = getCsrfToken();
+        console.debug('CSRF-token (sabotage test):', token);
         const response = await fetch('/article/category', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
+                // 'X-CSRF-Token': token // tijdelijk uitgeschakeld
             },
             body: JSON.stringify(data)
         });

@@ -50,7 +50,61 @@ class ToastEditor {
             height: '400px',
             initialEditType: 'markdown',
             previewStyle: 'tab',
-            initialValue: initialValue || ''
+            initialValue: initialValue || '',
+            hooks: {
+                addImageBlobHook: async (blob, callback) => {
+                    // Ophalen van restricties via JSON endpoint
+                    let config;
+                    try {
+                        const resp = await fetch('/api/upload-image-config');
+                        config = await resp.json();
+                    } catch (e) {
+                        alert('Kan uploadrestricties niet ophalen.');
+                        return;
+                    }
+                    const maxSize = config.max_size || 2 * 1024 * 1024;
+                    const allowedExtArr = config.allowed_ext || ['.jpg','.jpeg','.png','.gif','.webp'];
+                    const allowedMimeArr = config.allowed_mime || ['image/jpeg','image/png','image/gif','image/webp'];
+                    // Regex voor extensies
+                    const allowedExt = new RegExp('(' + allowedExtArr.map(e => e.replace('.', '\\.')).join('|') + ')$', 'i');
+                    // Regex voor mime
+                    const allowedMime = new RegExp('^(' + allowedMimeArr.map(m => m.replace('/', '\\/')).join('|') + ')$', 'i');
+                    const name = blob.name || 'upload.png';
+                    const ext = name.match(/\.[^.]+$/) ? name.match(/\.[^.]+$/)[0] : '';
+                    if (!allowedExt.test(ext)) {
+                        alert('Ongeldig bestandstype. Alleen ' + allowedExtArr.join(', ') + ' toegestaan.');
+                        return;
+                    }
+                    if (!allowedMime.test(blob.type)) {
+                        alert('Ongeldig mime-type. Alleen ' + allowedMimeArr.join(', ') + ' toegestaan.');
+                        return;
+                    }
+                    if (blob.size > maxSize) {
+                        alert('Bestand te groot (max ' + Math.round(maxSize/1024/1024) + 'MB).');
+                        return;
+                    }
+                    const formData = new FormData();
+                    formData.append('image', blob, name);
+                    try {
+                        const response = await fetch('/api/upload-image', {
+                            method: 'POST',
+                            body: formData,
+                            credentials: 'same-origin'
+                        });
+                        const result = await response.json();
+                        if (result.success && result.url) {
+                            callback(result.url, name);
+                            // Reset file input (indirect, want Toast UI beheert deze intern)
+                            // Focus de editor na upload
+                            setTimeout(() => { this.focus && this.focus(); }, 100);
+                        } else {
+                            alert('Upload mislukt: ' + (result.error || 'Onbekende fout'));
+                        }
+                    } catch (err) {
+                        alert('Upload error: ' + err);
+                    }
+                }
+            }
         });
         // Event: onChange
         if (typeof this.onChange === 'function') {
