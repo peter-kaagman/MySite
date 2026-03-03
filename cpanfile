@@ -1,3 +1,4 @@
+requires 'JSON';
 requires "DBIx::Class::Schema::Loader" => "0";
 # requires "OAuth2::Client" => "0";
 # requires "Dancer2::Plugin::Auth::Extensible" => "0";
