@@ -9,7 +9,7 @@ Prompt om te kopiëren:
 
 ---
 
-"Gebruik bij deze sessie de afspraken en logbestanden uit de map ProjectDoc als leidraad. Pas alle relevante regels toe en haal context uit de logbestanden voor je antwoorden en wijzigingen."
+"Gebruik bij deze sessie de afspraken en logbestanden uit de map ProjectDoc als leidraad tijdens het werk binnen een issue gebruik je het issue log. Pas alle relevante regels uit ProjectDocu/Rules toe en haal context uit de logbestanden voor je antwoorden en wijzigingen."
 
 ---
 
