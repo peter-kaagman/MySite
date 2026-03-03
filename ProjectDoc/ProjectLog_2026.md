@@ -373,4 +373,22 @@ Deze commit bevat content- en structuurwijzigingen voor artikelen, database, sty
 - De site heeft nu een strakke, overzichtelijke layout met duidelijke structuur.
 - CSS is overzichtelijker en eenvoudiger te onderhouden.
 - Bootstrap blijft voorlopig actief, maar een bootstraploze oplossing wordt onderzocht.
+## [2026-03-03] Image uploader: grote refactor en uitbreidingen
+
+- Multi-resize op basis van config (thumb, medium, large) met aspect ratio behoud
+- WebP-generatie voor alle formaten
+- Originele bestandsnaam en copyright automatisch in metadata (EXIF/IPTC/XMP) voor JPEG/PNG
+- Copyright wordt alleen toegevoegd als er nog geen copyright aanwezig is
+- Automatische aanmaak van een JSON-bestand per upload met:
+    - Originele bestandsnaam
+    - Upload-tijdstip
+    - Copyright
+    - Alle gegenereerde formaten (pad, type, afmetingen)
+- Paden in JSON zijn relatief t.o.v. public/
+- Toast UI Editor:
+    - Upload blokkeert tijdens upload (spinner/overlay)
+    - Na upload kan gebruiker kiezen welk formaat (original, thumb, medium, large) wordt ingevoegd
+    - Eenvoudige modale keuzedialoog (uitbreidbaar naar Bootstrap)
+- Robuuste validatie en foutafhandeling
+- Code opgeschoond, debug verwijderd, toekomstbestendig voor gallery/AI
 

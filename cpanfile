@@ -24,6 +24,7 @@ requires "Dancer2::Logger::Log4perl" => "0";
 requires 'Imager';
 requires 'Imager::File::JPEG';
 requires 'Imager::File::WEBP';
+requires 'Image::ExifTool';
 
 recommends "YAML"                    => "0";
 recommends "URL::Encode::XS"         => "0";

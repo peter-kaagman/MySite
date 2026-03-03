@@ -5,6 +5,16 @@ image_upload:
   max_size: 4194304   # 2MB in bytes
   allowed_ext: ['.jpg', '.jpeg', '.png', '.gif', '.webp']
   allowed_mime: ['image/jpeg', 'image/png', 'image/gif', 'image/webp']
+  sizes:
+  - name: "thumb"
+    width: 400
+    height: 400
+  - name: "medium"
+    width: 800
+    height: 800
+  - name: "large"
+    width: 1600
+    height: 1200
   resize:
     max_width: 1920
     max_height: 1200
