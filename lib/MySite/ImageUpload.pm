@@ -32,7 +32,9 @@ sub _build_upload_response {
 sub _is_valid_image_file {
     my ($path) = @_;
     my $img = Imager->new;
-    return $img->read(file => $path) ? 1 : 0;
+    my $ok = $img->read(file => $path);
+    debug("[ImageUpload] Imager read: path=$path, ok=$ok, errstr=" . $img->errstr);
+    return $ok ? 1 : 0;
 }
 
 sub _validate_upload {
@@ -45,14 +47,18 @@ sub _validate_upload {
     my $mime = $upload->type;
     my ($ext) = $filename =~ /(\.[^.]+)$/;
     unless ($ext && grep { lc($ext) eq lc($_) } @$allowed_ext) {
+        debug("[ImageUpload] Ongeldig bestandstype: $ext, toegestaan: " . join(',', @$allowed_ext));
         return (0, 'Ongeldig bestandstype. Alleen ' . join(', ', @$allowed_ext) . ' toegestaan.');
     }
     unless (grep { lc($mime) eq lc($_) } @$allowed_mime) {
+        debug("[ImageUpload] Ongeldig mime-type: $mime, toegestaan: " . join(',', @$allowed_mime));
         return (0, 'Ongeldig mime-type. Alleen ' . join(', ', @$allowed_mime) . ' toegestaan.');
     }
     if ($size > $max_size) {
+        debug("[ImageUpload] Bestand te groot: $size > $max_size");
         return (0, 'Bestand te groot (max ' . int($max_size/1024/1024) . 'MB).');
     }
+    debug("[ImageUpload] Bestandstype, mime en grootte OK");
     return (1, undef);
 }
 
@@ -330,16 +336,21 @@ sub _generate_webp_for {
 # Hoofd-uploadhandler: alleen flow, geen details
 sub _upload_image {
     my $user = session->read('user');
+    debug("[ImageUpload] User: " . (defined $user ? $user : 'none'));
     return MySite::ErrorHandler::json_error(message => 'Unauthorized', status => 401) unless $user;
 
     my $upload = request->upload('image');
+    debug("[ImageUpload] Upload ontvangen: " . (defined $upload ? $upload->filename : 'none') . ", size=" . (defined $upload ? $upload->size : 'n/a') . ", mime=" . (defined $upload ? $upload->type : 'n/a'));
     return MySite::ErrorHandler::json_error(message => 'Geen bestand ontvangen.') unless $upload;
 
     my $conf = config->{image_upload} || {};
+    debug("[ImageUpload] Config: " . Dancer2::Core::DSL::to_json($conf));
     my ($target_path, $url, $err) = _validate_and_save_upload($upload, $conf);
+    debug("[ImageUpload] _validate_and_save_upload: target_path=$target_path, url=$url, err=" . (defined $err ? $err : 'none'));
     return MySite::ErrorHandler::json_error(message => $err) unless $target_path;
 
     my $process_err = _process_image($target_path, $conf, $upload->filename);
+    debug("[ImageUpload] _process_image: err=" . (defined $process_err ? $process_err : 'none'));
     return MySite::ErrorHandler::json_error(message => $process_err) if $process_err;
 
     return _build_upload_response($url);
