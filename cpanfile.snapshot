@@ -821,6 +821,32 @@ DISTRIBUTIONS
       perl 5.008001
       strict 0
       warnings 0
+  Dancer2-Plugin-CSRF-1.01
+    pathname: J/JU/JUMPERCC/Dancer2-Plugin-CSRF-1.01.tar.gz
+    provides:
+      Dancer2::Plugin::CSRF 1.01
+    requirements:
+      Crypt::SaltedHash 0
+      Dancer2 0.200001
+      Data::UUID 0
+      ExtUtils::MakeMaker 0
+      Test::More 0
+      perl 5.010
+  Dancer2-Plugin-CSRFI-1.03
+    pathname: A/AL/ALEXPAN/Dancer2-Plugin-CSRFI-1.03.tar.gz
+    provides:
+      Dancer2::Plugin::CSRFI 1.03
+    requirements:
+      Crypt::SaltedHash 0
+      Dancer2::Core::Hook 0
+      Dancer2::Plugin 0
+      Data::UUID 0
+      ExtUtils::MakeMaker 0
+      List::Util 0
+      URI::Split 0
+      perl 5.024000
+      strict 0
+      warnings 0
   Dancer2-Plugin-DBIC-0.0100
     pathname: I/IR/IRONCAMEL/Dancer2-Plugin-DBIC-0.0100.tar.gz
     provides:
@@ -896,6 +922,13 @@ DISTRIBUTIONS
       perl 5.012
       strict 0
       warnings 0
+  Data-UUID-1.227
+    pathname: G/GT/GTERMARS/Data-UUID-1.227.tar.gz
+    provides:
+      Data::UUID 1.227
+    requirements:
+      Digest::MD5 0
+      ExtUtils::MakeMaker 0
   DateTime-1.66
     pathname: D/DR/DROLSKY/DateTime-1.66.tar.gz
     provides:
@@ -1798,6 +1831,67 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 0
       Net::SSLeay 1.46
       Scalar::Util 0
+  Imager-1.029
+    pathname: T/TO/TONYC/Imager-1.029.tar.gz
+    provides:
+      Imager 1.029
+      Imager::Color 1.015
+      Imager::Color::Float 1.008
+      Imager::Color::Table 1.004
+      Imager::CountColor 0.03
+      Imager::Expr 1.008
+      Imager::Expr::Assem 1.004
+      Imager::Expr::Infix 1.008
+      Imager::Expr::Postfix 1.008
+      Imager::ExtUtils 1.003
+      Imager::FORMATS 1.029
+      Imager::File::CUR 1.000
+      Imager::File::ICO 0.08
+      Imager::File::SGI 0.05
+      Imager::Fill 1.013
+      Imager::Filter::DynTest 0.03
+      Imager::Filter::Flines 0.04
+      Imager::Filter::Mandelbrot 0.05
+      Imager::Font 1.039
+      Imager::Font::BBox 1.007
+      Imager::Font::FreeType2 1.021
+      Imager::Font::Image 1.000
+      Imager::Font::Test 1.002
+      Imager::Font::Truetype 1.013
+      Imager::Font::Type1 1.013
+      Imager::Font::Wrap 1.005
+      Imager::Fountain 1.009
+      Imager::IO 1.029
+      Imager::Matrix2d 1.013
+      Imager::Preprocess 1.003
+      Imager::Probe 1.011
+      Imager::Regops 1.000
+      Imager::Test 1.007
+      Imager::Test::OverUtf8 1.007
+      Imager::Transform 1.007
+      Imager::TrimColorList 1.000
+    requirements:
+      Exporter 5.57
+      ExtUtils::MakeMaker 0
+      Scalar::Util 1.00
+      Test::More 0.99
+      XSLoader 0
+  Imager-File-JPEG-1.002
+    pathname: T/TO/TONYC/Imager-File-JPEG-1.002.tar.gz
+    provides:
+      Imager::File::JPEG 1.002
+    requirements:
+      ExtUtils::MakeMaker 0
+      Imager 1.008
+      XSLoader 0
+  Imager-File-WEBP-0.005
+    pathname: T/TO/TONYC/Imager-File-WEBP-0.005.tar.gz
+    provides:
+      Imager::File::WEBP 0.005
+    requirements:
+      ExtUtils::MakeMaker 0
+      Imager 0.94
+      XSLoader 0
   Import-Into-1.002005
     pathname: H/HA/HAARG/Import-Into-1.002005.tar.gz
     provides:

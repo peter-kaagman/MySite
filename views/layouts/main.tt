@@ -7,6 +7,7 @@
     content="width=device-width, initial-scale=1.0, user-scalable=yes"
   >
   <title><% title %></title>
+  <!-- CSRF token for JS -->
   <% IF meta_description %>
     <meta name="description" content="<% meta_description %>">
   <% END %>
