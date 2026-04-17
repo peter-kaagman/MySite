@@ -1,9 +1,11 @@
 *sqlite
-db/mysite.sqlite
+db/*
+!db/.README
 *local.yml
 sessions/*
 node_modules/
 local/
-logs/mysite.log
+logs/*
+!logs/.README
 public/images/site/*
 .vscode/*
