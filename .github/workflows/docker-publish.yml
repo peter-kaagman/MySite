@@ -11,6 +11,8 @@ jobs:
     permissions:
       contents: read
       packages: write
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       - name: Checkout repository
@@ -27,11 +29,10 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+
       - name: Extract version from tag
         id: extract_version
         run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
