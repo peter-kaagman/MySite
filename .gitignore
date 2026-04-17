@@ -2,6 +2,7 @@
 *sqlite
 db/*
 !db/.README
+!db/*sql
 *local.yml*
 sessions/*
 node_modules/
