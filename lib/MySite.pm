@@ -18,11 +18,11 @@ our $VERSION = '0.1';
 use Log::Log4perl;
 # Manually initialize Log::Log4perl from config if not already done
 BEGIN {
-    Dotenv->load;
-    my $log_conf = eval { config->{log4perl}->{config} };
-    if ($log_conf) {
-        Log::Log4perl->init(\$log_conf);
-    }
+  Dotenv->load if -f '.env';
+  my $log_conf = eval { config->{log4perl}->{config} };
+  if ($log_conf) {
+    Log::Log4perl->init(\$log_conf);
+  }
 }
 my $config = config;
 debug "Logger config: " . ($config->{logger} // 'undef');
