@@ -1,11 +1,13 @@
+.env
 *sqlite
 db/*
 !db/.README
-*local.yml
+*local.yml*
 sessions/*
 node_modules/
 local/
 logs/*
 !logs/.README
-public/images/site/*
+public/images/*
+!public/images/.README
 .vscode/*

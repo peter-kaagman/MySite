@@ -96,3 +96,19 @@ plugins:
       schema_class: MySite::Schema
       options:
         sqlite_unicode: 1
+
+oauth_providers:
+  google:
+    # client_id: <%= $ENV{GOOGLE_CLIENT_ID} // '' %>
+    # client_secret: <%= $ENV{GOOGLE_CLIENT_SECRET} // '' %>
+    authorize_url: 'https://accounts.google.com/o/oauth2/auth'
+    token_url: 'https://oauth2.googleapis.com/token'
+    userinfo_url: 'https://openidconnect.googleapis.com/v1/userinfo'
+    scope: 'openid email profile'
+  github:
+    # client_id: <%= $ENV{GITHUB_CLIENT_ID} // '' %>
+    # client_secret: <%= $ENV{GITHUB_CLIENT_SECRET} // '' %>
+    authorize_url: 'https://github.com/login/oauth/authorize'
+    token_url: 'https://github.com/login/oauth/access_token'
+    userinfo_url: 'https://api.github.com/user'
+    scope: 'user:email'

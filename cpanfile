@@ -26,6 +26,8 @@ requires 'Imager::File::JPEG';
 requires 'Imager::File::WEBP';
 requires 'Image::ExifTool';
 
+requires 'Dotenv';
+
 recommends "YAML"                    => "0";
 recommends "URL::Encode::XS"         => "0";
 recommends "CGI::Deurl::XS"          => "0";

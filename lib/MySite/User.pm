@@ -215,8 +215,12 @@ sub _auth_provider {
     # Genereer een CSRF state token
     my $state = sha256_hex(rand() . $$ . time());
     session->write('oauth_state', $state);
+    # Haal client_id uit ENV indien nodig
+    my $client_id = $conf->{client_id};
+    $client_id = $ENV{GOOGLE_CLIENT_ID} if $provider eq 'google';
+    $client_id = $ENV{GITHUB_CLIENT_ID} if $provider eq 'github';
     my $params = {
-      client_id     => $conf->{client_id},
+      client_id     => $client_id,
       redirect_uri  => $redirect_uri,
       response_type => 'code',
       scope         => $conf->{scope},
@@ -228,7 +232,7 @@ sub _auth_provider {
     my $url = "$base?$query";
     debug "Redirecting to OAuth provider: $url";
     return redirect $url;
-};
+}
 
 sub _auth_callback {
     my $provider = route_parameters->get('provider');
@@ -257,12 +261,19 @@ sub _auth_callback {
     my $redirect_uri = $conf->{redirect_uri} || uri_for("/auth/callback/$provider");
     my $ua = LWP::UserAgent->new;
     my $token_url = $conf->{token_url};
+    # Haal client_id en client_secret uit ENV indien nodig
+    my $client_id = $conf->{client_id};
+    my $client_secret = $conf->{client_secret};
+    $client_id = $ENV{GOOGLE_CLIENT_ID} if $provider eq 'google';
+    $client_secret = $ENV{GOOGLE_CLIENT_SECRET} if $provider eq 'google';
+    $client_id = $ENV{GITHUB_CLIENT_ID} if $provider eq 'github';
+    $client_secret = $ENV{GITHUB_CLIENT_SECRET} if $provider eq 'github';
     my $res = $ua->post($token_url, {
-        code          => $code,
-        client_id     => $conf->{client_id},
-        client_secret => $conf->{client_secret},
-        redirect_uri  => $redirect_uri,
-        grant_type    => 'authorization_code',
+      code          => $code,
+      client_id     => $client_id,
+      client_secret => $client_secret,
+      redirect_uri  => $redirect_uri,
+      grant_type    => 'authorization_code',
     });
     return template_error(
         title => 'OAuth Error',
