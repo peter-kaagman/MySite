@@ -38,5 +38,5 @@ jobs:
           file: Dockerfile_MySite
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/MySite:${{ steps.extract_version.outputs.VERSION }}
-            ghcr.io/${{ github.repository_owner }}/MySite:latest
+            ghcr.io/${{ github.repository_owner }}/mysite:${{ steps.extract_version.outputs.VERSION }}
+            ghcr.io/${{ github.repository_owner }}/mysite:latest
