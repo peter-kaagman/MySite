@@ -430,12 +430,12 @@ sub _post_article_new {
     return to_json({ success => 0, error => 'Categorie is verplicht' });
   }
 
-  # Validate category exists (accept ID or title)
+  # Vind of maak category (accepteer ID of title)
   my $category;
   if (defined $category_input && $category_input =~ /^\d+$/) {
     $category = schema->resultset('Category')->find($category_input);
   } else {
-    $category = schema->resultset('Category')->find({ title => $category_input });
+    $category = schema->resultset('Category')->find_or_create({ title => $category_input });
   }
   unless ($category) {
     status 400;
