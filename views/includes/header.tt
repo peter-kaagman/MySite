@@ -1,4 +1,4 @@
 <div class="header d-flex align-items-center py-3">
-	<img src="/images/site_logo_256.png" alt="Site Logo" style="height:64px;">
+	<!-- <img src="/images/site_logo_256.png" alt="Site Logo" style="height:64px;"> -->
 	<span class="ms-3 h3 text-light">MySite</span>
 </div>
