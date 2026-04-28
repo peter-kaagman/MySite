@@ -1,0 +1,14 @@
+<% IF articles.size %>
+  <h1>Artikelen in categorie: <% category.title %></h1>
+  <ul>
+    <% FOREACH article IN articles %>
+      <li>
+        <a href="<% article.canonicalURL %>">
+          <% article.title %>
+        </a>
+      </li>
+    <% END %>
+  </ul>
+<% ELSE %>
+  <h1>Geen artikelen gevonden in deze categorie.</h1>
+<% END %>

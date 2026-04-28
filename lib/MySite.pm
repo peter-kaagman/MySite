@@ -12,6 +12,8 @@ use MySite::Article;
 use MySite::Page;
 use MySite::ImageUpload;
 use Dotenv;
+use MySite::Category;
+use MySite::Keyword;
 
 our $VERSION = '0.1';
 
