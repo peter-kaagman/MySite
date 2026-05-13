@@ -30,6 +30,23 @@ sub render_markdown {
   my $html = <$out>;
   close $out;
   waitpid($pid, 0);
+
+  # Post-process: Zet mermaid codeblokken om naar <pre class="mermaid">...</pre> en decodeer HTML-entiteiten
+  if (defined $html) {
+    use HTML::Entities ();
+    # Vang zowel <pre><code class="language-mermaid">...</code></pre> als <pre class="mermaid"><code>...</code></pre>
+    $html =~ s{<pre><code class="language-mermaid">(.*?)</code></pre>}{
+      my $code = $1;
+      $code = HTML::Entities::decode_entities($code);
+      qq{<pre class="mermaid">$code</pre>};
+    }gse;
+    $html =~ s{<pre class="mermaid"><code>(.*?)</code></pre>}{
+      my $code = $1;
+      $code = HTML::Entities::decode_entities($code);
+      qq{<pre class="mermaid">$code</pre>};
+    }gse;
+  }
+  debug "Markdown rendered to HTML: ", substr($html // '', 0, 500), '...';
   return $html // '';
 }
 
