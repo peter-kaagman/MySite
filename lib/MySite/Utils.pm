@@ -46,7 +46,7 @@ sub render_markdown {
       qq{<pre class="mermaid">$code</pre>};
     }gse;
   }
-  debug "Markdown rendered to HTML: ", substr($html // '', 0, 500), '...';
+  # debug "Markdown rendered to HTML: ", substr($html // '', 0, 500), '...';
   return $html // '';
 }
 
