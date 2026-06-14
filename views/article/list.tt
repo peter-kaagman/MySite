@@ -13,13 +13,7 @@
                     </a>
                 </div>
                 <div class='row'> <!-- Author and created date -->
-                    <h2 class='article_author'>
-                        <a class='anchor_author' href='<% article.authorid.url %>'>
-                            <% article.authorid.name %>
-                        </a>
-                        @
-                        <% article.created %>
-                    </h2>
+                    <h2 class='article_author'><% article.authorid.name %>@<% article.created %></h2>
                 </div>
                 <div class='row'> <!-- Category -->
                     <h2 class='article_category'>
