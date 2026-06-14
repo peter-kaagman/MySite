@@ -9,6 +9,41 @@ use FindBin;
 use MySite::Utils qw(render_markdown);
 use MySite::ErrorHandler qw(db_guard template_error);
 
+sub _normalize_ts {
+  my ($value) = @_;
+  return '' unless defined $value;
+
+  if (ref $value) {
+    return $value->strftime('%Y-%m-%d %H:%M:%S') if $value->can('strftime');
+    if ($value->can('ymd')) {
+      my $date = $value->ymd;
+      my $time = $value->can('hms') ? $value->hms : '00:00:00';
+      return "$date $time";
+    }
+  }
+
+  my $str = "$value";
+  if ($str =~ /^(\d{4}-\d{2}-\d{2})(?:[ T](\d{2}:\d{2}:\d{2}))?/) {
+    return $1 . ' ' . ($2 // '00:00:00');
+  }
+
+  return $str;
+}
+
+sub _article_sort_ts {
+  my ($article) = @_;
+  my $latest_content = $article->article_contents->search(
+    {},
+    { order_by => { '-desc' => ['created'] }, rows => 1 }
+  )->first;
+
+  my $value = $latest_content
+    ? $latest_content->created
+    : ($article->published // $article->created);
+
+  return _normalize_ts($value);
+}
+
 
 sub _index {
     my ($db_ok, $articles) = db_guard(
@@ -16,8 +51,7 @@ sub _index {
       user => session->read('user'),
       code => sub {
         return schema->resultset('Article')->search(
-          { deleted_at => undef },
-          { order_by => {'-desc' => ['created']} }
+          { deleted_at => undef }
         );
       }
     );
@@ -31,13 +65,17 @@ sub _index {
     }
     
     # debug "Found " . ($articles ? $articles->count : 0) . " articles";
+    my @articles_sorted = sort {
+      _article_sort_ts($b) cmp _article_sort_ts($a)
+        || _normalize_ts($b->created) cmp _normalize_ts($a->created)
+    } $articles->all;
     
     template 'article/list' => {
         'title' => 'MySite',
         'canonical_url' => (config->{'base_url'} || request->base),
         'meta_description' => 'Welkom op MySite, een persoonlijke website met technische artikelen.',
         'user' => session->read('user'),
-        'articles' => $articles,
+        'articles' => \@articles_sorted,
         'render_markdown' => \&MySite::Utils::render_markdown,
     };
 }
@@ -48,9 +86,8 @@ sub _sitemap {
   my $schema = schema;
   my $base_url = config->{base_url} // request->base;
   $base_url .= '/' unless $base_url =~ m{/$};
-  my @urls = (
-    { loc => $base_url, lastmod => undef },
-  );
+  my @urls;
+  my $home_lastmod;
   # Voeg alle artikelen toe
   my $articles = $schema->resultset('Article')->search({ deleted_at => undef }, { order_by => { '-desc' => ['created'] } });
   while (my $article = $articles->next) {
@@ -64,6 +101,8 @@ sub _sitemap {
         $lastmod = $1;
       }
     }
+    # Artikelresultset is sorted newest-first; first entry is homepage lastmod.
+    $home_lastmod //= $lastmod;
     push @urls, {
       loc => $article->canonicalURL($base_url),
       lastmod => $lastmod,
@@ -71,8 +110,13 @@ sub _sitemap {
     };
   }
 
+  unshift @urls, { loc => $base_url, lastmod => $home_lastmod };
+
   # Voeg alle pages toe
-  my $pages = $schema->resultset('Page')->search({}, { order_by => { '-desc' => ['created'] } });
+  my $pages = $schema->resultset('Page')->search(
+    { slug => { '!=' => 'login' } },
+    { order_by => { '-desc' => ['created'] } }
+  );
   while (my $page = $pages->next) {
     # Zoek de hoogste versie van PageContent voor deze page
     my $content = $page->page_contents->search({}, { order_by => { '-desc' => ['version'] }, rows => 1 })->first;
@@ -105,6 +149,8 @@ sub _sitemap {
 };
 
 get '/' => \&_index;
+
+
 get '/sitemap.xml' => \&_sitemap;
 
 42;

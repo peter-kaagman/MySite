@@ -668,6 +668,10 @@ sub _get_categories {
   return to_json({ values => \@category_objects });
 }
 
+# geen auth check nodig
+sub _article_list {
+  return redirect '/', 301;
+}
 
 # Route definitions
 prefix '/article' => sub {
@@ -681,6 +685,7 @@ prefix '/article' => sub {
   post '/update/:field/:id'  => \&_field_update;
   post '/keyword'            => \&_handle_keyword;
   post '/category'           => \&_handle_category;
+  get  '/list'               => \&_article_list;
 };
-
 42;
+

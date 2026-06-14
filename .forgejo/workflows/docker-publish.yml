@@ -1,0 +1,41 @@
+name: Build and Publish Docker image (Codeberg)
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+
+jobs:
+  build-and-push:
+    runs-on: docker
+    env:
+      REGISTRY: codeberg.org
+      IMAGE_NAME: mysite
+
+    steps:
+      - name: Checkout repository
+        uses: https://data.forgejo.org/actions/checkout@v4
+
+      - name: Extract version from tag
+        id: extract_version
+        run: echo "VERSION=${FORGEJO_REF#refs/tags/}" >> "$FORGEJO_OUTPUT"
+
+      - name: Log in to container registry
+        run: |
+          echo "${{ secrets.REGISTRY_PASSWORD }}" | docker login "${{ env.REGISTRY }}" \
+            --username "${{ secrets.REGISTRY_USERNAME }}" \
+            --password-stdin
+
+      - name: Build Docker image
+        run: |
+          docker build \
+            --file Dockerfile_MySite \
+            --tag "${{ env.REGISTRY }}/${{ forgejo.repository_owner }}/${{ env.IMAGE_NAME }}:${{ steps.extract_version.outputs.VERSION }}" \
+            --tag "${{ env.REGISTRY }}/${{ forgejo.repository_owner }}/${{ env.IMAGE_NAME }}:latest" \
+            .
+
+      - name: Push Docker image
+        run: |
+          docker push "${{ env.REGISTRY }}/${{ forgejo.repository_owner }}/${{ env.IMAGE_NAME }}:${{ steps.extract_version.outputs.VERSION }}"
+          docker push "${{ env.REGISTRY }}/${{ forgejo.repository_owner }}/${{ env.IMAGE_NAME }}:latest"

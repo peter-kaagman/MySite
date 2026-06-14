@@ -1,4 +1,4 @@
-<% FOR article IN articles.all %>
+<% FOR article IN articles %>
     <div id='article_listitem'>
         <div class='row'> <!-- Logo and meta information -->
             <div id='article_listitem_logo' class='col-sm-3'> <!-- Category logo -->
