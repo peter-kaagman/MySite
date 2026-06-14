@@ -7,22 +7,42 @@
 <% END %>
 <div class='row' id='article_header'>
     <div class='row'>
-        <!-- <a class='anchor_title' href='./article/<% article.slug %>'>-->
-            <h1 class='article_title'><% article.title %></h1>
-        <!--</a>-->
+        <h2 class='article_author'><% author.name %>@<% article.created %></h2>
     </div>
-    <div class='row'>
-        <h2 class='article_author'>
-<!--            <% author = article.search_related('authorid', {}) %> -->
-            <a class='anchor_author' href='./author/<% author.url %>'>
-                <% author.name %>
-            </a>
-            @<% article.created %>
+    <div class='row'> <!-- Category -->
+        <h2 class='article_category'>
+            <ul class='horizontal_list'>
+                <li class='horizontal_listitem'>Category:</li>
+                <li class='horizontal_listitem'>
+                    <a class='anchor_category' href='<% article.categoryid.url %>'>
+                        <% article.categoryid.title %>
+                    </a>
+                </li>
+            <ul>
+        </h2>
+    </div>
+    <div class='row'> <!-- Keywords -->
+        <h2 class='article_keywords'>
+            <ul class='horizontal_list'>
+                <li class='horizontal_listitem'>Keywords:</li>
+                <% FOR keyword IN article.keywords %>
+                    
+                    <a href='<% keyword.url %>'>
+                        <li class='horizontal_listitem'><% keyword.title %></li>
+                    </a>
+                <% END %>        
+            </ul>
         </h2>
     </div>
 </div>
-<div class='row' id='article_content'>
-    <div class='col-sm-12'><% render_markdown(article_content) %></div>
+
+<div class="row article" >
+    <div class='row'>
+        <h1 class='article_title'><% article.title %></h1>
+    </div>
+    <div class='row' id='article_content'>
+        <div class='col-sm-12'><% render_markdown(article_content) %></div>
+    </div>
 </div>
 
 <% IF user.role == 'Admin' || user.role == 'Editor' || user.username == author.username %>

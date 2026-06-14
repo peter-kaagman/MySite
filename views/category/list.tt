@@ -5,7 +5,8 @@
       <li>
         <a href="<% article.canonicalURL %>">
           <% article.title %>
-        </a>
+        </a>@<% article.created %><br>
+        <p><% article.abstract %></p>
       </li>
     <% END %>
   </ul>
