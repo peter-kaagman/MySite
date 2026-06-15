@@ -70,9 +70,11 @@ sub _index {
       _normalize_ts($b->created) cmp _normalize_ts($a->created)
     } $articles->all;
 
+    debug "Fetched ", scalar(@articles_sorted), " articles for homepage";
+
     my $index = 1;
     my @json_ld_list;
-    while (my $article = shift @articles_sorted) {
+    foreach my $article (@articles_sorted) {
       push @json_ld_list, {
         '@type' => "ListItem",
         'position' => $index++,
