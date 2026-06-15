@@ -64,10 +64,9 @@ sub _index {
       );
     }
     
-    # debug "Found " . ($articles ? $articles->count : 0) . " articles";
+    # Sorteer uitsluitend op article.created (nieuwste eerst).
     my @articles_sorted = sort {
-      _article_sort_ts($b) cmp _article_sort_ts($a)
-        || _normalize_ts($b->created) cmp _normalize_ts($a->created)
+      _normalize_ts($b->created) cmp _normalize_ts($a->created)
     } $articles->all;
     
     template 'article/list' => {
