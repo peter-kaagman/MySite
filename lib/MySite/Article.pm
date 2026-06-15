@@ -15,6 +15,8 @@ use MySite::ErrorHandler qw(db_guard json_error template_error user_context);
 
 # Route handlers
 
+
+
 # Redirect voor een _get_article waarbij de category ook opgegeven is
 sub _get_article_redirect {
   return redirect "/article/".route_parameters->get('slug'), 301;
@@ -66,18 +68,62 @@ sub _get_article {
   );
   
   # Handle skeleton articles with no content yet
+  my $content_row = $content->first;
   my $content_text = '';
-  if (my $content_row = $content->first) {
+  if ($content_row) {
     $content_text = $content_row->content;
   }
+
+  my $to_iso8601 = sub {
+    my ($dt) = @_;
+    return undef unless defined $dt;
+
+    if (ref($dt) && $dt->can('iso8601')) {
+      return $dt->iso8601;
+    }
+
+    my $string_value = "$dt";
+    $string_value =~ s/ /T/;
+    return $string_value;
+  };
   
   # The base for in production should be loaded from config, but for development we can assume it's the same as the request base
   my $base_url = config->{'base_url'} || request->base;
   debug "Base URL for article: ", $base_url;
 
+  # JSON-LD structured data for SEO
+  my $json_ld = encode_json ({
+    '@context' => 'https://schema.org',
+    '@type' => 'Article',
+    'headline' => $article->title,
+    'author' => {
+      '@type' => 'Person',
+      'name' => "Peter Kaagman",
+      # 'name' => $author->first->name,
+    },
+    'publisher' => {
+      '@type' => 'Organization',
+      'name' => 'MySite',
+      'logo' => {
+        '@type' => 'ImageObject',
+        'url' => $base_url . 'images/site_logo_128.png',
+      },
+    },
+    'datePublished' => $to_iso8601->($article->created),
+    'dateModified' => $to_iso8601->($content_row ? $content_row->created : $article->created),
+    'url' => $article->canonicalURL($base_url),
+    'mainEntityOfPage' => {
+      '@type' => 'WebPage',
+      '@id' => $article->canonicalURL($base_url),
+    },
+    'description' => $article->meta_description || '',
+    'inLanguage' => 'nl',
+  });
+
   template 'article/article' => {
     'title' => $article->meta_title || $article->title,
     'meta_description' => $article->meta_description || '',
+    'json_ld' => $json_ld,
     # 'canonical_url' => $base_url . 'article/' . $article->categoryid->title . '/' . $article->slug,
     'canonical_url' => $article->canonicalURL($base_url),
     'user' => session->read('user'),

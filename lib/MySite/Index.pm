@@ -30,19 +30,20 @@ sub _normalize_ts {
   return $str;
 }
 
-sub _article_sort_ts {
-  my ($article) = @_;
-  my $latest_content = $article->article_contents->search(
-    {},
-    { order_by => { '-desc' => ['created'] }, rows => 1 }
-  )->first;
+# # Wordt dit uberhaupt gebruikt? Zo ja, dan zou het eigenlijk moeten sorteren op de laatste content update, niet op article.created.
+# sub _article_sort_ts {
+#   my ($article) = @_;
+#   my $latest_content = $article->article_contents->search(
+#     {},
+#     { order_by => { '-desc' => ['created'] }, rows => 1 }
+#   )->first;
 
-  my $value = $latest_content
-    ? $latest_content->created
-    : ($article->published // $article->created);
+#   my $value = $latest_content
+#     ? $latest_content->created
+#     : ($article->published // $article->created);
 
-  return _normalize_ts($value);
-}
+#   return _normalize_ts($value);
+# }
 
 
 sub _index {
@@ -63,15 +64,40 @@ sub _index {
         status => 500
       );
     }
-    
+
     # Sorteer uitsluitend op article.created (nieuwste eerst).
     my @articles_sorted = sort {
       _normalize_ts($b->created) cmp _normalize_ts($a->created)
     } $articles->all;
-    
+
+    my $index = 1;
+    my @json_ld_list;
+    while (my $article = shift @articles_sorted) {
+      push @json_ld_list, {
+        '@type' => "ListItem",
+        'position' => $index++,
+        'url' => $article->canonicalURL(config->{base_url} // request->base),
+        'name' => $article->title,
+      };
+    }
+    my $json_ld = encode_json ({
+      '@context' => "https://schema.org",
+      '@type' => "WebPage",
+      'name' => "MySite - Artikelen",
+      'url' => "https://mysite.prjv.nl/",
+      'description' => "Overzicht van artikelen",
+      'inLanguage' => "nl",
+      'mainEntity' => {
+        '@type' => "ItemList",
+        'itemListElement' => \@json_ld_list,
+      }
+
+    });
+
     template 'article/list' => {
         'title' => 'MySite',
         'canonical_url' => (config->{'base_url'} || request->base),
+        'json_ld' => $json_ld,
         'meta_description' => 'Welkom op MySite, een persoonlijke website met technische artikelen.',
         'user' => session->read('user'),
         'articles' => \@articles_sorted,

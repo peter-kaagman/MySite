@@ -15,6 +15,12 @@
   <% IF canonical_url %>
     <link rel="canonical" href="<% canonical_url %>">
   <% END %>
+
+  <% IF json_ld %>
+    <script type="application/ld+json">
+      <% json_ld %>
+    </script>
+  <% END %>
   
   <link href="/css/vendor/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
