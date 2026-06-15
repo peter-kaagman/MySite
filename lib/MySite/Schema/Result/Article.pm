@@ -92,8 +92,8 @@ sub url {
   my ($self) = shift;
   return(
     "/article/" .
-    $self->categoryid->slug .
-    "/" .
+    # $self->categoryid->slug .
+    # "/" .
     $self->slug 
   );
 }

@@ -15,8 +15,13 @@ use MySite::ErrorHandler qw(db_guard json_error template_error user_context);
 
 # Route handlers
 
+# Redirect voor een _get_article waarbij de category ook opgegeven is
+sub _get_article_redirect {
+  return redirect "/article/".route_parameters->get('slug'), 301;
+}
+
 # geen auth check nodig
-sub _article {
+sub _get_article {
   # View article (public)
   my ($article_ok, $article) = db_guard(
     action => 'find article by slug',
@@ -68,6 +73,7 @@ sub _article {
   
   # The base for in production should be loaded from config, but for development we can assume it's the same as the request base
   my $base_url = config->{'base_url'} || request->base;
+  debug "Base URL for article: ", $base_url;
 
   template 'article/article' => {
     'title' => $article->meta_title || $article->title,
@@ -680,12 +686,13 @@ prefix '/article' => sub {
   get  '/categories'         => \&_get_categories;
   get  '/new'                => \&_get_article_new;
   get  '/edit/:id'           => \&_get_article_edit;
-  get  '/:category/:slug'    => \&_article;
+  get  '/:category/:slug'    => \&_get_article_redirect; # oude route => redirect
+  get  '/:slug'              => \&_get_article;
+  get  '/list'               => \&_article_list;
   post '/add'                => \&_post_article_new;
   post '/update/:field/:id'  => \&_field_update;
   post '/keyword'            => \&_handle_keyword;
   post '/category'           => \&_handle_category;
-  get  '/list'               => \&_article_list;
 };
 42;
 
