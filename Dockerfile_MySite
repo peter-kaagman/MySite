@@ -11,6 +11,8 @@ RUN apt-get update && apt-get install -y \
     pandoc \
     libjpeg-dev \
     libwebp-dev \
+    libpng-dev \
+    libgif-dev \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -32,6 +34,8 @@ RUN apt-get update && apt-get install -y \
     libwebp7 \
     pandoc \
     libjpeg-dev \
+    libpng16-16 \
+    libgif7 \
     && rm -rf /var/lib/apt/lists/*
 
 # Create non-root user

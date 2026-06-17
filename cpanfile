@@ -22,7 +22,9 @@ requires "Plack::Handler::Starman" => "0";
 requires "Dancer2::Logger::Log4perl" => "0";
 
 requires 'Imager';
+requires 'Imager::File::GIF';
 requires 'Imager::File::JPEG';
+requires 'Imager::File::PNG';
 requires 'Imager::File::WEBP';
 requires 'Image::ExifTool';
 

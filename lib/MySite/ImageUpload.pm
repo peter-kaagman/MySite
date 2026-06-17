@@ -9,6 +9,7 @@ use File::Path qw(make_path);
 use POSIX qw(strftime);
 use Imager;
 use Image::ExifTool qw(:Public);
+use MySite::ErrorHandler qw(json_error);
 
 #
 # Helper functies
@@ -31,7 +32,11 @@ sub _build_upload_response {
 sub _is_valid_image_file {
     my ($path) = @_;
     my $img = Imager->new;
-    return $img->read(file => $path) ? 1 : 0;
+    my $ok = $img->read(file => $path);
+    unless ($ok) {
+        error("[ImageUpload] _is_valid_image_file: Imager kon bestand niet lezen: " . $img->errstr . " (path=$path)");
+    }
+    return $ok ? 1 : 0;
 }
 
 sub _validate_upload {
@@ -273,9 +278,23 @@ sub _validate_and_save_upload {
     my $month = strftime('%m', localtime);
     my $base_dir = config->{public_dir} // 'public';
     my $target_dir = "$base_dir/images/site/$year/$month";
-    make_path($target_dir) unless -d $target_dir;
+    debug("[ImageUpload] Opslagpad: $target_dir/$safe_filename");
+    unless (-d $target_dir) {
+        eval { make_path($target_dir) };
+        if ($@ || !-d $target_dir) {
+            my $mp_err = $@ || 'map bestaat niet na make_path';
+            error("[ImageUpload] make_path mislukt voor $target_dir: $mp_err");
+            return (undef, undef, "Kan uploadmap niet aanmaken: $mp_err");
+        }
+    }
     my $target_path = "$target_dir/$safe_filename";
-    $upload->copy_to($target_path);
+    my $copy_ok = eval { $upload->copy_to($target_path) };
+    if ($@ || !$copy_ok) {
+        my $copy_err = $@ || 'copy_to retourneerde false';
+        error("[ImageUpload] copy_to mislukt: $copy_err (target=$target_path)");
+        return (undef, undef, "Opslaan mislukt: $copy_err");
+    }
+    debug("[ImageUpload] Bestand opgeslagen: $target_path (" . (-s $target_path // 0) . " bytes)");
 
     unless (_is_valid_image_file($target_path)) {
         unlink $target_path;
@@ -332,14 +351,15 @@ sub _upload_image {
     return MySite::ErrorHandler::json_error(message => 'Unauthorized', status => 401) unless $user;
 
     my $upload = request->upload('image');
-    return _json_error(message => 'Geen bestand ontvangen.') unless $upload;
+    return json_error(message => 'Geen bestand ontvangen.', status => 400) unless $upload;
 
     my $conf = config->{image_upload} || {};
     my ($target_path, $url, $err) = _validate_and_save_upload($upload, $conf);
-    return _json_error(message => $err) unless $target_path;
+    debug("[ImageUpload] Upload validatie en opslag: target_path=$target_path, url=$url, err=$err");
+    return json_error(message => $err, status => 400) unless $target_path;
 
     my $process_err = _process_image($target_path, $conf, $upload->filename);
-    return _json_error(message => $process_err) if $process_err;
+    return json_error(message => $process_err, status => 500) if $process_err;
 
     return _build_upload_response($url);
 }

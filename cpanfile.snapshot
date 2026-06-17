@@ -1467,6 +1467,14 @@ DISTRIBUTIONS
       Scalar::Util 1.00
       Test::More 0.99
       XSLoader 0
+  Imager-File-GIF-1.003
+    pathname: T/TO/TONYC/Imager-File-GIF-1.003.tar.gz
+    provides:
+      Imager::File::GIF 1.003
+    requirements:
+      ExtUtils::MakeMaker 0
+      Imager 0.94
+      XSLoader 0
   Imager-File-JPEG-1.002
     pathname: T/TO/TONYC/Imager-File-JPEG-1.002.tar.gz
     provides:
@@ -1474,6 +1482,14 @@ DISTRIBUTIONS
     requirements:
       ExtUtils::MakeMaker 0
       Imager 1.008
+      XSLoader 0
+  Imager-File-PNG-1.002
+    pathname: T/TO/TONYC/Imager-File-PNG-1.002.tar.gz
+    provides:
+      Imager::File::PNG 1.002
+    requirements:
+      ExtUtils::MakeMaker 0
+      Imager 0.90
       XSLoader 0
   Imager-File-WEBP-0.005
     pathname: T/TO/TONYC/Imager-File-WEBP-0.005.tar.gz
@@ -1493,6 +1509,15 @@ DISTRIBUTIONS
       perl 5.006
       strict 0
       warnings 0
+  JSON-4.11
+    pathname: I/IS/ISHIGAKI/JSON-4.11.tar.gz
+    provides:
+      JSON 4.11
+      JSON::Backend::PP 4.11
+    requirements:
+      ExtUtils::MakeMaker 0
+      Scalar::Util 1.08
+      Test::More 0.88
   JSON-MaybeXS-1.004008
     pathname: E/ET/ETHER/JSON-MaybeXS-1.004008.tar.gz
     provides:
