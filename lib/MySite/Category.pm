@@ -5,6 +5,7 @@ use utf8;
 use Dancer2 appname => 'MySite', with => {};
 use Dancer2::Plugin::DBIC;
 use MySite::ErrorHandler qw(template_error);
+use MySite::Utils qw(render_markdown);
 
 # Toon overzicht van artikelen in een categorie
 sub _category_overview {
@@ -23,6 +24,7 @@ sub _category_overview {
     category => $category,
     articles => \@articles,
     user     => session->read('user'),
+    render_markdown => \&render_markdown,
   };
 }
 
