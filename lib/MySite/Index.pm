@@ -43,7 +43,7 @@ sub _sitemap {
 
   # Voeg alle pages toe
   my $pages = $schema->resultset('Page')->search(
-    { slug => { '!=' => 'login' } },
+    { slug => { -not_in => ['login', 'index'] } },
     { order_by => { '-desc' => ['created'] } }
   );
   while (my $page = $pages->next) {
@@ -63,6 +63,30 @@ sub _sitemap {
       # publication => ($page->created ? (ref $page->created && $page->created->can('ymd') ? $page->created->ymd : $page->created) : undef),
     };
   }
+
+  # Voeg de categoriepagina's toe, als ze tenminste één artikel bevatten
+  my $categories = $schema->resultset('Category')->search({}, { order_by => { '-desc' => ['created'] } });
+  while (my $category = $categories->next) {
+    my $article_count = $category->articles->count;
+    next unless $article_count > 0;
+    my $latest_article = $category->articles->search(
+      {},
+      { order_by => { '-desc' => ['created'] }, rows => 1 }
+    )->first;
+    my $lastmod = $latest_article ? ($latest_article->published // $latest_article->created) : undef;
+    if ($lastmod) {
+      if (ref $lastmod && $lastmod->can('ymd')) {
+        $lastmod = $lastmod->ymd;
+      } elsif ($lastmod =~ /^(\d{4}-\d{2}-\d{2})/) {
+        $lastmod = $1;
+      }
+    } 
+    push @urls, {
+      loc => $category->canonicalURL($base_url),
+      lastmod => $lastmod,
+    };
+  }
+
   content_type 'application/xml';
   my $xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
   $xml .= "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n";
