@@ -9,104 +9,6 @@ use FindBin;
 use MySite::Utils qw(render_markdown);
 use MySite::ErrorHandler qw(db_guard template_error);
 
-sub _normalize_ts {
-  my ($value) = @_;
-  return '' unless defined $value;
-
-  if (ref $value) {
-    return $value->strftime('%Y-%m-%d %H:%M:%S') if $value->can('strftime');
-    if ($value->can('ymd')) {
-      my $date = $value->ymd;
-      my $time = $value->can('hms') ? $value->hms : '00:00:00';
-      return "$date $time";
-    }
-  }
-
-  my $str = "$value";
-  if ($str =~ /^(\d{4}-\d{2}-\d{2})(?:[ T](\d{2}:\d{2}:\d{2}))?/) {
-    return $1 . ' ' . ($2 // '00:00:00');
-  }
-
-  return $str;
-}
-
-# # Wordt dit uberhaupt gebruikt? Zo ja, dan zou het eigenlijk moeten sorteren op de laatste content update, niet op article.created.
-# sub _article_sort_ts {
-#   my ($article) = @_;
-#   my $latest_content = $article->article_contents->search(
-#     {},
-#     { order_by => { '-desc' => ['created'] }, rows => 1 }
-#   )->first;
-
-#   my $value = $latest_content
-#     ? $latest_content->created
-#     : ($article->published // $article->created);
-
-#   return _normalize_ts($value);
-# }
-
-
-sub _index {
-    my ($db_ok, $articles) = db_guard(
-      action => 'fetch articles for homepage',
-      user => session->read('user'),
-      code => sub {
-        return schema->resultset('Article')->search(
-          { deleted_at => undef }
-        );
-      }
-    );
-    
-    unless ($db_ok) {
-      return template_error(
-        title => 'Database Error',
-        error => 'Could not load articles',
-        status => 500
-      );
-    }
-
-    # Sorteer uitsluitend op article.created (nieuwste eerst).
-    my @articles_sorted = sort {
-      _normalize_ts($b->created) cmp _normalize_ts($a->created)
-    } $articles->all;
-
-    debug "Fetched ", scalar(@articles_sorted), " articles for homepage";
-
-    my $index = 1;
-    my @json_ld_list;
-    foreach my $article (@articles_sorted) {
-      push @json_ld_list, {
-        '@type' => "ListItem",
-        'position' => $index++,
-        'url' => $article->canonicalURL(config->{base_url} // request->base),
-        'name' => $article->title,
-      };
-    }
-    my $json_ld = encode_json ({
-      '@context' => "https://schema.org",
-      '@type' => "WebPage",
-      'name' => "MySite - Artikelen",
-      'url' => "https://mysite.prjv.nl/",
-      'description' => "Overzicht van artikelen",
-      'inLanguage' => "nl",
-      'mainEntity' => {
-        '@type' => "ItemList",
-        'itemListElement' => \@json_ld_list,
-      }
-
-    });
-
-    template 'article/list' => {
-        'title' => 'MySite',
-        'canonical_url' => (config->{'base_url'} || request->base),
-        'json_ld' => $json_ld,
-        'meta_description' => 'Welkom op MySite, een persoonlijke website met technische artikelen.',
-        'user' => session->read('user'),
-        'articles' => \@articles_sorted,
-        'render_markdown' => \&MySite::Utils::render_markdown,
-    };
-}
-
 
 # Sitemap route
 sub _sitemap {
@@ -175,8 +77,47 @@ sub _sitemap {
   return $xml;
 };
 
-get '/' => \&_index;
+sub _index {
+    my ($db_ok, $page) = db_guard(
+        action => 'fetch landing page',
+        user   => session->read('user'),
+        code   => sub {
+            return schema->resultset('Page')->find({ slug => 'index' });
+        }
+    );
 
+    unless ($db_ok) {
+        return template_error(
+            title  => 'Database Error',
+            error  => 'Could not load landing page',
+            status => 500
+        );
+    }
+
+    unless ($page) {
+        status 404;
+        return template 'error.tt', { message => "Landingspagina niet gevonden" };
+    }
+
+    my $content = schema->resultset('PageContent')->search({
+        pageid    => $page->page_id,
+        published => { '!=', undef },
+    }, {
+        order_by => { -desc => 'published' },
+        rows     => 1,
+    })->first;
+
+    template 'page.tt' => {
+        'title'            => $page->meta_title || $page->name,
+        'canonical_url'    => (config->{'base_url'} || request->base),
+        'meta_description' => $page->meta_description || 'Welkom op MySite, een persoonlijke website met technische artikelen.',
+        'user'             => session->read('user'),
+        'content'          => $content,
+        'render_markdown'  => \&MySite::Utils::render_markdown,
+    };
+}
+
+get '/' => \&_index;
 
 get '/sitemap.xml' => \&_sitemap;
 

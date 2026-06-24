@@ -10,7 +10,7 @@ use FindBin;
 use Time::Piece;
 # use Text::Markdown 'markdown';
 use String::Util qw(trim);
-use MySite::Utils qw(render_markdown require_user_logged_in user_can_edit_article slugify unique_slug);
+use MySite::Utils qw(render_markdown user_can_edit slugify unique_slug);
 use MySite::ErrorHandler qw(db_guard json_error template_error user_context);
 
 # Route handlers
@@ -20,6 +20,27 @@ use MySite::ErrorHandler qw(db_guard json_error template_error user_context);
 # Redirect voor een _get_article waarbij de category ook opgegeven is
 sub _get_article_redirect {
   return redirect "/article/".route_parameters->get('slug'), 301;
+}
+
+sub _normalize_ts {
+  my ($value) = @_;
+  return '' unless defined $value;
+
+  if (ref $value) {
+    return $value->strftime('%Y-%m-%d %H:%M:%S') if $value->can('strftime');
+    if ($value->can('ymd')) {
+      my $date = $value->ymd;
+      my $time = $value->can('hms') ? $value->hms : '00:00:00';
+      return "$date $time";
+    }
+  }
+
+  my $str = "$value";
+  if ($str =~ /^(\d{4}-\d{2}-\d{2})(?:[ T](\d{2}:\d{2}:\d{2}))?/) {
+    return $1 . ' ' . ($2 // '00:00:00');
+  }
+
+  return $str;
 }
 
 # geen auth check nodig
@@ -171,7 +192,7 @@ sub _get_article_edit {
   }
   my $author_obj = $article->search_related('authorid')->first;
   my @allowed_roles = qw(Admin Editor Owner);
-  unless (user_can_edit_article($user, $author_obj, \@allowed_roles)) {
+  unless (user_can_edit($user, $author_obj, \@allowed_roles)) {
     warning "Edit not allowed", route_parameters->get('id'), 'User:', $user->{username};
     return template_error(
       title => $article->title . " error",
@@ -247,7 +268,7 @@ sub _field_update {
   
   my $author_obj = $article->search_related('authorid')->first;
   my @allowed_roles = qw(Admin Editor Owner);
-  unless (user_can_edit_article($user, $author_obj, \@allowed_roles)) {
+  unless (user_can_edit($user, $author_obj, \@allowed_roles)) {
     warning "Update not allowed", route_parameters->get('id'), 'User:', $user->{username};
     return json_error(
       message => 'Editing not allowed by user ' . $user->{username},
@@ -414,7 +435,7 @@ sub _get_article_new {
   my @allowed_roles = qw(Admin Editor Writer);
   # Er is geen artikel dus ook geen author_obj
   my $author_obj = undef;
-  unless (user_can_edit_article($user, $author_obj, \@allowed_roles)) {
+  unless (user_can_edit($user, $author_obj, \@allowed_roles)) {
     warning "New article not allowed for user: ", $user->{username};
     return template_error(
       title => "New article error",
@@ -449,7 +470,7 @@ sub _post_article_new {
   # Een nieuw artikel aanmaken, dus geen article ophalen, dus ook geen author_obj
   my @allowed_roles = qw(Admin Editor Writer);
   my $author_obj = undef;
-  unless (user_can_edit_article($user, $author_obj, \@allowed_roles)) {
+  unless (user_can_edit($user, $author_obj, \@allowed_roles)) {
     warning "New article not allowed for user: ", $user->{username};
     return json_error(
       message => 'Nieuw artikel niet toegestaan voor dit account',
@@ -573,7 +594,7 @@ sub _handle_keyword {
   
   my $author_obj = $article->search_related('authorid')->first;
   my @allowed_roles = qw(Admin Editor Owner);
-  unless (user_can_edit_article($user, $author_obj, \@allowed_roles)) {
+  unless (user_can_edit($user, $author_obj, \@allowed_roles)) {
     warning "Keyword update not allowed", $data->{article_id}, 'User:', $user->{username};
     return json_error(
       message => 'Editing not allowed by user ' . $user->{username},
@@ -649,7 +670,7 @@ sub _handle_category {
   
   my $author_obj = $article->search_related('authorid')->first;
   my @allowed_roles = qw(Admin Editor Owner);
-  unless (user_can_edit_article($user, $author_obj, \@allowed_roles)) {
+  unless (user_can_edit($user, $author_obj, \@allowed_roles)) {
     warning "Category update not allowed", $data->{article_id}, 'User:', $user->{username};
     return json_error(
       message => 'Editing not allowed by user ' . $user->{username},
@@ -722,7 +743,63 @@ sub _get_categories {
 
 # geen auth check nodig
 sub _article_list {
-  return redirect '/', 301;
+  my ($db_ok, $articles) = db_guard(
+    action => 'fetch articles for article list',
+    user   => session->read('user'),
+    code   => sub {
+      return schema->resultset('Article')->search(
+        { deleted_at => undef }
+      );
+    }
+  );
+
+  unless ($db_ok) {
+    return template_error(
+      title  => 'Database Error',
+      error  => 'Could not load articles',
+      status => 500
+    );
+  }
+
+  my @articles_sorted = sort {
+    _normalize_ts($b->created) cmp _normalize_ts($a->created)
+  } $articles->all;
+
+  debug "Fetched ", scalar(@articles_sorted), " articles for article list";
+
+  my $index = 1;
+  my @json_ld_list;
+  foreach my $article (@articles_sorted) {
+    push @json_ld_list, {
+      '@type'    => 'ListItem',
+      'position' => $index++,
+      'url'      => $article->canonicalURL(config->{base_url} // request->base),
+      'name'     => $article->title,
+    };
+  }
+
+  my $json_ld = encode_json({
+    '@context'   => 'https://schema.org',
+    '@type'      => 'WebPage',
+    'name'       => 'MySite - Artikelen',
+    'url'        => 'https://mysite.prjv.nl/',
+    'description'=> 'Overzicht van artikelen',
+    'inLanguage' => 'nl',
+    'mainEntity' => {
+      '@type'           => 'ItemList',
+      'itemListElement' => \@json_ld_list,
+    }
+  });
+
+  template 'article/list' => {
+    'title'            => 'MySite',
+    'canonical_url'    => (config->{'base_url'} || request->base) . 'articles',
+    'json_ld'          => $json_ld,
+    'meta_description' => 'Welkom op MySite, een persoonlijke website met technische artikelen.',
+    'user'             => session->read('user'),
+    'articles'         => \@articles_sorted,
+    'render_markdown'  => \&MySite::Utils::render_markdown,
+  };
 }
 
 # Route definitions
@@ -732,13 +809,16 @@ prefix '/article' => sub {
   get  '/categories'         => \&_get_categories;
   get  '/new'                => \&_get_article_new;
   get  '/edit/:id'           => \&_get_article_edit;
+  get  '/list'               => \&_article_list;
   get  '/:category/:slug'    => \&_get_article_redirect; # oude route => redirect
   get  '/:slug'              => \&_get_article;
-  get  '/list'               => \&_article_list;
   post '/add'                => \&_post_article_new;
   post '/update/:field/:id'  => \&_field_update;
   post '/keyword'            => \&_handle_keyword;
   post '/category'           => \&_handle_category;
 };
+
+get '/articles' => \&_article_list;
+
 42;
 

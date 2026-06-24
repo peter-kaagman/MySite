@@ -1,19 +1,19 @@
 # configuration file for development environment
 
 # use Log4perl for structured logging
-logger: "log4perl"
-log4perl:
-  config: |
-    log4perl.rootLogger = DEBUG, LOGFILE, STDERR
-    log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
-    log4perl.appender.LOGFILE.filename = logs/mysite.log
-    log4perl.appender.LOGFILE.mode = append
-    log4perl.appender.LOGFILE.layout = PatternLayout
-    log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
-    log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
-    log4perl.appender.STDERR.stderr = 1
-    log4perl.appender.STDERR.layout = PatternLayout
-    log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n
+logger: "Console::Colored"
+# log4perl:
+#   config: |
+#     log4perl.rootLogger = DEBUG, LOGFILE, STDERR
+#     log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
+#     log4perl.appender.LOGFILE.filename = logs/mysite.log
+#     log4perl.appender.LOGFILE.mode = append
+#     log4perl.appender.LOGFILE.layout = PatternLayout
+#     log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+#     log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
+#     log4perl.appender.STDERR.stderr = 1
+#     log4perl.appender.STDERR.layout = PatternLayout
+#     log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n
 
 # the log level for this environment
 # core is the lowest, it shows Dancer2's core log messages as well as yours

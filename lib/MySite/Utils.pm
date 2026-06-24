@@ -8,7 +8,7 @@ use Dancer2::Plugin::DBIC;
 use Exporter 'import';
 # # use parent 'Exporter::Tiny';
 
-our @EXPORT_OK = qw(render_markdown require_user_logged_in user_can_edit_article slugify unique_slug);
+our @EXPORT_OK = qw(render_markdown user_can_edit slugify unique_slug);
 # our %EXPORT_TAGS = (
 #   all => \@EXPORT_OK,
 # );
@@ -76,15 +76,15 @@ sub unique_slug {
   return $slug;
 }
 
-# Auth helper: return user hashref if logged in, else 401 response
-sub require_user_logged_in {
-  # Deprecated: use session->read('user') directly in routes
-  info "require_user_logged_in called (deprecated)";
-  return 1;
-}
+# # Auth helper: return user hashref if logged in, else 401 response
+# sub require_user_logged_in {
+#   # Deprecated: use session->read('user') directly in routes
+#   error "require_user_logged_in called (deprecated)";
+#   return 0; # failure by default
+# }
 
 # Auth helper: check if user can edit given article (owner/Admin/Editor)
-sub user_can_edit_article {
+sub user_can_edit {
   my ($user, $author, $allowed_roles) = @_;
   my $result = 0;
   
