@@ -1,10 +1,9 @@
 <% IF articles.size %>
-  <h1>Artikelen in categorie: <% category.title %></h1>
   <% IF category.desc %>
     <% render_markdown(category.desc) %>
   <% ELSE %>
     <p>Geen beschrijving beschikbaar.</p>
-  <% END %></p>
+  <% END %>
   <ul>
     <% FOREACH article IN articles %>
       <li>
