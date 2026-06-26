@@ -7,6 +7,7 @@ use MySite::Utils qw(render_markdown);
 # Route handler voor statische pagina's
 sub _page_content {
     my $slug = route_parameters->get('slug');
+    debug "Gevraagd slug: $slug";
     my $page = schema->resultset('Page')->find({ slug => $slug });
     
     unless ($page) {
@@ -24,7 +25,7 @@ sub _page_content {
     })->first;
 
     debug "Gevonden pagina: " . $page->name; debug "Laatste content gepubliceerd op: " . ($content ? $content->published : 'geen content gevonden');
-    debug  $content ? "Content: " . $content->content : "Geen content beschikbaar";
+    # debug  $content ? "Content: " . $content->content : "Geen content beschikbaar";
     
     return template 'page.tt', {
         #page    => $page,
