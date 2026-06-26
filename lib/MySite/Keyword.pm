@@ -31,9 +31,5 @@ sub _keyword_overview {
   };
 }
 
-# Route-definitie
-prefix '/keyword' => sub {
-  get '/:slug' => \&_keyword_overview;
-};
 
 1;

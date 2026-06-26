@@ -386,10 +386,5 @@ sub image_upload_config_json {
     });
 }
 
-# Route definitie met prefix
-prefix '/api' => sub {
-    post '/upload-image' => \&_upload_image;
-    get  '/upload-image-config' => \&image_upload_config_json;
-};
 
 1;

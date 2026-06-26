@@ -9,6 +9,15 @@ use FindBin;
 use MySite::Utils qw(render_markdown);
 use MySite::ErrorHandler qw(db_guard template_error);
 
+# Health check endpoint for Docker
+sub _health{
+  content_type 'application/json';
+  return to_json({ 
+    status => 'ok', 
+    version => $MySite::VERSION,
+    timestamp => time()
+  });
+};
 
 # Sitemap route
 sub _sitemap {
@@ -141,8 +150,5 @@ sub _index {
     };
 }
 
-get '/' => \&_index;
-
-get '/sitemap.xml' => \&_sitemap;
 
 42;

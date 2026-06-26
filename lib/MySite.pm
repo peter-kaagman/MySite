@@ -33,14 +33,66 @@ debug "Log4perl config:\n" . ($config->{log4perl}->{config} // 'undef');
 # set serializer => 'JSON';
 # $ENV{DBIC_TRACE} = '1';
 
-# Health check endpoint for Docker
-get '/health' => sub {
-  content_type 'application/json';
-  return to_json({ 
-    status => 'ok', 
-    version => $VERSION,
-    timestamp => time()
-  });
+
+
+# Route-definitie
+prefix '/category' => sub {
+  get '/:slug' => \&MySite::Category::_category_overview;
 };
+
+# Article routes
+prefix '/article' => sub {
+  # Specific routes first (these must come before the generic :category/:slug route)
+  get  '/keywords'           => \&MySite::Article::_get_keywords;
+  get  '/categories'         => \&MySite::Article::_get_categories;
+  get  '/new'                => \&MySite::Article::_get_article_new;
+  get  '/edit/:id'           => \&MySite::Article::_get_article_edit;
+  get  '/list'               => \&MySite::Article::_article_list;
+  get  '/:category/:slug'    => \&MySite::Article::_get_article_redirect; # oude route => redirect
+  get  '/:slug'              => \&MySite::Article::_get_article;
+  post '/add'                => \&MySite::Article::_post_article_new;
+  post '/update/:field/:id'  => \&MySite::Article::_field_update;
+  post '/keyword'            => \&MySite::Article::_handle_keyword;
+  post '/category'           => \&MySite::Article::_handle_category;
+};
+get '/articles' => \&MySite::Article::_article_list;
+
+# API Route definitie met prefix
+prefix '/api' => sub {
+    post '/upload-image' => \&MySite::ImageUpload::_upload_image;
+    get  '/upload-image-config' => \&MySite::ImageUpload::image_upload_config_json;
+};
+
+# Keyword Route-definitie
+prefix '/keyword' => sub {
+  get '/:slug' => \&MySite::Keyword::_keyword_overview;
+};
+
+
+# Page Route-definitie
+prefix '/page' => sub {
+  get '/:slug' => \&MySite::Page::_page_content;
+};
+
+# User Routes
+prefix '/user' => sub {
+  # get '/login' => \&_login; # toont login pagina waar een keuze gemaakt kan worden voor OAuth provider
+  get '/logout' => \&MySite::User::_logout;
+  get '/login/ok' => \&MySite::User::_ok;
+  get '/login/failed' => \&MySite::User::_failed;
+  # get '/profile/:username' => \&_profile;
+};
+
+prefix '/auth' => sub {
+  get '/callback/:provider' => \&MySite::User::_auth_callback;
+  get '/:provider' => \&MySite::User::_auth_provider;
+};
+
+
+get '/' => \&MySite::Index::_index;
+get '/health' => \&MySite::Index::_health;
+get '/sitemap.xml' => \&MySite::Index::_sitemap;
+
+
 
 true;

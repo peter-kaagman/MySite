@@ -802,23 +802,6 @@ sub _article_list {
   };
 }
 
-# Route definitions
-prefix '/article' => sub {
-  # Specific routes first (these must come before the generic :category/:slug route)
-  get  '/keywords'           => \&_get_keywords;
-  get  '/categories'         => \&_get_categories;
-  get  '/new'                => \&_get_article_new;
-  get  '/edit/:id'           => \&_get_article_edit;
-  get  '/list'               => \&_article_list;
-  get  '/:category/:slug'    => \&_get_article_redirect; # oude route => redirect
-  get  '/:slug'              => \&_get_article;
-  post '/add'                => \&_post_article_new;
-  post '/update/:field/:id'  => \&_field_update;
-  post '/keyword'            => \&_handle_keyword;
-  post '/category'           => \&_handle_category;
-};
-
-get '/articles' => \&_article_list;
 
 42;
 

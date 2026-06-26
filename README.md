@@ -3,6 +3,7 @@
 MySite is een zelfgebouwd CMS gebaseerd op Perl en Dancer2, met DBIx::Class als database layer.
 
 Doel van dit project is niet alleen een werkende site, maar vooral het begrijpen van:
+
 - opbouw van webapplicaties
 - scheiding tussen content, data en presentatie
 - observability en gedrag van applicaties

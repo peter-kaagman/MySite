@@ -28,9 +28,5 @@ sub _category_overview {
   };
 }
 
-# Route-definitie
-prefix '/category' => sub {
-  get '/:slug' => \&_category_overview;
-};
 
 1;

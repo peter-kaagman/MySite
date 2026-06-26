@@ -5,7 +5,7 @@ use Dancer2::Plugin::DBIC;
 use MySite::Utils qw(render_markdown);
 
 # Route handler voor statische pagina's
-get '/page/:slug' => sub {
+sub _page_content {
     my $slug = route_parameters->get('slug');
     my $page = schema->resultset('Page')->find({ slug => $slug });
     
@@ -36,5 +36,7 @@ get '/page/:slug' => sub {
         'render_markdown' => \&MySite::Utils::render_markdown,
     };
 };
+
+
 
 1;

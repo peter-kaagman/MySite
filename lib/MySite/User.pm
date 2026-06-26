@@ -136,70 +136,6 @@ sub _checkUser{
   }
 }
 
-# # Bedoelt voor een gebruiker om zijn eigen profiel te kunnen bewerken
-# sub _profile {
-#   my $username = route_parameters->get('username');
-#   my $user = session->read('user');
-#   if ($user && $user->{username} eq $username){
-#     debug "Loading own profile for: $username";
-#     my ($db_ok, $user_data) = db_guard(
-#       action => "fetch user profile",
-#       user => $user,
-#       code => sub {
-#         return schema->resultset('User')->find(
-#           { username => $username },
-#           {}
-#         );
-#       }
-#     );
-    
-#     unless ($db_ok) {
-#       return template_error(
-#         title => 'Profile Error',
-#         error => 'Could not load profile',
-#         status => 500
-#       );
-#     }
-    
-#     if ($user_data){
-#       template 'user/profile' => { 
-#         'title' => 'Profile '.$username,
-#         'user' => $user_data
-#       };
-#     }else {
-#       warning "Profile not found for user: $username";
-#       return redirect '/'; # return if not found
-#     }
-#   }else{
-#     warning "Unauthorized profile access attempt";
-#     return redirect '/'; # return if not own profile
-#   }
-
-# };
-
-# # Toont een login pagina, en slaat de return_url op in de session voor na het inloggen
-# sub _login {
-#   my $return_url;
-#   if (request->{'_query_params'}->{'return_url'}){
-#     $return_url = request->{'_query_params'}->{'return_url'};
-#   }elsif(request->{'env'}->{'HTTP_REFERER'}){
-#     $return_url = request->{'env'}->{'HTTP_REFERER'};
-#   }else{
-#     $return_url = '/'
-#   }
-#   # Haalt de feitelijke login pagina op uit de database, zodat deze makkelijk aan te passen is zonder codewijziging
-#   session->write('return_url', $return_url);
-#   my $page =  schema->resultset('Page')->find(
-#     { name => 'Login'},
-#     { }
-#   );
-#   debug "Login page loaded" if $page;
-#   template 'page' => {
-#     'title' => 'Login', 
-#     'page' => $page,#->get_column('content'),
-#   };
-# };
-
 
 sub _auth_provider {
     my $provider = route_parameters->get('provider');
@@ -323,18 +259,5 @@ sub _logout{
 };
 
 
-# Routes
-prefix '/user' => sub {
-  # get '/login' => \&_login; # toont login pagina waar een keuze gemaakt kan worden voor OAuth provider
-  get '/logout' => \&_logout;
-  get '/login/ok' => \&_ok;
-  get '/login/failed' => \&_failed;
-  # get '/profile/:username' => \&_profile;
-};
-
-prefix '/auth' => sub {
-  get '/callback/:provider' => \&_auth_callback;
-  get '/:provider' => \&_auth_provider;
-};
 
 42;

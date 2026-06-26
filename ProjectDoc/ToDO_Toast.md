@@ -54,10 +54,3 @@
 
 - `t/001_base.t`
 - `t/002_index_route.t`
-
-## ToDo: Article.pm opsplitsen (technische schuld)
-
-- [ ] `Article.pm` opdelen in kleinere modules (bijv. read/list/write of service + routes)
-- [ ] Route-definities dun houden; query/business-logica verplaatsen naar helpers/service-laag
-- [ ] Legacy routes en aliases behouden tijdens refactor (geen URL-regressies)
-- [ ] Bestaande route-tests laten slagen en uitbreiden met dekking voor lijst/detail/edit-paden
