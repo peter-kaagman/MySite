@@ -27,7 +27,6 @@ sub _keyword_overview {
     title    => $keyword->title,
     keyword  => $keyword,
     articles => \@articles,
-    user     => session->read('user'),
   };
 }
 

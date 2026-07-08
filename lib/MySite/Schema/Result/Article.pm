@@ -98,12 +98,17 @@ sub url {
   );
 }
 
-sub canonicalURL {
-  my ($self, $base_url) = @_;
-  $base_url ||= ''; # fallback als niet meegegeven
-  $base_url =~ s{/$}{}; # trailing slash verwijderen
-  return $base_url . $self->url;
-}
+# Dit is niet correct:
+# Een cononcial URL is altijd absoluut en moet dus
+# niet afhankelijk zijn van een optionele base_url.
+# Die base is niet impliciet aanwezig omdat er geen
+# weer is of moet zijn van de Dancer2 context.
+# sub canonicalURL {
+#   my ($self, $base_url) = @_;
+#   $base_url ||= ''; # fallback als niet meegegeven
+#   $base_url =~ s{/$}{}; # trailing slash verwijderen
+#   return config{'base_url'} . $self->url;
+# }
 
 sub is_owned_by {
   my ($self, $user) = @_;
@@ -144,8 +149,29 @@ sub _validate_slug {
   if ($slug =~ /[^a-z0-9_-]/) {
     die "Slug can only contain lowercase letters, numbers, hyphens and underscores: '$slug'";
   }
-  
   return 1;
+}
+
+sub latest_content {
+    my ($self) = @_;
+
+    return $self->{_latest_content} ||= $self->article_contents->search(
+        {},
+        {
+            order_by => { -desc => 'version' },
+            rows     => 1,
+        }
+    )->first;
+}
+
+sub date_modified {
+    my ($self) = @_;
+
+    my $content = $self->latest_content;
+
+    return $content
+    ? $content->created
+    : $self->created;
 }
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

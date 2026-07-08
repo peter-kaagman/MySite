@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
   <meta charset="<% settings.charset %>">
   <meta 
@@ -12,16 +12,18 @@
     <meta name="description" content="<% meta_description %>">
   <% END %>
 
-  <% IF canonical_url %>
-    <link rel="canonical" href="<% canonical_url %>">
+  
+  <link rel="canonical" href="<% base_url %><% path %>">
+  
+  <% IF page_type %>
+    <% SET seotemplate = "seo/" _ page_type _ ".tt"%>
+    <% TRY %>
+      <% INCLUDE $seotemplate %>
+    <% CATCH file %>
+      <!-- Geen seo template gevonden voor page_type: <% page_type %> -->
+    <% END %>
   <% END %>
 
-  <% IF json_ld %>
-    <script type="application/ld+json">
-      <% json_ld %>
-    </script>
-  <% END %>
-  
   <link href="/css/vendor/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
   <% IF page == 'article_edit' %>
@@ -37,7 +39,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-12 p-0">
+      <div class="col-12">
         <% INCLUDE includes/navbar.tt %>
       </div>
     </div>

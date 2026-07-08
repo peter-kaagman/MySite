@@ -64,12 +64,17 @@ sub url {
   );
 }
 
-sub canonicalURL {
-  my ($self, $base_url) = @_;
-  $base_url ||= ''; # fallback als niet meegegeven
-  $base_url =~ s{/$}{}; # trailing slash verwijderen
-  return $base_url . $self->url;
-}
+# Dit is niet correct:
+# Een cononcial URL is altijd absoluut en moet dus
+# niet afhankelijk zijn van een optionele base_url.
+# Die base is niet impliciet aanwezig omdat er geen
+# weer is of moet zijn van de Dancer2 context.
+# sub canonicalURL {
+#   my ($self, $base_url) = @_;
+#   $base_url ||= ''; # fallback als niet meegegeven
+#   $base_url =~ s{/$}{}; # trailing slash verwijderen
+#   return $base_url . $self->url;
+# }
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

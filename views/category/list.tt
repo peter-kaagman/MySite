@@ -1,13 +1,13 @@
-<% IF articles.size %>
+<% IF list.size %>
   <% IF category.desc %>
     <% render_markdown(category.desc) %>
   <% ELSE %>
     <p>Geen beschrijving beschikbaar.</p>
   <% END %>
   <ul>
-    <% FOREACH article IN articles %>
+    <% FOREACH article IN list %>
       <li>
-        <a href="<% article.canonicalURL %>">
+        <a href="<% base_url %><% article.url %>">
           <% article.title %>
         </a>@<% article.created %><br>
         <p><% render_markdown(article.abstract) %></p>

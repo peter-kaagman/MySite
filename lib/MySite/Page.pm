@@ -28,9 +28,6 @@ sub _page_content {
     # debug  $content ? "Content: " . $content->content : "Geen content beschikbaar";
     
     return template 'page.tt', {
-        #page    => $page,
-        # 'canonical_url' => (config->{'base_url'} || request->base) . '/page/' . $slug,
-        'canonical_url' => $page->canonicalURL(config->{'base_url'} || request->base),
         'meta_description' => $page->meta_description || $page->name,
         'title' => $page->meta_title || $page->name,
         content => $content,

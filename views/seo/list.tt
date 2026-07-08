@@ -1,0 +1,79 @@
+<% IF list %>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "<% base_url %>/#website",
+        "name": "MySite",
+        "url": "<% base_url %>/",
+        "publisher": {
+          "@id": "<% base_url %>/#person"
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "<% base_url %>/#person",
+        "name": "Peter Kaagman"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "<% base_url %><% path %>#breadcrumb",
+        "itemListElement": [
+        <% FOREACH crumb IN breadcrumbs %>
+          {
+            "@type": "ListItem",
+            "position": <% loop.count %>,
+            "item": {
+              "@id": "<% base_url %><% crumb.url %>",
+              "name": "<% crumb.name %>"
+            }
+          }<% UNLESS loop.last %>,<% END %>
+        <% END %>
+        ]
+      },
+      {
+        "@type": "CollectionPage",
+        "@id": "<% base_url %><% path %>#collectionpage",
+        "name": "<% title %>",
+        "url": "<% base_url %><% path %>",
+        "description": "<% meta_description %>",
+        "isPartOf": {
+          "@id": "<% base_url %>/#website"
+        },
+        "publisher": {
+          "@id": "<% base_url %>/#person"
+        },
+        "mainEntity": {
+          "@type": "ItemList",
+          "numberOfItems": <% list.size %>,
+          "itemListElement": [
+  <% FOREACH item IN list %>
+    {
+      "@type": "ListItem",
+      "position": <% loop.count %>,
+      "item": {
+          "@type": "<% itemtype %>",
+          "@id": "<% base_url %><% item.url %>",
+          "url": "<% base_url %><% item.url %>",
+          "name": "<% item.meta_title %>",
+          "description": "<% item.meta_description %>",
+          <% IF item.logo %>
+            "image": {
+              "@type": "ImageObject",
+              "url": "<% base_url %><% item.logo %>"
+            }
+          <% END %>
+        }
+      }<% UNLESS loop.last %>,<% END %>
+  <% END %>
+          ]
+        }
+      }
+    ]
+  }
+  </script>
+<% ELSE %>
+  <!-- Geen list opgegeven -->
+<% END %>

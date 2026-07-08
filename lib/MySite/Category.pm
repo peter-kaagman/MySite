@@ -8,7 +8,7 @@ use MySite::ErrorHandler qw(template_error);
 use MySite::Utils qw(render_markdown);
 
 # Toon overzicht van artikelen in een categorie
-sub _category_overview {
+sub category_overview {
   my $slug = route_parameters->get('slug');
   my $category = schema->resultset('Category')->find({ slug => $slug });
   unless ($category) {
@@ -19,11 +19,28 @@ sub _category_overview {
     );
   }
   my @articles = $category->articles->search({ deleted_at => undef }, { order_by => { '-desc' => 'created' } })->all;
+
+my $breadcrumbs = [
+    {
+      name => 'Home',
+      url  => "/",
+    },
+    {
+      name => $category->title,
+      url  => "/category/$slug",
+    }
+  ];
+
+
+
   template 'category/list' => {
     title    => $category->title,
+    meta_description => $category->meta_description || 'Welkom op MySite, een persoonlijke website met technische artikelen.',
     category => $category,
-    articles => \@articles,
-    user     => session->read('user'),
+    page_type => 'list',
+    breadcrumbs => $breadcrumbs,
+    list => \@articles,
+    itemtype => 'TechArticle',
     render_markdown => \&render_markdown,
   };
 }

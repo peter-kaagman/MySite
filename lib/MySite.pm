@@ -34,10 +34,31 @@ debug "Log4perl config:\n" . ($config->{log4perl}->{config} // 'undef');
 # $ENV{DBIC_TRACE} = '1';
 
 
+package MySite::Hooks;
+
+use Dancer2 appname => 'MySite';
+
+# Hooks
+sub before_template_render_hook {
+  my $tokens = shift;
+
+  my $base_url = config->{base_url}
+    ? config->{base_url}
+    : request->base;
+  $base_url =~ s{/$}{};
+  $tokens->{base_url} = $base_url;
+
+  # Add the current path to the tokens for canonical URL generation
+  $tokens->{path} = request->path;
+
+  # Add the user session to the tokens for template access
+  $tokens->{user} = session->read('user');
+}
+hook before_template_render => \&before_template_render_hook;
 
 # Route-definitie
 prefix '/category' => sub {
-  get '/:slug' => \&MySite::Category::_category_overview;
+  get '/:slug' => \&MySite::Category::category_overview;
 };
 
 # Article routes
@@ -55,7 +76,11 @@ prefix '/article' => sub {
   post '/keyword'            => \&MySite::Article::_handle_keyword;
   post '/category'           => \&MySite::Article::_handle_category;
 };
-get '/articles' => \&MySite::Article::_article_list;
+get '/articles' => sub {
+    # Redirect to /article/list
+    return redirect "/article/list", 301;
+};
+#\&MySite::Article::_article_list;
 
 # API Route definitie met prefix
 prefix '/api' => sub {

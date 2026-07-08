@@ -3,7 +3,7 @@
   <ul>
     <% FOREACH article IN articles %>
       <li>
-        <a href="<% article.canonicalURL %>">
+        <a href="<% base_url %><% article.url %>">
           <% article.title %>
         </a>@<% article.created %><br>
         <p><% article.abstract %></p>

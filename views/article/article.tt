@@ -7,7 +7,7 @@
 <% END %>
 <div class='row' id='article_header'>
     <div class='row'>
-        <h2 class='article_author'><% author.name %>@<% article.created %></h2>
+        <h2 class='article_author'><% author.name %>@<% format_date_human(article.created) %></h2>
     </div>
     <div class='row'> <!-- Category -->
         <h2 class='article_category'>

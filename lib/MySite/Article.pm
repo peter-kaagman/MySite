@@ -10,7 +10,7 @@ use FindBin;
 use Time::Piece;
 # use Text::Markdown 'markdown';
 use String::Util qw(trim);
-use MySite::Utils qw(render_markdown user_can_edit slugify unique_slug);
+use MySite::Utils qw(render_markdown user_can_edit slugify unique_slug normalize_ts_machine format_date_human jsonld_base);
 use MySite::ErrorHandler qw(db_guard json_error template_error user_context);
 
 # Route handlers
@@ -20,27 +20,6 @@ use MySite::ErrorHandler qw(db_guard json_error template_error user_context);
 # Redirect voor een _get_article waarbij de category ook opgegeven is
 sub _get_article_redirect {
   return redirect "/article/".route_parameters->get('slug'), 301;
-}
-
-sub _normalize_ts {
-  my ($value) = @_;
-  return '' unless defined $value;
-
-  if (ref $value) {
-    return $value->strftime('%Y-%m-%d %H:%M:%S') if $value->can('strftime');
-    if ($value->can('ymd')) {
-      my $date = $value->ymd;
-      my $time = $value->can('hms') ? $value->hms : '00:00:00';
-      return "$date $time";
-    }
-  }
-
-  my $str = "$value";
-  if ($str =~ /^(\d{4}-\d{2}-\d{2})(?:[ T](\d{2}:\d{2}:\d{2}))?/) {
-    return $1 . ' ' . ($2 // '00:00:00');
-  }
-
-  return $str;
 }
 
 # geen auth check nodig
@@ -77,6 +56,7 @@ sub _get_article {
   # Autheur voor authorisatie (to show edit and delete links)
   my $author = $article->search_related('authorid');
   debug "Article displayed: ", $article->article_id;
+
   my $content = $article->search_related(
     'article_contents',
     {},
@@ -86,73 +66,44 @@ sub _get_article {
         page => 1
 
     }
-  );
+  )->first;
+  debug "Article content version: ", $content ? $content->version : 'No content yet';
+  # debug "Article content: ", $content ? $content->content : 'No content yet';
   
   # Handle skeleton articles with no content yet
-  my $content_row = $content->first;
-  my $content_text = '';
-  if ($content_row) {
-    $content_text = $content_row->content;
-  }
+  #my $content_row = $content->first;
+  my $content_text;
+  $content_text = $content ?  $content->content : 'Nog geen inhoud beschikbaar.';
+debug "Article content: ", $content_text;
 
-  my $to_iso8601 = sub {
-    my ($dt) = @_;
-    return undef unless defined $dt;
-
-    if (ref($dt) && $dt->can('iso8601')) {
-      return $dt->iso8601;
+  my $breadcrumbs = [
+    {
+      name => 'Home',
+      url  => "/",
+    },
+    {
+      name => $article->categoryid->title,
+      url  => $article->categoryid->url, ,
+    },
+    {
+      name => $article->title,
+      url  => "/article/".$article->slug,
     }
-
-    my $string_value = "$dt";
-    $string_value =~ s/ /T/;
-    return $string_value;
-  };
-  
-  # The base for in production should be loaded from config, but for development we can assume it's the same as the request base
-  my $base_url = config->{'base_url'} || request->base;
-  debug "Base URL for article: ", $base_url;
-
-  # JSON-LD structured data for SEO
-  my $json_ld = encode_json ({
-    '@context' => 'https://schema.org',
-    '@type' => 'Article',
-    'headline' => $article->title,
-    'author' => {
-      '@type' => 'Person',
-      'name' => "Peter Kaagman",
-      # 'name' => $author->first->name,
-    },
-    'publisher' => {
-      '@type' => 'Organization',
-      'name' => 'MySite',
-      'logo' => {
-        '@type' => 'ImageObject',
-        'url' => $base_url . 'images/site_logo_128.png',
-      },
-    },
-    'datePublished' => $to_iso8601->($article->created),
-    'dateModified' => $to_iso8601->($content_row ? $content_row->created : $article->created),
-    'url' => $article->canonicalURL($base_url),
-    'mainEntityOfPage' => {
-      '@type' => 'WebPage',
-      '@id' => $article->canonicalURL($base_url),
-    },
-    'description' => $article->meta_description || '',
-    'inLanguage' => 'nl',
-  });
+  ];
 
   template 'article/article' => {
     'title' => $article->meta_title || $article->title,
     'meta_description' => $article->meta_description || '',
-    'json_ld' => $json_ld,
-    # 'canonical_url' => $base_url . 'article/' . $article->categoryid->title . '/' . $article->slug,
-    'canonical_url' => $article->canonicalURL($base_url),
-    'user' => session->read('user'),
     'author' => $author->first,
     'article' => $article,
+    'latest_content' => $content,
     'article_content' => $content_text,
     'render_markdown' => \&MySite::Utils::render_markdown,
-    'show_content' => 1,
+    # 'show_content' => 1,
+    'breadcrumbs' => $breadcrumbs,
+    'page_type' => 'article',
+    'format_date_machine' => \&MySite::Utils::normalize_ts_machine,
+    'format_date_human' => \&MySite::Utils::format_date_human,
   }
 }
 
@@ -227,7 +178,6 @@ sub _get_article_edit {
 
   template 'article/edit' => {
     'title' => $article->title,
-    'user' => session->read('user'),
     'article' => $article,
     'article_content' => $content,
     'author' => $author_obj,
@@ -453,7 +403,6 @@ sub _get_article_new {
 
   return template 'article/add' => {
     'title' => "New article",
-    'user'  => session->read('user'),
     'categories' => $categories,
   }
 }
@@ -741,6 +690,8 @@ sub _get_categories {
   return to_json({ values => \@category_objects });
 }
 
+
+
 # geen auth check nodig
 sub _article_list {
   my ($db_ok, $articles) = db_guard(
@@ -762,46 +713,30 @@ sub _article_list {
   }
 
   my @articles_sorted = sort {
-    _normalize_ts($b->created) cmp _normalize_ts($a->created)
+    normalize_ts_machine($b->created) cmp normalize_ts_machine($a->created)
   } $articles->all;
 
-  debug "Fetched ", scalar(@articles_sorted), " articles for article list";
-
-  my $index = 1;
-  my @json_ld_list;
-  foreach my $article (@articles_sorted) {
-    push @json_ld_list, {
-      '@type'    => 'ListItem',
-      'position' => $index++,
-      'url'      => $article->canonicalURL(config->{base_url} // request->base),
-      'name'     => $article->title,
-    };
-  }
-
-  my $json_ld = encode_json({
-    '@context'   => 'https://schema.org',
-    '@type'      => 'WebPage',
-    'name'       => 'MySite - Artikelen',
-    'url'        => 'https://mysite.prjv.nl/',
-    'description'=> 'Overzicht van artikelen',
-    'inLanguage' => 'nl',
-    'mainEntity' => {
-      '@type'           => 'ItemList',
-      'itemListElement' => \@json_ld_list,
-    }
-  });
-
+my $breadcrumbs = [
+    {
+      name => 'Home',
+      url  => "/",
+    },
+    {
+      name => 'Artikelen',
+      url  => "/articles",
+    },
+  ];
+  
   template 'article/list' => {
     'title'            => 'MySite',
-    'canonical_url'    => (config->{'base_url'} || request->base) . 'articles',
-    'json_ld'          => $json_ld,
     'meta_description' => 'Welkom op MySite, een persoonlijke website met technische artikelen.',
-    'user'             => session->read('user'),
-    'articles'         => \@articles_sorted,
+    'page_type'        => 'list',
+    'breadcrumbs'      => $breadcrumbs,
+    'list'             => \@articles_sorted,
+    'itemtype'          => 'TechArticle',
     'render_markdown'  => \&MySite::Utils::render_markdown,
   };
 }
-
 
 42;
 

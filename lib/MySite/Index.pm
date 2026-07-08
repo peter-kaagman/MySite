@@ -6,7 +6,7 @@ use Dancer2::Plugin::DBIC;
 use Data::Dumper;
 use Template;
 use FindBin;
-use MySite::Utils qw(render_markdown);
+use MySite::Utils qw(render_markdown jsonld_base normalize_ts_machine format_date_human);
 use MySite::ErrorHandler qw(db_guard template_error);
 
 # Health check endpoint for Docker
@@ -21,96 +21,71 @@ sub _health{
 
 # Sitemap route
 sub _sitemap {
-  my $schema = schema;
-  my $base_url = config->{base_url} // request->base;
-  $base_url .= '/' unless $base_url =~ m{/$};
   my @urls;
   my $home_lastmod;
+
+
   # Voeg alle artikelen toe
-  my $articles = $schema->resultset('Article')->search({ deleted_at => undef }, { order_by => { '-desc' => ['created'] } });
+  my $articles = schema->resultset('Article')->search({ deleted_at => undef }, { order_by => { '-desc' => ['created'] } });
+  
   while (my $article = $articles->next) {
-    # Zoek de hoogste versie van ArticleContent voor dit artikel
-    my $content = $article->article_contents->search({}, { order_by => { '-desc' => ['version'] }, rows => 1 })->first;
-    my $lastmod = $content ? $content->created : ($article->published // $article->created);
-    if ($lastmod) {
-      if (ref $lastmod && $lastmod->can('ymd')) {
-        $lastmod = $lastmod->ymd;
-      } elsif ($lastmod =~ /^(\d{4}-\d{2}-\d{2})/) {
-        $lastmod = $1;
-      }
-    }
-    # Artikelresultset is sorted newest-first; first entry is homepage lastmod.
+    my $lastmod = normalize_ts_machine($article->date_modified);
+
     $home_lastmod //= $lastmod;
+
     push @urls, {
-      loc => $article->canonicalURL($base_url),
-      lastmod => $lastmod,
-      publication => ($article->created ? (ref $article->created && $article->created->can('ymd') ? $article->created->ymd : $article->created) : undef),
+        path => $article->url,
+        lastmod => $lastmod,
     };
   }
 
-  unshift @urls, { loc => $base_url, lastmod => $home_lastmod };
+
+  unshift @urls, { path => "/", lastmod => $home_lastmod };
 
   # Voeg alle pages toe
-  my $pages = $schema->resultset('Page')->search(
+  my $pages = schema->resultset('Page')->search(
     { slug => { -not_in => ['login', 'index'] } },
     { order_by => { '-desc' => ['created'] } }
   );
   while (my $page = $pages->next) {
-    # Zoek de hoogste versie van PageContent voor deze page
-    my $content = $page->page_contents->search({}, { order_by => { '-desc' => ['version'] }, rows => 1 })->first;
-    my $lastmod = $content ? ($content->published // $content->created) : $page->created;
-    if ($lastmod) {
-      if (ref $lastmod && $lastmod->can('ymd')) {
-        $lastmod = $lastmod->ymd;
-      } elsif ($lastmod =~ /^(\d{4}-\d{2}-\d{2})/) {
-        $lastmod = $1;
-      }
-    }
     push @urls, {
-      loc => $page->canonicalURL($base_url),
-      lastmod => $lastmod,
-      # publication => ($page->created ? (ref $page->created && $page->created->can('ymd') ? $page->created->ymd : $page->created) : undef),
+      path => $page->url,
+      lastmod => normalize_ts_machine($page->date_modified),
+      publication => normalize_ts_machine($page->created),
     };
   }
 
   # Voeg de categoriepagina's toe, als ze tenminste één artikel bevatten
-  my $categories = $schema->resultset('Category')->search({}, { order_by => { '-desc' => ['created'] } });
+  my $categories = schema->resultset('Category')->search(
+    {},
+    { order_by => { '-desc' => ['created'] } }
+  );
+
   while (my $category = $categories->next) {
-    my $article_count = $category->articles->count;
-    next unless $article_count > 0;
     my $latest_article = $category->articles->search(
       {},
-      { order_by => { '-desc' => ['created'] }, rows => 1 }
-    )->first;
-    my $lastmod = $latest_article ? ($latest_article->published // $latest_article->created) : undef;
-    if ($lastmod) {
-      if (ref $lastmod && $lastmod->can('ymd')) {
-        $lastmod = $lastmod->ymd;
-      } elsif ($lastmod =~ /^(\d{4}-\d{2}-\d{2})/) {
-        $lastmod = $1;
+      {
+        order_by => { '-desc' => ['created'] },
+        rows     => 1,
       }
-    } 
+    )->first;
+    next unless $latest_article;
     push @urls, {
-      loc => $category->canonicalURL($base_url),
-      lastmod => $lastmod,
+      path         => $category->url,
+      lastmod     => normalize_ts_machine($latest_article->date_modified),
+      publication => normalize_ts_machine($latest_article->created),
     };
   }
 
   content_type 'application/xml';
-  my $xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-  $xml .= "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n";
-  for my $url (@urls) {
-    $xml .= "  <url>\n";
-    $xml .= "    <loc>" . $url->{loc} . "</loc>\n";
-    $xml .= "    <lastmod>" . $url->{lastmod} . "</lastmod>\n" if $url->{lastmod};
-    # $xml .= "    <publication_date>" . $url->{publication} . "</publication_date>\n" if $url->{publication};
-    $xml .= "  </url>\n";
-  }
-  $xml .= "</urlset>\n";
-  return $xml;
+  return template 'sitemap.tt', {
+      urls => \@urls,
+  }, { layout => undef };
+
 };
 
 sub _index {
+    debug "Rendering landing page";
     my ($db_ok, $page) = db_guard(
         action => 'fetch landing page',
         user   => session->read('user'),
@@ -118,6 +93,7 @@ sub _index {
             return schema->resultset('Page')->find({ slug => 'index' });
         }
     );
+    debug "Database OK: $db_ok, Page found: " . ($page ? 'yes' : 'no');
 
     unless ($db_ok) {
         return template_error(
@@ -128,6 +104,7 @@ sub _index {
     }
 
     unless ($page) {
+        debug "Landing page not found, returning 404";
         status 404;
         return template 'error.tt', { message => "Landingspagina niet gevonden" };
     }
@@ -140,14 +117,34 @@ sub _index {
         rows     => 1,
     })->first;
 
-    template 'page.tt' => {
-        'title'            => $page->meta_title || $page->name,
-        'canonical_url'    => (config->{'base_url'} || request->base),
-        'meta_description' => $page->meta_description || 'Welkom op MySite, een persoonlijke website met technische artikelen.',
-        'user'             => session->read('user'),
-        'content'          => $content,
-        'render_markdown'  => \&MySite::Utils::render_markdown,
-    };
+    my @categories = schema->resultset('Category')->search(
+        {
+            'articles.article_id' => { '!=' => undef },
+        },
+        {
+            join     => 'articles',
+            group_by => 'me.category_id',
+            order_by => { -desc => 'me.title' },
+        }
+    )->all;
+
+  my $breadcrumbs = [
+    {
+      name => 'Home',
+      url  => "/",
+    }
+  ];
+
+  template 'page.tt' => {
+      'title'            => $page->meta_title,
+      'meta_description' => $page->meta_description || 'Welkom op MySite, een persoonlijke website met technische artikelen.',
+      'content'          => $content,
+      'page_type'        => 'list',
+      'breadcrumbs'      => $breadcrumbs,
+      'list'             => \@categories,
+      'itemtype'          => 'CollectionPage',
+      'render_markdown'  => \&MySite::Utils::render_markdown,
+  };
 }
 
 

@@ -1,0 +1,323 @@
+# SEO verfijningen
+
+De basis van de SEO-infrastructuur staat inmiddels:
+
+- Canonical URLs
+- Sitemap.xml
+- Homepage JSON-LD
+- Category JSON-LD
+- Article List JSON-LD
+- TechArticle JSON-LD
+- Person / Publisher model
+- Breadcrumbs
+- Consistente IDs
+
+Dit document bevat de resterende verfijningen.
+
+---
+
+## JSON-LD verfijningen
+
+### Article
+
+Toevoegen indien beschikbaar:
+
+- `articleSection` (primaire categorie)
+- `keywords`
+- `image`
+- `dateModified`
+- `inLanguage`
+- `wordCount`
+
+Voorbeeld:
+
+```json
+{
+  "@type": "TechArticle",
+  "articleSection": "EduTeams",
+  "keywords": [
+    "Microsoft Teams",
+    "Provisioning",
+    "Microsoft Graph"
+  ],
+  "inLanguage": "nl-NL"
+}
+```
+
+---
+
+### Person uitbreiden
+
+Momenteel:
+
+```json
+{
+  "@type": "Person",
+  "name": "Peter Kaagman"
+}
+```
+
+Later eventueel:
+
+```json
+{
+  "@type": "Person",
+  "name": "Peter Kaagman",
+  "url": "https://prjv.nl/",
+  "sameAs": [
+    "https://github.com/...",
+    "https://linkedin.com/in/..."
+  ]
+}
+```
+
+---
+
+### CollectionPage uitbreiden
+
+Categoriepagina's kunnen eventueel krijgen:
+
+```json
+{
+  "@type": "CollectionPage",
+  "about": {
+    "@id": "/category/eduteam"
+  }
+}
+```
+
+Niet noodzakelijk.
+
+---
+
+### WebPage model
+
+Evalueren of aparte `WebPage` objecten toegevoegde waarde hebben.
+
+Momenteel bewust niet geïmplementeerd om het model eenvoudig te houden.
+
+---
+
+## OpenGraph
+
+Basis ondersteuning toevoegen:
+
+```html
+<meta property="og:type" content="article">
+<meta property="og:title" content="...">
+<meta property="og:description" content="...">
+<meta property="og:url" content="...">
+<meta property="og:image" content="...">
+```
+
+---
+
+### Homepage
+
+```html
+<meta property="og:type" content="website">
+```
+
+---
+
+### Artikelen
+
+```html
+<meta property="og:type" content="article">
+```
+
+---
+
+### Categoriepagina's
+
+```html
+<meta property="og:type" content="website">
+```
+
+---
+
+### Later
+
+Artikel-specifiek:
+
+```html
+<meta property="article:published_time">
+<meta property="article:modified_time">
+<meta property="article:author">
+<meta property="article:section">
+<meta property="article:tag">
+```
+
+---
+
+## Twitter Cards
+
+Ondersteuning toevoegen:
+
+```html
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="...">
+<meta name="twitter:description" content="...">
+<meta name="twitter:image" content="...">
+```
+
+---
+
+## Content kwaliteit
+
+Controlepunten:
+
+- Geen lege meta_title
+- Geen lege meta_description
+- Consistente category descriptions
+- Consistente breadcrumbs
+- Controle op ontbrekende afbeeldingen
+
+Bekende voorbeelden:
+
+- `eerste_indruk`
+- `artikel_1`
+
+hebben nog ontbrekende titels of metadata.
+
+---
+
+## Afbeeldingen
+
+Momenteel hebben categorieën afbeeldingen.
+
+Te onderzoeken:
+
+- artikelafbeeldingen
+- hero image
+- automatisch OG image genereren
+- fallback afbeelding
+
+---
+
+## Sitemap
+
+Functioneel gereed.
+
+Eventuele uitbreidingen:
+
+- image sitemap
+- sitemap index
+- automatische ping naar search engines
+
+Lage prioriteit.
+
+---
+
+## Robots
+
+Controleren:
+
+```txt
+robots.txt
+```
+
+- sitemap verwijzing aanwezig?
+- admin pagina's uitsluiten?
+- login pagina uitsluiten?
+
+---
+
+## Structured Data validatie
+
+Controleren met:
+
+- Google Rich Results Test
+- Schema.org Validator
+
+Doel:
+
+- fouten
+- waarschuwingen
+- ontbrekende aanbevolen velden
+
+---
+
+## Technische SEO
+
+Controleren:
+
+- H1 precies één keer
+- Title aanwezig
+- Meta description aanwezig
+- Canonical aanwezig
+- OpenGraph aanwezig
+- JSON-LD aanwezig
+
+---
+
+## Toekomstige ideeën
+
+### Keywords model
+
+Momenteel categorie-gebaseerd.
+
+Later:
+
+```text
+Categorie
+ +
+Tags
+ +
+Keywords
+```
+
+---
+
+### Gerelateerde artikelen
+
+JSON-LD relatie:
+
+```json
+{
+  "relatedLink": [
+    ...
+  ]
+}
+```
+
+---
+
+### SearchAction
+
+Voor de website:
+
+```json
+{
+  "@type": "SearchAction"
+}
+```
+
+Zodra MySite een zoekfunctie krijgt.
+
+---
+
+## Conclusie
+
+Status vandaag:
+
+✅ Canonical  
+✅ Sitemap  
+✅ Person model  
+✅ Breadcrumbs  
+✅ Homepage JSON-LD  
+✅ Category JSON-LD  
+✅ Article List JSON-LD  
+✅ TechArticle JSON-LD  
+
+Resterend werk:
+
+- OpenGraph
+- Twitter Cards
+- articleSection
+- keywords
+- image ondersteuning
+- validatie
+- contentkwaliteit
+
+SEO fundament ≈ 90% gereed.
