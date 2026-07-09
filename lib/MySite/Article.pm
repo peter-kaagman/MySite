@@ -74,7 +74,7 @@ sub _get_article {
   #my $content_row = $content->first;
   my $content_text;
   $content_text = $content ?  $content->content : 'Nog geen inhoud beschikbaar.';
-debug "Article content: ", $content_text;
+  # debug "Article content: ", $content_text;
 
   my $breadcrumbs = [
     {
@@ -99,7 +99,7 @@ debug "Article content: ", $content_text;
     'latest_content' => $content,
     'article_content' => $content_text,
     'render_markdown' => \&MySite::Utils::render_markdown,
-    # 'show_content' => 1,
+    'show_content' => 1,
     'breadcrumbs' => $breadcrumbs,
     'page_type' => 'article',
     'format_date_machine' => \&MySite::Utils::normalize_ts_machine,

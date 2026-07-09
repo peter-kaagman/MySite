@@ -28,25 +28,30 @@ sub render_markdown {
   close $in;
   local $/ = undef;
   my $html = <$out>;
+  # warn "PANDOC HTML: \n$html\n";
   close $out;
   waitpid($pid, 0);
 
   # Post-process: Zet mermaid codeblokken om naar <pre class="mermaid">...</pre> en decodeer HTML-entiteiten
+  my $count = 0;
   if (defined $html) {
     use HTML::Entities ();
     # Vang zowel <pre><code class="language-mermaid">...</code></pre> als <pre class="mermaid"><code>...</code></pre>
     $html =~ s{<pre><code class="language-mermaid">(.*?)</code></pre>}{
+      $count++;
       my $code = $1;
       $code = HTML::Entities::decode_entities($code);
       qq{<pre class="mermaid">$code</pre>};
-    }gse;
+    }gsie;
     $html =~ s{<pre class="mermaid"><code>(.*?)</code></pre>}{
+      $count++;
       my $code = $1;
       $code = HTML::Entities::decode_entities($code);
       qq{<pre class="mermaid">$code</pre>};
-    }gse;
+    }gsie;
   }
-  # debug "Markdown rendered to HTML: ", substr($html // '', 0, 500), '...';
+  warn "PANDOC HTML count: $count";
+# debug "Markdown rendered to HTML: ", substr($html // '', 0, 500), '...';
   return $html // '';
 }
 
