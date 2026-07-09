@@ -34,6 +34,13 @@ t/
 .env.*
 
 # Database (use external DB in production)
-db/mysite
-*.db
-*.sqlite
+db/mysite.sqlite
+db_old/
+
+# db/mysite
+# *.db
+# *.sqlite
+
+Artikelen/
+tools/
+Bronnen/

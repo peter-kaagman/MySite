@@ -32,6 +32,10 @@ __PACKAGE__->add_columns(
   { data_type => "varchar", is_nullable => 1, size => 255 },
   "meta_description",
   { data_type => "text", is_nullable => 1 },
+  "include_in_sitemap",
+  { data_type => "integer", default_value => 1, is_nullable => 0 },
+  "allow_indexing",
+  { data_type => "integer", default_value => 1, is_nullable => 0 },
 );
 
 

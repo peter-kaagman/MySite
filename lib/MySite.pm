@@ -27,8 +27,8 @@ BEGIN {
   }
 }
 my $config = config;
-debug "Logger config: " . ($config->{logger} // 'undef');
-debug "Log4perl config:\n" . ($config->{log4perl}->{config} // 'undef');
+# debug "Logger config: " . ($config->{logger} // 'undef');
+# debug "Log4perl config:\n" . ($config->{log4perl}->{config} // 'undef');
 
 # set serializer => 'JSON';
 # $ENV{DBIC_TRACE} = '1';

@@ -24,14 +24,16 @@ sub _page_content {
         rows     => 1,
     })->first;
 
-    debug "Gevonden pagina: " . $page->name; debug "Laatste content gepubliceerd op: " . ($content ? $content->published : 'geen content gevonden');
+    # debug "Gevonden pagina: " . $page->name; debug "Laatste content gepubliceerd op: " . ($content ? $content->published : 'geen content gevonden');
     # debug  $content ? "Content: " . $content->content : "Geen content beschikbaar";
+    debug "Page allow_indexing: " . ($page->allow_indexing ? 'true' : 'false');
     
     return template 'page.tt', {
         'meta_description' => $page->meta_description || $page->name,
         'title' => $page->meta_title || $page->name,
-        content => $content,
+        'content' => $content,
         'render_markdown' => \&MySite::Utils::render_markdown,
+        'allow_indexing' => $page->allow_indexing,
     };
 };
 

@@ -44,7 +44,7 @@ sub _sitemap {
 
   # Voeg alle pages toe
   my $pages = schema->resultset('Page')->search(
-    { slug => { -not_in => ['login', 'index'] } },
+    { include_in_sitemap => 1 },
     { order_by => { '-desc' => ['created'] } }
   );
   while (my $page = $pages->next) {
@@ -144,6 +144,7 @@ sub _index {
       'list'             => \@categories,
       'itemtype'          => 'CollectionPage',
       'render_markdown'  => \&MySite::Utils::render_markdown,
+      'allow_indexing' => 1,
   };
 }
 

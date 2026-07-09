@@ -11,8 +11,11 @@
   <% IF meta_description %>
     <meta name="description" content="<% meta_description %>">
   <% END %>
+ 
+  <% UNLESS allow_indexing %>
+    <meta name="robots" content="noindex, nofollow">
+  <% END %>
 
-  
   <link rel="canonical" href="<% base_url %><% path %>">
   
   <% IF page_type %>
