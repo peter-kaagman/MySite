@@ -50,6 +50,9 @@ WORKDIR /app
 COPY --from=builder /usr/local/lib/perl5 /usr/local/lib/perl5
 COPY --from=builder /usr/local/bin /usr/local/bin
 
+# Ensure direct JSON.pm users are available in the runtime image.
+RUN cpanm --notest JSON
+
 # Copy application files
 COPY --chown=dancer:dancer . .
 
