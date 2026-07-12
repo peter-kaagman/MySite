@@ -7,6 +7,7 @@ requires "Dancer2::Plugin::DBIC" => "0";
 requires "Dancer2::Session::Memcached"           => "0";
 requires "Moo" => "0";
 requires "Data::UUID" => "0";
+requires "JSON" => "0";
 # requires "Text::Markdown::Hoedown" => "0";
 # requires "CommonMark" => "0";
 # requires "Dancer2::Plugin::Auth::Extensible" => "0";
