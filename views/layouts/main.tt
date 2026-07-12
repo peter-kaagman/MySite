@@ -12,9 +12,11 @@
     <meta name="description" content="<% meta_description %>">
   <% END %>
  
+<% if allow_indexing.defined %>
   <% UNLESS allow_indexing %>
     <meta name="robots" content="noindex, nofollow">
   <% END %>
+<% END %>
 
   <link rel="canonical" href="<% base_url %><% path %>">
   

@@ -148,5 +148,8 @@ sub _index {
   };
 }
 
-
+sub _prometheus_metrics {
+  content_type 'text/plain; version=0.0.4';
+  return $MySite::obs->prometheus_export();
+}
 42;

@@ -6,6 +6,7 @@ use Cwd qw(abs_path);
 use Dancer2 with => {};
 use Dancer2::Plugin::DBIC;
 use Data::Dumper;
+use MySite::Observability;
 use MySite::Index;
 use MySite::User;
 use MySite::Article;
@@ -14,8 +15,11 @@ use MySite::ImageUpload;
 use Dotenv;
 use MySite::Category;
 use MySite::Keyword;
+use MySite::Hooks;
 
 our $VERSION = '0.1';
+our $obs = MySite::Observability->new();
+
 
 use Log::Log4perl;
 # Manually initialize Log::Log4perl from config if not already done
@@ -34,27 +38,6 @@ my $config = config;
 # $ENV{DBIC_TRACE} = '1';
 
 
-package MySite::Hooks;
-
-use Dancer2 appname => 'MySite';
-
-# Hooks
-sub before_template_render_hook {
-  my $tokens = shift;
-
-  my $base_url = config->{base_url}
-    ? config->{base_url}
-    : request->base;
-  $base_url =~ s{/$}{};
-  $tokens->{base_url} = $base_url;
-
-  # Add the current path to the tokens for canonical URL generation
-  $tokens->{path} = request->path;
-
-  # Add the user session to the tokens for template access
-  $tokens->{user} = session->read('user');
-}
-hook before_template_render => \&before_template_render_hook;
 
 # Route-definitie
 prefix '/category' => sub {
@@ -117,6 +100,7 @@ prefix '/auth' => sub {
 get '/' => \&MySite::Index::_index;
 get '/health' => \&MySite::Index::_health;
 get '/sitemap.xml' => \&MySite::Index::_sitemap;
+get '/metrics' => \&MySite::Index::_prometheus_metrics;
 
 
 
