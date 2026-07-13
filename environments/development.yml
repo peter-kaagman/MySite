@@ -31,5 +31,5 @@ startup_info: 1
 engine:
   session:
     memcached:
-      memcached_server: localhost:11211
+      memcached_servers: localhost:11211
 

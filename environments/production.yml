@@ -50,4 +50,4 @@ plugins:
 engine:
   session:
     memcached:
-      memcached_server: memcached-service:11211
+      memcached_servers: memcached-service:11211
