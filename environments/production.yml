@@ -47,7 +47,7 @@ plugins:
     default:
       dsn: "dbi:SQLite:dbname=/app/db/mysite.sqlite"
 
-engine:
+engines:
   session:
     memcached:
       memcached_servers: memcached-service:11211
