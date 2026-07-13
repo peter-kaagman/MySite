@@ -55,7 +55,7 @@ sub _get_article {
   
   # Autheur voor authorisatie (to show edit and delete links)
   my $author = $article->search_related('authorid');
-  debug "Article displayed: ", $article->article_id;
+  # debug "Article displayed: ", $article->article_id;
 
   my $content = $article->search_related(
     'article_contents',
@@ -67,7 +67,7 @@ sub _get_article {
 
     }
   )->first;
-  debug "Article content version: ", $content ? $content->version : 'No content yet';
+  # debug "Article content version: ", $content ? $content->version : 'No content yet';
   # debug "Article content: ", $content ? $content->content : 'No content yet';
   
   # Handle skeleton articles with no content yet
@@ -734,7 +734,7 @@ my $breadcrumbs = [
     'breadcrumbs'      => $breadcrumbs,
     'list'             => \@articles_sorted,
     'itemtype'          => 'TechArticle',
-    'render_markdown'  => \&MySite::Utils::render_markdown,
+    # 'render_markdown'  => \&MySite::Utils::render_markdown,
   };
 }
 

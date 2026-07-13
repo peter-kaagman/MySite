@@ -7,6 +7,7 @@ use Dancer2::Plugin::DBIC;
 
 use Exporter 'import';
 # # use parent 'Exporter::Tiny';
+use Time::HiRes qw(gettimeofday tv_interval);
 
 our @EXPORT_OK = qw(render_markdown user_can_edit slugify unique_slug normalize_ts_machine format_date_human jsonld_base);
 # our %EXPORT_TAGS = (
@@ -16,6 +17,7 @@ our @EXPORT_OK = qw(render_markdown user_can_edit slugify unique_slug normalize_
 # Use a Markdown rendering library to convert Markdown to HTML
 sub render_markdown {
   my ($markdown) = @_;
+  my $render_start_time = [ gettimeofday ];
   return '' unless defined $markdown && length $markdown;
 
   # Gebruik Pandoc via een systemcall voor conversie (GFM+link_attributes -> HTML)
@@ -52,6 +54,14 @@ sub render_markdown {
   }
   warn "PANDOC HTML count: $count";
 # debug "Markdown rendered to HTML: ", substr($html // '', 0, 500), '...';
+  my $duration_ms = tv_interval($render_start_time) * 1000;
+  # warn "Render voor request $request_id duur $duration_ms ms";
+  $MySite::obs->event(
+    domain => "markdown",
+    request_id  => var('request_id'),
+    action => "render",
+    duration_ms => $duration_ms,
+  );
   return $html // '';
 }
 

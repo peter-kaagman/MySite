@@ -7,63 +7,29 @@ use IO::Handle;
 
 STDOUT->autoflush(1);
 
-#
-# Counters
-#
-
-has counters => (
-    is      => 'ro',
-    default => sub {
-        {
-            mysite_http_requests_total  => 0,
-            mysite_db_queries_total     => 0,
-            mysite_crawler_requests_total => 0,
-        };
-    },
-);
-
-#
-# Histograms
-#
-
 has histograms => (
-    is      => 'ro',
+    is => 'ro',
     default => sub {
         {
-            mysite_http_request_duration_ms => {
-                buckets => {
-                    10     => 0,
-                    50     => 0,
-                    100    => 0,
-                    250    => 0,
-                    500    => 0,
-                    1000   => 0,
-                    '+Inf' => 0,
-                },
-                sum   => 0,
-                count => 0,
-            },
+            mysite_http_request_duration_ms => [
+                10, 50, 100, 250, 500, 1000,
+            ],
 
-            mysite_db_query_duration_ms => {
-                buckets => {
-                    10     => 0,
-                    50     => 0,
-                    100    => 0,
-                    250    => 0,
-                    500    => 0,
-                    1000   => 0,
-                    '+Inf' => 0,
-                },
-                sum   => 0,
-                count => 0,
-            },
+            mysite_db_query_duration_ms => [
+                1, 2, 5, 10, 50, 100,
+            ],
+
+            mysite_markdown_render_duration_ms => [
+                10, 50, 100, 250, 500, 1000,
+            ],
         };
     },
 );
 
-#
-# Public API
-#
+has store => (
+    is       => 'ro',
+    required => 1,
+);
 
 sub event {
     my ($self, %event) = @_;
@@ -81,6 +47,9 @@ sub event {
     elsif ($domain eq 'crawler') {
         $self->_handle_crawler_event(%event);
     }
+    elsif ($domain eq 'markdown') {
+        $self->_handle_markdown_event(%event);
+    }
 
     return;
 }
@@ -97,51 +66,62 @@ sub prometheus_export {
     push @out,
         "# TYPE mysite_http_requests_total counter",
         "mysite_http_requests_total "
-            . $self->counters->{mysite_http_requests_total};
+            . ($self->store->get('mysite_http_requests_total') // 0);
 
     push @out,
         "# TYPE mysite_db_queries_total counter",
         "mysite_db_queries_total "
-            . $self->counters->{mysite_db_queries_total};
+            . ($self->store->get('mysite_db_queries_total') // 0);
 
     push @out,
         "# TYPE mysite_crawler_requests_total counter",
         "mysite_crawler_requests_total "
-            . $self->counters->{mysite_crawler_requests_total};
+            . ($self->store->get('mysite_crawler_requests_total') // 0);
+   push @out,
+        "# TYPE mysite_markdown_render_total counter",
+        "mysite_markdown_render_total "
+            . ($self->store->get('mysite_markdown_render_total') // 0);
 
     #
     # Histograms
     #
 
     foreach my $name (
-        qw(
-            mysite_http_request_duration_ms
-            mysite_db_query_duration_ms
-        )
+        sort keys %{ $self->histograms }
     ) {
-        my $hist = $self->histograms->{$name};
 
         push @out, "# TYPE $name histogram";
 
         foreach my $bucket (
-            10, 50, 100, 250, 500, 1000, '+Inf'
+            @{ $self->_buckets_for_histogram($name) }
         ) {
             push @out,
                 qq{$name\_bucket{le="$bucket"} }
-                . ($hist->{buckets}{$bucket} // 0);
+                . ($self->store->get(
+                    "${name}_bucket_$bucket"
+                ) // 0);
         }
 
         push @out,
-            "${name}_sum "   . $hist->{sum},
-            "${name}_count " . $hist->{count};
+            qq{$name\_bucket{le="+Inf"} }
+            . ($self->store->get(
+                "${name}_bucket_Inf"
+            ) // 0);
+
+        push @out,
+            "${name}_sum "
+            . ($self->store->get(
+                "${name}_sum"
+            ) // 0),
+
+            "${name}_count "
+            . ($self->store->get(
+                "${name}_count"
+            ) // 0);
     }
 
     return join("\n", @out) . "\n";
 }
-
-#
-# Loki
-#
 
 sub _emit_loki {
     my ($self, %event) = @_;
@@ -155,10 +135,6 @@ sub _emit_loki {
 
     return;
 }
-
-#
-# Domain handlers
-#
 
 sub _handle_http_event {
     my ($self, %event) = @_;
@@ -210,14 +186,29 @@ sub _handle_crawler_event {
     return;
 }
 
-#
-# Metrics helpers
-#
+sub _handle_markdown_event {
+    my ($self, %event) = @_;
+
+    return unless ($event{action} // '') eq 'render';
+
+    $self->_inc_counter(
+        'mysite_markdown_render_total'
+    );
+
+    if (defined $event{duration_ms}) {
+        $self->_observe_histogram(
+            'mysite_markdown_render_duration_ms',
+            $event{duration_ms}
+        );
+    }
+
+    return;
+}
 
 sub _inc_counter {
     my ($self, $name) = @_;
 
-    $self->counters->{$name}++;
+    $self->store->inc($name);
 
     return;
 }
@@ -225,23 +216,45 @@ sub _inc_counter {
 sub _observe_histogram {
     my ($self, $name, $value) = @_;
 
-    my $hist = $self->histograms->{$name}
-        or return;
-
     foreach my $bucket (
-        10, 50, 100, 250, 500, 1000
+        @{ $self->_buckets_for_histogram($name) }
     ) {
         if ($value <= $bucket) {
-            $hist->{buckets}{$bucket}++;
+            $self->store->inc(
+                "${name}_bucket_$bucket"
+            );
         }
     }
 
-    $hist->{buckets}{'+Inf'}++;
+    $self->store->inc(
+        "${name}_bucket_Inf"
+    );
 
-    $hist->{sum}   += $value;
-    $hist->{count} += 1;
+    $self->store->add(
+        "${name}_sum",
+        $value
+    );
+
+    $self->store->inc(
+        "${name}_count"
+    );
 
     return;
 }
+
+
+
+
+sub _buckets_for_histogram {
+    my ($self, $name) = @_;
+
+    my $buckets = $self->histograms->{$name};
+
+    die "Unknown histogram: $name"
+        unless $buckets;
+
+    return $buckets;
+}
+
 
 1;

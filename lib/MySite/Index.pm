@@ -85,7 +85,7 @@ sub _sitemap {
 };
 
 sub _index {
-    debug "Rendering landing page";
+    # debug "Rendering landing page";
     my ($db_ok, $page) = db_guard(
         action => 'fetch landing page',
         user   => session->read('user'),
@@ -93,7 +93,7 @@ sub _index {
             return schema->resultset('Page')->find({ slug => 'index' });
         }
     );
-    debug "Database OK: $db_ok, Page found: " . ($page ? 'yes' : 'no');
+    # debug "Database OK: $db_ok, Page found: " . ($page ? 'yes' : 'no');
 
     unless ($db_ok) {
         return template_error(
@@ -134,6 +134,9 @@ sub _index {
       url  => "/",
     }
   ];
+
+  my $rs = schema->resultset('Page');
+  warn "Storage: " . ref($rs->result_source->schema->storage);
 
   template 'page.tt' => {
       'title'            => $page->meta_title,

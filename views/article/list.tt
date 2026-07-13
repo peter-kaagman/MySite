@@ -53,7 +53,7 @@
                     <hr>
                     <!-- <a class='anchor_abstract' href='./article/<% article.slug %>'> -->
                     <!-- <a class='anchor_abstract' href='<% article_url %>'> -->
-                        <% render_markdown(article.abstract) %>
+                        <% article.abstract %>
                     <!-- </a> -->
                 </div>
                 <div class='row'>

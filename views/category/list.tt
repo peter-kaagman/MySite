@@ -10,7 +10,7 @@
         <a href="<% base_url %><% article.url %>">
           <% article.title %>
         </a>@<% article.created %><br>
-        <p><% render_markdown(article.abstract) %></p>
+        <p><% article.abstract %></p>
       </li>
     <% END %>
   </ul>

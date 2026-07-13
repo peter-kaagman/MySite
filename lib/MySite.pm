@@ -5,6 +5,8 @@ use FindBin;
 use Cwd qw(abs_path);
 use Dancer2 with => {};
 use Dancer2::Plugin::DBIC;
+use MySite::Schema::Debug::Metrics;
+
 use Data::Dumper;
 use MySite::Observability;
 use MySite::Index;
@@ -16,10 +18,9 @@ use Dotenv;
 use MySite::Category;
 use MySite::Keyword;
 use MySite::Hooks;
-
-our $VERSION = '0.1';
-our $obs = MySite::Observability->new();
-
+# Voor observability en metrics
+use MySite::Observability;
+use MySite::Observability::Store::Memcached;
 
 use Log::Log4perl;
 # Manually initialize Log::Log4perl from config if not already done
@@ -30,6 +31,38 @@ BEGIN {
     Log::Log4perl->init(\$log_conf);
   }
 }
+
+
+
+our $VERSION = '0.1';
+
+# Config via session engine
+my $store = MySite::Observability::Store::Memcached->new(
+  server => ( 
+    config->{'engines'}->{'session'}->{'Memcached'}->{'memcached_server'}
+    // 'localhost:11211',
+  ),
+  namespace_metrics => (
+    config->{'engines'}->{'session'}->{'Memcached'}->{'namespace_metrics'}
+    // 'mysite-metrics',
+  ),
+);
+our $obs = MySite::Observability->new(
+  store => $store,
+);
+
+
+
+my $storage = schema->storage;
+
+$storage->debugobj(
+    MySite::Schema::Debug::Metrics->new(
+      obs => $obs
+    )
+);
+
+$storage->debug(1);
+
 my $config = config;
 # debug "Logger config: " . ($config->{logger} // 'undef');
 # debug "Log4perl config:\n" . ($config->{log4perl}->{config} // 'undef');

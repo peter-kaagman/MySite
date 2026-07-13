@@ -808,6 +808,13 @@ DISTRIBUTIONS
       perl 5.012
       strict 0
       warnings 0
+  Data-UUID-1.227
+    pathname: G/GT/GTERMARS/Data-UUID-1.227.tar.gz
+    provides:
+      Data::UUID 1.227
+    requirements:
+      Digest::MD5 0
+      ExtUtils::MakeMaker 0
   Devel-GlobalDestruction-0.14
     pathname: H/HA/HAARG/Devel-GlobalDestruction-0.14.tar.gz
     provides:

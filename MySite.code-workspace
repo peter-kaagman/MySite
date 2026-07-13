@@ -2,12 +2,6 @@
 	"folders": [
 		{
 			"path": "."
-		},
-		{
-			"path": "../msgraph-perl"
-		},
-		{
-			"path": "../calls"
 		}
 	],
 	"settings": {}

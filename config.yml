@@ -18,6 +18,7 @@ image_upload:
   resize:
     max_width: 1920
     max_height: 1200
+
 # This is the main configuration file of your Dancer2 app
 # env-related settings should go to environments/$env.yml
 # all the settings in this file will be loaded at Dancer's startup.
@@ -82,9 +83,11 @@ engines:
       cookie_name: MySite.session
         # is_secure: 1
         # is_http_only: 1
+    # Memcached word voor sessions en metrics/observability ingezet
     Memcached:
-      memcached_servers: ["memcached-service:11211"]
+#      memcached_servers: ["memcached-service:11211"] # via environment
       namespace: "mysite_session:"
+      namespace_metrics: "mysite_metrics"
       expire_time: 3600
 plugins:
     # Database:
