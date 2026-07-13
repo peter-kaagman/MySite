@@ -35,27 +35,21 @@ sub render_markdown {
   waitpid($pid, 0);
 
   # Post-process: Zet mermaid codeblokken om naar <pre class="mermaid">...</pre> en decodeer HTML-entiteiten
-  my $count = 0;
   if (defined $html) {
     use HTML::Entities ();
     # Vang zowel <pre><code class="language-mermaid">...</code></pre> als <pre class="mermaid"><code>...</code></pre>
     $html =~ s{<pre><code class="language-mermaid">(.*?)</code></pre>}{
-      $count++;
       my $code = $1;
       $code = HTML::Entities::decode_entities($code);
       qq{<pre class="mermaid">$code</pre>};
     }gsie;
     $html =~ s{<pre class="mermaid"><code>(.*?)</code></pre>}{
-      $count++;
       my $code = $1;
       $code = HTML::Entities::decode_entities($code);
       qq{<pre class="mermaid">$code</pre>};
     }gsie;
   }
-  warn "PANDOC HTML count: $count";
-# debug "Markdown rendered to HTML: ", substr($html // '', 0, 500), '...';
   my $duration_ms = tv_interval($render_start_time) * 1000;
-  # warn "Render voor request $request_id duur $duration_ms ms";
   $MySite::obs->event(
     domain => "markdown",
     request_id  => var('request_id'),

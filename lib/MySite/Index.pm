@@ -136,7 +136,7 @@ sub _index {
   ];
 
   my $rs = schema->resultset('Page');
-  warn "Storage: " . ref($rs->result_source->schema->storage);
+  # warn "Storage: " . ref($rs->result_source->schema->storage);
 
   template 'page.tt' => {
       'title'            => $page->meta_title,
