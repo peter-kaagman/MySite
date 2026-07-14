@@ -37,9 +37,23 @@ BEGIN {
 our $VERSION = '0.1';
 
 # Config via session engine
+
+# warn "Engines" . Dumper(config->{'engines'} // 'undef');
+
+warn "METRICS SERVER=" . (
+    config->{'engines'}->{'session'}->{'Memcached'}->{'memcached_servers'}
+    // 'UNDEF'
+);
+
+warn "METRICS NAMESPACE=" . (
+    config->{'engines'}->{'session'}->{'Memcached'}->{'namespace_metrics'}
+    // 'UNDEF'
+);
+
+
 my $store = MySite::Observability::Store::Memcached->new(
   server => ( 
-    config->{'engines'}->{'session'}->{'Memcached'}->{'memcached_server'}
+    config->{'engines'}->{'session'}->{'Memcached'}->{'memcached_servers'}
     // 'localhost:11211',
   ),
   namespace_metrics => (
