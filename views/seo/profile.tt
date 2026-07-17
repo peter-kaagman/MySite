@@ -1,0 +1,23 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfilePage",
+      "@id": "<% base_url %><% profile_for.url %>",
+      "url": "<% base_url %><% profile_for.url %>",
+      "name": "<% profile_for.user_profile.display_name %>",
+      "description": "Profiel pagina voor <% profile_for.user_profile.display_name %> op MySite",
+      "mainEntity": {
+        "@id": "<% base_url %><% profile_for.url %>#person"
+      },
+      "breadcrumb": {
+        "@id": "<% base_url %><% path %>#breadcrumb"
+      }
+
+    },
+    <% INCLUDE "seo/includes/_person.tt" %>,
+    <% INCLUDE "seo/includes/_breadcrumb.tt" %>
+  ]
+}
+</script>

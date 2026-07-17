@@ -52,3 +52,5 @@ hook after => sub {
     duration_ms => int($duration * 1000),
   );
 };
+
+1;

@@ -15,13 +15,13 @@ __PACKAGE__->add_columns(
   "username",
   { data_type => "text", is_nullable => 0 },
   "created",
-  {
-    data_type     => "timestamp",
-    default_value => \"current_timestamp",
-    is_nullable   => 1,
-  },
-  "avatar",
-  { data_type => "text", is_nullable => 1 },
+  {data_type => "timestamp", is_nullable => 1, default_value => \"current_timestamp" },
+  "slug",
+  { data_type => "text", is_nullable => 0, default_value => "" },
+  "is_trusted",
+  { data_type => "integer", is_nullable => 0, default_value => 0 },
+  "is_banned",
+  { data_type => "integer", is_nullable => 0, default_value => 0 },
   "roleid",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
   "name",
@@ -30,6 +30,7 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("user_id");
 __PACKAGE__->add_unique_constraint("user_username_unique", ["username"]);
+__PACKAGE__->add_unique_constraint("user_slug_unique", ["slug"]);
 
 __PACKAGE__->has_many(
   "article_contents",
@@ -59,6 +60,20 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+__PACKAGE__->might_have(
+  "user_profile",
+  "MySite::Schema::Result::UserProfile",
+  { "foreign.user_id" => "self.user_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+__PACKAGE__->has_many(
+  "user_socials",
+  "MySite::Schema::Result::UserSocials",
+  { "foreign.user_id" => "self.user_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 __PACKAGE__->belongs_to(
   "roleid",
   "MySite::Schema::Result::Role",
@@ -70,23 +85,34 @@ __PACKAGE__->belongs_to(
 sub url {
   my ($self) = shift;
   return(
-    "/user/" .
-    $self->user_id 
+    "/profile/" .
+    $self->slug 
   );
 }
 
+sub generate_slug {
+    my ($class, $schema, $username) = @_;
 
-# Dit is niet correct:
-# Een cononcial URL is altijd absoluut en moet dus
-# niet afhankelijk zijn van een optionele base_url.
-# Die base is niet impliciet aanwezig omdat er geen
-# weer is of moet zijn van de Dancer2 context.
-# sub canonicalURL {
-#   my ($self, $base_url) = @_;
-#   $base_url ||= ''; # fallback als niet meegegeven
-#   $base_url =~ s{/$}{}; # trailing slash verwijderen
-#   return $base_url . $self->url;
-# }
+    my $slug = lc($username);
 
+    $slug =~ s/\@.*$//;
+    $slug =~ s/[^a-z0-9]+/-/g;
+    $slug =~ s/^-+//;
+    $slug =~ s/-+$//;
+
+    my $base = $slug;
+    my $n    = 1;
+
+    while (
+        $schema->resultset('User')->find(
+            { slug => $slug }
+        )
+    ) {
+        $n++;
+        $slug = "$base-$n";
+    }
+
+    return $slug;
+}
 
 1;

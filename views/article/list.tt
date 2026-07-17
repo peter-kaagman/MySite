@@ -13,20 +13,11 @@
                     </a>
                 </div>
                 <div class='row'> <!-- Author and created date -->
-                    <h2 class='article_author'><% article.authorid.name %>@<% article.created %></h2>
+                    <h2 class='article_author'><a href='<% article.authorid.url %>'><% article.authorid.name %></a>@<% article.created %></h2>
                 </div>
                 <div class='row'>
                     <div class='article_category'>
-                        <span class='label'>Category:</span>
-
-                        <ul class='horizontal_list'>
-                            <li class='horizontal_listitem'>
-                                <a class='anchor_category'
-                                href='<% article.categoryid.url %>'>
-                                    <% article.categoryid.title %>
-                                </a>
-                            </li>
-                        </ul>
+                        <span class='label'>Category: <a href='<% article.categoryid.url %>'><% article.categoryid.title %></a></span>
                     </div>
                 </div>
                 <div class='row'>

@@ -33,3 +33,11 @@ engines:
     Memcached:
       memcached_servers: localhost:11211
 
+# client_id en client_secret komen uit:
+# in dev: .env die in MySite geladen wordt
+# in prod: via de Kubernetes secrets
+oauth_providers:
+  google:
+    redirect_uri: "http://localhost:5000/auth/callback/google"
+  github:
+    redirect_uri: "http://localhost:5000/auth/callback/github"

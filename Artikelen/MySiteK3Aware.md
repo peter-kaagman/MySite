@@ -1,3 +1,25 @@
+---
+title: "Observability, SQLite en de verkeerde verdachte"
+slug: "observability-sqlite-en-de-verkeerde-verdachte"
+date: 2026-07-14
+status: published
+
+description: >
+Hoe een zoektocht naar trage requests leidde van SQLite naar observability, Prometheus, Memcached en uiteindelijk een onverwachte ontwerpbeslissing rond markdown-rendering.
+
+seo_title: "Prometheus, Memcached en SQLite: observability in een Perl applicatie"
+
+
+excerpt: >
+Tijdens het bouwen van observability voor MySite bleek niet SQLite, maar een eigen ontwerpkeuze de grootste tijdvreter. Metrics maakten zichtbaar waar de werkelijke vertraging vandaan kwam.
+
+series:
+  - Observability in MySite
+
+
+---
+
+
 # Observability, SQLite en de verkeerde verdachte
 
 Mijn project (Mprjv65)[/category/mprjv65] begint inmiddels volwassen te worden. Een van de onderdelen die nog grotendeels ontbrak was observability.

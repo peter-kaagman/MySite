@@ -51,3 +51,12 @@ engines:
   session:
     Memcached:
       memcached_servers: memcached-service:11211
+
+# client_id en client_secret komen uit:
+# in dev: .env die in MySite geladen wordt
+# in prod: via de Kubernetes secrets
+oauth_providers:
+  google:
+    redirect_uri: "https://mysite.prjv.nl/auth/callback/google"
+  github:
+    redirect_uri: "https://mysite.prjv.nl/auth/callback/github"

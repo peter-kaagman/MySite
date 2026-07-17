@@ -22,6 +22,8 @@ use MySite::Hooks;
 use MySite::Observability;
 use MySite::Observability::Store::Memcached;
 
+use MySite::Profile;
+
 use Log::Log4perl;
 # Manually initialize Log::Log4perl from config if not already done
 BEGIN {
@@ -37,19 +39,6 @@ BEGIN {
 our $VERSION = '0.1';
 
 # Config via session engine
-
-# warn "Engines" . Dumper(config->{'engines'} // 'undef');
-
-warn "METRICS SERVER=" . (
-    config->{'engines'}->{'session'}->{'Memcached'}->{'memcached_servers'}
-    // 'UNDEF'
-);
-
-warn "METRICS NAMESPACE=" . (
-    config->{'engines'}->{'session'}->{'Memcached'}->{'namespace_metrics'}
-    // 'UNDEF'
-);
-
 
 my $store = MySite::Observability::Store::Memcached->new(
   server => ( 

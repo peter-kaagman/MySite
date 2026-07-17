@@ -100,6 +100,9 @@ plugins:
       options:
         sqlite_unicode: 1
 
+# client_id en client_secret komen uit:
+# in dev: .env die in MySite geladen wordt
+# in prod: via de Kubernetes secrets
 oauth_providers:
   google:
     # client_id: <%= $ENV{GOOGLE_CLIENT_ID} // '' %>
@@ -108,6 +111,7 @@ oauth_providers:
     token_url: 'https://oauth2.googleapis.com/token'
     userinfo_url: 'https://openidconnect.googleapis.com/v1/userinfo'
     scope: 'openid email profile'
+    # redirect_uri: zie environments/development.yml of environments/production.yml
   github:
     # client_id: <%= $ENV{GITHUB_CLIENT_ID} // '' %>
     # client_secret: <%= $ENV{GITHUB_CLIENT_SECRET} // '' %>
@@ -115,3 +119,4 @@ oauth_providers:
     token_url: 'https://github.com/login/oauth/access_token'
     userinfo_url: 'https://api.github.com/user'
     scope: 'user:email'
+    # redirect_uri: zie environments/development.yml of environments/production.yml

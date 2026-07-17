@@ -1,0 +1,48 @@
+<div class="profile-container">
+
+  <div class="row align-items-center mb-4">
+      <div class="col-auto">
+          <img 
+            src="https://www.gravatar.com/avatar/<% gravatar_hash %>?s=120&d=identicon" 
+            class="rounded-circle" 
+            width="120" height="120" 
+            alt="<% profile_for.user_profile.display_name %>"
+          >
+      </div>
+      <div class="col">
+          <h1><% profile_for.user_profile.display_name %></h1>
+          <p class="lead text-muted mb-1">
+              <% profile_for.user_profile.tagline %>
+          </p>
+
+<% IF socials %>
+  <ul class="list-inline">
+  <% FOREACH social IN socials %>
+      <li class="list-inline-item"><a href="<% social.social_url %>"><% social.social_name %></a></li>
+  <% END %>
+  </ul>
+<% END %>
+
+
+
+      </div>
+
+
+  </div>
+  <div class="profile-content">
+    <p><% render_markdown(profile_for.user_profile.bio()) %></p>
+  </div>
+
+
+<% IF recent_articles.size %>
+  <h2>Recente artikelen</h2>
+  <ul>
+  <% FOREACH article IN recent_articles %>
+      <li><a href="<% article.url %>"><% article.title %></a></li>
+  <% END %>
+  </ul>
+<% END %>
+
+
+</div>
+

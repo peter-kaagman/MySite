@@ -1,0 +1,13 @@
+    {
+      "@type": "Person",
+      "@id": "<% base_url %><% profile_for.url %>#person",
+      "name": "<% profile_for.user_profile.display_name %>",
+      "description": "<% profile_for.user_profile.meta_description %>",
+      "image": "https://www.gravatar.com/avatar/<% gravatar_hash %>?s=150&d=identicon",
+      "url": "<% base_url %><% profile_for.url %>",
+      "sameAs": [
+      <% FOREACH social IN socials %>
+          "<% social.social_url %>"<% UNLESS loop.last %>,<% END %>
+      <% END %>
+      ]
+    }
