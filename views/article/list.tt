@@ -20,22 +20,13 @@
                         <span class='label'>Category: <a href='<% article.categoryid.url %>'><% article.categoryid.title %></a></span>
                     </div>
                 </div>
-                <div class='row'>
-                    <!-- Keywords -->
+                <div class='row article_keywords'>
+                    <span class='label'>Keywords:
 
-                    <div class='article_keywords'>
-                        <ul class='horizontal_list'>
-                            <li class='horizontal_listitem'>Keywords:</li>
-
-                            <% FOR keyword IN article.keywords %>
-                                <li class='horizontal_listitem'>
-                                    <a href='<% keyword.url %>'>
-                                        <% keyword.title %>
-                                    </a>
-                                </li>
-                            <% END %>
-                        </ul>
-                    </div>
+                    <% FOR keyword IN article.keywords %>
+                        <a class='article_keyword' href='<% keyword.url %>'><% keyword.title %></a> 
+                    <% END %>
+                    </span>
                 </div>
             </div>
         </div>

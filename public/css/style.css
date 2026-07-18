@@ -77,18 +77,11 @@
   border-radius: 8px 8px 0 0;
   margin-top: 2em;
 }
-ul.horizontal_list {
-  display: flex;
-  flex-direction: row;
-  gap: 0.75em;
-  list-style: none;
-  padding-left: 0;
-  margin: 0;
+
+.article_keywords a {
+    margin-right: 0.5rem;
 }
 
-li.horizontal_listitem {
-  display: inline;
-}
 #article_header .article_author, .article_author, .article_category, .article_keywords {
   font-size: 1rem;
   font-weight: 400;
