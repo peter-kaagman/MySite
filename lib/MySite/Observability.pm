@@ -4,6 +4,7 @@ use Moo;
 use JSON qw(encode_json);
 use Time::HiRes qw(time);
 use IO::Handle;
+use Data::Dumper;
 
 STDOUT->autoflush(1);
 
@@ -33,6 +34,7 @@ has store => (
 
 sub event {
     my ($self, %event) = @_;
+    # print "Observability event: ", Dumper(\%event), "\n";
 
     $self->_emit_loki(%event);
 
@@ -138,6 +140,7 @@ sub _emit_loki {
 
 sub _handle_http_event {
     my ($self, %event) = @_;
+    # print "Handling HTTP event: ", Dumper(\%event), "\n";
 
     return unless ($event{action} // '') eq 'request';
 
@@ -207,6 +210,7 @@ sub _handle_markdown_event {
 
 sub _inc_counter {
     my ($self, $name) = @_;
+    # print "Incrementing counter: $name\n";
 
     $self->store->inc($name);
 
@@ -241,9 +245,6 @@ sub _observe_histogram {
 
     return;
 }
-
-
-
 
 sub _buckets_for_histogram {
     my ($self, $name) = @_;

@@ -26,8 +26,12 @@ sub before_template_render_hook {
 hook before_template_render => \&before_template_render_hook;
 
 hook before => sub {
+  # debug "Request started: ", request->method, " ", request->path;
   var request_start_time => Time::HiRes::time();
+  # debug "Assigned request_start_time: ", var('request_start_time');
   var request_id => $uuid_gen->create_str();
+  # debug "Assigned request_id: ", var('request_id');
+
 };
 
 hook after => sub {
@@ -35,6 +39,7 @@ hook after => sub {
   my $request_start_time = var('request_start_time');
   my $request_end_time = Time::HiRes::time();
   my $duration = $request_end_time - $request_start_time;
+  # debug "Request ended: ", request->method, " ", request->path, " (", $response->status, ") in ", sprintf("%.3f", $duration), " seconds";
 
   $MySite::obs->event(
     domain      => 'http',

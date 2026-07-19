@@ -21,7 +21,7 @@ has client => (
 
 sub _build_client {
     my ($self) = @_;
-
+    # print "Building Memcached client for server: ", $self->server, " with namespace: ", $self->namespace_metrics, "\n";
     return Cache::Memcached->new(
         servers         => [ $self->server ],
         namespace       =>  $self->namespace_metrics,
@@ -30,6 +30,7 @@ sub _build_client {
 
 sub get {
     my ($self, $key) = @_;
+    # print "Getting key: $key from Memcached\n";
 
     return $self->client->get($key);
 }
@@ -43,10 +44,12 @@ sub set {
 
 sub inc {
     my ($self, $key, $amount) = @_;
+    # print "Incrementing key: $key by amount: ", ($amount // 1), "\n";
 
     $amount //= 1;
 
-    return $self->client->incr($key, $amount);
+    # Inc gaat via add, omdat die wel ontbrekende keys aanmaakt.
+    return $self->add($key, $amount);
 
 }
 
