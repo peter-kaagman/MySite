@@ -11,6 +11,7 @@ requires "JSON" => "0";
 requires "Time::HiRes" => "0";
 requires "DateTime" => "0";
 requires "DateTime::Format::SQLite" => "0";
+requires 'DBIx::Class::InflateColumn::DateTime' => "0";
 # requires "Text::Markdown::Hoedown" => "0";
 # requires "CommonMark" => "0";
 # requires "Dancer2::Plugin::Auth::Extensible" => "0";
