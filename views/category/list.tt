@@ -1,9 +1,9 @@
+<% IF category.desc %>
+  <% render_markdown(category.desc) %>
+<% ELSE %>
+  <p>Geen beschrijving beschikbaar.</p>
+<% END %>
 <% IF list.size %>
-  <% IF category.desc %>
-    <% render_markdown(category.desc) %>
-  <% ELSE %>
-    <p>Geen beschrijving beschikbaar.</p>
-  <% END %>
   <ul>
     <% FOREACH article IN list %>
       <li>

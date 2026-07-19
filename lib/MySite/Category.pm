@@ -41,7 +41,7 @@ my $breadcrumbs = [
     list => \@articles,
     itemtype => 'TechArticle',
     datetime_to_human => \&datetime_to_human,
-    # render_markdown => \&render_markdown,
+    render_markdown => \&render_markdown,
   };
 }
 
