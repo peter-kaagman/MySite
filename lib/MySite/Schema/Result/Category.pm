@@ -9,29 +9,16 @@ use base 'DBIx::Class::Core';
 
 
 __PACKAGE__->table("category");
+__PACKAGE__->load_components("InflateColumn::DateTime");
 
 __PACKAGE__->add_columns(
-  "category_id",
-  { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
-  "title",
-  { data_type => "text", is_nullable => 0 },
-  "desc",
-  { data_type => "text", is_nullable => 1 },
-  "meta_title",
-  { data_type => "text", is_nullable => 0 },
-  "meta_description",
-  { data_type => "text", is_nullable => 1 },
-  "created",
-  {
-    data_type     => "timestamp",
-    default_value => \"current_timestamp",
-    is_nullable   => 1,
-  },
-  "slug",
-  { 
-    data_type => "text", 
-    is_nullable => 1 
-  },
+  "category_id",       { data_type => "integer",   is_nullable => 0 , is_auto_increment => 1},
+  "title",             { data_type => "text",      is_nullable => 0 },
+  "desc",              { data_type => "text",      is_nullable => 1 },
+  "meta_title",        { data_type => "text",      is_nullable => 0 },
+  "meta_description",  { data_type => "text",      is_nullable => 1 },
+  "created",           { data_type => "timestamp", is_nullable   => 1, default_value => \"current_timestamp"},
+  "slug",              { data_type => "text",      is_nullable => 1 },
 
 );
 
@@ -87,4 +74,26 @@ sub logo {
   return -e $path ? $base : "/images/categories/default.png";
 }
 
+sub get_latest_article {
+  my $self = shift;
+  return $self->articles->search(
+    {},
+    {
+      order_by => { -desc => 'created' },
+      rows => 1,
+    }
+  )->first;
+}
+
+# sub date_modified {
+#   my $self = shift;
+#   my $article = $self->articles->search(
+#     {},
+#     {
+#       order_by => { -desc => 'created' },
+#       rows => 1,
+#     }
+#   )->first;
+#   return $article ? $article->date_modified : $self->created;
+# }
 1;

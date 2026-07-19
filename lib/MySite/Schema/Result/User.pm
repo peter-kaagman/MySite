@@ -7,25 +7,18 @@ use base 'DBIx::Class::Core';
 
 
 __PACKAGE__->table("user");
+__PACKAGE__->load_components("InflateColumn::DateTime");
+
 __PACKAGE__->add_columns(
-  "user_id",
-  { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
-  "source",
-  { data_type => "text", is_nullable => 0 },
-  "username",
-  { data_type => "text", is_nullable => 0 },
-  "created",
-  {data_type => "timestamp", is_nullable => 1, default_value => \"current_timestamp" },
-  "slug",
-  { data_type => "text", is_nullable => 0, default_value => "" },
-  "is_trusted",
-  { data_type => "integer", is_nullable => 0, default_value => 0 },
-  "is_banned",
-  { data_type => "integer", is_nullable => 0, default_value => 0 },
-  "roleid",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "name",
-  { data_type => "text", default_value => "unknown", is_nullable => 1 },
+  "user_id",    { data_type => "integer",   is_nullable => 0 , is_auto_increment => 1},
+  "source",     { data_type => "text",      is_nullable => 0 },
+  "username",   { data_type => "text",      is_nullable => 0 },
+  "created",    { data_type => "timestamp", is_nullable => 1, default_value => \"current_timestamp" },
+  "slug",       { data_type => "text",      is_nullable => 0, default_value => "" },
+  "is_trusted", { data_type => "integer",   is_nullable => 0, default_value => 0 },
+  "is_banned",  { data_type => "integer",   is_nullable => 0, default_value => 0 },
+  "roleid",     { data_type => "integer",   is_nullable => 0, is_foreign_key => 1},
+  "name",       { data_type => "text",      is_nullable => 1, default_value => "unknown"},
 );
 
 __PACKAGE__->set_primary_key("user_id");
@@ -81,6 +74,10 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
 
+sub has_public_profile {
+  my ($self) = @_;
+  return defined $self->user_profile && $self->user_profile->public_profile;
+}
 
 sub url {
   my ($self) = shift;

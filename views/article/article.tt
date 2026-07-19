@@ -7,7 +7,7 @@
 <% END %>
 <div class='row' id='article_header'>
     <div class='row'>
-        <h2 class='article_author'><a href='<% author.url %>'><% author.name %></a>@<% format_date_human(article.created) %></h2>
+        <h2 class='article_author'><a href='<% author.url %>'><% author.name %></a>@<% datetime_to_human(article.created) %></h2>
     </div>
 
     <div class='row article_category'>

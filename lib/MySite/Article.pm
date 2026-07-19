@@ -10,7 +10,7 @@ use FindBin;
 use Time::Piece;
 # use Text::Markdown 'markdown';
 use String::Util qw(trim);
-use MySite::Utils qw(render_markdown user_can_edit slugify unique_slug normalize_ts_machine format_date_human jsonld_base);
+use MySite::Utils qw(render_markdown user_can_edit slugify unique_slug datetime_to_human);
 use MySite::ErrorHandler qw(db_guard json_error template_error user_context);
 
 # Route handlers
@@ -102,8 +102,8 @@ sub _get_article {
     'show_content' => 1,
     'breadcrumbs' => $breadcrumbs,
     'page_type' => 'article',
-    'format_date_machine' => \&MySite::Utils::normalize_ts_machine,
-    'format_date_human' => \&MySite::Utils::format_date_human,
+    'datetime_to_human' => \&MySite::Utils::datetime_to_human,
+    'datetime_to_machine' => \&MySite::Utils::datetime_to_machine,
   }
 }
 
@@ -713,7 +713,7 @@ sub _article_list {
   }
 
   my @articles_sorted = sort {
-    normalize_ts_machine($b->created) cmp normalize_ts_machine($a->created)
+    $b->created cmp $a->created
   } $articles->all;
 
 my $breadcrumbs = [
@@ -734,6 +734,7 @@ my $breadcrumbs = [
     'breadcrumbs'      => $breadcrumbs,
     'list'             => \@articles_sorted,
     'itemtype'          => 'TechArticle',
+    'datetime_to_human' => \&MySite::Utils::datetime_to_human,
     # 'render_markdown'  => \&MySite::Utils::render_markdown,
   };
 }

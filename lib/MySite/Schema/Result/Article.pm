@@ -9,37 +9,22 @@ use base 'DBIx::Class::Core';
 
 
 __PACKAGE__->table("article");
+__PACKAGE__->load_components("InflateColumn::DateTime");
 
 
 __PACKAGE__->add_columns(
-  "article_id",
-  { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
-  "title",
-  { data_type => "text", is_nullable => 0 },
-  "slug",
-  { data_type => "text", is_nullable => 0 },
-  "slugtitle",
-  { data_type => "integer", default_value => 1, is_nullable => 1 },
-  "authorid",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "categoryid",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "created",
-  {
-    data_type     => "timestamp",
-    default_value => \"current_timestamp",
-    is_nullable   => 1,
-  },
-  "published",
-  { data_type => "timestamp", is_nullable => 1 },
-  "abstract",
-  { data_type => "text", is_nullable => 0 },
-  "meta_title",
-  { data_type => "varchar", is_nullable => 1, size => 255 },
-  "meta_description",
-  { data_type => "text", is_nullable => 1 },
-  "deleted_at",
-  { data_type => "datetime", is_nullable => 1 },
+  "article_id",       { data_type => "integer",   is_nullable => 0, is_auto_increment => 1 },
+  "title",            { data_type => "text",      is_nullable => 0 },
+  "slug",             { data_type => "text",      is_nullable => 0 },
+  "slugtitle",        { data_type => "integer",   is_nullable => 1, default_value => 1 },
+  "authorid",         { data_type => "integer",   is_nullable => 0, is_foreign_key => 1 },
+  "categoryid",       { data_type => "integer",   is_nullable => 0, is_foreign_key => 1 },
+  "created",          { data_type => "timestamp", is_nullable => 1, default_value => \"current_timestamp"},
+  "published",        { data_type => "timestamp", is_nullable => 1 },
+  "abstract",         { data_type => "text",      is_nullable => 0 },
+  "meta_title",       { data_type => "varchar",   is_nullable => 1, size => 255 },
+  "meta_description", { data_type => "text",      is_nullable => 1 },
+  "deleted_at",       { data_type => "datetime",  is_nullable => 1 },
 );
 
 

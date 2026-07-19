@@ -48,8 +48,8 @@
       "publisher": {
         "@id": "<% base_url %>/#person"
       },
-      "dateModified": "<% format_date_machine(latest_content.created) %>",
-      "datePublished": "<% format_date_machine(article.created) %>"
+      "dateModified": "<% datetime_to_machine(latest_content.created) %>",
+      "datePublished": "<% datetime_to_machine(article.created) %>"
     }
 
   ]

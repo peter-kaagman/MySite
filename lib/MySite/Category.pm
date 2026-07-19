@@ -5,8 +5,7 @@ use utf8;
 use Dancer2 appname => 'MySite', with => {};
 use Dancer2::Plugin::DBIC;
 use MySite::ErrorHandler qw(template_error);
-use MySite::Utils qw(render_markdown);
-
+use MySite::Utils qw(render_markdown datetime_to_human datetime_to_machine);
 # Toon overzicht van artikelen in een categorie
 sub category_overview {
   my $slug = route_parameters->get('slug');
@@ -41,6 +40,7 @@ my $breadcrumbs = [
     breadcrumbs => $breadcrumbs,
     list => \@articles,
     itemtype => 'TechArticle',
+    datetime_to_human => \&datetime_to_human,
     # render_markdown => \&render_markdown,
   };
 }

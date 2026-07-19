@@ -9,25 +9,16 @@ use base 'DBIx::Class::Core';
 
 
 __PACKAGE__->table("page_content");
+__PACKAGE__->load_components("InflateColumn::DateTime");
+
 __PACKAGE__->add_columns(
-  "page_content_id",
-  { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
-  "pageid",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "version",
-  { data_type => "integer", is_nullable => 0 },
-  "created",
-  {
-    data_type     => "timestamp",
-    default_value => \"current_timestamp",
-    is_nullable   => 1,
-  },
-  "published",
-  { data_type => "timestamp", is_nullable => 1 },
-  "editorid",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "content",
-  { data_type => "text", is_nullable => 0 },
+  "page_content_id", { data_type => "integer",   is_nullable => 0 , is_auto_increment => 1},
+  "pageid",          { data_type => "integer",   is_nullable => 0 , is_foreign_key => 1},
+  "version",         { data_type => "integer",   is_nullable => 0 },
+  "created",         { data_type => "timestamp", is_nullable => 1 , default_value => \"current_timestamp" },
+  "published",       { data_type => "timestamp", is_nullable => 1 },
+  "editorid",        { data_type => "integer",   is_nullable => 0 , is_foreign_key => 1},
+  "content",         { data_type => "text",      is_nullable => 0 },
 );
 
 

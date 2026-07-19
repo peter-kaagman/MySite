@@ -12,7 +12,7 @@ has histograms => (
     default => sub {
         {
             mysite_http_request_duration_ms => [
-                10, 50, 100, 250, 500, 1000,
+                10, 20, 50, 100, 200, 500, 1000, 2000,
             ],
 
             mysite_db_query_duration_ms => [
@@ -20,7 +20,7 @@ has histograms => (
             ],
 
             mysite_markdown_render_duration_ms => [
-                10, 50, 100, 250, 500, 1000,
+                10, 20, 50, 100, 200, 500, 1000, 2000,
             ],
         };
     },

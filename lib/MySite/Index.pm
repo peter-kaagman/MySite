@@ -6,7 +6,7 @@ use Dancer2::Plugin::DBIC;
 use Data::Dumper;
 use Template;
 use FindBin;
-use MySite::Utils qw(render_markdown jsonld_base normalize_ts_machine format_date_human);
+use MySite::Utils qw(render_markdown datetime_to_machine );
 use MySite::ErrorHandler qw(db_guard template_error);
 
 # Health check endpoint for Docker
@@ -29,7 +29,7 @@ sub _sitemap {
   my $articles = schema->resultset('Article')->search({ deleted_at => undef }, { order_by => { '-desc' => ['created'] } });
   
   while (my $article = $articles->next) {
-    my $lastmod = normalize_ts_machine($article->date_modified);
+    my $lastmod = datetime_to_machine($article->date_modified);
 
     $home_lastmod //= $lastmod;
 
@@ -50,8 +50,8 @@ sub _sitemap {
   while (my $page = $pages->next) {
     push @urls, {
       path => $page->url,
-      lastmod => normalize_ts_machine($page->date_modified),
-      publication => normalize_ts_machine($page->created),
+      lastmod => datetime_to_machine($page->date_modified),
+      publication => datetime_to_machine($page->created),
     };
   }
 
@@ -62,20 +62,28 @@ sub _sitemap {
   );
 
   while (my $category = $categories->next) {
-    my $latest_article = $category->articles->search(
-      {},
-      {
-        order_by => { '-desc' => ['created'] },
-        rows     => 1,
-      }
-    )->first;
+    my $latest_article = $category->get_latest_article();
     next unless $latest_article;
     push @urls, {
       path         => $category->url,
-      lastmod     => normalize_ts_machine($latest_article->date_modified),
-      publication => normalize_ts_machine($latest_article->created),
+      lastmod     => datetime_to_machine($latest_article->date_modified),
+      publication => datetime_to_machine($latest_article->created),
     };
   }
+
+  # Voeg alle pages toe
+  my $profiles = schema->resultset('User')->search({},{});
+  while (my $profile = $profiles->next) {
+    if ($profile->has_public_profile) {
+      push @urls, {
+        path => $profile->url,
+        lastmod => datetime_to_machine($profile->user_profile->updated),
+        publication => datetime_to_machine($profile->user_profile->created),
+      };
+    }
+  }
+
+
 
   content_type 'application/xml';
   return template 'sitemap.tt', {
@@ -136,7 +144,6 @@ sub _index {
   ];
 
   my $rs = schema->resultset('Page');
-  # warn "Storage: " . ref($rs->result_source->schema->storage);
 
   template 'page.tt' => {
       'title'            => $page->meta_title,

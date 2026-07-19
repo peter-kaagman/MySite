@@ -7,11 +7,10 @@ use warnings;
 use base 'DBIx::Class::Core';
 
 __PACKAGE__->table("article_keyword");
+
 __PACKAGE__->add_columns(
-  "articleid",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "keywordid",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  "articleid", { data_type => "integer",   is_nullable => 0, is_foreign_key => 1 },
+  "keywordid", { data_type => "integer",   is_nullable => 0, is_foreign_key => 1 },
 );
 
 

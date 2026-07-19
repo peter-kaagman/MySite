@@ -9,7 +9,7 @@
       <li>
         <a href="<% base_url %><% article.url %>">
           <% article.title %>
-        </a>@<% article.created %><br>
+        </a>@<% datetime_to_human(article.date_modified) %><br>
         <p><% article.abstract %></p>
       </li>
     <% END %>

@@ -9,7 +9,7 @@ use Exporter 'import';
 # # use parent 'Exporter::Tiny';
 use Time::HiRes qw(gettimeofday tv_interval);
 
-our @EXPORT_OK = qw(render_markdown user_can_edit slugify unique_slug normalize_ts_machine format_date_human jsonld_base);
+our @EXPORT_OK = qw(render_markdown user_can_edit slugify unique_slug  datetime_to_machine datetime_to_human);
 # our %EXPORT_TAGS = (
 #   all => \@EXPORT_OK,
 # );
@@ -117,35 +117,17 @@ sub user_can_edit {
   return $result;
 }
 
-sub normalize_ts_machine {
-    my ($dt) = @_;
 
-    return unless $dt;
 
-    $dt =~ s/ /T/;
-    return $dt;
-}
-sub format_date_human {
-    my ($dt) = @_;
-
-    return unless $dt;
-
-    my ($y,$m,$d) = $dt =~ /^(\d+)-(\d+)-(\d+)/;
-
-    return sprintf("%02d-%02d-%04d",
-        $d,
-        $m,
-        $y
-    );
+sub datetime_to_machine {
+  my ($dt) = @_;
+  die unless (ref($dt) && $dt->isa('DateTime'));
+  return $dt->rfc3339; 
 }
 
-# sub jsonld_base {
-#   my ($base_url) = @_;
-#   return {
-#     '@context' => 'https://schema.org',
-#     '@id' => $base_url,
-#     'url' => $base_url,
-#   };
-# }
-
+sub datetime_to_human {
+  my ($dt) = @_;
+  die unless (ref($dt) && $dt->isa('DateTime'));
+  return $dt->strftime('%d-%m-%Y');
+}
 42;

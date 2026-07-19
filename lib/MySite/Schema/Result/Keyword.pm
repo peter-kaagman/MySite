@@ -9,24 +9,13 @@ use base 'DBIx::Class::Core';
 
 
 __PACKAGE__->table("keyword");
-
+__PACKAGE__->load_components("InflateColumn::DateTime");
 
 __PACKAGE__->add_columns(
-  "keyword_id",
-  { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
-  "title",
-  { data_type => "text", is_nullable => 0 },
-  "created",
-  {
-    data_type     => "timestamp",
-    default_value => \"current_timestamp",
-    is_nullable   => 1,
-  },
-  "slug",
-  { 
-    data_type => "text", 
-    is_nullable => 1 
-  },
+  "keyword_id", { data_type => "integer",   is_nullable => 0, is_auto_increment => 1 },
+  "title",      { data_type => "text",      is_nullable => 0 },
+  "created",    { data_type => "timestamp", is_nullable => 1, default_value => \"current_timestamp"},
+  "slug",       { data_type => "text",      is_nullable => 1},
 
 );
 

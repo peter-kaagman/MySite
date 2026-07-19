@@ -9,25 +9,16 @@ use base 'DBIx::Class::Core';
 
 
 __PACKAGE__->table("article_content");
+__PACKAGE__->load_components("InflateColumn::DateTime");
 
 
 __PACKAGE__->add_columns(
-  "article_content_id",
-  { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
-  "articleid",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "version",
-  { data_type => "integer", is_nullable => 0 },
-  "editorid",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "created",
-  {
-    data_type     => "timestamp",
-    default_value => \"current_timestamp",
-    is_nullable   => 1,
-  },
-  "content",
-  { data_type => "text", is_nullable => 0 },
+  "article_content_id", { data_type => "integer",   is_nullable => 0, is_auto_increment => 1 },
+  "articleid",          { data_type => "integer",   is_nullable => 0, is_foreign_key => 1 },
+  "version",            { data_type => "integer",   is_nullable => 0 },
+  "editorid",           { data_type => "integer",   is_nullable => 0, is_foreign_key => 1 },
+  "created",            { data_type => "timestamp", is_nullable => 1, default_value => \"current_timestamp"},
+  "content",            { data_type => "text",      is_nullable => 0 },
 );
 
 

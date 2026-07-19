@@ -2,7 +2,7 @@ package MySite::Profile;
 
 use Dancer2 appname => 'MySite';
 use Dancer2::Plugin::DBIC;
-use MySite::Utils qw(render_markdown user_can_edit slugify unique_slug normalize_ts_machine format_date_human jsonld_base);
+use MySite::Utils qw(render_markdown user_can_edit slugify unique_slug datetime_to_machine datetime_to_human);
 use MySite::ErrorHandler qw(db_guard json_error template_error user_context);
 use Digest::MD5 qw(md5_hex);
 
