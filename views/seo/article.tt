@@ -48,6 +48,13 @@
       "publisher": {
         "@id": "<% base_url %>/#person"
       },
+      <% IF article.keywords %>
+      "keywords": [
+        <% FOREACH keyword IN article.keywords %>
+          "<% keyword.title %>" <% UNLESS loop.last %>,<% END %>
+        <% END %>
+      ],
+      <% END %>
       "dateModified": "<% datetime_to_machine(latest_content.created) %>",
       "datePublished": "<% datetime_to_machine(article.created) %>"
     }
@@ -55,3 +62,18 @@
   ]
 }
 </script>
+
+<meta property="og:site_name" content="MySite">
+<meta property="og:locale" content="nl_NL">
+<meta property="og:image" content="<% base_url %><% article.categoryid.logo %>">
+<meta property="og:title" content="<% article.meta_title %>">
+<meta property="og:description" content="<% article.meta_description %>">
+<meta property="og:url" content="<% base_url %><% path %>">
+<meta property="og:type" content="article">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="<% article.meta_title %>">
+<meta name="twitter:description" content="<% article.meta_description %>">
+<meta name="twitter:image" content="<% base_url %><% article.categoryid.logo %>">
+
+

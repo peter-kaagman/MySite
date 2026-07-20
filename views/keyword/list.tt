@@ -1,7 +1,7 @@
-<% IF articles.size %>
+<% IF list.size %>
   <h1>Artikelen met het keyword: <% keyword.title %></h1>
   <ul>
-    <% FOREACH article IN articles %>
+    <% FOREACH article IN list %>
       <li>
         <a href="<% base_url %><% article.url %>">
           <% article.title %>

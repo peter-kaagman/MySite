@@ -149,10 +149,10 @@ sub _index {
       'title'            => $page->meta_title,
       'meta_description' => $page->meta_description || 'Welkom op MySite, een persoonlijke website met technische artikelen.',
       'content'          => $content,
-      'page_type'        => 'list',
       'breadcrumbs'      => $breadcrumbs,
       'list'             => \@categories,
-      'itemtype'          => 'CollectionPage',
+      'page_type'        => 'list',
+      'itemtype'          => 'DefinedTerm',
       'render_markdown'  => \&MySite::Utils::render_markdown,
       'allow_indexing' => 1,
   };

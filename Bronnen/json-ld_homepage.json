@@ -1,0 +1,148 @@
+{
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "http://localhost:5000/#website",
+        "name": "MySite",
+        "url": "http://localhost:5000/",
+        "publisher": {
+          "@id": "http://localhost:5000/#person"
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "http://localhost:5000/#person",
+        "name": "Peter Kaagman"
+      },
+      
+        {
+    "@type": "BreadcrumbList",
+    "@id": "http://localhost:5000/#breadcrumb",
+    "itemListElement": [
+        
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "item": {
+                    "@id": "http://localhost:5000/",
+                    "name": "Home"
+                }
+            }
+        
+    ]
+}
+,
+      
+      {
+        "@type": "CollectionPage",
+        "@id": "http://localhost:5000/#collectionpage",
+        "name": "IT, Kubernetes en Automatisering - MySite",
+        "url": "http://localhost:5000/",
+        "description": "Praktijkervaringen en experimenten rond Kubernetes, cloudplatformen, automatisering, observability, Microsoft 365, IAM en softwareontwikkeling.",
+        "isPartOf": {
+          "@id": "http://localhost:5000/#website"
+        },
+        "publisher": {
+          "@id": "http://localhost:5000/#person"
+        },
+        "mainEntity": {
+          "@type": "ItemList",
+          "numberOfItems": 5,
+          "itemListElement": [
+  
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+          "@type": "DefinedTerm",
+          "@id": "http://localhost:5000/category/ptl",
+          "url": "http://localhost:5000/category/ptl",
+          "name": "PTL - Perl Template Language en automatisering",
+          "description": "PTL bevat artikelen over Perl, scripting, automatisering en softwareontwikkeling vanuit een pragmatische praktijkbenadering.",
+          
+            "image": {
+              "@type": "ImageObject",
+              "url": "http://localhost:5000/images/categories/default.png"
+            }
+          
+        }
+      },
+  
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+          "@type": "DefinedTerm",
+          "@id": "http://localhost:5000/category/mysite",
+          "url": "http://localhost:5000/category/mysite",
+          "name": "MySite - Eigen CMS met Perl en Dancer2",
+          "description": "MySite beschrijft het bouwen van een eigen CMS met Perl, Dancer2, SQLite en Markdown, inclusief webarchitectuur, observability en SEO.",
+          
+            "image": {
+              "@type": "ImageObject",
+              "url": "http://localhost:5000/images/categories/mysite.png"
+            }
+          
+        }
+      },
+  
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+          "@type": "DefinedTerm",
+          "@id": "http://localhost:5000/category/mprjv65",
+          "url": "http://localhost:5000/category/mprjv65",
+          "name": "Mprjv65 - k3s, Kubernetes en cloudplatformen",
+          "description": "Mprjv65 volgt experimenten met k3s, Kubernetes en een eigen cloud stack, met focus op reproduceerbaarheid, governance en observability.",
+          
+            "image": {
+              "@type": "ImageObject",
+              "url": "http://localhost:5000/images/categories/default.png"
+            }
+          
+        }
+      },
+  
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "item": {
+          "@type": "DefinedTerm",
+          "@id": "http://localhost:5000/category/eduteam",
+          "url": "http://localhost:5000/category/eduteam",
+          "name": "EduTeams - Microsoft Teams provisioning in het onderwijs",
+          "description": "EduTeams gaat over het modelleren en automatiseren van Microsoft Teams provisioning in het onderwijs, met Microsoft 365, Magister en HelloID.",
+          
+            "image": {
+              "@type": "ImageObject",
+              "url": "http://localhost:5000/images/categories/eduteam.png"
+            }
+          
+        }
+      },
+  
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "item": {
+          "@type": "DefinedTerm",
+          "@id": "http://localhost:5000/category/brood",
+          "url": "http://localhost:5000/category/brood",
+          "name": "Desem brood - Ambacht, techniek en experimenteren",
+          "description": "Desem brood gaat over bakken als ambacht: techniek, proces, tijd, aandacht en experimenteren zonder scherm.",
+          
+            "image": {
+              "@type": "ImageObject",
+              "url": "http://localhost:5000/images/categories/brood.png"
+            }
+          
+        }
+      }
+  
+          ]
+        }
+      }
+    ]
+  }

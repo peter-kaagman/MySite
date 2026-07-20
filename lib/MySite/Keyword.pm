@@ -17,16 +17,38 @@ sub _keyword_overview {
       status => 404
     );
   }
+
+
   # Haal alle artikelen op die aan dit keyword gekoppeld zijn en niet gedelete zijn
-  my @articles = map { $_->articleid }
-    $keyword->article_keywords->search(
-      { 'articleid.deleted_at' => undef },
-      { prefetch => 'articleid', order_by => { '-desc' => 'articleid.created' } }
-    )->all;
+  my @articles = $keyword->articles->search(
+    {
+      deleted_at => undef
+    },
+    {
+      order_by => { '-desc' => 'created' }
+    }
+  )->all;
+
+
+  my $breadcrumbs = [
+    {
+      name => 'Home',
+      url  => "/",
+    },
+    {
+      name => $keyword->title,
+      url  => "/keyword/$slug",
+    }
+  ];
+
+
   template 'keyword/list' => {
     title    => $keyword->title,
     keyword  => $keyword,
-    articles => \@articles,
+    list => \@articles,
+    page_type => 'list',
+    itemtype => 'TechArticle',
+    breadcrumbs => $breadcrumbs,
   };
 }
 

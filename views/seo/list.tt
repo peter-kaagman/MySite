@@ -17,28 +17,19 @@
         "@id": "<% base_url %>/#person",
         "name": "Peter Kaagman"
       },
-      {
-        "@type": "BreadcrumbList",
-        "@id": "<% base_url %><% path %>#breadcrumb",
-        "itemListElement": [
-        <% FOREACH crumb IN breadcrumbs %>
-          {
-            "@type": "ListItem",
-            "position": <% loop.count %>,
-            "item": {
-              "@id": "<% base_url %><% crumb.url %>",
-              "name": "<% crumb.name %>"
-            }
-          }<% UNLESS loop.last %>,<% END %>
-        <% END %>
-        ]
-      },
+      <% IF breadcrumbs %>
+        <% INCLUDE seo/includes/_breadcrumb.tt %>,
+      <% END %>
       {
         "@type": "CollectionPage",
         "@id": "<% base_url %><% path %>#collectionpage",
         "name": "<% title %>",
         "url": "<% base_url %><% path %>",
-        "description": "<% meta_description %>",
+        <% IF meta_description %>
+          "description": "<% meta_description %>",
+        <% ELSE %>
+          "description": "Overzicht van artikelen over: <% keyword.title %>",
+        <% END %>
         "isPartOf": {
           "@id": "<% base_url %>/#website"
         },
@@ -57,14 +48,14 @@
           "@type": "<% itemtype %>",
           "@id": "<% base_url %><% item.url %>",
           "url": "<% base_url %><% item.url %>",
-          "name": "<% item.meta_title %>",
-          "description": "<% item.meta_description %>",
+          "name": "<% item.meta_title || item.title %>",
           <% IF item.logo %>
             "image": {
               "@type": "ImageObject",
               "url": "<% base_url %><% item.logo %>"
-            }
+            },
           <% END %>
+          "description": "<% item.meta_description %>"
         }
       }<% UNLESS loop.last %>,<% END %>
   <% END %>
@@ -77,3 +68,18 @@
 <% ELSE %>
   <!-- Geen list opgegeven -->
 <% END %>
+
+
+<meta property="og:site_name" content="MySite">
+<meta property="og:locale" content="nl_NL">
+<meta property="og:title" content="<% title %>">
+<meta property="og:description" content="<% meta_description %>">
+<meta property="og:url" content="<% base_url %><% path %>">
+<meta property="og:image" content="<% base_url %>/images/site_logo_512.png">
+<meta property="og:type" content="website">
+`
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="<% title %>">
+<meta name="twitter:description" content="<% meta_description %>">
+<meta name="twitter:image" content="<% base_url %>/images/site_logo_512.png">

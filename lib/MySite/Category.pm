@@ -19,7 +19,7 @@ sub category_overview {
   }
   my @articles = $category->articles->search({ deleted_at => undef }, { order_by => { '-desc' => 'created' } })->all;
 
-my $breadcrumbs = [
+  my $breadcrumbs = [
     {
       name => 'Home',
       url  => "/",
