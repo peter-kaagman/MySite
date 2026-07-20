@@ -32,11 +32,16 @@ has store => (
     required => 1,
 );
 
+has loki_enabled => (
+    is      => 'ro',
+    default => sub { 0 },
+);
+
 sub event {
     my ($self, %event) = @_;
     # print "Observability event: ", Dumper(\%event), "\n";
 
-    $self->_emit_loki(%event);
+    $self->_emit_loki(%event) if $self->loki_enabled;
 
     my $domain = $event{domain} // '';
 
@@ -128,14 +133,12 @@ sub prometheus_export {
 sub _emit_loki {
     my ($self, %event) = @_;
 
-    if ($ENV{PRODUCTION}) {
-        print STDOUT encode_json({
-            source  => 'observe',
-            version => 1,
-            ts      => int(time() * 1000),
-            %event,
-        }) . "\n";
-    }
+    print STDOUT encode_json({
+        source  => 'observe',
+        version => 1,
+        ts      => int(time() * 1000),
+        %event,
+    }) . "\n";
 
     return;
 }

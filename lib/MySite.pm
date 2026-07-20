@@ -52,8 +52,11 @@ my $store = MySite::Observability::Store::Memcached->new(
     // 'mysite-metrics',
   ),
 );
+
+debug "Loki enabled: " . (config->{'loki'} ? "yes" : "no");
 our $obs = MySite::Observability->new(
   store => $store,
+  loki_enabled => (config->{'loki'} // 0),
 );
 
 
