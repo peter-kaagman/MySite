@@ -128,12 +128,14 @@ sub prometheus_export {
 sub _emit_loki {
     my ($self, %event) = @_;
 
-    print STDOUT encode_json({
-        source  => 'observe',
-        version => 1,
-        ts      => int(time() * 1000),
-        %event,
-    }) . "\n";
+    if ($ENV{PRODUCTION}) {
+        print STDOUT encode_json({
+            source  => 'observe',
+            version => 1,
+            ts      => int(time() * 1000),
+            %event,
+        }) . "\n";
+    }
 
     return;
 }

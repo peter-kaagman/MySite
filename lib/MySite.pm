@@ -38,6 +38,8 @@ BEGIN {
 
 our $VERSION = '0.1';
 
+debug "MySite version $VERSION starting up...";
+
 # Config via session engine
 
 my $store = MySite::Observability::Store::Memcached->new(

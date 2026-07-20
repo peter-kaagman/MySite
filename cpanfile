@@ -19,6 +19,7 @@ requires 'DBIx::Class::InflateColumn::DateTime' => "0";
 # requires "Dancer2::Plugin::Auth::OAuth" => "0";
 requires "String::Util" => "0";
 requires "Log::Log4perl" => "0";
+requires "Log::Log4perl::Layout::JSON" => "0";
 requires "Log::Any" => "0";
 requires "Log::Any::Adapter::Log4perl" => "0";
 

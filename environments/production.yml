@@ -23,18 +23,29 @@ log: "debug"
 
 # use Log4perl for structured logging
 logger: "log4perl"
+
 log4perl:
   config: |
-    log4perl.rootLogger = DEBUG, LOGFILE, STDERR
-    log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
-    log4perl.appender.LOGFILE.filename = logs/mysite.log
-    log4perl.appender.LOGFILE.mode = append
-    log4perl.appender.LOGFILE.layout = PatternLayout
-    log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
+    log4perl.rootLogger = DEBUG, STDERR
     log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
     log4perl.appender.STDERR.stderr = 1
-    log4perl.appender.STDERR.layout = PatternLayout
-    log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n
+    log4perl.appender.STDERR.layout = Log::Log4perl::Layout::JSON
+    log4perl.appender.STDERR.layout.field.message = %m{chomp}
+    log4perl.appender.STDERR.layout.field.level = %p
+    log4perl.appender.STDERR.layout.field.logger = %c
+    log4perl.appender.STDERR.layout.field.file = %F{1}
+    log4perl.appender.STDERR.layout.field.sub = %M{1}
+    log4perl.appender.STDERR.layout.field.ts = %d
+
+
+
+    # log4perl.appender.STDERR.layout.field.message = %m{chomp}
+    # log4perl.appender.STDERR.layout.field.level   = %p
+    # log4perl.appender.STDERR.layout.field.logger  = %c
+    # log4perl.appender.STDERR.layout.field.file    = %F{1}
+    # log4perl.appender.STDERR.layout.field.sub     = %M{1}
+    # log4perl.appender.STDERR.layout.utf8 = 1
+
 
 # hide errors
 show_stacktrace: 0

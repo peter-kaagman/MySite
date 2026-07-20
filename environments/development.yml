@@ -2,23 +2,16 @@
 
 # use Log4perl for structured logging
 logger: "Console::Colored"
-# log4perl:
-#   config: |
-#     log4perl.rootLogger = DEBUG, LOGFILE, STDERR
-#     log4perl.appender.LOGFILE = Log::Log4perl::Appender::File
-#     log4perl.appender.LOGFILE.filename = logs/mysite.log
-#     log4perl.appender.LOGFILE.mode = append
-#     log4perl.appender.LOGFILE.layout = PatternLayout
-#     log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] [%p] %m%n
-#     log4perl.appender.STDERR = Log::Log4perl::Appender::Screen
-#     log4perl.appender.STDERR.stderr = 1
-#     log4perl.appender.STDERR.layout = PatternLayout
-#     log4perl.appender.STDERR.layout.ConversionPattern = [%d] [%p] %m%n
 
 # the log level for this environment
 # core is the lowest, it shows Dancer2's core log messages as well as yours
 # (debug, info, warning and error)
 log: "debug"
+
+
+
+
+
 
 # should Dancer2 show a stacktrace when an 5xx error is caught?
 # if set to yes, public/500.html will be ignored and either

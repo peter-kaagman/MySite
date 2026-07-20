@@ -173,6 +173,17 @@ DISTRIBUTIONS
       perl 5.008001
       strict 0
       warnings 0
+  Class-Tiny-1.008
+    pathname: D/DA/DAGOLDEN/Class-Tiny-1.008.tar.gz
+    provides:
+      Class::Tiny 1.008
+      Class::Tiny::Object 1.008
+    requirements:
+      Carp 0
+      ExtUtils::MakeMaker 6.17
+      perl 5.006
+      strict 0
+      warnings 0
   Class-Unload-0.12
     pathname: I/IL/ILMARI/Class-Unload-0.12.tar.gz
     provides:
@@ -2335,6 +2346,24 @@ DISTRIBUTIONS
       File::Path 2.07
       File::Spec 0.82
       perl 5.006
+  Log-Log4perl-Layout-JSON-0.61
+    pathname: M/MS/MSCHOUT/Log-Log4perl-Layout-JSON-0.61.tar.gz
+    provides:
+      Log::Log4perl::Layout::JSON 0.61
+    requirements:
+      Carp 0
+      Class::Tiny 0
+      ExtUtils::MakeMaker 0
+      JSON::MaybeXS 0
+      Log::Log4perl 0
+      Log::Log4perl::Layout 0
+      Log::Log4perl::Layout::PatternLayout 0
+      Log::Log4perl::Level 0
+      Scalar::Util 0
+      parent 0
+      perl 5.010
+      strict 0
+      warnings 0
   MIME-Base32-1.303
     pathname: R/RE/REHSACK/MIME-Base32-1.303.tar.gz
     provides:

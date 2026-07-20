@@ -6,7 +6,7 @@ use Dancer2 appname => 'MySite', with => {};
 use Digest::SHA qw(sha256_hex);
 use Dancer2::Plugin::DBIC;
 use Time::Piece;
-use Data::Dumper;
+# use Data::Dumper;
 use LWP::UserAgent;
 use URI::Escape;
 use MySite::ErrorHandler qw(db_guard json_error template_error user_context);
@@ -21,7 +21,6 @@ sub _ok {
     error => 'No OAuth data found in session',
     status => 500
   ) unless $oauth_data;
-  debug Dumper($oauth_data);
   my %user;
   while (my($provider,$info) = each %{$oauth_data}){
     if ($provider eq 'google') {
@@ -85,8 +84,6 @@ sub _checkUser{
   my $username = $user->{'user'}->{'username'};
   my $source = $user->{'user'}->{'source'};
   
-  debug "Checking/creating user: $username vanuit bron: $source";
-  
   my ($db_ok, $found) = db_guard(
     action => "find user by username",
     user => undef,
@@ -123,7 +120,6 @@ sub _checkUser{
       # );
     }else{
       # Setup user for session from db
-      debug "User found in database: $username";
       if ($found->name eq 'unknown'){
         $user->{'user'}->{'name'} = $found->username;
       }else{
@@ -183,7 +179,6 @@ sub _auth_provider {
         error => 'Unknown provider or misconfigured',
         status => 500
     ) unless $conf;
-    debug Dumper($conf);
     my $redirect_uri = $conf->{redirect_uri} || uri_for("/auth/callback/$provider");
     my $base = $conf->{authorize_url};
     # Genereer een CSRF state token
@@ -204,7 +199,6 @@ sub _auth_provider {
     };
     my $query = join('&', map { $_ . '=' . uri_escape($params->{$_}) } keys %$params);
     my $url = "$base?$query";
-    debug "Redirecting to OAuth provider: $url";
     return redirect $url;
 }
 
@@ -216,7 +210,6 @@ sub _auth_callback {
         error => 'Unknown provider or misconfigured',
         status => 500
     ) unless $conf;
-    debug Dumper($conf);
     my $code = query_parameters->get('code');
     my $state = query_parameters->get('state');
     my $expected_state = session->read('oauth_state');
@@ -259,8 +252,6 @@ sub _auth_callback {
         error => 'Token request failed: ' . $res->status_line,
         status => 500
     ) unless $res->is_success;
-debug "Content-Type: " . $res->content_type;
-debug "Content: " . $res->decoded_content;
     # my $token = decode_json($res->decoded_content);
     my $token;
 
@@ -274,7 +265,6 @@ debug "Content: " . $res->decoded_content;
     } else {
         $token = decode_json($res->decoded_content);
     }
-    debug "Token" . Dumper($token);
 
     if ($token->{error}) {
       return template_error(
@@ -292,19 +282,11 @@ debug "Content: " . $res->decoded_content;
     my $userinfo_url = $conf->{userinfo_url};
     # my $userinfo_res = $ua->get($userinfo_url . '?access_token=' . uri_escape($access_token));
 
-my $userinfo_res = $ua->get(
-    $userinfo_url,
-    'Authorization' => "Bearer $access_token",
-    'Accept'        => 'application/json',
-);
-
-debug "userinfo url: $userinfo_url";
-debug "userinfo status: " . $userinfo_res->status_line;
-debug "userinfo content-type: " . ($userinfo_res->content_type // '<undef>');
-debug "userinfo body: " . $userinfo_res->decoded_content;
-
-
-
+    my $userinfo_res = $ua->get(
+        $userinfo_url,
+        'Authorization' => "Bearer $access_token",
+        'Accept'        => 'application/json',
+    );
     return template_error(
       title => 'OAuth Error',
       error => 'Userinfo request failed: ' . $userinfo_res->status_line,
