@@ -4,18 +4,6 @@ session: "Memcached"
 # Externe base URL voor sitemap en andere absolute links
 base_url: "https://mysite.prjv.nl/"
 
-oauth_providers:
-  google:
-    redirect_uri: "https://mysite.prjv.nl/auth/callback/google"
-
-# OAuth callback URLs voor productie
-# plugins:
-#   "Auth::OAuth":
-#     providers:
-#       Google:
-#         callback_url: "https://mysite.prjv.nl/auth/google/callback"
-#       Github:
-#         callback_url: "https://mysite.prjv.nl/auth/github/callback"
 # configuration file for production environment
 
 # only log warning and error messages
