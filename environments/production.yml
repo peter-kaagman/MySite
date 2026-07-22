@@ -10,7 +10,8 @@ base_url: "https://mysite.prjv.nl/"
 log: "debug"
 loki: 1
 # use Log4perl for structured logging
-logger: "log4perl"
+logger: "Console::Colored"
+# logger: "log4perl"
 
 log4perl:
   config: |

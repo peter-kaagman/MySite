@@ -198,7 +198,7 @@ sub _auth_provider {
       prompt        => 'consent',
       state         => $state,
     };
-    debug "Redirecting to $provider OAuth authorize URL: $base with params: " . Dumper($params);
+    # debug "Redirecting to $provider OAuth authorize URL: $base with params: " . Dumper($params);
     my $query = join('&', map { $_ . '=' . uri_escape($params->{$_}) } keys %$params);
     my $url = "$base?$query";
     return redirect $url;
