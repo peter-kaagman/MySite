@@ -6,7 +6,7 @@ use Dancer2 appname => 'MySite', with => {};
 use Digest::SHA qw(sha256_hex);
 use Dancer2::Plugin::DBIC;
 use Time::Piece;
-# use Data::Dumper;
+use Data::Dumper;
 use LWP::UserAgent;
 use URI::Escape;
 use MySite::ErrorHandler qw(db_guard json_error template_error user_context);
@@ -174,6 +174,7 @@ sub _checkUser{
 sub _auth_provider {
     my $provider = route_parameters->get('provider');
     my $conf = config->{oauth_providers}->{$provider};
+    debug "OAuth provider config for $provider: " . Dumper($conf);
     return template_error(
         title => 'OAuth Error',
         error => 'Unknown provider or misconfigured',
@@ -197,6 +198,7 @@ sub _auth_provider {
       prompt        => 'consent',
       state         => $state,
     };
+    debug "Redirecting to $provider OAuth authorize URL: $base with params: " . Dumper($params);
     my $query = join('&', map { $_ . '=' . uri_escape($params->{$_}) } keys %$params);
     my $url = "$base?$query";
     return redirect $url;
