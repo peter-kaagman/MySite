@@ -12,9 +12,18 @@ sub _show_profile {
     my $user = schema->resultset('User')->find({ slug => $slug });
 
     # If the user is not found, return a 404 error with a custom template
-    if (!$user) {
-        return template_error('profile/profile_not_found.tt', { slug => $slug });
+    if (!$user || !$user->user_profile) {
+        return template_error( 
+            title => "Geen profiel gevonden", 
+            error => "Voor de gebruiker  '$slug' kon geen profiel gevonden worden.",
+            status => 404,
+            domain => 'profile',
+            action => 'show_profile',
+            level => 'info',
+        );
     }
+
+
 
     my @recent_articles = $user->articles->search(
         {},

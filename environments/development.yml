@@ -1,5 +1,5 @@
 # configuration file for development environment
-loki: 0
+loki: 1
 # use Log4perl for structured logging
 logger: "Console::Colored"
 

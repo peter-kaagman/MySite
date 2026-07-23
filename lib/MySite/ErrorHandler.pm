@@ -48,16 +48,26 @@ sub json_error {
 
 sub template_error {
   my (%args) = @_;
-  my $title = $args{title} // 'Error';
-  my $error = $args{error} // 'An error occurred';
-  my $status = $args{status} // 500;
 
-  debug "$title - $error";
+
+  $MySite::obs->event(
+    domain      => $args{domain} // 'error',
+    action      => $args{action} // 'template_error',
+    request_id  => var('request_id'),
+    path        => request->path,
+    method      => request->method,
+    status      => $args{status} // 500,
+    user_agent  => request->user_agent,
+    remote_ip   => request->address,
+    title       => $args{title} // 'Onbekende error',
+    error       => $args{error} // 'Een onbekende error occurred',
+    level       => $args{level} // 'error',
+    );
   
-  status $status;
+  status $args{status} // 500;
   return template 'error' => {
-    title => $title,
-    error_content => $error
+    title => $args{title} // 'Error',
+    error_content => $args{error} // 'An error occurred'
   };
 }
 

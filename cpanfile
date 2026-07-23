@@ -71,6 +71,6 @@ on "test" => sub {
     requires "Test::More"            => "0";
     requires "HTTP::Request::Common" => "0";
 };
-on "develop" => sub {
+# on "develop" => sub {
     requires "Dancer2::Logger::Console::Colored" => "0";
-};
+# };

@@ -7,14 +7,14 @@
       "@id": "<% base_url %>/#website",
       "name": "MySite",
       "url": "<% base_url %>/",
-      "publisher": {
-        "@id": "<% base_url %>/#person"
-      }
     },
     {
       "@type": "Person",
-      "@id": "<% base_url %>/#person",
-      "name": "Peter Kaagman"
+      "@id": "<% base_url %>/profile/<% article.authorid.name %>#person",
+      <% IF article.authorid.has_public_profile %>
+        "url": "<% base_url %>/profile/<% article.authorid.name %>",
+      <% END %>
+      "name": "<% article.authorid.name%>"
     },
     {
       "@type": "BreadcrumbList",
@@ -43,10 +43,7 @@
         "@id": "<% base_url %>/#website"
       },
       "author": {
-        "@id": "<% base_url %>/#person"
-      },
-      "publisher": {
-        "@id": "<% base_url %>/#person"
+        "@id": "<% base_url %>/profile/<% article.authorid.name %>#person"
       },
       <% IF article.keywords %>
       "keywords": [
@@ -55,8 +52,12 @@
         <% END %>
       ],
       <% END %>
-      "dateModified": "<% datetime_to_machine(latest_content.created) %>",
-      "datePublished": "<% datetime_to_machine(article.created) %>"
+      <% IF latest_content.created %>
+        "dateModified": "<% datetime_to_machine(latest_content.created) %>",
+      <% END %>
+      <% IF article.created %>
+        "datePublished": "<% datetime_to_machine(article.created) %>"
+      <% END %>
     }
 
   ]
