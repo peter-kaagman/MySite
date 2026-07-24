@@ -23,6 +23,10 @@ has histograms => (
             mysite_markdown_render_duration_ms => [
                 10, 20, 50, 100, 200, 500, 1000, 2000,
             ],
+
+            mysite_template_render_duration_ms => [
+                10, 20, 50, 100, 200, 500, 1000, 2000,
+            ],
         };
     },
 );
@@ -40,9 +44,6 @@ has loki_enabled => (
 sub event {
     my ($self, %event) = @_;
     # print "Observability event: ", Dumper(\%event), "\n";
-
-    $self->_emit_loki(%event) if $self->loki_enabled;
-
     my $domain = $event{domain} // '';
 
     if ($domain eq 'http') {
@@ -56,6 +57,12 @@ sub event {
     }
     elsif ($domain eq 'markdown') {
         $self->_handle_markdown_event(%event);
+    } 
+    elsif ($domain eq 'template') {
+        $self->_handle_template_event(%event);
+    } 
+    else {
+        $self->_emit_loki(%event) if $self->loki_enabled;
     }
 
     return;
@@ -84,11 +91,15 @@ sub prometheus_export {
         "# TYPE mysite_crawler_requests_total counter",
         "mysite_crawler_requests_total "
             . ($self->store->get('mysite_crawler_requests_total') // 0);
-   push @out,
+    push @out,
         "# TYPE mysite_markdown_render_total counter",
         "mysite_markdown_render_total "
             . ($self->store->get('mysite_markdown_render_total') // 0);
 
+    push @out,
+        "# TYPE mysite_template_render_total counter",
+        "mysite_template_render_total "
+            . ($self->store->get('mysite_template_render_total') // 0);
     #
     # Histograms
     #
@@ -212,6 +223,26 @@ sub _handle_markdown_event {
 
     return;
 }
+
+sub _handle_template_event {
+    my ($self, %event) = @_;
+
+    return unless ($event{action} // '') eq 'render';
+
+    $self->_inc_counter(
+        'mysite_template_render_total'
+    );
+
+    if (defined $event{duration_ms}) {
+        $self->_observe_histogram(
+            'mysite_template_render_duration_ms',
+            $event{duration_ms}
+        );
+    }
+
+    return;
+}
+
 
 sub _inc_counter {
     my ($self, $name) = @_;
